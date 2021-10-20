@@ -1,10 +1,12 @@
 import { createWebHistory, createRouter } from "vue-router";
 
-import Home from '@/components/Home.vue';
+import Main from '@/components/Main.vue';
+import Join from '@/components/Join.vue';
 
 
 const routes = [
-    {path : '/home' , name :'home', component : Home},
+    {path : '/' , name :'main', component : Main},
+    {path : '/join' , name :'join', component : Join},
 ];
 
 const router = createRouter({
