@@ -1,22 +1,24 @@
 <template>
     <div class="main_wrapper">
-        <div class="inner_container">
-            <div class="main_container">
-                <div class="banner_slider"></div>
+        <div class="main_container">
+            <div class="banner_slider"></div>
+            <div class="right_float">
                 <div class="main_banner"></div>
                 <div class="best_product"></div>
             </div>
         </div>
         <Footer></Footer>
     </div>
+
 </template>
 
 <script>
 import Footer from '@/components/Footer.vue';
+// import Welcome_banner_img from '@/assets/Welcome_banner_img.jpg';
     export default {
         data(){
             return{
-
+                // Welcome_banner_img :Welcome_banner_img
             }
         },
         components:{
@@ -26,58 +28,51 @@ import Footer from '@/components/Footer.vue';
 </script>
 
 <style>
-Footer{
-    height: 100px;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    z-index: 10000;
-}
 .main_wrapper{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 100%;
-    height: 80%;
+    height: 100%;
+    display: inline-flex;
     margin: 0;
     padding: 0;
     box-sizing: content-box;
 }
 .main_container{
-    border: 1px solid black;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    /* grid-gap: 10px; */
+    /* border: 1px solid black; */
+    width: 1500px;
+    height: 83.5%;
+    display: inline-flex;
     margin: 0 auto;
     align-items: center;
-    align-content: center;
-    justify-items: center;
+    /* justify-items: center; */
     justify-content: space-evenly;
 }
-.inner_container{
-    border: 1px solid black;
-    margin: 0 auto;
-    width: 1300px;
-    height: 100%;
-}
+
 .banner_slider{
     border: 1px solid black;
-    grid-row: span 2;
-    width: 590px;
-    height: 590px;
+    width: 490px;
+    height: 490px;
+    margin: 5px;
+}
+.right_float{
+    border: 1px solid black;
+    width: 800px;
+    height: 490px;
 }
 .main_banner{
     border: 1px solid black;
-    grid-column: 2 / span 2;
-    grid-row: 1;
-    width: 590px;
-    height: 280px;
+    width: 100%;
+    height: 40%;
+    margin-bottom: 15px;
+    background-image: url("/src/assets/Welcome_banner_img.jpg");
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
 }
 .best_product{
     border: 1px solid black;
-    grid-column: 2 / span 2;
-    grid-row: 2;
-    width: 590px;
-    height: 280px;
+    width: 100%;
+    height: 65%;
 }
 
 </style>

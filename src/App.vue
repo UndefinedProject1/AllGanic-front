@@ -53,7 +53,7 @@ body{
   font-family: 'Playfair Display', serif;
 }
 .header{
-  border: 1px solid black;
+  /* border: 1px solid black; */
   height: 100%;
   display: inline-flex;
   font-family: 'Playfair Display', serif;
@@ -62,7 +62,7 @@ body{
   z-index: 1000;
 }
 .content{
-  border: 1px solid black;
+  /* border: 1px solid black; */
   height: 100%;
 }
 
@@ -81,7 +81,7 @@ body{
   justify-content: center;
 }
 .header div{
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 .header .left_section div {
   width: 47%;
@@ -96,7 +96,7 @@ body{
   margin-right: 35px;
 }
 .header .right_section div > p {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   width: 100%;
   text-align: center;
   height: fit-content;
@@ -108,7 +108,7 @@ body{
   color: #dfd192;
 }
 .header .left_section div > p {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   width: 100%;
   text-align: center;
   height: fit-content;
@@ -120,7 +120,7 @@ body{
   color: #dfd192;
 }
 .header .logo > p {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   width: 100%;
   text-align: center;
   height: fit-content;
