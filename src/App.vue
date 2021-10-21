@@ -95,18 +95,7 @@ body{
   width: 32%;
   margin-right: 35px;
 }
-.header .right_section div > p {
-  /* border: 1px solid black; */
-  width: 100%;
-  text-align: center;
-  height: fit-content;
-  font-size: 22px;
-  margin-bottom: 0;
-}
-.header .right_section div p:hover {
-  cursor: pointer;
-  color: #dfd192;
-}
+.header .right_section div > p, 
 .header .left_section div > p {
   /* border: 1px solid black; */
   width: 100%;
@@ -115,10 +104,12 @@ body{
   font-size: 22px;
   margin-bottom: 0;
 }
-.header .left_section div > p:hover {
+.header .right_section div p:hover, 
+.header .left_section div p:hover {
   cursor: pointer;
   color: #dfd192;
 }
+
 .header .logo > p {
   /* border: 1px solid black; */
   width: 100%;
