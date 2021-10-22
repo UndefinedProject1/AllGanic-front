@@ -1,6 +1,6 @@
 <template>
-    <div class=login_wrapper>
-        login test
+    <div class=join_wrapper>
+        join test
     </div>
 </template>
 
