@@ -82,10 +82,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="join_btn"></div>
-                <div class="footer_section">
-                    
-                </div>
+                <button type="button" id="join_btn">JOIN</button>
             </div>
         </div>
         <Footer></Footer>
@@ -180,6 +177,7 @@ span{
     width : 100%;
 }
 
+
 /* 회원가입 정보 입력부분 */
 .join_form{
     /* border: 1px solid black; */
@@ -248,6 +246,7 @@ img {
     height : 100%;
 }
 
+
 /* 비밀번호 */
 .password_info{
     border-bottom : 1px solid black;
@@ -262,6 +261,8 @@ img {
     border : none;
 }
 
+
+/* 주소입력 */
 .address_info1 {
     /* border : 1px solid black; */
     width : 100%;
@@ -317,20 +318,33 @@ img {
     height: 40px;
     border:none;
     border-radius: 4px;
-    color: white;
+    color: rgb(163, 163, 163);
     font-weight: bold;
     background-color: #715036;
     margin-bottom : 5px;
 }
-
-
-.join_btn{
-    /* border: 1px solid black; */
-    width : 75%;
-    height : 100px;
-    margin-top : 30px
+#postcode_btn:hover{
+    cursor: pointer;
+    opacity: 0.8;
 }
 
+/* 회원가입 버튼 */
+#join_btn{
+    /* border: 1px solid black; */
+    width : 50%;
+    height : 100px;
+    margin-top : 30px;
+    border : none;
+    font-weight : bold;
+    background-color: #715036;
+    color: rgb(163, 163, 163);
+}
+
+#join_btn:hover{
+    cursor : pointer;
+    color : #715036;
+    background-color: white;
+}
 /* .footer_section{
     width: 100%;
     height : fit-content;
