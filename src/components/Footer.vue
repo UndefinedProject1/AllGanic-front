@@ -13,7 +13,7 @@
 <style>
 .footer_container {
     width: 100%;
-    height: 15%;
+    height: 10%;
     background-color: #49654E;
     position: absolute;
     bottom: 0;

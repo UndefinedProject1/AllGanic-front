@@ -115,7 +115,8 @@ body{
   width: 100%;
   text-align: center;
   height: fit-content;
-  font-size: 40px;
+  font-size: 30px;
   margin-bottom: 0;
+  font-weight: bold;
 }
 </style>

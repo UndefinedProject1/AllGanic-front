@@ -5,13 +5,22 @@
                 <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="10000">
-                            <img :src="zerowaste_package" class="d-block w-100" alt="...">
+                            <div class="slider1">
+                                <span>ZERO</span>
+                                <p>지구를 생각하는 당신의 완벽한 소비를 위해 <br> 포장재까지 모두 생각한 브랜드만</p>
+                            </div>
                         </div>
                         <div class="carousel-item" data-bs-interval="2000">
-                            <img :src="vegan_cream_img" class="d-block w-100" alt="...">
+                            <div class="slider2">
+                                <span>CLOSER</span>
+                                <p>어디서부터 시작해야할지 막막한 당신을 위해<br> 그 어느때보다 더 가까이</p>
+                            </div>
                         </div>
                         <div class="carousel-item">
-                            <img :src="face_img" class="d-block w-100" alt="...">
+                            <div class="slider3">
+                                <span>FROM</span>
+                                <p>당신으로부터 시작된 소중한 가치가 헛되지않도록 </p>
+                            </div>
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
@@ -85,10 +94,11 @@ import face_img from '@/assets/face_img.jpg';
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Playfair+Display:wght@400;500;700;800&display=swap');
 .main_wrapper{
     /* border: 1px solid black; */
     width: 100%;
-    height: 83.5%;
+    height: 87.5%;
     display: inline-flex;
     margin: 0;
     padding: 0;
@@ -102,11 +112,14 @@ import face_img from '@/assets/face_img.jpg';
     margin: 0 auto;
     padding:40px;
 }
+
+
 /* 왼쪽 이미지 슬라이더 */
 .banner_slider{
     width: 40%;
-    height: 100%;
+    height: 90%;
     margin: 5px;
+    margin-top: 20px;
     margin-right: 20px;
 }
 #carouselExampleInterval {
@@ -120,15 +133,69 @@ import face_img from '@/assets/face_img.jpg';
     overflow: hidden;
     border-radius: 8px;
 }
-.w-100 {
+.carousel-item {
+    display: block;
+    height: 100%;
+}
+.slider1 {
     width: 100% !important;
     height: 100% !important;
+    background-image: url("/src/assets/zerowaste_package.jpg");
+    background-repeat: no-repeat;
+    background-position: 50%;
     background-size: cover;
+    opacity: 0.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 30px;  
 }
-
-
-
-
+.slider2 {
+    width: 100% !important;
+    height: 100% !important;
+    background-image: url("/src/assets/vegan_cream_img.jpg");
+    background-repeat: no-repeat;
+    background-position: 50% 0%;
+    background-size: cover;
+    opacity: 0.87;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 30px;   
+}
+.slider3 {
+    width: 100% !important;
+    height: 100% !important;
+    background-image: url("/src/assets/face_img.jpg");
+    background-repeat: no-repeat;
+    background-position: 50% 0%;
+    background-size: cover;
+    opacity: 0.87;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 30px;   
+}
+.slider1 span, .slider2 span, .slider3 span{
+    width: fit-content;
+    height: fit-content;
+    color: white;
+    z-index: 1;
+    font-size: 40px;
+    font-weight: bold;
+    opacity: 0.9;
+    font-family: 'Gowun Batang', serif;
+}
+.slider1 p, .slider2 p, .slider3 p{
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 18px;
+    color: white;
+    font-family: 'Gowun Batang', serif;
+}
 
 
 
@@ -139,6 +206,8 @@ import face_img from '@/assets/face_img.jpg';
     height: 100%;
     display: block;
 }
+
+/* 오른쪽 상단, 웰컴배너 */
 .main_banner{
     /* border: 1px solid black; */
     width: 100%;
@@ -160,10 +229,11 @@ import face_img from '@/assets/face_img.jpg';
     font-size: 50px;
     color: white;
     font-weight: bold;
+    opacity: 0.9;
 }
 
 
-
+/* 오른쪽 하단, BEST 상품군 */
 .best_product{
     /* border: 1px solid black; */
     width: 100%;
