@@ -17,15 +17,30 @@
                                 <img :src="login_email">
                                 <input type="text" placeholder="이메일">
                             </div>
+                            <p> @ </p>
                             <div class="email_domain_selector">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>직접입력</option>
-                                    <option value="1">직접입력</option>
-                                    <option value="2">naver.com</option>
-                                    <option value="3">hanmail.net</option>
-                                </select>
-                                <span>*</span>
+                                <div class="form-selector">
+                                    <span class="selected" @click="openOptions">{{selected}}</span>
+                                    <img :src="select_arrow_down"  id="selectorIcon">
+                                </div>
+                                <div class="select_options" v-bind:style="selectorStyle"  @mouseup="closeOptions">
+                                    <input type="radio" id="1" v-model="selected" value="" >
+                                    <label for="1">직접입력</label>
+                                    <input type="radio" id="2" v-model="selected" value="naver.com" >
+                                    <label for="2">naver.com</label>
+                                    <input type="radio" id="3" v-model="selected" value="hanmail.net" >
+                                    <label for="3">hanmail.net</label>
+                                    <input type="radio" id="4" v-model="selected" value="daum.net" >
+                                    <label for="4">daum.net</label>
+                                    <input type="radio" id="5" v-model="selected" value="gmail.com" >
+                                    <label for="5">gmail.com</label>
+                                    <input type="radio" id="6" v-model="selected" value="nate.com" >
+                                    <label for="6">nate.com</label>
+                                    <input type="radio" id="7" v-model="selected" value="yahoo.co.kr" >
+                                    <label for="7">yahoo.co.kr</label>                                
+                                </div>
                             </div>
+                            <span>*</span>
                         </div>
                         <div class="chk_email">
                             유효성체크
@@ -100,6 +115,7 @@ import login_password from '@/assets/login_password.png';
 import join_profile from '@/assets/join_profile.png';
 import join_call from '@/assets/join_call.png';
 import join_location from '@/assets/join_location.png';
+import select_arrow_down from '@/assets/select_arrow_down.png';
     export default {
         data(){
             return{
@@ -108,10 +124,28 @@ import join_location from '@/assets/join_location.png';
                 join_profile : join_profile,
                 join_call : join_call,
                 join_location : join_location,
+                select_arrow_down : select_arrow_down,
+
+                selected : '',
 
                 postcode :'',
                 roadAddress :'',
                 detailAddress : '',
+
+                selectorStyle : {
+                    width : '90%',
+                    height : '0',
+                    display : 'block',
+                    opacity : '1',
+                    position : 'relative',
+                    flexFlow : 'column',
+                    overflowY : 'hidden',
+                    transition : '0.3s',
+                    background : 'white',
+                    borderRadius : '3px',
+                    marginLeft : '10px',
+                    padding : '5px',
+                }
             }
         },
         mounted() {
@@ -123,6 +157,14 @@ import join_location from '@/assets/join_location.png';
             Footer : Footer
         },
         methods : {
+            openOptions(){
+                this.selectorStyle.height = "fit-content";
+                this.selectorStyle.border = "1px solid black";
+            },
+            closeOptions(){
+                this.selectorStyle.height = "0px";
+                this.selectorStyle.border = "none";
+            },
             openDaumPostCode(){
                 new window.daum.Postcode({
                     oncomplete: (data) => {
@@ -184,12 +226,13 @@ import join_location from '@/assets/join_location.png';
 }
 .join_container{
     /* border: 1px solid black; */
-    width: 1180px;
+    width: 60%;
     height: fit-content;
     margin: 0 auto;
     font-family: 'Gowun Dodum', sans-serif;
     display: flex;
     flex-direction: column;
+    padding : 20px;
 }
 
 
@@ -221,7 +264,7 @@ span{
 }
 .float-end > p{
     width: fit-content;
-    font-size: 18px;
+    font-size: 15px;
     letter-spacing: -0.1rem;
     color : #49654E;
     margin : 0;
@@ -254,7 +297,7 @@ span{
     display : flex;
     flex-direction: column;
     margin-top: 50px;
-    padding : 20px;
+    padding : 15px;
 }
 .join_email, .join_password, .join_name, .join_tel, .join_address{
     /* border: 1px solid black; */
@@ -262,16 +305,17 @@ span{
     height: fit-content;
     display: block;
     padding: 10px;
-    margin : 15px;
+    /* margin : 15px; */
 }
 .email_info{
     display : inline-flex;
     width : 100%;
     height : 100%;
+    align-items: flex-end;
 }
 .email_ad {
     border-bottom: 1px solid #49654E;
-    width: 700px;
+    width: 50%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -282,32 +326,77 @@ span{
     width : fit-content;
     float : right !important;
     margin : 10px 0px 0px 0px;
+    font-size : 13px;
 }
 img {
-    width : 30px;
-    height : 30px;
-    margin: 8px;
+    width : 20px;
+    height : 20px;
+    margin: 5px;
 }
 .email_ad input { 
     border: none;
-    width: 600px;
+    width: 100%;
     height: 48.5px;
-    padding-left : 10px;
+    padding-left : 15px;
+    font-size: 15px;
+}
+.email_info > p{
+    /* border: 1px solid black; */
+    width: fit-content;
+    font-weight: bold;
     font-size: 20px;
+    color : #49654E;
+    margin : 0;
+    padding-bottom : 5px;
 }
 .email_domain_selector {
     /* border: 1px solid black; */
-    width : 200px;
+    width : 45%;
     height : 47.33px;
-    display: flex;
-    align-items: center;
+    display: block;
 }
-.form-select{
+.form-selector{
+    border-bottom : 1px solid black;
     margin-right: 5px;
-    width : 100px;
+    width : 90%;
     height : 100%;
+    display : inline-flex;
+    align-items: center;
+    margin-left : 10px;
+    overflow : hidden;
 }
-
+.selected{
+    /* border : 1px solid black; */
+    width : 90%;
+    height :100%;
+    padding : 15px 0px 0px 10px;
+    font-size : 15px;
+    font-weight : 200;
+    color : black;
+    text-align : center;
+}
+.form-selector > img{
+    width : 13px;
+    height : 7px;
+    background-size: cover;
+    margin-bottom : 0px;
+}
+.select_options label {
+    display: block;
+    width: 100%;
+    color: rgb(37, 36, 36);
+    text-align: center;
+    font-size: 15px;
+    line-height: 0.6em;
+    z-index : 10000;
+    padding: 10px 0px 8px 8px;
+}
+.select_options label:hover{
+    background: #49654e7a;
+}
+input[type="radio"]{
+    display: none;
+}
 
 /* 비밀번호 */
 .password_info, .name_info{
@@ -316,19 +405,22 @@ img {
     height : 60%;
     display : inline-flex;
     align-items: center;
+    justify-content: space-between;
 }
 .password_info input, .name_info input{
     width : 90%;
     height : 48.5px;
     border : none;
     padding-left : 10px;
-    font-size: 20px;
+    font-size: 15px;
 }
 
+
+/* 이름 */
 .name_info img{
-    width : 25px;
-    height: 30px;
-    margin : 8px;
+    width : 15px;
+    height: 17px;
+    margin : 5px;
 }
 
 
@@ -339,34 +431,35 @@ img {
     height : 50%;
     display : inline-flex;
     align-items: flex-end;
-    margin-bottom : 20px;
+    margin-bottom : 15px;
 }
 .address_postcode{
     border-bottom: 1px solid black;
     width : 30%;
     height : 100%;
     display : inline-flex;
-    align-items: flex-end;
+    align-items: center;
 }
 .address_postcode > img{
-    width : 28px;
-    height : 30px;
+    width : 18px;
+    height : 20px;
+    margin : 5px;
 }
 .address_postcode input, .address_info2 input {
     border : none;
     width: 90%;
     height : 48.5px;
     padding-left : 10px;
-    font-size: 20px;
+    font-size: 15px;
 }
 .address_info1 > p{
     /* border: 1px solid black; */
     width: fit-content;
-    height: 48.5px;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 20px;
     color : #49654E;
     margin : 0;
+    padding: 8px 8px 5px 8px;
 }
 .address_main {
     border-bottom : 1px solid black;
@@ -378,7 +471,7 @@ img {
     width: 90%;
     height: 100%;
     padding-left : 10px;
-    font-size: 20px;
+    font-size: 15px;
 }
 .address_info2{
     border-bottom : 1px solid black;
@@ -396,6 +489,7 @@ img {
     font-weight: bold;
     background-color: #715036;
     margin-bottom : 5px;
+    font-size : 15px;
 }
 #postcode_btn:hover{
     cursor: pointer;
@@ -405,15 +499,16 @@ img {
 /* 회원가입 버튼 */
 #join_btn{
     /* border: 1px solid black; */
-    width: 30%;
-    height: 100px;
+    width: 15%;
+    height: 60px;
     margin: 100px;
     border: none;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
     background-color: #715036;
     color: white;
-    border-radius: 5px;
+    border-radius: 4px;
+    font-family: 'Playfair Display', serif;
 }
 #join_btn:hover{
     cursor: pointer;
