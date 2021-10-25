@@ -15,7 +15,7 @@
                         <div class="email_info">
                             <div class="email_ad">
                                 <img :src="login_email">
-                                <input type="text" placeholder="이메일" v-model="userid">
+                                <input type="text" placeholder="이메일" v-model="userid" refs="email">
                             </div>
                             <p> @ </p>
                             <div class="email_domain_selector">
@@ -42,41 +42,41 @@
                             </div>
                             <span>*</span>
                         </div>
-                        <div class="chk_email">
-                            유효성체크
+                        <div class="chk_email" v-bind:style="checkStyle">
+                            {{chkemail}}
                         </div>
                     </div>
 
                     <div class="join_password">
                         <div class="password_info">
                             <img :src="login_password">
-                            <input type="password" placeholder="비밀번호" v-model="userpw">
+                            <input type="password" placeholder="비밀번호" v-model="userpw" ref="pw">
                             <span>*</span>
                         </div>
-                        <div class="chk_password">
-                            유효성 체크
+                        <div class="chk_password" v-bind:style="checkStyle">
+                            {{chkpw}}
                         </div>
                     </div>
 
                     <div class="join_name">
                         <div class="name_info">
                             <img :src="join_profile">
-                            <input type="text" placeholder="이름" v-model="username">
+                            <input type="text" placeholder="이름" v-model="username" ref="name">
                             <span>*</span>
                         </div>
-                        <div class="chk_password">
-                            유효성 체크
+                        <div class="chk_password" v-bind:style="checkStyle">
+                            {{chkname}}
                         </div>
                     </div>
 
                     <div class="join_tel">
                         <div class="password_info">
                             <img :src="join_call">
-                            <input type="text" placeholder="연락처" v-model="usertel">
+                            <input type="text" placeholder="연락처" v-model="usertel" ref="tel">
                             <span>*</span>
                         </div>
-                        <div class="chk_password">
-                            유효성 체크
+                        <div class="chk_password" v-bind:style="checkStyle">
+                            {{chktel}}
                         </div>
                     </div>
 
@@ -130,13 +130,30 @@ import select_arrow_down from '@/assets/select_arrow_down.png';
                 selected : '',
                 userid : '',
                 userpw :'',
-                userpw1 :'',
                 username : '',
                 usertel : '',
                 userrole : 'MEMBER',
                 postcode :'',
                 roadAddress :'',
                 detailAddress : '',
+
+                chkemail : '',
+                chkpw : '',
+                chkname : '',
+                chktel : '',
+
+                pw : '',
+
+
+                checkStyle : {
+                    width : 'fit-content',
+                    height : '20px',
+                    fontFamily: '"Gowun Dodum", serif',
+                    fontSize : '13px',
+                    marginTop : '10px',
+                    marginRight : '15px',
+                    color : 'black'
+                },
 
                 selectorStyle : {
                     width : '90%',
@@ -158,6 +175,43 @@ import select_arrow_down from '@/assets/select_arrow_down.png';
             let daumPostCode = document.createElement('script')
             daumPostCode.setAttribute('src', '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js')
             document.head.appendChild(daumPostCode);
+        },
+        watch : {
+            async selected(val) {
+                const header = {"Content-Type" : "application/json"}; 
+                const url =  `REST/api/member/checkemail`;
+                const body = {useremail : this.userid + "@" + this.selected};
+                const response = await axios.post(url, body, header);
+                if(val.length >= 1){
+                    if(response.data.result === 1){
+                        this.chkemail = "이미 사용중인 이메일입니다.";
+                        this.checkStyle.color = "Red";
+                    }
+                    else{
+                        this.chkemail = "사용 가능한 아이디입니다."
+                        this.checkStyle.color = "Green";
+                        this.chkemail = '';
+                    }
+                }
+            },
+            userpw(val){
+                if(val.length > 0){
+                    this.chkpw = "사용가능한 암호입니다.";
+                    this.checkStyle.color = "Green";
+                    this.chkpw = '';
+                }
+            },
+            username(val){
+                if(val.length > 0){
+                    this.chkname = '';
+                }
+            },
+            usertel(val){
+                if(val.length > 0){
+                    this.chktel = '';
+                }
+            }
+
         },
         components : {
             Footer : Footer
@@ -217,23 +271,46 @@ import select_arrow_down from '@/assets/select_arrow_down.png';
                 });
             },
             async handleJoin(){
-                const header = {"Content-Type" : "application/json"};
-                const body = {
-                    useremail : this.userid + "@" + this.selected,
-                    userpw : this.userpw,
-                    username : this.username,
-                    userrole : this.userrole,
-                    usertel : this.usertel,
-                    post : this.postcode,
-                    address : this.roadAddress,
-                    detailaddress : this.detailAddress
-                };
-                console.log(body);
-                const url = `REST/api/member/join`;
-                const response = await axios.post(url, body, header);
-                console.log(response);
-                if(response.data.result === 1){
-                    alert("회원가입성공");
+                if(this.userid.length === 0){
+                    this.$refs.email.focus();
+                    this.chkemail = "이메일은 입력 필수 항목입니다.";
+                    this.checkStyle.color = "Red";
+                }
+                else if(this.userpw.length === 0){
+                    this.$refs.pw.focus();
+                    this.chkpw = "암호는 입력 필수 항목입니다.";
+                    this.checkStyle.color = "Red";
+                }
+                else if(this.username.length === 0){
+                    this.$refs.name.focus();
+                    this.chkname = "이름은 입력 필수 항목입니다.";
+                    this.checkStyle.color = "Red";
+                }
+                else if(this.usertel.length === 0){
+                    this.$refs.tel.focus();
+                    this.chktel = "연락처는 입력 필수 항목입니다.";
+                    this.checkStyle.color = "Red";
+                }
+                else{
+                    const header = {"Content-Type" : "application/json"};
+                    const body = {
+                        useremail : this.userid + "@" + this.selected,
+                        userpw : this.userpw,
+                        username : this.username,
+                        userrole : this.userrole,
+                        usertel : this.usertel,
+                        post : this.postcode,
+                        address : this.roadAddress,
+                        detailaddress : this.detailAddress
+                    };
+                    console.log(body);
+                    const url = `REST/api/member/join`;
+                    const response = await axios.post(url, body, header);
+                    console.log(response);
+                    if(response.data.result === 1){
+                        alert("회원가입성공");
+                        this.$router.push({path:'/'});
+                    }
                 }
             }
         }
