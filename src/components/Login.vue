@@ -1,6 +1,6 @@
 <template>
-    <div class="main_wrapper">
-         <div class="inner_container">
+    <div class="login_wrapper">
+         <div class="login_container">
                 <div class="insert_center">
                     <div class="login">
                         <p>로그인</p>
@@ -64,7 +64,26 @@ import login_password from '@/assets/login_password.png';
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
-
+.login_wrapper{
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+    justify-content: center;
+    flex-direction: column;
+}
+.login_container{
+    /* border: 1px solid black; */
+    width: 100%;
+    height : 100%;
+    display: inline-flex;
+    margin: 0 auto;
+    padding:40px;
+    justify-content: center;
+}
 body {
     margin: 0;
     width: 100%;
@@ -77,8 +96,9 @@ body {
 }
 .insert_center {
     /* border: 1px solid black; */
-    position: relative;
+    position: absolute;
     top: 20%;
+    width: 50%;
 }
 .login {
     /* border: 1px solid black; */
@@ -136,7 +156,6 @@ body {
     width: 25px;
     height: 25px;
 }
-
 .email p, .password p {
     width: fit-content;
     padding-top: 10px ;
@@ -186,7 +205,4 @@ body {
 img.logo_email, img.logo_password {
     margin-bottom: 5px;
 }
-
-
-
 </style>
