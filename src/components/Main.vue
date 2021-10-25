@@ -225,6 +225,7 @@ import face_img from '@/assets/face_img.jpg';
     display: flex;
     justify-content: space-around;
     align-items: center;
+    /* box-shadow : 3px 3px #7150368a; */
 }
 .main_banner > span {
     /* border: 1px solid black; */
@@ -309,5 +310,6 @@ import face_img from '@/assets/face_img.jpg';
 .img1:hover, .img2:hover, .img3:hover {
     cursor: pointer;
     opacity: 0.7;
+    box-shadow : 3px 3px #7150368a;
 }
 </style>
