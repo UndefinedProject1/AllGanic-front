@@ -15,7 +15,7 @@
                         <div class="email_info">
                             <div class="email_ad">
                                 <img :src="login_email">
-                                <input type="text" placeholder="이메일">
+                                <input type="text" placeholder="이메일" v-model="userid">
                             </div>
                             <p> @ </p>
                             <div class="email_domain_selector">
@@ -50,7 +50,7 @@
                     <div class="join_password">
                         <div class="password_info">
                             <img :src="login_password">
-                            <input type="password" placeholder="비밀번호">
+                            <input type="password" placeholder="비밀번호" v-model="userpw">
                             <span>*</span>
                         </div>
                         <div class="chk_password">
@@ -61,7 +61,7 @@
                     <div class="join_name">
                         <div class="name_info">
                             <img :src="join_profile">
-                            <input type="text" placeholder="이름">
+                            <input type="text" placeholder="이름" v-model="username">
                             <span>*</span>
                         </div>
                         <div class="chk_password">
@@ -72,7 +72,7 @@
                     <div class="join_tel">
                         <div class="password_info">
                             <img :src="join_call">
-                            <input type="text" placeholder="연락처">
+                            <input type="text" placeholder="연락처" v-model="usertel">
                             <span>*</span>
                         </div>
                         <div class="chk_password">
@@ -100,7 +100,7 @@
                         <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" @click="foldDaumPostcode" alt="접기 버튼">
                     </div>
                 </div>
-                <button type="button" id="join_btn">JOIN</button>
+                <button type="button" id="join_btn" @click="handleJoin">JOIN</button>
             </div>
         </div>
         <Footer></Footer>
@@ -109,6 +109,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Footer from '@/components/Footer.vue';
 import login_email from '@/assets/login_email.png';
 import login_password from '@/assets/login_password.png';
@@ -127,7 +128,12 @@ import select_arrow_down from '@/assets/select_arrow_down.png';
                 select_arrow_down : select_arrow_down,
 
                 selected : '',
-
+                userid : '',
+                userpw :'',
+                userpw1 :'',
+                username : '',
+                usertel : '',
+                userrole : 'MEMBER',
                 postcode :'',
                 roadAddress :'',
                 detailAddress : '',
@@ -210,6 +216,26 @@ import select_arrow_down from '@/assets/select_arrow_down.png';
                     popupTitle: 'LUSH 우편번호 검색' //팝업창 타이틀 설정 (영문,한글,숫자 모두 가능)
                 });
             },
+            async handleJoin(){
+                const header = {"Content-Type" : "application/json"};
+                const body = {
+                    useremail : this.userid + "@" + this.selected,
+                    userpw : this.userpw,
+                    username : this.username,
+                    userrole : this.userrole,
+                    usertel : this.usertel,
+                    post : this.postcode,
+                    address : this.roadAddress,
+                    detailaddress : this.detailAddress
+                };
+                console.log(body);
+                const url = `REST/api/member/join`;
+                const response = await axios.post(url, body, header);
+                console.log(response);
+                if(response.data.result === 1){
+                    alert("회원가입성공");
+                }
+            }
         }
     }
 </script>

@@ -13,7 +13,7 @@
                             </div>
                             <div class="email_input">
                                 <img :src="login_email" style="right" class="logo_email"/>
-                                <input type="text" id="id">
+                                <input type="text" id="id" v-model="userid">
                             </div>
                         </div>
                         <div class="password">
@@ -22,7 +22,7 @@
                             </div>
                             <div class="password_input">
                                 <img :src="login_password" style="right" class="logo_password"/>
-                                <input type="password" id="password">
+                                <input type="password" id="password" v-model="userpw">
                             </div>
                         </div>
                         <div class="login_nav">
@@ -35,7 +35,7 @@
                             </nav>
                         </div>
                         <div class="login_btn">
-                            <button type="button" id="login_btn" >Login</button>
+                            <button type="button" id="login_btn" @click="handleLogin" >Login</button>
                         </div>
                     </div>
                 </div>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Footer from '@/components/Footer.vue';
 import login_email from '@/assets/login_email.png';
 import login_password from '@/assets/login_password.png';
@@ -53,12 +54,36 @@ import login_password from '@/assets/login_password.png';
         data() {
             return {
                 login_email : login_email,
-                login_password : login_password
+                login_password : login_password,
+                userid : '',
+                userpw : '',
+                key   : '123456_'
             }
         },
         components :{
             Footer : Footer
+        },
+        methods :{
+            async handleLogin(){
+                const header = {"Content-Type" : "application/json"};
+                const body = {
+                    useremail : this.userid,
+                    userpw : this.userpw
+                }
+                console.log(body);
+                const url =  `REST/api/member/login`;
+                const response = await axios.post(url, body, header);
+                console.log(response);
+                if(response.data.result === 1){
+                    sessionStorage.setItem("token", this.key + response.data.token);
+                    alert("로그인성공");
+                }
+                else {
+                    alert('로그인실패');
+                }
+            }
         }
+
     }
 </script>
 
