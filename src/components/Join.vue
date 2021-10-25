@@ -172,7 +172,7 @@ import join_location from '@/assets/join_location.png';
     }
 </script>
 
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 .join_wrapper{
     width: 100%;
