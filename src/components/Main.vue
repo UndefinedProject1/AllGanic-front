@@ -98,16 +98,18 @@ import face_img from '@/assets/face_img.jpg';
 .main_wrapper{
     /* border: 1px solid black; */
     width: 100%;
-    height: 87.5%;
-    display: inline-flex;
+    height: 100%;
+    display: flex;
     margin: 0;
     padding: 0;
     box-sizing: content-box;
     justify-content: center;
+    flex-direction: column;
 }
 .main_container{
     /* border: 1px solid black; */
     width: 100%;
+    height : 100%;
     display: inline-flex;
     margin: 0 auto;
     padding:40px;

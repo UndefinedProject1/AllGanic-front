@@ -1,15 +1,423 @@
 <template>
     <div class=join_wrapper>
-        join test
+        <div class="join_container">
+            <div class="join_title">
+                <p>회원가입</p>
+                <div class="float-end">
+                    <span>*</span>
+                    <p>표시는 필수 입력사항입니다.</p>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="join_form">
+                <div class="join_info">
+                    <div class="join_email">
+                        <div class="email_info">
+                            <div class="email_ad">
+                                <img :src="login_email">
+                                <input type="text" placeholder="이메일">
+                            </div>
+                            <div class="email_domain_selector">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>직접입력</option>
+                                    <option value="1">직접입력</option>
+                                    <option value="2">naver.com</option>
+                                    <option value="3">hanmail.net</option>
+                                </select>
+                                <span>*</span>
+                            </div>
+                        </div>
+                        <div class="chk_email">
+                            유효성체크
+                        </div>
+                    </div>
+
+                    <div class="join_password">
+                        <div class="password_info">
+                            <img :src="login_password">
+                            <input type="password" placeholder="비밀번호">
+                            <span>*</span>
+                        </div>
+                        <div class="chk_password">
+                            유효성 체크
+                        </div>
+                    </div>
+
+                    <div class="join_name">
+                        <div class="name_info">
+                            <img :src="join_profile">
+                            <input type="text" placeholder="이름">
+                            <span>*</span>
+                        </div>
+                        <div class="chk_password">
+                            유효성 체크
+                        </div>
+                    </div>
+
+                    <div class="join_tel">
+                        <div class="password_info">
+                            <img :src="join_call">
+                            <input type="text" placeholder="연락처">
+                            <span>*</span>
+                        </div>
+                        <div class="chk_password">
+                            유효성 체크
+                        </div>
+                    </div>
+
+                    <div class="join_address">
+                        <div class="address_info1">
+                            <div class="address_postcode">
+                                <img :src="join_location">
+                                <input type="text" v-model="postcode" readonly value>
+                            </div>
+                            <p> / </p>
+                            <div class="address_main">
+                                <input type="text" v-model="roadAddress" readonly value>
+                            </div>
+                        </div>
+                        <div class="address_info2">
+                            <input type="text" v-model="detailAddress">
+                            <button type="button" id="postcode_btn" @click="openDaumPostCode">우편번호검색</button>
+                        </div>
+                    </div>
+                    <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
+                        <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" @click="foldDaumPostcode" alt="접기 버튼">
+                    </div>
+                </div>
+                <button type="button" id="join_btn">JOIN</button>
+            </div>
+        </div>
+        <Footer></Footer>
     </div>
+
 </template>
 
 <script>
+import Footer from '@/components/Footer.vue';
+import login_email from '@/assets/login_email.png';
+import login_password from '@/assets/login_password.png';
+import join_profile from '@/assets/join_profile.png';
+import join_call from '@/assets/join_call.png';
+import join_location from '@/assets/join_location.png';
     export default {
-        
+        data(){
+            return{
+                login_email : login_email,
+                login_password : login_password,
+                join_profile : join_profile,
+                join_call : join_call,
+                join_location : join_location,
+
+                postcode :'',
+                roadAddress :'',
+                detailAddress : '',
+            }
+        },
+        mounted() {
+            let daumPostCode = document.createElement('script')
+            daumPostCode.setAttribute('src', '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js')
+            document.head.appendChild(daumPostCode);
+        },
+        components : {
+            Footer : Footer
+        },
+        methods : {
+            openDaumPostCode(){
+                new window.daum.Postcode({
+                    oncomplete: (data) => {
+                        // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            
+                        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                        let addr = data.query; // 주소 변수
+                        let postcode = data.zonecode;
+                        let extraRoadAddr = ''
+            
+                        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                            extraRoadAddr += data.bname;
+                        }
+                        // 건물명이 있고, 공동주택일 경우 추가한다.
+                        if(data.buildingName !== '' && data.apartment === 'Y'){
+                            extraRoadAddr += ( extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                        if( extraRoadAddr !== ''){
+                            extraRoadAddr = ' (' + extraRoadAddr + ')';
+                        }
+            
+                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                        // document.getElementById('address').value = addr
+                        this.postcode = postcode;
+                        this.roadAddress = addr;
+                        
+                        // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                        if(addr !== ''){
+                            this.detailAddress = extraRoadAddr;
+                        } else {
+                            this.detailAddress = '';
+                        }
+                    },
+                    theme: {
+                        searchBgColor: "#1B1B1C",
+                        queryTextColor: "#FFFFFF"
+                    }
+                }).open()({
+                    popupTitle: 'LUSH 우편번호 검색' //팝업창 타이틀 설정 (영문,한글,숫자 모두 가능)
+                });
+            },
+        }
     }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
+.join_wrapper{
+    width: 100%;
+    height: fit-content;
+    overflow-y: scroll;
+    font-family: 'Gowun Dodum', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+.join_container{
+    /* border: 1px solid black; */
+    width: 1180px;
+    height: fit-content;
+    margin: 0 auto;
+    font-family: 'Gowun Dodum', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+
+ /* 회원가입 타이틀 부분 */
+.join_title{
+    /* border: 1px solid black; */
+    width: 100%;
+    height : fit-content;
+    margin: 0 auto;
+    display: inline-block;
+}
+.join_title p{
+    width: fit-content;
+    font-size: 30px;
+    font-weight : bold;
+    margin: 80px auto;
+}
+.float-end{
+    display: flex;
+    width: fit-content;
+}
+span{
+    width: fit-content;
+    height : fit-content;
+    font-size: 15px;
+    margin : 2px 5px 2px 0px;
+    color : #C30000;
+    font-weight: bold;
+}
+.float-end > p{
+    width: fit-content;
+    font-size: 18px;
+    letter-spacing: -0.1rem;
+    color : #49654E;
+    margin : 0;
+    margin: 0px 5px 5px 0px;
+}
+
+
+/* 구분선 */
+.divider{
+    border : 0.3px solid #49654E;
+    height: 0.3px;
+    width : 100%;
+}
+
+
+/* 회원가입 정보 입력부분 */
+.join_form{
+    /* border: 1px solid black; */
+    width : 100%;
+    height: 100%;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.join_info{
+    /* border: 1px solid black; */
+    width : 75%;
+    height : fit-content;
+    display : flex;
+    flex-direction: column;
+    margin-top: 50px;
+    padding : 20px;
+}
+.join_email, .join_password, .join_name, .join_tel, .join_address{
+    /* border: 1px solid black; */
+    width: 100%;
+    height: fit-content;
+    display: block;
+    padding: 10px;
+    margin : 15px;
+}
+.email_info{
+    display : inline-flex;
+    width : 100%;
+    height : 100%;
+}
+.email_ad {
+    border-bottom: 1px solid #49654E;
+    width: 700px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.chk_email, .chk_password{
+    /* border : 1px solid black; */
+    width : fit-content;
+    float : right !important;
+    margin : 10px 0px 0px 0px;
+}
+img {
+    width : 30px;
+    height : 30px;
+    margin: 8px;
+}
+.email_ad input { 
+    border: none;
+    width: 600px;
+    height: 48.5px;
+    padding-left : 10px;
+    font-size: 20px;
+}
+.email_domain_selector {
+    /* border: 1px solid black; */
+    width : 200px;
+    height : 47.33px;
+    display: flex;
+    align-items: center;
+}
+.form-select{
+    margin-right: 5px;
+    width : 100px;
+    height : 100%;
+}
+
+
+/* 비밀번호 */
+.password_info, .name_info{
+    border-bottom : 1px solid black;
+    width : 100%;
+    height : 60%;
+    display : inline-flex;
+    align-items: center;
+}
+.password_info input, .name_info input{
+    width : 90%;
+    height : 48.5px;
+    border : none;
+    padding-left : 10px;
+    font-size: 20px;
+}
+
+.name_info img{
+    width : 25px;
+    height: 30px;
+    margin : 8px;
+}
+
+
+/* 주소입력 */
+.address_info1 {
+    /* border : 1px solid black; */
+    width : 100%;
+    height : 50%;
+    display : inline-flex;
+    align-items: flex-end;
+    margin-bottom : 20px;
+}
+.address_postcode{
+    border-bottom: 1px solid black;
+    width : 30%;
+    height : 100%;
+    display : inline-flex;
+    align-items: flex-end;
+}
+.address_postcode > img{
+    width : 28px;
+    height : 30px;
+}
+.address_postcode input, .address_info2 input {
+    border : none;
+    width: 90%;
+    height : 48.5px;
+    padding-left : 10px;
+    font-size: 20px;
+}
+.address_info1 > p{
+    /* border: 1px solid black; */
+    width: fit-content;
+    height: 48.5px;
+    font-weight: bold;
+    font-size: 30px;
+    color : #49654E;
+    margin : 0;
+}
+.address_main {
+    border-bottom : 1px solid black;
+    width : 80%;
+    height : 48.5px;
+}
+.address_main >input {
+    border : none;
+    width: 90%;
+    height: 100%;
+    padding-left : 10px;
+    font-size: 20px;
+}
+.address_info2{
+    border-bottom : 1px solid black;
+    width : 100%;
+    height : 48.5px;
+    display : inline-flex;
+    align-items: flex-end;
+}
+#postcode_btn{
+    width: 110px;
+    height: 40px;
+    border:none;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    background-color: #715036;
+    margin-bottom : 5px;
+}
+#postcode_btn:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+/* 회원가입 버튼 */
+#join_btn{
+    /* border: 1px solid black; */
+    width: 30%;
+    height: 100px;
+    margin: 100px;
+    border: none;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #715036;
+    color: white;
+    border-radius: 5px;
+}
+#join_btn:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
 
 </style>

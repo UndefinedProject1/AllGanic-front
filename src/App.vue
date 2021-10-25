@@ -60,6 +60,9 @@ body{
   color: #F6EBCE;
   background-color: #49654E;
   z-index: 1000;
+  /* position: absolute;
+  top: 0;
+  width: 100%; */
 }
 .content{
   /* border: 1px solid black; */
