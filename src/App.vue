@@ -123,8 +123,8 @@ body{
   height: 100%;
   display: inline-flex;
   font-family: 'Playfair Display', serif;
-  color: #F6EBCE;
-  background-color: #49654E;
+  color: #49654E;
+  background-color: #eeeeee;
   z-index: 1000;
   /* position: absolute;
   top: 0;
@@ -133,6 +133,7 @@ body{
 .content{
   /* border: 1px solid black; */
   height: 100%;
+  background-color: #eeeeee;
 }
 
 

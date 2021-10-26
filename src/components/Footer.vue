@@ -12,9 +12,10 @@
 
 <style>
 .footer_container {
+    border-top: 0.5px solid #49654E;
     width: 100%;
     height: 100px;
-    background-color: #49654E;
+    background-color: #eeeeee;
     position: relative !important;
     bottom: 0;
     z-index: 1;
