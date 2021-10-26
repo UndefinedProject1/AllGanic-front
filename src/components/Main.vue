@@ -133,7 +133,7 @@ import face_img from '@/assets/face_img.jpg';
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 3px;
 }
 .carousel-item {
     display: block;
@@ -220,7 +220,7 @@ import face_img from '@/assets/face_img.jpg';
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: cover;
-    border-radius: 10px;
+    border-radius: 3px;
     opacity:0.75;
     display: flex;
     justify-content: space-around;
@@ -274,7 +274,7 @@ import face_img from '@/assets/face_img.jpg';
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: cover;
-    border-radius: 10px;
+    border-radius: 3px;
     display: flex;
     align-items: center;
 }
@@ -285,7 +285,7 @@ import face_img from '@/assets/face_img.jpg';
     background-repeat: no-repeat;
     background-position: 50% 10%;
     background-size: cover;
-    border-radius: 10px;
+    border-radius: 3px;
 }
 .img3 {
     width: 100%;
@@ -294,7 +294,7 @@ import face_img from '@/assets/face_img.jpg';
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: cover;
-    border-radius: 10px;
+    border-radius: 3px;
 }
 .section1 p, .section2 p, .section3 p {
     font-size: 18px;
