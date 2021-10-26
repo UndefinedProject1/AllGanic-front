@@ -168,6 +168,7 @@ import select_arrow_down from '@/assets/select_arrow_down.png';
                     borderRadius : '3px',
                     marginLeft : '10px',
                     padding : '5px',
+                    backgroundColor: '#eeeeee'
                 }
             }
         },
@@ -224,6 +225,7 @@ import select_arrow_down from '@/assets/select_arrow_down.png';
             closeOptions(){
                 this.selectorStyle.height = "0px";
                 this.selectorStyle.border = "none";
+                this.selectorStyle.backgroundColor = "#eeeeee";
             },
             openDaumPostCode(){
                 new window.daum.Postcode({
@@ -326,6 +328,7 @@ import select_arrow_down from '@/assets/select_arrow_down.png';
     font-family: 'Gowun Dodum', sans-serif;
     display: flex;
     flex-direction: column;
+    background-color: #eeeeee;
 }
 .join_container{
     /* border: 1px solid black; */
@@ -336,6 +339,7 @@ import select_arrow_down from '@/assets/select_arrow_down.png';
     display: flex;
     flex-direction: column;
     padding : 20px;
+    background-color: #eeeeee;
 }
 
 
@@ -442,6 +446,7 @@ img {
     height: 48.5px;
     padding-left : 15px;
     font-size: 15px;
+    background-color: #eeeeee;
 }
 .email_info > p{
     /* border: 1px solid black; */
@@ -516,6 +521,7 @@ input[type="radio"]{
     border : none;
     padding-left : 10px;
     font-size: 15px;
+    background-color: #eeeeee;
 }
 
 
@@ -554,6 +560,7 @@ input[type="radio"]{
     height : 48.5px;
     padding-left : 10px;
     font-size: 15px;
+    background-color: #eeeeee;
 }
 .address_info1 > p{
     /* border: 1px solid black; */
@@ -575,6 +582,7 @@ input[type="radio"]{
     height: 100%;
     padding-left : 10px;
     font-size: 15px;
+    background-color: #eeeeee;
 }
 .address_info2{
     border-bottom : 1px solid black;
