@@ -36,7 +36,7 @@
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500&display=swap');
 .admin_wrapper {
     background-color: white;
     z-index: 1000000;
@@ -67,7 +67,7 @@
     font-weight: bold;
     color: white;
     margin : 30px auto;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Exo', sans-serif;
 }
 .divider{
     border : 0.3px solid #ffffff;
@@ -93,13 +93,14 @@
     width: fit-content;
     color: #ffffff;
     font-weight: bold;
-    font-family: 'Nanum Gothic', sans-serif;
+    font-family: 'Exo', sans-serif;
 }
 
 .sidemenu_container p{
     font-size: 15px;
     color : #ffffffef;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-weight: 300;
+    font-family: 'Exo', sans-serif;
     margin : 5px;
 }
 .sidemenu_container p:hover{
