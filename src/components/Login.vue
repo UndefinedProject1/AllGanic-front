@@ -8,28 +8,21 @@
                     </div>
                     <div class="login_box">
                         <div class="email">
-                            <div class="login_title">
-                                <p>이메일</p>
-                            </div>
                             <div class="email_input">
                                 <img :src="login_email" style="right" class="logo_email"/>
-                                <input type="text" id="id" v-model="userid">
+                                <input type="text" placeholder="이메일" id="id" v-model="userid">
                             </div>
                         </div>
                         <div class="password">
-                            <div class="password_title">
-                                <p>비밀번호</p>
-                            </div>
                             <div class="password_input">
                                 <img :src="login_password" style="right" class="logo_password"/>
-                                <input type="password" id="password" v-model="userpw">
+                                <input type="password" placeholder="비밀번호" id="password" v-model="userpw">
                             </div>
                         </div>
                         <div class="login_nav">
                             <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">회원가입</a></li>
-                                <li class="breadcrumb-item"><a href="#">아이디 찾기</a></li>
                                 <li class="breadcrumb-item"><a href="#">비밀번호 찾기</a></li>
                             </ol>
                             </nav>
@@ -122,7 +115,7 @@ body {
 .insert_center {
     /* border: 1px solid black; */
     position: absolute;
-    top: 20%;
+    top: 25%;
     width: 50%;
 }
 .login {
@@ -153,8 +146,9 @@ body {
     padding-left: 10px;
 }
 .email_input > img {
-    width: 25px;
+    width: 30px;
     height: 25px;
+    padding-right: 5px;
 }
 .login_text {
     /* border: 1px solid black; */
@@ -178,8 +172,8 @@ body {
     padding-left: 10px;
 }
 .password_input > img {
-    width: 25px;
-    height: 25px;
+    margin-right: 5px;
+
 }
 .email p, .password p {
     width: fit-content;
@@ -226,8 +220,18 @@ body {
 #id, #password {
     border: none;
     width: 80%;
+    height: 48.5px;
+    font-size: 15px;
+    font-weight :300;
 } 
-img.logo_email, img.logo_password {
+#img.logo_email, img.logo_password {
+    width: 25px;
+    height: 25px;
     margin-bottom: 5px;
 }
+#input {
+    background-color: white;
+    font-size: 15px;
+}
+
 </style>

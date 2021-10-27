@@ -12,12 +12,22 @@
                 <div class="cart_productbox2">
                     <div class="cart_content1">
                         <span>[Melixir]</span>
-                        <p>어성초 세안비누</p> 
+                        <p>어성초 세안비누dndndn</p> 
                         <!-- <p>세안비누</p> -->
                     </div>
+                    <!-- <span>[Quantity]</span> -->
                     <div class="cart_content2">
-                        <span>[Quantity]</span>
-                        <p>숫자 증가하는걸 찾을 수 없어</p>
+                        <button @click="increase" style="border:none">+</button>
+                        {{number}}
+                        <button @click="decrease" style="border:none">-</button>
+                        <!-- <input type='button' @click='count("minus")' value='-'/>
+                        <div id='result'>0</div>
+                        <input type='button' @click='count("plus")' value='+'/> -->
+                        <!-- <div class="cart_count">
+                            <img :src="cart_minus" class="cart_minus" />
+                            <img :src="cart_plus" class="cart_plus" />
+                        </div> -->
+                        <!-- <hr class="line" id="count_line"/> -->
                     </div>
                 </div>
                 <div class="cart_productbox3">
@@ -38,8 +48,11 @@
                         <!-- <p>세안비누</p> -->
                     </div>
                     <div class="cart_content4">
-                        <span>[Quantity]</span>
-                        <p>숫자 증가하는걸 찾을 수 없어</p>
+                        <button @click="increase" style="border:none">+</button>
+                        {{number}}
+                        <button @click="decrease" style="border:none">-</button>
+                        <!-- <span>[Quantity]</span>
+                        <p>숫자 증가하는걸 찾을 수 없어</p> -->
                     </div>
                 </div>
                 <div class="cart_productbox6">
@@ -66,22 +79,36 @@
     </div>
 </template>
 
-
-
 <script>
 import Footer from '@/components/Footer.vue';
 import cart_popup_img1 from '@/assets/cart_popup_img1.png';
 import cart_popup_img2 from '@/assets/cart_popup_img2.png';
+import cart_minus from '@/assets/cart_minus.png';
+import cart_plus from '@/assets/cart_plus.png';
     export default {
         data() {
             return {
                 cart_popup_img1 : cart_popup_img1,
-                cart_popup_img2 : cart_popup_img2
+                cart_popup_img2 : cart_popup_img2,
+                cart_minus :cart_minus,
+                cart_plus : cart_plus,
+                number : 0
             }
         },
         components :{
             Footer : Footer
-        }
+        },
+        methods: {
+            increase : function() {
+                this.number++;
+            },
+            decrease : function() {
+                this.number--;
+            }
+            // count() {
+                
+            // },
+        },
     }
 </script>
 
@@ -119,18 +146,42 @@ import cart_popup_img2 from '@/assets/cart_popup_img2.png';
     border: 1px solid black;
     width: 50px;
     height: 50px;
-
 }
 .cart_productbox1 {
     border: 1px solid black;
     margin-top: auto;
     margin-bottom: auto;
 }
-.cart_content1 .cart_content2 .cart_content3 .cart_content4 {
+.cart_content2 .cart_content4 {
     border: 1px solid black;
+    /* display: inline-flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: flex-start;
+    padding-top: 45px; */
+    margin-left: 30px;
+}
+.cart_content4 {
+    
+}
+#count_line {
+    border: 1px solid black;
+    width: 70%;
+    padding-left: 10px;
+}
+.cart_content1 .cart_content3  {
+    border: 1px solid black;
+    width: 150px;
 }
 .cart_productbox2 {
     border: 1px solid black;
+    width: 150px;
+}
+.cart_productbox5 {
+    border: 1px solid black;
+    width: 150px;
 }
 .cart_productbox3 {
     border: 1px solid black;
@@ -148,9 +199,9 @@ import cart_popup_img2 from '@/assets/cart_popup_img2.png';
     margin-top: auto;
     margin-bottom: auto;
 }
-.cart_productbox5 {
+/* .cart_productbox5 {
     border: 1px solid black;
-}
+} */
 .cart_productbox6 {
     border: 1px solid black;
     width: 30%;
@@ -164,10 +215,11 @@ import cart_popup_img2 from '@/assets/cart_popup_img2.png';
 }
 .subtotal_inner {
     /* border: 1px solid black; */
-    display: inline-flex;
-    width: 250px;
+    display: flex;
+    width: 350px;
     justify-content: space-between;
     margin: 0 auto;
+    padding-bottom: 5px;
 }
 .subtotal_name {
     border: 1px solid black;
@@ -175,7 +227,7 @@ import cart_popup_img2 from '@/assets/cart_popup_img2.png';
 }
 .subtotal_price {
     border: 1px solid black;
-    margin-left: 148px;
+    margin-right: 30px;
 }
 .subtotal_btn {
     display: flex;
@@ -193,9 +245,21 @@ import cart_popup_img2 from '@/assets/cart_popup_img2.png';
     justify-content: space-evenly;
     padding: 8px;
 }
-#img {
-    width: 70px;
+.cart_minus {
+    border: 1px solid black;
+    width: 10px;
+    height: 10px;
+    margin-right: 70px;
+    /* margin-top: 20px; */
 }
-
+.cart_plus {
+    border: 1px solid black;
+    width: 10px;
+    height: 10px;
+}
+.cart_count {
+    display: inline-flex;
+    padding-top: 50px;
+}
 
 </style>
