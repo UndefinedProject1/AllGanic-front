@@ -125,7 +125,7 @@ body{
   font-family: 'Playfair Display', serif;
   color: #49654E;
   background-color: #eeeeee;
-  z-index: 1000;
+  z-index: 1;
   /* position: absolute;
   top: 0;
   width: 100%; */
