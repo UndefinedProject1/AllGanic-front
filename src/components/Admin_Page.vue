@@ -19,18 +19,26 @@
                     <p>미정</p>
                     <p>미정</p>
                 </div>
-                <h2 class="last_section">QA관리</h2>
+                <h2 class="last_section">FAQ관리</h2>
             </div>
         </div>
         <div class="admin_content">
-            admin content
+            <AdminProductInsert></AdminProductInsert>
         </div>
     </div>
 </template>
 
 <script>
+import Admin_Product_Insert from '@/components/Admin_Product_Insert.vue';
     export default {
-        
+        data () {
+            return{
+
+            }
+        },
+        components : {
+            AdminProductInsert : Admin_Product_Insert
+        }
     }
 </script>
 
@@ -53,7 +61,7 @@
     font-family: 'Gowun Dodum', sans-serif;
 }
 .admin_sidmenu{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     background-color: #49654E;
     display: flex;
     flex-direction: column;
@@ -111,7 +119,8 @@
     margin-top: 10px;
 }
 .admin_content{
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    overflow-y: scroll;
 }
 
 </style>
