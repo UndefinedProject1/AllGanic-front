@@ -1,9 +1,9 @@
 <template>
     <div class="admin_brand_insert_wrapper">
         <div class="br_in_header">
-            <p>상품관리</p>
+            <p>브랜드관리</p>
             <span> > </span>
-            <p id="brand_section">제품등록</p>
+            <p id="brand_section">브랜드추가</p>
         </div>
         <hr class="solid" />
         <div class="admin_bri_content">
@@ -12,23 +12,22 @@
                 <input type="text" id="adbr_put"/>
             </div>
             <div class="admin_put_img">
-                <input type="file" id="ad_img" @change="onFileSelected($event)" />
-                <img :src="uploadImageFile" class="popupImageItem" />
+                <!-- <div class="img_p"> -->
+                    <P>이미지</P>
+                <!-- </div> -->
+                <img :src="uploadImageFile" class="popupImageItem" /><br/>
+                <div class="ad_img">
+                    <input type="file" @change="onFileSelected($event)">
+                </div>
             </div>
             <div class="admin_history">
                 <P>브랜드 설명</P>
-                <textarea rows="8" id="adbr_history"></textarea>
+                <textarea rows="5" id="adbr_history"></textarea>
+            </div>
+            <div class="ad_bri_btn">
+                <button type="button" id="ad_btn_insert" @click="handleAdmin" >등록하기</button>
             </div>
         </div>
-        <div class="admin_brand_img">
-
-        </div>
-
-
-
-
-
-
     </div>
 </template>
 
@@ -69,7 +68,7 @@
 }
 .br_in_header {
     width: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -92,63 +91,93 @@
     color: black;
 }
 .solid {
-    border: 0.8px solid #dc3545;
-    height: 0.3px;
+    /* border: 0.8px solid black; */
     width : 100%;
+    height: 3px;
+    margin-top: 4px;
 }
 .admin_bri_content {
+    /* border: 1px solid black; */
     width: 70%;
     height: 100%;
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
     padding: 30px;
 }
 .admin_bri_content {
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    margin: 0 auto;
 }
 .admin_name {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     justify-content: center;
+    font-family: 'Gowun Dodum', sans-serif;
+    margin-top: 20px;
+    margin-bottom: 28px;
 }
 .admin_name p {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin-right: 15px;
     margin-top: 13px;
 }
 #adbr_put {
     width: 300px;
 }
-.admin_bri_content2 {
-    border: 1px solid black;
-}
 #adbr_history {
     width: 300px;
+    margin-right: 19px;
 }
 .admin_history {
+    /* border: 1px solid black; */
+    margin: 0 auto;
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    width: 503px;
 }
 .admin_history p {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin-right: 15px;
-    margin-top: 75px;
-    height: fit-content;
+    margin-top: 45px;
+    font-family: 'Gowun Dodum', sans-serif;
+    block-size: fit-content;
 }
 .admin_put_img {
-    border: 1px solid black;
-    width: 300px;
-    height: 150px;
+    /* border: 1px solid black; */
+    margin: 0 auto;
+    width: 503px;
+    margin-bottom: 28px;
 }
-.admin_put_img input {
-    border: 1px solid black;
+.admin_put_img p {
+    display: inline-block;
+    width: fit-content;
+    /* border: 1px solid black; */
+    margin-right: 20px;
+    margin-left: 74px;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 .popupImageItem{
-    width: 100px;
-    height: 100px;
+    border: 1px solid rgb(211, 206, 206);
+    width: 300px;
+    height: 190px;
 }
-
-
+.ad_img {
+    /* border: 1px solid black; */
+    margin-left: 139px;
+}
+.ad_bri_btn {
+    margin: 0 auto;
+}
+#ad_btn_insert{
+    width: 140px;
+    height: 45px;
+    display: block;
+    margin-left: 86px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    background-color: #49654E;
+    margin-top: 30px;
+}
 </style>
