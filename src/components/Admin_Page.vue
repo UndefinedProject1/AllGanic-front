@@ -6,12 +6,12 @@
             <div class="sidemenu_container">
                 <div class="section">
                     <h2>브랜드관리</h2>
-                    <p @click="ChangeMenu(2)">브랜드 추가</p>
-                    <p @click="ChangeMenu(1)">브랜드 등록현황</p>
+                    <p @click="ChangeMenu(1)">브랜드 추가</p>
+                    <p @click="ChangeMenu(2)">브랜드 등록현황</p>
                 </div>
                 <div class="section">
                     <h2>상품관리</h2>
-                    <p @click="ChangeMenu(0)">제품 등록</p>
+                    <p @click="ChangeMenu(3)">제품 등록</p>
                     <p>제품 등록 현황</p>
                 </div>
                 <div class="section">
@@ -31,16 +31,20 @@
 <script>
 import Admin_Product_Insert from '@/components/Admin_Product_Insert.vue';
 import Admin_Brand_List from '@/components/Admin_Brand_List.vue';
+import Admin_Main_Page from '@/components/Admin_Main_Page.vue';
+import Admin_Brand_Insert from '@/components/Admin_Brand_Insert.vue';
     export default {
         data () {
             return{
-                CurrentPage : 'AdminProductInsert',
-                pages : ['AdminProductInsert', 'AdminBrandList']
+                CurrentPage : 'Admin_Main_Page',
+                pages : ['Admin_Main_Page', 'Admin_Brand_Insert', 'AdminBrandList','AdminProductInsert']
             }
         },
         components : {
             'AdminProductInsert' : Admin_Product_Insert,
-            'AdminBrandList' : Admin_Brand_List
+            'AdminBrandList' : Admin_Brand_List,
+            'Admin_Main_Page' : Admin_Main_Page,
+            'Admin_Brand_Insert' : Admin_Brand_Insert
         },
         methods : {
             ChangeMenu(val){
@@ -56,7 +60,7 @@ import Admin_Brand_List from '@/components/Admin_Brand_List.vue';
 .admin_wrapper {
     background-color: white;
     z-index: 1000000;
-    height: 100% !important;
+    height: 100%;
     width: 100%;
     position: absolute;
     top: 0;
@@ -129,6 +133,7 @@ import Admin_Brand_List from '@/components/Admin_Brand_List.vue';
 .admin_content{
     /* border: 1px solid black; */
     overflow-y: scroll;
+    height : 100%;
 }
 
 </style>

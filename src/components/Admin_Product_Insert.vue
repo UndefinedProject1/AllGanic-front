@@ -51,28 +51,26 @@
                 <div class="right_section"></div>
             </div>
             <div class="section2">
-                <colgroup>
-                    <col class="th_area">
-                    <col class="td_area">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <th><sapn class="th_title">제품 설명</sapn></th>
-                        <td></td>
-                    </tr>
-                </tbody>
+                <div class="title_area">
+                    <span class="th_title">제품설명</span>
+                </div>
+                <div class="content_area">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
+                        <label for="floatingTextarea2">제품 상세 설명</label>
+                    </div>
+                    <p>이미지는 보이는 파일 순서대로 업로드됩니다.</p>
+                </div>
             </div>
             <div class="section2">
-                <colgroup>
-                    <col class="th_area">
-                    <col class="td_area">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <th><sapn class="th_title">제품 설명</sapn></th>
-                        <td></td>
-                    </tr>
-                </tbody>
+                <div class="title_area">
+                    <span class="th_title">상세 이미지</span>
+                </div>
+                <div class="content_area">
+                    <div class="subimage_container">
+                        
+                    </div>  
+                </div> 
             </div>
             <button type="button"></button>
         </div>
@@ -140,17 +138,7 @@ tbody{
     height: 50%;
     display: inline-flex;
 }
-.section2 {
-    border: 1px solid black;
-    width: 100%;
-    height: 50%;
-    display: inline-flex;
-}
-.section2 .th_area{
-    border : 1px solid black;
-    height : 100%;
-    width : 200px;
-}
+
 .left_section {
     border: 1px solid black;
     width: 60%;
@@ -168,7 +156,7 @@ th{
     margin: 10px;
     border : 1px solid black;
 }
-th .th_title{
+.th_title{
     margin-right: 10px;
     font-family: 'Exo', sans-serif;
     font-weight: 700;
@@ -192,6 +180,57 @@ th .th_title{
     border: 1px solid black;
     width : 40%;
     height: 100%;
+}
+
+
+
+.section2 {
+    border: 1px solid black;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+}
+.title_area{
+    width : 17.5%;
+    height : 100%;
+    border : 1px solid black;
+    text-align : right;
+    padding-top : 10px;
+}
+.content_area{
+    width : 83%;
+    height : 100%;
+    border : 1px solid black;
+}
+#floatingTextarea2{
+    height: 235px;
+    margin : 13px 0px 13px 20px;
+}
+.form-floating>label {
+    color : rgba(37, 37, 37, 0.747);
+    position: absolute;
+    top: 0;
+    left: 25px;
+    height: 100%;
+    padding: 1rem 0.75rem;
+    pointer-events: none;
+    border: 1px solid transparent;
+    transform-origin: 0 0;
+    transition: opacity .1s ease-in-out,transform .1s ease-in-out;
+}
+.content_area > p{
+    font-size: 15px;
+    font-family: 'Exo', sans-serif;
+    color : rgba(37, 37, 37, 0.747);
+    font-weight: 300;
+    margin-right: 30px;
+}
+.subimage_container{
+    border: 1px solid black;
+    margin : 13px 0px 13px 20px;
+    width : 80%;
+    height : 100%;
 }
 button {
     height: 40%;
