@@ -48,7 +48,13 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="right_section"></div>
+                <div class="right_section">
+                    <div class="main_image_container">
+                        <img :src = "mainImg" id="mainImg">
+                        <label for="insertmainImg">이미지 추가</label>
+                        <input type="file" @change="handleMainImg($event)" name="파일첨부" id="insertmainImg">
+                    </div>
+                </div>
             </div>
             <div class="section2">
                 <div class="title_area">
@@ -68,12 +74,23 @@
                 </div>
                 <div class="content_area">
                     <div class="subimage_container">
-                        <div v-for="num in 3" v-bind:key="num">
-                            <img :src = "imageupload" class="subimage"> 
+                        <div class="subimg1_container">
+                            <img :src = "subimg1" id="subimage1">
+                            <label for="insertsubimg1">이미지 추가</label>
+                            <input type="file" @change="handleSubImg($event)" name="파일첨부" id="insertsubimg1">
                         </div>
-                        
+                        <div class="subimg2_container">
+                            <img :src = "subimg2" id="subimage2">
+                            <label for="insertsubimg2">이미지 추가</label>
+                            <input type="file" @change="handleSubImg2($event)" name="파일첨부" id="insertsubimg2">
+                        </div>
+                        <div class="subimg3_container">
+                            <img :src = "subimg3" id="subimage3">
+                            <label for="insertsubimg3">이미지 추가</label>
+                            <input type="file" @change="handleSubImg3($event)" name="파일첨부" id="insertsubimg3">
+                        </div>
                     </div>
-                    <input type="file" @change="handleSubImg($event)" name="파일첨부" multiple>
+                    
                 </div>
             </div>
             <button type="button">등록하기</button>
@@ -82,35 +99,55 @@
 </template>
 
 <script>
+import default_image from '@/assets/default_image.jpg';
     export default {
         data() {
             return {
-                imageupload : [],
+                subimg1 : [default_image],
+                subimg2 : [default_image],
+                subimg3 : [default_image],
+                mainImg : [default_image],
             }
         },
         methods: {
+            handleMainImg(e){
+                if(e.target.files.length > 0) {
+                    var reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.mainImg = e.target.result;
+                    }
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            },
             handleSubImg(e){
                 if(e.target.files.length > 0) {
-                    const fileArr = Array.from(e.target.files);
-
-                    fileArr.forEach(file => {
-                        const reader = new FileReader();
-
-                        reader.onload = e => {
-                            this.imageupload = e.target.result;
-                            console.log(file.name);
-                        }
-
-                        reader.readAsDataURL(file)
-                    })
-                    
-                    // var reader = new FileReader();
-                    // reader.onload = (e) => {
-                    //     this.imageupload = e.target.result;
-                    // }
-                    // reader.readAsDataURL(e.target.files[0]);
+                    var reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.subimg1 = e.target.result;
+                    }
+                    reader.readAsDataURL(e.target.files[0]);
                 }
-            }
+            },
+            handleSubImg2(e){
+                if(e.target.files.length > 0) {
+                    var reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.subimg2 = e.target.result;
+                    }
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            },
+            handleSubImg3(e){
+                if(e.target.files.length > 0) {
+                    var reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.subimg3 = e.target.result;
+                    }
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            },
+
+
         }
     }
 </script>
@@ -121,7 +158,7 @@
 .apl_wrapper {
     height: 100%;
     display : grid;
-    grid-template-rows: 13.4% 1% 85%;
+    grid-template-rows: 15% 1% 85%;
     grid-template-columns: 100%;
     grid-template-areas: "apl_header", "apl_divider" "apl_content";
     font-family: 'Exo', sans-serif;
@@ -198,7 +235,7 @@ th{
     margin-right: 10px;
     font-family: 'Exo', sans-serif;
     font-weight: 700;
-    font-size : 18px;
+    font-size : 17px;
     letter-spacing: 0.25px;
 }
 
@@ -212,12 +249,31 @@ th{
     width : 90%;
     margin : 10px auto;
 }
-
 .right_section {
-    border: 1px solid black;
     width : 25%;
     height: 250px;
 }
+.main_image_container{
+    border: 1px solid rgb(206 212 217);
+    border-radius: 2px;
+    width: fit-content;
+    height: fit-content;
+}
+#mainImg{
+    width : 245px;
+    height : 238px;
+    display : block;
+    border-radius: 2px;
+    margin: 10px;
+}
+.main_image_container > label {
+    position: absolute;
+    top : 45%;
+    left : 35%;
+    color : white;
+    font-family: 'Exo', sans-serif;
+    font-weight: 700;    
+ }
 
 
 
@@ -241,17 +297,18 @@ th{
     height : 100%;
     /* border : 1px solid black; */
     text-align : right;
-    margin-top : -11px;
+    margin-top : -3px;
 }
 .content_area{
     width : 83%;
     height : 100%;
+    position: relative;
     /* border : 1px solid black; */
 }
 #floatingTextarea2{
     width : 80%;
     height: 235px;
-    margin : 13px 0px 32px 20px;
+    margin : 13px 0px 40px 20px;
 }
 .form-floating>label {
     color : rgba(37, 37, 37, 0.747);
@@ -270,31 +327,54 @@ th{
     font-family: 'Exo', sans-serif;
     color : rgba(37, 37, 37, 0.747);
     font-weight: 300;
-    margin-right: 60px;
-    margin-top : 30px;
+    position: absolute;
+    top: 93%;
+    right : 20%;
 }
 .subimage_container{
     border: 1px solid rgb(206 212 217);
     border-radius : 2px;
-    margin : -10px 0px 13px 20px;
+    margin : -3px 0px 13px 20px;
     width : 80%;
     height : 270px;
     display : flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
-.subimage{
-    width : 100px;
-    height : 100px;
+input[type="file"]{
+    display: none;
+}
+#subimage1, #subimage2 ,#subimage3{
+    width : 200px;
+    height : 200px;
+    border-radius: 2px;
+}
+.main_image_container, .subimg1_container, .subimg2_container, .subimg3_container{
+    position: relative;
+    width : fit-content;
+    height : fit-content;
+    border : 1px solid rgb(206 212 217);
+    border-radius : 2px;
+    margin: 15px;
+}
+.subimage_container label{
+    position: absolute;
+    top : 45%;
+    left : 25%;
+    color : white;
+    font-family: 'Exo', sans-serif;
+    font-weight: 700;
 }
 button {
-    height: 80px;
-    width : 200px;
+    height: 50px;
+    width : 120px;
     background-color: #49654E;
     margin : 90px auto;
     border-radius: 5px;
     color: white;
     font-family: 'Exo', sans-serif;
     font-weight: 700;
-    font-size : 25px;
+    font-size : 20px;
 }
 </style>
