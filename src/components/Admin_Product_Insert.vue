@@ -50,8 +50,30 @@
                 </table>
                 <div class="right_section"></div>
             </div>
-            <div class="section"></div>
-            <div class="section"></div>
+            <div class="section2">
+                <colgroup>
+                    <col class="th_area">
+                    <col class="td_area">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th><sapn class="th_title">제품 설명</sapn></th>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </div>
+            <div class="section2">
+                <colgroup>
+                    <col class="th_area">
+                    <col class="td_area">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th><sapn class="th_title">제품 설명</sapn></th>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </div>
             <button type="button"></button>
         </div>
     </div>
@@ -98,6 +120,12 @@
     height: 0.3px;
     width : 100%;
 }
+
+tbody{
+    width : 300px;
+    border : 1px solid black;
+
+}
 .apl_content{
     width: 100%;
     height : 100%;
@@ -112,6 +140,17 @@
     height: 50%;
     display: inline-flex;
 }
+.section2 {
+    border: 1px solid black;
+    width: 100%;
+    height: 50%;
+    display: inline-flex;
+}
+.section2 .th_area{
+    border : 1px solid black;
+    height : 100%;
+    width : 200px;
+}
 .left_section {
     border: 1px solid black;
     width: 60%;
@@ -119,7 +158,7 @@
 .tr{
     margin: 10px;
 }
-.left_section .th_area{
+.th_area{
     width : 200px;
     height : 100%;
     border : 1px solid black;
@@ -146,7 +185,7 @@ th .th_title{
 .form-select, .form-control{
     width : 90%;
     margin : 0 auto;
-    margin : 10px;
+    margin : 10px auto;
 }
 
 .right_section {

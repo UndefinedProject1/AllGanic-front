@@ -6,12 +6,12 @@
             <div class="sidemenu_container">
                 <div class="section">
                     <h2>브랜드관리</h2>
-                    <p>브랜드 추가</p>
-                    <p>브랜드 등록현황</p>
+                    <p @click="ChangeMenu(2)">브랜드 추가</p>
+                    <p @click="ChangeMenu(1)">브랜드 등록현황</p>
                 </div>
                 <div class="section">
                     <h2>상품관리</h2>
-                    <p>제품 등록</p>
+                    <p @click="ChangeMenu(0)">제품 등록</p>
                     <p>제품 등록 현황</p>
                 </div>
                 <div class="section">
@@ -22,22 +22,30 @@
                 <h2 class="last_section">FAQ관리</h2>
             </div>
         </div>
-        <div class="admin_content">
-            <AdminProductInsert></AdminProductInsert>
+        <div class="admin_content" >
+            <component v-bind:is="CurrentPage"></component>
         </div>
     </div>
 </template>
 
 <script>
 import Admin_Product_Insert from '@/components/Admin_Product_Insert.vue';
+import Admin_Brand_List from '@/components/Admin_Brand_List.vue';
     export default {
         data () {
             return{
-
+                CurrentPage : 'AdminProductInsert',
+                pages : ['AdminProductInsert', 'AdminBrandList']
             }
         },
         components : {
-            AdminProductInsert : Admin_Product_Insert
+            'AdminProductInsert' : Admin_Product_Insert,
+            'AdminBrandList' : Admin_Brand_List
+        },
+        methods : {
+            ChangeMenu(val){
+                this.CurrentPage = this.pages[val];
+            }
         }
     }
 </script>
