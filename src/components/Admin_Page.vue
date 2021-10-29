@@ -1,7 +1,9 @@
 <template>
     <div class="admin_wrapper">
         <div class="admin_sidmenu">
-            <p>Admin</p>
+            <div class="sidemenu_header">
+                <p>Admin</p>
+            </div>
             <div class="divider"></div>
             <div class="sidemenu_container">
                 <div class="section">
@@ -12,7 +14,7 @@
                 <div class="section">
                     <h2>상품관리</h2>
                     <p @click="ChangeMenu(3)">제품 등록</p>
-                    <p>제품 등록 현황</p>
+                    <p @click="ChangeMenu(4)">제품 등록 현황</p>
                 </div>
                 <div class="section">
                     <h2>통계</h2>
@@ -33,18 +35,21 @@ import Admin_Product_Insert from '@/components/Admin_Product_Insert.vue';
 import Admin_Brand_List from '@/components/Admin_Brand_List.vue';
 import Admin_Main_Page from '@/components/Admin_Main_Page.vue';
 import Admin_Brand_Insert from '@/components/Admin_Brand_Insert.vue';
+import Admin_Product_List from '@/components/Admin_Product_List.vue';
+
     export default {
         data () {
             return{
-                CurrentPage : 'Admin_Main_Page',
-                pages : ['Admin_Main_Page', 'Admin_Brand_Insert', 'AdminBrandList','AdminProductInsert']
+                CurrentPage : 'AdminMainPage',
+                pages : ['AdminMainPage', 'AdminBrandInsert', 'AdminBrandList','AdminProductInsert','AdminProductList']
             }
         },
         components : {
             'AdminProductInsert' : Admin_Product_Insert,
             'AdminBrandList' : Admin_Brand_List,
-            'Admin_Main_Page' : Admin_Main_Page,
-            'Admin_Brand_Insert' : Admin_Brand_Insert
+            'AdminMainPage' : Admin_Main_Page,
+            'AdminBrandInsert' : Admin_Brand_Insert,
+            'AdminProductList' : Admin_Product_List
         },
         methods : {
             ChangeMenu(val){
@@ -78,6 +83,9 @@ import Admin_Brand_Insert from '@/components/Admin_Brand_Insert.vue';
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.sidemenu_header{
+    height : 15%;
 }
 .admin_sidmenu p {
     /* border : 1px solid black; */

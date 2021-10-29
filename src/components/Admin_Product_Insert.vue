@@ -1,12 +1,12 @@
 <template>
-    <div class="apl_wrapper">
-        <div class="apl_header">
+    <div class="api_wrapper">
+        <div class="api_header">
             <p>상품관리</p>
             <span> > </span>
             <p id="chosen">제품등록</p>
         </div>
-        <div class="apl_divider"></div>
-        <div class="apl_content">
+        <div class="api_divider"></div>
+        <div class="api_content">
             <div class="section">
                 <table class="left_section">
                     <colgroup>
@@ -20,7 +20,7 @@
                                 <select class="form-select" aria-label="Default select example">
                                     <option selected>브랜드코드 선택</option>
                                     <option value="1">One</option>
-                                    <option value="2">Two</option>
+                                    <option value="2">Two</option> 
                                     <option value="3">Three</option>
                                 </select>
                             </td>
@@ -155,15 +155,15 @@ import default_image from '@/assets/default_image.jpg';
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700;800&display=swap');
-.apl_wrapper {
+.api_wrapper {
     height: 100%;
     display : grid;
     grid-template-rows: 15% 1% 85%;
     grid-template-columns: 100%;
-    grid-template-areas: "apl_header", "apl_divider" "apl_content";
+    grid-template-areas: "api_header", "api_divider" "api_content";
     font-family: 'Exo', sans-serif;
 }
-.apl_header{
+.api_header{
     width: 100%;
     /* border: 1px solid black; */
     display: flex;
@@ -171,7 +171,7 @@ import default_image from '@/assets/default_image.jpg';
     justify-content: flex-start;
     font-family: 'Gowun Dodum', sans-serif;
 }
-.apl_header p, span {
+.api_header p, span {
     width : fit-content;
     margin : 0 0px 0px 40px;
     color : rgba(29, 29, 29, 0.795);
@@ -179,7 +179,7 @@ import default_image from '@/assets/default_image.jpg';
     font-family: 'Exo', sans-serif;
     font-weight : 400;
 }
-.apl_header > span {
+.api_header > span {
     margin-left : 20px;
 }
 #chosen {
@@ -188,7 +188,7 @@ import default_image from '@/assets/default_image.jpg';
     color: black;
     margin : 0 0px 0px 20px;
 }
-.apl_divider{
+.api_divider{
     border : 0.3px solid black;
     height: 0.3px;
     width : 100%;
@@ -199,7 +199,7 @@ tbody{
     /* border : 1px solid black; */
 
 }
-.apl_content{
+.api_content{
     width: 100%;
     height : fit-content;
     /* border : 1px solid black; */

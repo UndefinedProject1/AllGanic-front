@@ -32,7 +32,7 @@
   </div>
 
 
-  <!-- 사이드 NAV 메뉴 -->
+  <!-- 사이드 NAV 메뉴 / product -->
   <div v-bind:style="sideNavStyle" class="sidenav" id="Sidenav" >
     <div class="nav_sections">
       <div class="fashion_section">
@@ -57,8 +57,11 @@
         <a href="#">마실거리</a>
       </div>
     </div>
-
   </div>
+
+
+  <!-- 사이드 NAV 메뉴 / brand -->
+  
 </template>
 
 <script>
