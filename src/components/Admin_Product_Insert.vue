@@ -361,7 +361,7 @@ input[type="file"]{
 .subimage_container label{
     position: absolute;
     top : 45%;
-    left : 25%;
+    left : 30%;
     color : white;
     /* font-family: 'Exo', sans-serif; */
     font-weight: 700;
