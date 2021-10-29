@@ -7,7 +7,7 @@
           <p @mouseover="openSideNav">product</p>
         </div>
         <div class="brand">
-          <p>brand</p>
+          <p @mouseover="openSideNav_b">brand</p>
         </div>
       </div>
       <div class="logo">
@@ -61,6 +61,31 @@
 
 
   <!-- 사이드 NAV 메뉴 / brand -->
+    <div v-bind:style="sideNavStyle_b" class="sidenav" id="Sidenav" >
+    <div class="nav_sections">
+      <div class="fashion_section">
+        <h3>Fashion</h3>
+        <a href="#"></a>
+        <a href="#"></a>
+      </div>
+      <div class="lifestyle_section">
+        <h3>Life-Style</h3>
+        <a href="#"></a>
+        <a href="#"></a>
+        <a href="#"></a>
+      </div>
+      <div class="beauty_section">
+        <h3>Beauty</h3>          
+        <a href="#"></a>
+        <a href="#"></a>
+        <a href="#"></a>          
+      </div>
+      <div class="food_section">
+        <h3>Food</h3>
+        <a href="#"></a>
+      </div>
+    </div>
+  </div>
   
 </template>
 
@@ -87,6 +112,18 @@
           overflowX : 'hidden',
           paddingTop : '25px',
           transition : '0.3s'
+        },
+        sideNavStyle_b:{
+          width : '0',
+          height : '100%',
+          position : 'fixed',
+          zIndex : '10000',
+          top : '0',
+          left : '0',
+          backgroundColor : '#49654E',
+          overflowX : 'hidden',
+          paddingTop : '25px',
+          transition : '0.3s'
         }
       }
     },
@@ -97,8 +134,13 @@
         
         // this.wrappers
       },
+      openSideNav_b(){
+        this.sideNavStyle_b.width="20%";
+        this.wrapper.opacity="0.4";
+      },
       closeSideNav(){
         this.sideNavStyle.width="0";
+        this.sideNavStyle_b.width="0";
         this.wrapper.opacity="1";
       }
     }

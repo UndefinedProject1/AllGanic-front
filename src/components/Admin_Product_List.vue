@@ -141,6 +141,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
 .list_section table img{
     width : 80px;
     height : 80px;
+    border-radius: 5px;
 }
 tbody th {
     padding: 50px 0;
@@ -154,6 +155,7 @@ Button{
     background-color: #49654E;
     color: white;
     margin-right: 5px;
+    border-radius: 5px;
 }
 Button:hover{
     opacity: 0.9;

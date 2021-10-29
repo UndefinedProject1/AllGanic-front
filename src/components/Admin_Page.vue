@@ -13,8 +13,9 @@
                 </div>
                 <div class="section">
                     <h2>상품관리</h2>
-                    <p @click="ChangeMenu(3)">제품 등록</p>
-                    <p @click="ChangeMenu(4)">제품 등록 현황</p>
+                    <p @click="ChangeMenu(3)">카테고리 추가</p>
+                    <p @click="ChangeMenu(4)">제품 등록</p>
+                    <p @click="ChangeMenu(5)">제품 등록 현황</p>
                 </div>
                 <div class="section">
                     <h2>통계</h2>
@@ -36,12 +37,12 @@ import Admin_Brand_List from '@/components/Admin_Brand_List.vue';
 import Admin_Main_Page from '@/components/Admin_Main_Page.vue';
 import Admin_Brand_Insert from '@/components/Admin_Brand_Insert.vue';
 import Admin_Product_List from '@/components/Admin_Product_List.vue';
-
+import Admin_Category_Insert from '@/components/Admin_Category_Insert.vue';
     export default {
         data () {
             return{
                 CurrentPage : 'AdminMainPage',
-                pages : ['AdminMainPage', 'AdminBrandInsert', 'AdminBrandList','AdminProductInsert','AdminProductList']
+                pages : ['AdminMainPage', 'AdminBrandInsert', 'AdminBrandList', 'AdminCategoryInsert', 'AdminProductInsert','AdminProductList']
             }
         },
         components : {
@@ -49,7 +50,8 @@ import Admin_Product_List from '@/components/Admin_Product_List.vue';
             'AdminBrandList' : Admin_Brand_List,
             'AdminMainPage' : Admin_Main_Page,
             'AdminBrandInsert' : Admin_Brand_Insert,
-            'AdminProductList' : Admin_Product_List
+            'AdminProductList' : Admin_Product_List,
+            'AdminCategoryInsert' : Admin_Category_Insert
         },
         methods : {
             ChangeMenu(val){
