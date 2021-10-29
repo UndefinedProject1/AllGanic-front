@@ -50,7 +50,8 @@ import login_password from '@/assets/login_password.png';
                 login_password : login_password,
                 userid : '',
                 userpw : '',
-                key   : '123456_'
+                key   : '123456_',
+                login : false
             }
         },
         components :{
@@ -70,10 +71,27 @@ import login_password from '@/assets/login_password.png';
                 if(response.data.result === 1){
                     sessionStorage.setItem("token", this.key + response.data.token);
                     alert("로그인성공");
+                    const headers = {"Content-Type" : "application/json", "token" : this.key + response.data.token};
+                    const url1 = `REST/api/member/role`;
+                    console.log(headers);
+
+                    const response1 = await axios.get(url1, {headers});
+                    if(response1.data.result === 1){
+                        if(response1.data.role === "MEMBER"){
+                            sessionStorage.setItem("role", 1);
+                        }
+                        else sessionStorage.setItem("role", 2);
+                    }
+                    else{
+                        alert("토큰값이 유효하지 않습니다");
+                    }
                 }
                 else {
                     alert('로그인실패');
                 }
+            },
+            async handleRole(){
+                
             }
         }
 

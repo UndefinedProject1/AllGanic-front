@@ -7,9 +7,39 @@
         </div>
         <div class="aci_divider"></div>
         <div class="aci_content">
-            <div class="cate_list_section"></div>
+            <div class="cate_list_section">
+                <p>현재 카테고리 목록</p>
+                <div class="cate_list">
+                    <ul>Fashion</ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    <ul>Life-Style</ul>
+                    <ul>Beauty</ul>
+                    <ul>Food</ul>
+                </div>
+
+            </div>
             <div class="cate_insert_section">
-                <div class="cate_insert_selector"></div>
+                <div class="cate_insert_selector">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>대분류</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option> 
+                        <option value="3">Three</option>
+                    </select>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>중분류</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option> 
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="cate_insert_input">
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="코드 입력">
+                    <button type="button">카테고리 추가</button>
+                </div>
                 <div class="cate_insert_note"></div>
             </div>
         </div>
@@ -71,6 +101,8 @@
     border: 1px solid black;
     width: 40%;
     height: 400px;
+    display: flex;
+    flex-direction: column;
 }
 .cate_insert_section{
     border: 1px solid black;
@@ -82,11 +114,43 @@
 .cate_insert_selector{
     border : 1px solid black;
     width : 100%;
-    height : 50%;
+    height : fit-content;
+    display : inline-flex;
 }
+.cate_insert_selector .form-select{
+    width : 50%;
+    height : fit-content;
+    margin-right : 10px;
+}
+.cate_insert_input{
+    border: 1px solid black;
+    width: 100%;
+    height : fit-content;
+    display: inline-flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+.form-control{
+    width: 50%;
+    height: 100%;
+    margin-right: 10px;
+}
+button {
+    height: 37px;
+    width : 120px;
+    background-color: #49654E;
+    border-radius: 5px;
+    color: white;
+    font-size : 15px;
+}
+Button:hover{
+    opacity: 0.9;
+}
+
 .cate_insert_note{
     border : 1px solid black;
     width : 100%;
     height : 50%;
 }
+
 </style>

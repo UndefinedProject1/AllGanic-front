@@ -9,7 +9,7 @@
         <div class="admin_bri_content">
             <div class="admin_name">
                 <P>브랜드명</P>
-                <input type="text" id="adbr_put"/>
+                <input type="text" id="adbr_put" v-model="brandname"/>
             </div>
             <div class="admin_put_img">
                 <!-- <div class="img_p"> -->
@@ -32,22 +32,43 @@
 </template>
 
 <script>
+import axios from 'axios';
     export default {
         data() {
             return {
-                uploadImageFile : []
+                uploadImageFile : '',
+                brandname :'',
+                token : sessionStorage.getItem("token"),
+                file : ''
             }
         },
         methods : {
             onFileSelected(event) {
                 var input = event.target;
                 if (input.files.length>0) {
+                    this.file = event.target.files[0];
                     var reader = new FileReader();
                     reader.onload = (event) => {
                         this.uploadImageFile = event.target.result;
                     }
                     reader.readAsDataURL(input.files[0]);
                 }
+            },
+            async handleAdmin(){
+                console.log(this.token);
+                const headers = { "Content-Type" : "multipart/form-data", "token" : this.token };
+                const url = `REST/api/admin/brand_insert`;
+                const formData = new FormData();
+                formData.append("brandname", this.brandname);
+                formData.append("file", this.file);
+                console.log(this.uploadImageFile);
+
+                const response = await axios.post(url, formData, {headers});
+                console.log(response);
+                if(response.data.result === 1){
+                    alert("브랜드 추가 성공");
+                }
+                else alert("브랜드 추가 실패");
             }
         }
         
