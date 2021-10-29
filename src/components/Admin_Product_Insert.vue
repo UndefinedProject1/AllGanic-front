@@ -161,7 +161,7 @@ import default_image from '@/assets/default_image.jpg';
     grid-template-rows: 15% 1% 85%;
     grid-template-columns: 100%;
     grid-template-areas: "api_header", "api_divider" "api_content";
-    font-family: 'Exo', sans-serif;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 .api_header{
     width: 100%;
@@ -176,14 +176,14 @@ import default_image from '@/assets/default_image.jpg';
     margin : 0 0px 0px 40px;
     color : rgba(29, 29, 29, 0.795);
     font-size: 20px;
-    font-family: 'Exo', sans-serif;
+    /* font-family: 'Exo', sans-serif; */
     font-weight : 400;
 }
 .api_header > span {
     margin-left : 20px;
 }
 #chosen {
-    font-family: 'Exo', sans-serif;
+    /* font-family: 'Exo', sans-serif; */
     font-weight: 700;
     color: black;
     margin : 0 0px 0px 20px;
@@ -233,7 +233,7 @@ th{
 }
 .th_title{
     margin-right: 10px;
-    font-family: 'Exo', sans-serif;
+    /* font-family: 'Exo', sans-serif; */
     font-weight: 700;
     font-size : 17px;
     letter-spacing: 0.25px;
@@ -271,7 +271,7 @@ th{
     top : 45%;
     left : 35%;
     color : white;
-    font-family: 'Exo', sans-serif;
+    /* font-family: 'Exo', sans-serif; */
     font-weight: 700;    
  }
 
@@ -324,7 +324,7 @@ th{
 }
 .content_area > p{
     font-size: 13px;
-    font-family: 'Exo', sans-serif;
+    /* font-family: 'Exo', sans-serif; */
     color : rgba(37, 37, 37, 0.747);
     font-weight: 300;
     position: absolute;
@@ -363,7 +363,7 @@ input[type="file"]{
     top : 45%;
     left : 25%;
     color : white;
-    font-family: 'Exo', sans-serif;
+    /* font-family: 'Exo', sans-serif; */
     font-weight: 700;
 }
 button {
@@ -373,7 +373,7 @@ button {
     margin : 90px auto;
     border-radius: 5px;
     color: white;
-    font-family: 'Exo', sans-serif;
+    /* font-family: 'Exo', sans-serif; */
     font-weight: 700;
     font-size : 20px;
 }
