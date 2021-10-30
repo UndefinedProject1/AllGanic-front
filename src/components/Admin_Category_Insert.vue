@@ -10,14 +10,19 @@
             <div class="cate_list_section">
                 <p>현재 카테고리 목록</p>
                 <div class="cate_list">
-                    <ul>Fashion</ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    <ul>Life-Style</ul>
-                    <ul>Beauty</ul>
-                    <ul>Food</ul>
+                    <h5>Fashion <small>(100)</small></h5>
+                    <h6>의류</h6>
+                    <h6>잡화</h6>
+                    <h5>Life-Style <small>(300)</small></h5>
+                    <h6>주방</h6>
+                    <h6>욕실</h6>
+                    <h6>기타</h6>
+                    <h5>Beauty <small>(400)</small></h5>
+                    <h6>헤어</h6>
+                    <h6>스킨</h6>
+                    <h6>바디</h6>
+                    <h5>Food <small>(200)</small></h5>
+                    <h6>마실거리</h6>
                 </div>
 
             </div>
@@ -40,7 +45,25 @@
                     <input type="text" class="form-control" id="formGroupExampleInput" placeholder="코드 입력">
                     <button type="button">카테고리 추가</button>
                 </div>
-                <div class="cate_insert_note"></div>
+                <div class="cate_insert_note">
+                    <h6>*<mark>ISBN코드</mark>활용법</h6>
+                    <p><small>앞 세자리는 대분류 카테고리 코드, 중간 두자리는 중분류 카테고리 코드, 마지막 끝 한자리는 소분류 카테고리 코드</small></p>
+                    <p><small><strong>예시) 핸드워시</strong></small></p>
+                    <div class="cate_code_ex_container">
+                        <div class="cate_code_ex">
+                            <p><strong><u>400</u></strong></p>
+                            <p><small>대분류</small></p>
+                        </div>
+                        <div class="cate_code_ex">
+                            <p><strong><u>42</u></strong></p>
+                            <p><small>중분류</small></p>
+                        </div>
+                        <div class="cate_code_ex">
+                            <p><strong><u>5</u></strong></p>
+                            <p><small>소분류</small></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -98,21 +121,42 @@
     align-items: center;
 }
 .cate_list_section{
-    border: 1px solid black;
-    width: 40%;
-    height: 400px;
+    /* border: 1px solid black; */
+    width: 30%;
+    height: 500px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+.cate_list_section P {
+    font-size: 20px;
+    font-weight: bold;
+}
+.cate_list {
+    border : 1px solid rgb(206 212 217);
+    border-radius: 3px;
+    padding : 0px 92px 10px 29px;
+}
+.cate_list h5 {
+    font-weight: bold;
+    color: #49654E;
+    margin-top: 20px;
+}
+small{
+    font-size: 0.75em;
+}
+.cate_list h6{
+    margin: 8px 0px 10px 10px;
 }
 .cate_insert_section{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 60%;
     height: 400px;
     display: flex;
     flex-direction: column;
 }
 .cate_insert_selector{
-    border : 1px solid black;
+    /* border: 1px solid black; */
     width : 100%;
     height : fit-content;
     display : inline-flex;
@@ -123,7 +167,7 @@
     margin-right : 10px;
 }
 .cate_insert_input{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 100%;
     height : fit-content;
     display: inline-flex;
@@ -148,9 +192,37 @@ Button:hover{
 }
 
 .cate_insert_note{
-    border : 1px solid black;
+    border : 1px solid rgb(206 212 217);
     width : 100%;
     height : 50%;
+    padding: 20px ;
+    display: flex;
+    flex-direction: column;
 }
-
+.cate_insert_note h6{
+    font-weight: bold;
+}
+.cate_insert_note small {
+    font-size: 0.85em;
+}
+.cate_insert_note p {
+    margin-bottom: 5px;
+}
+.cate_code_ex_container{
+    display: inline-flex;
+    width: fit-content;
+    margin: 0 auto;
+}
+.cate_code_ex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+}
+.cate_code_ex p{
+    margin: 0;
+}
+.cate_code_ex strong{
+    font-size: 18px;
+}
 </style>

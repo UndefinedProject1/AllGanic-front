@@ -21,18 +21,18 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach( async (to, from, next) => {
-    console.log(to);
-    console.log(from);
+// router.beforeEach( async (to, from, next) => {
+//     console.log(to);
+//     console.log(from);
 
-    const role = sessionStorage.getItem("role");
+//     const role = sessionStorage.getItem("role");
     
-    if(to.name === 'admin_page' && role !== 2){
-        next({name : 'restrict_page'});
-    }
-    else{
-        next()
-    }
-});
+//     if(to.name === 'admin_page' && role !== 2){
+//         next({name : 'restrict_page'});
+//     }
+//     else{
+//         next()
+//     }
+// });
 
 export default router;
