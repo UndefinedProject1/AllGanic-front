@@ -28,22 +28,30 @@
             </div>
             <div class="cate_insert_section">
                 <div class="cate_insert_selector">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>대분류</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option> 
-                        <option value="3">Three</option>
+                    <select class="form-select" aria-label="Default select example" @click="handle_catebig" v-model="cate_big">
+                        <option selected v-for="cate_big in cate_bigs" v-bind:key="cate_big">{{cate_big.value}}</option>
+                        <!-- <option>{{cate_big.value}}</option> -->
+                        <option value="100" style="hidden" @change="efadfa">100</option>
+                        <option value="200" style="hidden" @click="handle_cate200">200</option> 
+                        <option value="300" style="hidden" @click="handle_cate300">300</option>
+                        <option value="400" style="hidden" @click="handle_cate400">400</option>
                     </select>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" v-model="cate_middle">
                         <option selected>중분류</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option> 
-                        <option value="3">Three</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option> 
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
                     </select>
                 </div>
                 <div class="cate_insert_input">
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="코드 입력">
-                    <button type="button">카테고리 추가</button>
+                    <input type="text" class="form-control" id="formGroupExampleInput" v-model="cate_insert" placeholder="코드 입력">
+                    <button type="button" @click="handleInsertCate">카테고리 추가</button>
                 </div>
                 <div class="cate_insert_note">
                     <h6>*<mark>ISBN코드</mark>활용법</h6>
@@ -71,9 +79,59 @@
 </template>
 
 <script>
+import axios from 'axios';
     export default {
+        data() {
+            return {
+                cate_bigs : [],
+                // cate_middle : '',
+                // cate_insert : '',
+                // cate_name : '',
+                token : sessionStorage.getItem("token"),
+            }
+        },
+        components : {
+        },
+        methods : {
+            async handle_cate100() {
+                 const headers = {"Content-Type" : "application/json", token : this.token};
+                const url = `REST/api/select_cproductnum?code=` + 100;
+                const response = await axios.get(url,headers);
+                console.log(response);
+
+            },
+            async handle_catebig() {
+                const headers = {"Content-Type" : "application/json", token : this.token};
+                const url = `/REST/api/select_cate`;
+                const response = await axios.get(url,headers);
+                console.log(response);
+
+            },
+             
+        //     async handleInsertCate() {
+        //         const headers = {"Content-Type" : "application/json", token : this.token};
+        //         const body = {
+        //             // cate_big : this.cate_big,
+        //             // cate_middle : this.cate_middle,
+        //             // cate_insert : this.cate_insert,
+        //             cate_name : this.cate_name,
+        //             cate_all : this.cate_big + this.cate_middle + this.cate_insert,
+        //         }
+        //         console.log(body);
+        //         const url =  `REST/api/admin/category_insert`;
+        //         const response = await axios.post(url, body, {headers});
+        //         console.log(response);
+        //         if(response.data.result === 1) {
+        //            alert("dd");
+                
+        //     }
+        // }
         
+
     }
+    
+    
+}
 </script>
 
 <style scoped>
