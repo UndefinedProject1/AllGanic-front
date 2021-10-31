@@ -18,17 +18,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="num in 10" v-bind:key="num">
+                    <tr v-for="item in brandlist" v-bind:key="item">
                         <td style="width:1px; text-align: -webkit-center;">
                         <div class="adbr_box">
-                            <img :src="melixir" class="adbr_profile" >
+                            <img :src="`REST/api/select_image?no=${item.brandcode}`" class="adbr_profile" >
                         </div>
                         </td>
-                        <td style="padding: 25px 0;">{{brandlist[0]}}</td>
-                        <td style="padding: 25px 0;">2001.07.12</td>
+                        <td style="padding: 25px 0;" >{{item.brandname}}</td>
                         <td>
                         <button type="button" style="margin: 15px 0; width: 50px; border-radius: 7px;
-                        margin: 15px 0px; color: white; background-color: #49654E; border:none;">삭제</button>
+                        margin: 15px 0px; color: white; background-color: #49654E; border:none;" @click="deleteBrand">삭제</button>
                         </td>
                         <!-- id="br_delete" -->
                     </tr>
@@ -41,44 +40,33 @@
 <script>
 import axios from 'axios';
 import melixir from '@/assets/melixir.png';
-
-//import axios from 'axios';
     export default {
         data() {
             return {
                 melixir : melixir,
                 brandlist : [],
-                real : [],
             }
         },
         components : {
 
         },
         async created() {
-            await this.handleBrandList();
+            const url = `REST/api/select_brand`;
+            const response = await axios.get(url);
+
+            if(response.data.result === 1){
+                this.brandlist = response.data.list;
+                // console.log(this.brandlist);
+            }
+            else alert("떼잉");
+            
         },
         methods : {
-            async handleBrandList() {
-                const header = {"Content-Type" : "appliaction/json"};
-                const url = `REST/api/select_brand`;
-
-                const response = await axios.get(url, header);
-                console.log(response);
-                if(response.data.result === 1){
-                    // response.data.list = this.brandlist;
-                    // console.log(this.brandlist);
-                }
-                else alert("list 불러오기 실패");
-            },
-            // async handle_adbr_delete() {
+            async deleteBrand(){
                 
-            //     // const url = ;
-            //     const headers = {"Content-Type":"application/json"};
-            //     const body = {}
-            //     const response = await axios.
+            }
+        },
 
-            // }
-        }
     }
 </script>
 

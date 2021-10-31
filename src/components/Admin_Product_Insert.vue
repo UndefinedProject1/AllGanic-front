@@ -15,24 +15,20 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <th><span class="th_title">브랜드코드</span></th>
+                            <th><span class="th_title">브랜드</span></th>
                             <td>
                                 <select class="form-select" aria-label="Default select example">
-                                    <option selected>브랜드코드 선택</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option> 
-                                    <option value="3">Three</option>
+                                    <option selected>{{selected}}</option>
+                                    <option :value="code.brandcode" v-for="code in brandlist" v-bind:key="code">{{code.brandname}} ({{code.brandcode}})</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
-                            <th><span class="th_title">카테고리코드</span></th>
+                            <th><span class="th_title">카테고리</span></th>
                             <td>
                                 <select class="form-select" aria-label="Default select example">
-                                    <option selected>카테고리 코드 선택</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option selected>{{selected2}}</option>
+                                    <option :value="code.categorycode" v-for="code in catelist" v-bind:key="code">{{code.categoryname}} ({{code.categorycode}})</option>
                                 </select>
                             </td>
                         </tr>
@@ -93,12 +89,13 @@
                     
                 </div>
             </div>
-            <button type="button">등록하기</button>
+            <button type="button" @click="handleProductInsert">등록하기</button>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
 import default_image from '@/assets/default_image.jpg';
     export default {
         data() {
@@ -107,9 +104,37 @@ import default_image from '@/assets/default_image.jpg';
                 subimg2 : [default_image],
                 subimg3 : [default_image],
                 mainImg : [default_image],
+                brandlist : [],
+                catelist : [],
+                selected : "브랜드코드 선택",
+                selected2 : "카테고리코드 선택"
             }
         },
+        async created() {
+            await this.handleBrandList();
+        },
         methods: {
+            async handleBrandList(){
+                const url = `REST/api/select_brand`;
+                const response = await axios.get(url);
+
+                if(response.data.result === 1){
+                    this.brandlist = response.data.list;
+                    // console.log(this.brandlist);
+                }
+                else alert("떼잉");
+
+
+                const url1 = `REST/api/select_cate`;
+                const response1 = await axios.get(url1);
+
+                if(response1.data.result === 1){
+                    this.catelist = response1.data.list;
+                    console.log(this.catelist);
+                }
+                else alert("돼라");
+
+            },
             handleMainImg(e){
                 if(e.target.files.length > 0) {
                     var reader = new FileReader();
