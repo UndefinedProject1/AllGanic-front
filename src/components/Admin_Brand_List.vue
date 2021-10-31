@@ -24,7 +24,7 @@
                             <img :src="melixir" class="adbr_profile" >
                         </div>
                         </td>
-                        <td style="padding: 25px 0;">Melixir</td>
+                        <td style="padding: 25px 0;">{{brandlist[0]}}</td>
                         <td style="padding: 25px 0;">2001.07.12</td>
                         <td>
                         <button type="button" style="margin: 15px 0; width: 50px; border-radius: 7px;
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import melixir from '@/assets/melixir.png';
 
 //import axios from 'axios';
@@ -46,21 +47,38 @@ import melixir from '@/assets/melixir.png';
         data() {
             return {
                 melixir : melixir,
+                brandlist : [],
+                real : [],
             }
         },
         components : {
 
         },
-        // methods : {
-        //     async handle_adbr_delete() {
-                
-        //         // const url = ;
-        //         const headers = {"Content-Type":"application/json"};
-        //         const body = {}
-        //         const response = await axios.
+        async created() {
+            await this.handleBrandList();
+        },
+        methods : {
+            async handleBrandList() {
+                const header = {"Content-Type" : "appliaction/json"};
+                const url = `REST/api/select_brand`;
 
-        //     }
-        // }
+                const response = await axios.get(url, header);
+                console.log(response);
+                if(response.data.result === 1){
+                    // response.data.list = this.brandlist;
+                    // console.log(this.brandlist);
+                }
+                else alert("list 불러오기 실패");
+            },
+            // async handle_adbr_delete() {
+                
+            //     // const url = ;
+            //     const headers = {"Content-Type":"application/json"};
+            //     const body = {}
+            //     const response = await axios.
+
+            // }
+        }
     }
 </script>
 
