@@ -9,20 +9,19 @@
         <div class="admin_bri_content">
             <div class="admin_name">
                 <P>브랜드명</P>
-                <input type="text" id="adbr_put" v-model="brandname"/>
+                <input type="text" class="form-control" id="adbr_put" placeholder="제품명 입력" v-model="brandname">
             </div>
             <div class="admin_put_img">
-                <!-- <div class="img_p"> -->
-                    <P>이미지</P>
-                <!-- </div> -->
-                <img :src="uploadImageFile" class="popupImageItem" /><br/>
-                <div class="ad_img">
-                    <input type="file" @change="onFileSelected($event)">
+                <P>이미지</P>
+                <div class="insertBrandImg">
+                    <img :src="uploadImageFile" class="popupImageItem" />
+                    <label for="insertImg">이미지추가</label>
+                    <input type="file" @change="onFileSelected($event)" id="insertImg">
                 </div>
             </div>
             <div class="admin_history">
                 <P>브랜드 설명</P>
-                <textarea rows="5" id="adbr_history"></textarea>
+                <textarea class="form-control" placeholder="브랜드 설명 입력" id="adbr_history"></textarea>
             </div>
             <div class="ad_bri_btn">
                 <button type="button" id="ad_btn_insert" @click="handleAdmin" >등록하기</button>
@@ -33,10 +32,11 @@
 
 <script>
 import axios from 'axios';
+import default_image from '@/assets/default_image.jpg';
     export default {
         data() {
             return {
-                uploadImageFile : '',
+                uploadImageFile : default_image,
                 brandname :'',
                 token : sessionStorage.getItem("token"),
                 file : ''
@@ -112,13 +112,13 @@ import axios from 'axios';
     color: black;
 }
 .solid {
-    /* border: 0.8px solid black; */
+    border: 0.8px solid black;
     width : 100%;
     height: 3px;
     margin-top: 4px;
 }
 .admin_bri_content {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     width: 70%;
     height: 100%;
     display: flex;
@@ -126,11 +126,11 @@ import axios from 'axios';
     padding: 30px;
 }
 .admin_bri_content {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     margin: 0 auto;
 }
 .admin_name {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     display: flex;
     justify-content: center;
     font-family: 'Gowun Dodum', sans-serif;
@@ -138,7 +138,7 @@ import axios from 'axios';
     margin-bottom: 28px;
 }
 .admin_name p {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     margin-right: 15px;
     margin-top: 13px;
 }
@@ -150,21 +150,21 @@ import axios from 'axios';
     margin-right: 19px;
 }
 .admin_history {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     width: 503px;
 }
 .admin_history p {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     margin-right: 15px;
     margin-top: 45px;
     font-family: 'Gowun Dodum', sans-serif;
     block-size: fit-content;
 }
 .admin_put_img {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     margin: 0 auto;
     width: 503px;
     margin-bottom: 28px;
@@ -172,10 +172,29 @@ import axios from 'axios';
 .admin_put_img p {
     display: inline-block;
     width: fit-content;
-    /* border: 1px solid black; */
+    border: 1px solid black;
     margin-right: 20px;
     margin-left: 74px;
     font-family: 'Gowun Dodum', sans-serif;
+}
+.insertBrandImg{
+    position: relative;
+    width : fit-content;
+    height : fit-content;
+    border : 1px solid rgb(206 212 217);
+    border-radius : 2px;
+    margin: 15px;
+}
+.admin_put_img label{
+    position: absolute;
+    top : 45%;
+    left : 30%;
+    color : white;
+    /* font-family: 'Exo', sans-serif; */
+    font-weight: 700;
+}
+input[type="file"]{
+    display: none;
 }
 .popupImageItem{
     border: 1px solid rgb(211, 206, 206);
@@ -183,7 +202,7 @@ import axios from 'axios';
     height: 190px;
 }
 .ad_img {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     margin-left: 139px;
 }
 .ad_bri_btn {
