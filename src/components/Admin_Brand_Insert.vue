@@ -192,7 +192,7 @@ import default_image from '@/assets/default_image.jpg';
 .admin_put_img label{
     position: absolute;
     top : 45%;
-    left : 30%;
+    left : 35%;
     color : white;
     /* font-family: 'Exo', sans-serif; */
     font-weight: 700;
