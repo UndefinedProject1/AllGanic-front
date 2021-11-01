@@ -28,29 +28,23 @@
             </div>
             <div class="cate_insert_section">
                 <div class="cate_insert_selector">
-                    <select class="form-select" aria-label="Default select example" @click="handle_catebig" v-model="cate_big">
-                        <option selected v-for="cate_big in cate_bigs" v-bind:key="cate_big">{{cate_big.value}}</option>
+                    <select class="form-select"  aria-label="Default select example" @click="handle_catebig" v-model="selected1">
+                        <!-- <option selected v-for="cate_big in cate_bigs" v-bind:key="cate_big">{{cate_big.value}}</option> -->
                         <!-- <option>{{cate_big.value}}</option> -->
-                        <option value="100" style="hidden" @change="efadfa">100</option>
-                        <option value="200" style="hidden" @click="handle_cate200">200</option> 
-                        <option value="300" style="hidden" @click="handle_cate300">300</option>
-                        <option value="400" style="hidden" @click="handle_cate400">400</option>
+                        <option value="100" >100</option>
+                        <option value="200" >200</option> 
+                        <option value="300" >300</option>
+                        <option value="400" >400</option>
                     </select>
-                    <select class="form-select" aria-label="Default select example" v-model="cate_middle">
-                        <option selected>중분류</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option> 
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="31">31</option>
-                        <option value="32">32</option>
-                        <option value="40">40</option>
-                        <option value="41">41</option>
-                        <option value="42">42</option>
+                    <select class="form-select" aria-label="Default select example" @click="handle_catemiddle" v-model="selected2">
+                        <option selected v-for="select in resultset" v-bind:key="select">{{resultset.substring(3,5)}}</option>
+                        <!-- <option value="10">{{select[0]}}</option> -->
+
                     </select>
                 </div>
                 <div class="cate_insert_input">
                     <input type="text" class="form-control" id="formGroupExampleInput" v-model="cate_insert" placeholder="코드 입력">
+                    <input type="text" class="form-control" id="formGroupExampleName" v-model="cate_name" placeholder="이름 입력">
                     <button type="button" @click="handleInsertCate">카테고리 추가</button>
                 </div>
                 <div class="cate_insert_note">
@@ -83,26 +77,42 @@ import axios from 'axios';
     export default {
         data() {
             return {
-                cate_bigs : [],
-                // cate_middle : '',
-                // cate_insert : '',
-                // cate_name : '',
+                selected1 : '',
+                selects: [], 
+                resultset : [],
                 token : sessionStorage.getItem("token"),
             }
         },
         components : {
         },
         methods : {
-            async handle_cate100() {
-                 const headers = {"Content-Type" : "application/json", token : this.token};
-                const url = `REST/api/select_cproductnum?code=` + 100;
+            async handle_catemiddle() {
+
+                const headers = {"Content-Type" : "application/json", token : this.token};
+                const url = `REST/api/select_cproductnum?code=` + this.selected1;
                 const response = await axios.get(url,headers);
                 console.log(response);
+                if(response.data.result ===1) {
+                    this.selects = response.data.list;
 
+                    //categorycode 추출
+                    var arr = [];
+                    for(var tmp of this.selects){
+                        console.log(tmp.categorycode);
+                        const str1 = tmp.categorycode.substring(3,5);
+                        arr.push(str1);
+                    }
+                    //categorycode 중복제거
+                    const set = new Set(arr);
+                    const resultset = [...set];
+      
+                    console.log(arr);
+                    console.log(resultset);
+                }
             },
             async handle_catebig() {
                 const headers = {"Content-Type" : "application/json", token : this.token};
-                const url = `/REST/api/select_cate`;
+                const url = `REST/api/select_cproductnum?code=` + this.selected1;
                 const response = await axios.get(url,headers);
                 console.log(response);
 

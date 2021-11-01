@@ -112,25 +112,27 @@ import default_image from '@/assets/default_image.jpg';
     color: black;
 }
 .solid {
-    border: 0.8px solid black;
+    /* border: 0.8px solid black; */
     width : 100%;
     height: 3px;
     margin-top: 4px;
 }
 .admin_bri_content {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 70%;
     height: 100%;
     display: flex;
+    align-items: center;
     flex-direction: column;
     padding: 30px;
 }
 .admin_bri_content {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin: 0 auto;
 }
 .admin_name {
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    width: fit-content;
     display: flex;
     justify-content: center;
     font-family: 'Gowun Dodum', sans-serif;
@@ -138,7 +140,7 @@ import default_image from '@/assets/default_image.jpg';
     margin-bottom: 28px;
 }
 .admin_name p {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin-right: 15px;
     margin-top: 13px;
 }
@@ -147,41 +149,43 @@ import default_image from '@/assets/default_image.jpg';
 }
 #adbr_history {
     width: 300px;
-    margin-right: 19px;
+    margin:  auto 0px;
 }
 .admin_history {
-    border: 1px solid black;
-    margin: 0 auto;
+    /* border: 1px solid black; */
     display: flex;
     justify-content: center;
-    width: 503px;
+    margin: auto 0px;
 }
 .admin_history p {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin-right: 15px;
-    margin-top: 45px;
     font-family: 'Gowun Dodum', sans-serif;
-    block-size: fit-content;
+    width: fit-content;
+    height: fit-content;
+    margin-top: 18px;
 }
 .admin_put_img {
-    border: 1px solid black;
-    margin: 0 auto;
-    width: 503px;
+    /* border: 1px solid black; */
+    width: fit-content;
+    align-items: center;
     margin-bottom: 28px;
+    margin-left: 28px;
+    display: inline-flex;
+    justify-content: center;
 }
 .admin_put_img p {
     display: inline-block;
     width: fit-content;
-    border: 1px solid black;
-    margin-right: 20px;
-    margin-left: 74px;
+    height: fit-content;
+    /* border: 1px solid black; */
     font-family: 'Gowun Dodum', sans-serif;
 }
 .insertBrandImg{
     position: relative;
     width : fit-content;
     height : fit-content;
-    border : 1px solid rgb(206 212 217);
+    /* border : 1px solid rgb(206 212 217); */
     border-radius : 2px;
     margin: 15px;
 }
@@ -197,12 +201,12 @@ input[type="file"]{
     display: none;
 }
 .popupImageItem{
-    border: 1px solid rgb(211, 206, 206);
+    /* border: 1px solid rgb(211, 206, 206); */
     width: 300px;
     height: 190px;
 }
 .ad_img {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin-left: 139px;
 }
 .ad_bri_btn {
@@ -212,7 +216,6 @@ input[type="file"]{
     width: 140px;
     height: 45px;
     display: block;
-    margin-left: 86px;
     border: none;
     border-radius: 4px;
     color: white;
