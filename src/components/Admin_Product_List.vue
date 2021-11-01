@@ -47,7 +47,7 @@
                             <td>20,000</td>
                             <td style="padding : 25px 0;"><img :src="vegan_oil_img"></td>
                             <td>
-                                <button type="button">수정</button>
+                                <button type="button" @click="ProductUpdate">수정</button>
                                 <button type="button">삭제</button>
                             </td>
                         </tr>
@@ -59,11 +59,22 @@
 </template>
 
 <script>
+// import axios from 'axios';
 import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
     export default {
         data(){
             return{
-                vegan_oil_img : vegan_oil_img
+                vegan_oil_img : vegan_oil_img,
+                token : sessionStorage.getItem("token"),
+            }
+        },
+        created :{
+
+        },
+        methods : {
+            async ProductUpdate(){
+
+
             }
         }
     }
