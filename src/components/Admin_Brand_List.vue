@@ -7,27 +7,22 @@
         </div>
         <hr class="solid" />
         <div class="adbr_list">
-            <table class="table table-borderless" style="margin-left:50px;" >
-                <!-- style="margin-left:120px;" -->
+            <table class="table table-borderless align-middle" style="margin-left:50px;" >
                 <thead>
                     <tr>
-                        <th scope="col"></th>
-                        <th scope="col">브랜드</th>
-                        <th scope="col">등록일</th>
-                        <th scope="col"></th>
+                        <th scope="col">브랜드이미지</th>
+                        <th scope="col">브랜드명</th>
+                        <th scope="col">관리</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="item in brandlist" v-bind:key="item">
-                        <td style="width:1px; text-align: -webkit-center;">
-                        <div class="adbr_box">
-                            <img :src="`REST/api/select_image?no=${item.brandcode}`" class="adbr_profile" >
-                        </div>
-                        </td>
-                        <td style="padding: 25px 0;" >{{item.brandname}}</td>
                         <td>
-                        <button type="button" style="margin: 15px 0; width: 50px; border-radius: 7px;
-                        margin: 15px 0px; color: white; background-color: #49654E; border:none;" @click="deleteBrand">삭제</button>
+                            <img :src="`REST/api/select_image?no=${item.brandcode}`" class="adbr_box" >
+                        </td>
+                        <td style="padding: 45px 0;" >{{item.brandname}}</td>
+                        <td>
+                        <button type="button" id="brand_deleteBtn" @click="deleteBrand">삭제</button>
                         </td>
                         <!-- id="br_delete" -->
                     </tr>
@@ -56,7 +51,7 @@ import melixir from '@/assets/melixir.png';
 
             if(response.data.result === 1){
                 this.brandlist = response.data.list;
-                // console.log(this.brandlist);
+                console.log(this.brandlist);
             }
             else alert("떼잉");
             
@@ -74,6 +69,7 @@ import melixir from '@/assets/melixir.png';
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700;800&display=swap');
 .table {
+    width: 60%;
     font-family: 'Gowun Dodum', sans-serif;
     text-align: center;
 }
@@ -114,7 +110,13 @@ import melixir from '@/assets/melixir.png';
     margin-top: 7px;
 }
 .adbr_list {
-    padding: 80px 300px 300px 300px;
+    padding: 70px;
+    display : flex;
+    justify-content: center;
+}
+.adbr_list th{
+    /* border : 1px solid black; */
+    width: 20%;
 }
 tbody td {
     padding: 25px 0;
@@ -127,9 +129,9 @@ tbody td {
 }
 .adbr_box {
     /* border: 1px solid black;  */
-    width: 70px;
+    width: 110px;
     height: 70px; 
-    border-radius: 70%;
+    border-radius: 30%;
     overflow: hidden;
 }
 .adbr_profile {
@@ -138,7 +140,14 @@ tbody td {
     height: 100%;
     object-fit: cover;
 }
-
+#brand_deleteBtn{
+    margin: 20px 0; 
+    width: 50px; 
+    border-radius: 7px;
+    color: white; 
+    background-color: #49654E; 
+    border:none;
+}
 
 
 </style>
