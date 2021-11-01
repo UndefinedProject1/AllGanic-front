@@ -37,9 +37,17 @@
                         <option value="400" >400</option>
                     </select>
                     <select class="form-select" aria-label="Default select example" @click="handle_catemiddle" v-model="selected2">
-                        <option selected v-for="select in resultset" v-bind:key="select">{{resultset.substring(3,5)}}</option>
-                        <!-- <option value="10">{{select[0]}}</option> -->
-
+                        <option selected v-for="select in resultset" v-bind:key="select" >{{select}}</option>
+                        <!-- <option v-text="직접입력">직접입력</option> -->
+                        <div id="app">
+                            <div class="form-group" v-for="(input,k) in inputs" :key="k">
+                                <input type="text" class="form-control" v-model="input.name">
+                                <span>
+                                    <i class="fas fa-minus-circle" @click="remove(k)" v-show="k || ( !k && inputs.length > 1)"></i>
+                                    <i class="fas fa-plus-circle" @click="add(k)" v-show="k == inputs.length-1"></i>
+                                </span>
+                            </div>
+                        </div>
                     </select>
                 </div>
                 <div class="cate_insert_input">
@@ -78,16 +86,34 @@ import axios from 'axios';
         data() {
             return {
                 selected1 : '',
+                selected2 : '',
                 selects: [], 
                 resultset : [],
+                catetegorycode : '',
+                categoryname : '',
                 token : sessionStorage.getItem("token"),
+                inputs : [
+                    {
+                        name : ''
+                    }
+                ]
             }
         },
         components : {
         },
         methods : {
+            async add() {
+                this.inputs.push({ name: '' });
+            },
+            async remove(index) {
+                this.inputs.splice(index, 1);
+            },
+            // async handle_input() {
+            //     const headers = {"Content-Type" : "application/json", token : this.token};
+            //     const url = `REST/api/select_cproductnum?code=` + this.selected1;
+            //     const response = await axios.get(url,headers);
+            // },
             async handle_catemiddle() {
-
                 const headers = {"Content-Type" : "application/json", token : this.token};
                 const url = `REST/api/select_cproductnum?code=` + this.selected1;
                 const response = await axios.get(url,headers);
@@ -104,10 +130,10 @@ import axios from 'axios';
                     }
                     //categorycode 중복제거
                     const set = new Set(arr);
-                    const resultset = [...set];
-      
+                    this.resultset = [...set];
+                    
                     console.log(arr);
-                    console.log(resultset);
+                    console.log(this.resultset);
                 }
             },
             async handle_catebig() {
@@ -115,29 +141,24 @@ import axios from 'axios';
                 const url = `REST/api/select_cproductnum?code=` + this.selected1;
                 const response = await axios.get(url,headers);
                 console.log(response);
-
             },
-             
-        //     async handleInsertCate() {
-        //         const headers = {"Content-Type" : "application/json", token : this.token};
-        //         const body = {
-        //             // cate_big : this.cate_big,
-        //             // cate_middle : this.cate_middle,
-        //             // cate_insert : this.cate_insert,
-        //             cate_name : this.cate_name,
-        //             cate_all : this.cate_big + this.cate_middle + this.cate_insert,
-        //         }
-        //         console.log(body);
-        //         const url =  `REST/api/admin/category_insert`;
-        //         const response = await axios.post(url, body, {headers});
-        //         console.log(response);
-        //         if(response.data.result === 1) {
-        //            alert("dd");
-                
-        //     }
-        // }
-        
+            async handleInsertCate() {
+                const headers = {"Content-Type" : "application/json", token : this.token};
+                const body = {
+                    categorycode : this.selected1 + this.selected2 + this.cate_insert,
+                    categoryname : this.cate_name
+                }
+                console.log(body);
+                const url =  `REST/api/admin/category_insert`;
+                const response = await axios.post(url, body, {headers});
+                console.log(response);
+                if(response.data.result === 1) {
+                   alert("dd");
+            }
 
+
+            
+        }
     }
     
     
