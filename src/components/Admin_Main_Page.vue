@@ -1,15 +1,24 @@
 <template>
-    <div>
-        Main page _chart 추가예정
+    <div class="chartWrapper">
+        <PieChart></PieChart>
     </div>
 </template>
 
 <script>
+import PieChart from '@/components/chart/PieChart.vue'
     export default {
-        
+        data(){
+
+        },
+        components : {
+            PieChart : PieChart,
+        }
     }
 </script>
 
 <style scoped>
-
+.chartWrapper{
+    width : 50%;
+    height : 50%;
+}
 </style>

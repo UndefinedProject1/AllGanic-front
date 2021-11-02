@@ -20,11 +20,11 @@
                             <p> @ </p>
                             <div class="email_domain_selector">
                                 <div class="form-selector">
-                                    <input type="text" class="selected" @click="openOptions" name=""><a>{{selected}}</a>
+                                    <input type="text" class="selected" @click="openOptions" ref="" v-model="selected">
                                     <img :src="select_arrow_down"  id="selectorIcon">
                                 </div>
                                 <div class="select_options" v-bind:style="selectorStyle"  @mouseup="closeOptions">
-                                    <input type="radio" id="1" value="" >
+                                    <input type="radio" id="1" v-model="selected" value="">
                                     <label for="1">직접입력</label>
                                     <input type="radio" id="2" v-model="selected" value="naver.com" >
                                     <label for="2">naver.com</label>
