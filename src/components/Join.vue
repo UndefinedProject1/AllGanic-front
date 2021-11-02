@@ -20,8 +20,8 @@
                             <p> @ </p>
                             <div class="email_domain_selector">
                                 <div class="form-selector">
-                                    <input type="text" class="selected" @click="openOptions" ref="" v-model="selected">
-                                    <img :src="select_arrow_down"  id="selectorIcon">
+                                    <input type="text" class="selected"  @change="changeDomain" ref="selected_domain" v-model="selected">
+                                    <img :src="select_arrow_down"  id="selectorIcon" @click="openOptions">
                                 </div>
                                 <div class="select_options" v-bind:style="selectorStyle"  @mouseup="closeOptions">
                                     <input type="radio" id="1" v-model="selected" value="">
@@ -211,13 +211,16 @@ import select_arrow_down from '@/assets/select_arrow_down.png';
                 if(val.length > 0){
                     this.chktel = '';
                 }
-            }
+            },
 
         },
         components : {
             Footer : Footer
         },
         methods : {
+            changeDomain(){
+                console.log(this.selected);
+            },
             openOptions(){
                 this.selectorStyle.height = "fit-content";
                 this.selectorStyle.border = "1px solid black";
@@ -278,6 +281,7 @@ import select_arrow_down from '@/assets/select_arrow_down.png';
                     this.chkemail = "이메일은 입력 필수 항목입니다.";
                     this.checkStyle.color = "Red";
                 }
+
                 else if(this.userpw.length === 0){
                     this.$refs.pw.focus();
                     this.chkpw = "암호는 입력 필수 항목입니다.";
@@ -477,11 +481,13 @@ img {
     /* border : 1px solid black; */
     width : 90%;
     height :100%;
-    padding : 15px 0px 0px 10px;
+    padding : 15px 0px 15px 10px;
     font-size : 15px;
     font-weight : 200;
     color : black;
     text-align : center;
+    background-color: #eeeeee;
+    border : none;
 }
 .form-selector > img{
     width : 13px;

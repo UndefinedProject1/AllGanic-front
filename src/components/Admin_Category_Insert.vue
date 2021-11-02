@@ -218,7 +218,7 @@ import axios from 'axios';
     width : 100%;
 }
 .aci_content{
-    padding: 70px;
+    padding: 50px 80px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -269,6 +269,14 @@ small{
     width : 50%;
     height : fit-content;
     margin-right : 10px;
+}
+.cate_insert_input{
+    /* border: 1px solid black; */
+    width: 100%;
+    height : fit-content;
+    display: inline-flex;
+    justify-content: flex-end;
+    padding: 10px;
 }
 .cate_insert_input{
     /* border: 1px solid black; */

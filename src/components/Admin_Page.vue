@@ -2,7 +2,7 @@
     <div class="admin_wrapper">
         <div class="admin_sidmenu">
             <div class="sidemenu_header">
-                <p>Admin</p>
+                <p @click="ChangeMenu(0)">Admin</p>
             </div>
             <div class="divider"></div>
             <div class="sidemenu_container">
@@ -98,6 +98,10 @@ import Admin_Category_Insert from '@/components/Admin_Category_Insert.vue';
     color: white;
     margin : 30px auto;
     font-family: 'Exo', sans-serif;
+}
+.admin_sidmenu p:hover {
+    cursor: pointer;
+    opacity: 0.9;
 }
 .divider{
     border : 0.3px solid #ffffff;

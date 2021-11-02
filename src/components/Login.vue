@@ -4,7 +4,7 @@
                 <div class="insert_center">
                     <div class="login">
                         <p>로그인</p>
-                        <hr class="line" />
+                        <div class="divider"></div>
                     </div>
                     <div class="login_box">
                         <div class="email">
@@ -27,9 +27,7 @@
                             </ol>
                             </nav>
                         </div>
-                        <div class="login_btn">
-                            <button type="button" id="login_btn" @click="handleLogin" >Login</button>
-                        </div>
+                        <button type="button" id="login_btn" @click="handleLogin" >Login</button>
                     </div>
                 </div>
              </div>
@@ -98,7 +96,7 @@ import login_password from '@/assets/login_password.png';
     }
 </script>
 
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
 .login_wrapper{
     /* border: 1px solid black; */
@@ -110,15 +108,17 @@ import login_password from '@/assets/login_password.png';
     box-sizing: content-box;
     justify-content: center;
     flex-direction: column;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 .login_container{
     /* border: 1px solid black; */
-    width: 100%;
+    width: 40%;
     height : 100%;
     display: inline-flex;
     margin: 0 auto;
     padding:40px;
     justify-content: center;
+    align-items: center;
 }
 body {
     margin: 0;
@@ -132,32 +132,42 @@ body {
 }
 .insert_center {
     /* border: 1px solid black; */
-    position: absolute;
-    top: 25%;
-    width: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .login {
     /* border: 1px solid black; */
+    width : 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login p {
+    width: fit-content;
     text-align: center;
     font-size: 30px;
     font-family: 'Gowun Dodum', sans-serif;
     font-weight: bold;
-    color: rgba(73, 101, 78, 1);
-    font-weight: 500;
 }
-.line {
-    border: 10px;
-    color: #715036;
-    width: 100%;
+.divider {
+    border : 0.3px solid #49654E;
+    height: 0.3px;
+    width : 100%;
 }
 .login_box {
     /* border: 1px solid black; */
     width: 70%;
-    margin: 0 auto;
+    margin: 40px auto;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
 }
 .email {
     border-bottom: 1px solid black;
     display: block;
+    width : 100%;
 }
 .email_input {
     /* border: 1px solid black; */
@@ -183,7 +193,8 @@ body {
 }
 .password {
     border-bottom: 1px solid black;
-    padding-top: 20px;
+    margin: 20px;
+    width : 100%;
 }
 .password_input {
     /* border: 1px solid black; */
@@ -202,10 +213,7 @@ body {
     font-family: 'Gowun Dodum', sans-serif;
 }
 .login_nav {
-    padding-top: 20px;
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
+    margin : 10px;
 }
 .breadcrumb {
     /* border: 1px solid black; */
@@ -219,28 +227,15 @@ body {
     color: black;
     text-decoration-line: none;
 }
-.login_btn{
-    padding-top: 40px;
-    /* border: 1px solid black; */
-    /* display: flex; */
-}
-#login_btn{
-    width: 80px;
-    height: 30px;
-    display: block;
-    margin: 0 auto;
-    border:none;
-    border-radius: 4px;
-    color: white;
-    font-weight: bold;
-    background-color: #715036;
-}
+
 #id, #password {
     border: none;
-    width: 80%;
+    width: 90%;
     height: 48.5px;
     font-size: 15px;
     font-weight :300;
+    background-color: #eeeeee;
+    padding : 0px 0px 0px 15px;
 } 
 #img.logo_email, img.logo_password {
     width: 25px;
@@ -251,5 +246,21 @@ body {
     background-color: white;
     font-size: 15px;
 }
-
+#login_btn{
+    /* border: 1px solid black; */
+    width: 20%;
+    height: 45px;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #715036;
+    color: white;
+    border-radius: 4px;
+    font-family: 'Playfair Display', serif;
+    margin: 30px;
+}
+#login_btn:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
 </style>
