@@ -147,7 +147,7 @@ import axios from 'axios';
                 const headers = {"Content-Type" : "application/json", token : this.token};
                 const url = `REST/api/select_cproductnum?code=` + this.selected1;
                 const response = await axios.get(url,headers);
-                // console.log(response);
+                console.log(response);
             },
             async handleInsertCate() {
                 const headers = {"Content-Type" : "application/json", token : this.token};
