@@ -1,4 +1,5 @@
 <template>
+
     <div class="aci_wrapper">
         <div class="aci_header">
             <p>상품관리</p>
@@ -29,26 +30,26 @@
             <div class="cate_insert_section">
                 <div class="cate_insert_selector">
                     <select class="form-select"  aria-label="Default select example" @click="handle_catebig" v-model="selected1">
-                        <!-- <option selected v-for="cate_big in cate_bigs" v-bind:key="cate_big">{{cate_big.value}}</option> -->
-                        <!-- <option>{{cate_big.value}}</option> -->
                         <option value="100" >100</option>
                         <option value="200" >200</option> 
                         <option value="300" >300</option>
                         <option value="400" >400</option>
                     </select>
-                    <select class="form-select" aria-label="Default select example" @click="handle_catemiddle" v-model="selected2">
-                        <option selected v-for="select in resultset" v-bind:key="select" >{{select}}</option>
-                        <!-- <option v-text="직접입력">직접입력</option> -->
-                        <div id="app">
-                            <div class="form-group" v-for="(input,k) in inputs" :key="k">
-                                <input type="text" class="form-control" v-model="input.name">
-                                <span>
-                                    <i class="fas fa-minus-circle" @click="remove(k)" v-show="k || ( !k && inputs.length > 1)"></i>
-                                    <i class="fas fa-plus-circle" @click="add(k)" v-show="k == inputs.length-1"></i>
-                                </span>
-                            </div>
-                        </div>
+                    <select class="form-select" aria-label="Default select example" @click="handle_catemiddle" @change="watching" v-model="selected2">
+                        <option selected @click="handle_input">직접입력</option>
+                        <option :value="select" v-for="select in resultset" v-bind:key="select">{{select}}</option>
                     </select>
+                    <!-- <div class="form-group" v-for="(input,k) in inputs" :key="k" >
+                                <input type="text" class="form-control" v-model="input.name">
+                                    <span>
+                                        <i class="fas fa-plus-circle" @click="add(k)" v-show="k == inputs.length-1"></i>
+                                    </span>
+                    </div> -->
+                </div>
+                <div class="cate_insert_input">
+                    <input type="text" class="form-control" id="formGroupExampleInput" name="selects.categoryname" v-model="selects.categoryname" placeholder="코드 입력">
+                    <input type="text" class="form-control" id="formGroupExampleName" v-model="cate_name" placeholder="이름 입력">
+                    <button type="button" @click="handleInsertCate">카테고리 추가</button>
                 </div>
                 <div class="cate_insert_input">
                     <input type="text" class="form-control" id="formGroupExampleInput" v-model="cate_insert" placeholder="코드 입력">
@@ -85,6 +86,7 @@ import axios from 'axios';
     export default {
         data() {
             return {
+                select : '',
                 selected1 : '',
                 selected2 : '',
                 selects: [], 
@@ -96,7 +98,7 @@ import axios from 'axios';
                     {
                         name : ''
                     }
-                ]
+                ],
             }
         },
         components : {
@@ -105,13 +107,8 @@ import axios from 'axios';
             async add() {
                 this.inputs.push({ name: '' });
             },
-            async remove(index) {
-                this.inputs.splice(index, 1);
-            },
-            // async handle_input() {
-            //     const headers = {"Content-Type" : "application/json", token : this.token};
-            //     const url = `REST/api/select_cproductnum?code=` + this.selected1;
-            //     const response = await axios.get(url,headers);
+            // async remove(index) {
+            //     this.inputs.splice(index, 1);
             // },
             async handle_catemiddle() {
                 const headers = {"Content-Type" : "application/json", token : this.token};
@@ -124,7 +121,7 @@ import axios from 'axios';
                     //categorycode 추출
                     var arr = [];
                     for(var tmp of this.selects){
-                        console.log(tmp.categorycode);
+                        // console.log(tmp.categorycode);
                         const str1 = tmp.categorycode.substring(3,5);
                         arr.push(str1);
                     }
@@ -140,7 +137,7 @@ import axios from 'axios';
                 const headers = {"Content-Type" : "application/json", token : this.token};
                 const url = `REST/api/select_cproductnum?code=` + this.selected1;
                 const response = await axios.get(url,headers);
-                console.log(response);
+                // console.log(response);
             },
             async handleInsertCate() {
                 const headers = {"Content-Type" : "application/json", token : this.token};
@@ -148,20 +145,15 @@ import axios from 'axios';
                     categorycode : this.selected1 + this.selected2 + this.cate_insert,
                     categoryname : this.cate_name
                 }
-                console.log(body);
+                // console.log(body);
                 const url =  `REST/api/admin/category_insert`;
                 const response = await axios.post(url, body, {headers});
-                console.log(response);
+                // console.log(response);
                 if(response.data.result === 1) {
                    alert("dd");
             }
-
-
-            
         }
     }
-    
-    
 }
 </script>
 
@@ -279,7 +271,6 @@ button {
 Button:hover{
     opacity: 0.9;
 }
-
 .cate_insert_note{
     border : 1px solid rgb(206 212 217);
     width : 100%;
@@ -313,5 +304,10 @@ Button:hover{
 }
 .cate_code_ex strong{
     font-size: 18px;
+}
+input.form-control {
+    
+    width: 50% !important;
+    height: 30px;
 }
 </style>

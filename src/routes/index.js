@@ -6,6 +6,7 @@ import Login from '@/components/Login.vue';
 import Cart_Popup from '@/components/Cart_Popup.vue';
 import Admin_Page from '@/components/Admin_Page.vue';
 import Restrict_Page from '@/components/Restrict_Page.vue';
+import ect from '@/components/ect.vue';
 
 const routes = [
     {path : '/' , name :'main', component : Main},
@@ -14,6 +15,7 @@ const routes = [
     {path : '/cart_popup' , name :'cart_popup', component : Cart_Popup},
     {path : '/admin_page' , name :'admin_page', component : Admin_Page},
     {path : '/restrict_page' , name :'restrict_page', component : Restrict_Page},
+    {path : '/ect' , name :'ect', component : ect},
 ];
 
 const router = createRouter({
