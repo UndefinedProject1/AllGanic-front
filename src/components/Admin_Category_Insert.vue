@@ -46,10 +46,9 @@
                                     </span>
                     </div> -->
                 </div>
-                <div class="cate_insert_input">
-                    <input type="text" class="form-control" id="formGroupExampleInput" name="selects.categoryname" v-model="selects.categoryname" placeholder="코드입력">
-                    <input type="text" class="form-control" id="formGroupExampleName" v-model="cate_name" placeholder="이름 입력">
-                    <button type="button" @click="handleInsertCate">카테고리 추가</button>
+                <div class="cate_insert_input" v-if="openCateInput">
+                    <input type="text" class="form-control" id="formGroupExampleInput" v-model="cate_insert1" placeholder="코드입력">
+                    <input type="text" class="form-control" id="formGroupExampleName" v-model="cate_name1" placeholder="이름 입력">
                 </div>
                 <div class="cate_insert_input">
                     <input type="text" class="form-control" id="formGroupExampleInput" v-model="cate_insert" placeholder="코드 입력">
@@ -93,12 +92,17 @@ import axios from 'axios';
                 resultset : [],
                 catetegorycode : '',
                 categoryname : '',
+                cate_insert : '',
+                cate_name : '',
+                cate_insert1 : '',
+                cate_name1 : '',
                 token : sessionStorage.getItem("token"),
-                inputs : [
-                    {
-                        name : ''
-                    }
-                ],
+                // inputs : [
+                //     {
+                //         name : ''
+                //     }
+                // ],
+                openCateInput : false
             }
         },
         components : {
@@ -106,12 +110,12 @@ import axios from 'axios';
         methods : {
             watching () {
                 if(this.selected2 === "직접입력") {
-                    alert("dd");
+                    this.openCateInput = true;
                 }
             },
-            async add() {
-                this.inputs.push({ name: '' });
-            },
+            // async add() {
+            //     this.inputs.push({ name: '' });
+            // },
             // async remove(index) {
             //     this.inputs.splice(index, 1);
             // },
@@ -151,16 +155,29 @@ import axios from 'axios';
                     categorycode : this.selected1 + this.selected2 + this.cate_insert,
                     categoryname : this.cate_name
                 }
+                const body1 = {
+                    categorycode : this.selected1 + this.cate_insert1 + this.cate_insert,
+                    categoryname : this.cate_name
+                }
                 // console.log(body);
                 const url =  `REST/api/admin/category_insert`;
-                const response = await axios.post(url, body, {headers});
-                // console.log(response);
-                if(response.data.result === 1) {
-                   alert("dd");
+                if(this.selected2 !== "직접입력"){
+                    const response = await axios.post(url, body, {headers});
+                    console.log(response);
+                    if(response.data.result === 1) {
+                        alert("카테고리등록성공");
+                    }else alert("뗴잉");
+                }
+                else {
+                    const response1 = await axios.post(url, body1, {headers});
+                    console.log(response1);
+                    if(response1.data.result === 1) {
+                        alert("카테고리등록성공");
+                    }else alert("뗴잉");
+                }
             }
         }
     }
-}
 </script>
 
 <style scoped>
