@@ -15,19 +15,19 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <th><span class="th_title">브랜드</span></th>
+                            <th><span class="th_title">브랜드코드</span></th>
                             <td>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>{{selected}}</option>
+                                <select class="form-select" v-model="selected">
+                                    <option>{{selected}}</option>
                                     <option :value="code.brandcode" v-for="code in brandlist" v-bind:key="code">{{code.brandname}} ({{code.brandcode}})</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
-                            <th><span class="th_title">카테고리</span></th>
+                            <th><span class="th_title">카테고리코드</span></th>
                             <td>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>{{selected2}}</option>
+                                <select class="form-select" v-model="selected2">
+                                    <option>{{selected2}}</option>
                                     <option :value="code.categorycode" v-for="code in catelist" v-bind:key="code">{{code.categoryname}} ({{code.categorycode}})</option>
                                 </select>
                             </td>
@@ -35,12 +35,12 @@
                         <tr>
                             <th><span class="th_title">제품명</span></th>
                             <td>
-                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="제품명 입력">
+                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="제품명 입력" v-model="productname">
                             </td>
                         </tr>
                         <tr>
                             <th><span class="th_title">가격</span></th>
-                            <td><input type="text" class="form-control" id="formGroupExampleInput" placeholder="가격 설정"></td>
+                            <td><input type="text" class="form-control" id="formGroupExampleInput" placeholder="가격 설정" v-model="productprice"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -100,14 +100,23 @@ import default_image from '@/assets/default_image.jpg';
     export default {
         data() {
             return {
-                subimg1 : [default_image],
-                subimg2 : [default_image],
-                subimg3 : [default_image],
-                mainImg : [default_image],
+                gettoken : sessionStorage.getItem("token"),
+                // settoken : sessionStorage.setItem("token"),
+                subimg1 : default_image,
+                subimg2 : default_image,
+                subimg3 : default_image,
+                mainImg : default_image,
                 brandlist : [],
                 catelist : [],
-                selected : "브랜드코드 선택",
-                selected2 : "카테고리코드 선택"
+                selected : '브랜드코드선택',
+                selected2 : '카테고리코드선택',
+                productname : '',
+                productprice : '',
+                mainfile : '',
+                subfile1 : '',
+                subfile2 : '',
+                subfile3 : '',
+                pcode : '',
             }
         },
         async created() {
@@ -135,8 +144,37 @@ import default_image from '@/assets/default_image.jpg';
                 else alert("돼라");
 
             },
+            async handleProductInsert(){
+                const headers = { "Content-Type" : "multipart/form-data", "token" : this.gettoken };
+                const url = `REST/api/admin/product_insert`;
+                const formData = new FormData();
+                formData.append("productname", this.productname);
+                formData.append("productprice", this.productprice);
+                formData.append("file", this.mainfile);
+                formData.append("brand", this.selected);
+                formData.append("category", this.selected2);
+                
+                const response = await axios.post(url, formData, {headers});
+                console.log(response);
+                // console.log(formData);
+                if(response.data.result === 1){
+                    this.pcode = response.data.productcode;
+                    console.log(this.pcode);
+                    const url1 = `REST/api/admin/subimg_insert?product=${this.pcode}`;
+                    const formData1 = new FormData();
+                    formData1.append("file", this.subfile1);
+                    formData1.append("file", this.subfile2);
+                    formData1.append("file", this.subfile3);
+                    const response1 = await axios.post(url1, formData1, {headers});
+                    if(response1.data.result === 1){
+                        alert("제품등록완료!");
+                    }else alert("ㄴㄴ 돌아가");
+                }
+
+            },
             handleMainImg(e){
                 if(e.target.files.length > 0) {
+                    this.mainfile = e.target.files[0];
                     var reader = new FileReader();
                     reader.onload = (e) => {
                         this.mainImg = e.target.result;
@@ -146,6 +184,7 @@ import default_image from '@/assets/default_image.jpg';
             },
             handleSubImg(e){
                 if(e.target.files.length > 0) {
+                    this.subfile1 = e.target.files[0];
                     var reader = new FileReader();
                     reader.onload = (e) => {
                         this.subimg1 = e.target.result;
@@ -155,6 +194,7 @@ import default_image from '@/assets/default_image.jpg';
             },
             handleSubImg2(e){
                 if(e.target.files.length > 0) {
+                    this.subfile2 = e.target.files[0];
                     var reader = new FileReader();
                     reader.onload = (e) => {
                         this.subimg2 = e.target.result;
@@ -164,6 +204,7 @@ import default_image from '@/assets/default_image.jpg';
             },
             handleSubImg3(e){
                 if(e.target.files.length > 0) {
+                    this.subfile3 = e.target.files[0];
                     var reader = new FileReader();
                     reader.onload = (e) => {
                         this.subimg3 = e.target.result;

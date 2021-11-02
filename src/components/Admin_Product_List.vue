@@ -68,15 +68,15 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 token : sessionStorage.getItem("token"),
             }
         },
-        created :{
+        // created :{
 
-        },
-        methods : {
-            async ProductUpdate(){
+        // },
+        // methods : {
+        //     async ProductUpdate(){
 
 
-            }
-        }
+        //     }
+        // }
     }
 </script>
 

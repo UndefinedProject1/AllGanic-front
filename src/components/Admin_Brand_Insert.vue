@@ -61,7 +61,7 @@ import default_image from '@/assets/default_image.jpg';
                 const formData = new FormData();
                 formData.append("brandname", this.brandname);
                 formData.append("file", this.file);
-                console.log(this.uploadImageFile);
+                // console.log(this.uploadImageFile);
 
                 const response = await axios.post(url, formData, {headers});
                 console.log(response);
