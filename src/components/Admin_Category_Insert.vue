@@ -36,7 +36,7 @@
                         <option value="400" >400</option>
                     </select>
                     <select class="form-select" aria-label="Default select example" @click="handle_catemiddle" @change="watching" v-model="selected2">
-                        <option selected @click="handle_input">직접입력</option>
+                        <!-- <option selected @click="handle_input">직접입력</option> -->
                         <option :value="select" v-for="select in resultset" v-bind:key="select">{{select}}</option>
                     </select>
                     <!-- <div class="form-group" v-for="(input,k) in inputs" :key="k" >
@@ -47,7 +47,7 @@
                     </div> -->
                 </div>
                 <div class="cate_insert_input">
-                    <input type="text" class="form-control" id="formGroupExampleInput" name="selects.categoryname" v-model="selects.categoryname" placeholder="코드 입력">
+                    <input type="text" class="form-control" id="formGroupExampleInput" name="selects.categoryname" v-model="selects.categoryname" placeholder="코드입력">
                     <input type="text" class="form-control" id="formGroupExampleName" v-model="cate_name" placeholder="이름 입력">
                     <button type="button" @click="handleInsertCate">카테고리 추가</button>
                 </div>
@@ -104,6 +104,11 @@ import axios from 'axios';
         components : {
         },
         methods : {
+            watching () {
+                if(this.selected2 === "직접입력") {
+                    alert("dd");
+                }
+            },
             async add() {
                 this.inputs.push({ name: '' });
             },
@@ -128,6 +133,7 @@ import axios from 'axios';
                     //categorycode 중복제거
                     const set = new Set(arr);
                     this.resultset = [...set];
+                    this.resultset.push("직접입력");
                     
                     console.log(arr);
                     console.log(this.resultset);
