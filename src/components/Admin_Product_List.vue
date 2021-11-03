@@ -160,9 +160,9 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 subimg2 : default_image,
                 subimg3 : default_image,
                 mainImg : default_image,
-                selected1 : '대분류',
-                selected2 : '중분류',
-                selected3 : '소분류',
+                selected1 : '',
+                selected2 : '',
+                selected3 : '',
                 select : '',
                 select1 : '',
                 resultset : [],
@@ -171,17 +171,22 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 selects1 : [],
                 productname : '',
                 productprice : '',
+                pList : []
             }
         },
-        // created :{
-
-        // },
+        async created(){
+            await this.productList();
+        },
         methods : {
             async productList() {
                 const header = {"Content-Type" : "application/json"};
                 const url = `REST/api/select_cproduct2?code=` + this.selected1+this.selected2+this.selected3;
                 const response = await axios.get(url, {header});
                 console.log(response);
+                if(response.data.result ===1) {
+                    this.pList = response.data.list;
+                    console.log(this.pList);
+                }
             },
             async updatemodal(){
                 this.$refs['testmodal']
