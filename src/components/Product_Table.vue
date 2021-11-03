@@ -68,10 +68,12 @@ import Footer from '@/components/Footer.vue';
     export default {
         data(){
             return{
-                Footer : Footer,
                 vegan_oil_img : vegan_oil_img,
                 cart_img : cart_img
             }
+        },
+        components : {
+            Footer : Footer,
         }
     }
 </script>

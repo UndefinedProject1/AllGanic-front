@@ -8,6 +8,7 @@ import Admin_Page from '@/components/Admin_Page.vue';
 import Restrict_Page from '@/components/Restrict_Page.vue';
 import MyPage from '@/components/MyPage.vue';
 import Product_Table from '@/components/Product_Table.vue';
+import Product_Detail from '@/components/Product_Detail.vue';
 
 const routes = [
     {path : '/' , name :'main', component : Main},
@@ -18,6 +19,7 @@ const routes = [
     {path : '/restrict_page' , name :'restrict_page', component : Restrict_Page},
     {path : '/mypage' , name :'mypage', component : MyPage},
     {path : '/product_table' , name :'product_table', component : Product_Table},
+    {path : '/product_detail' , name :'product_detail', component : Product_Detail},
 ];
 
 const router = createRouter({
