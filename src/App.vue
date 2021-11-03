@@ -196,8 +196,6 @@
       openSideNav(){
         this.sideNavStyle.width="20%";
         this.wrapper.opacity="0.4";
-        
-        // this.wrappers
       },
       openSideNav_b(){
         this.sideNavStyle_b.width="30%";
