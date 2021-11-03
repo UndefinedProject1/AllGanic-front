@@ -12,27 +12,18 @@
                 <div class="cart_productbox2">
                     <div class="cart_content1">
                         <span>[Melixir]</span>
-                        <p>어성초 세안비누dndndn</p> 
-                        <!-- <p>세안비누</p> -->
+                        <p>어성초 세안비누dnsfadsfafafaddndn</p> 
                     </div>
-                    <!-- <span>[Quantity]</span> -->
                     <div class="cart_content2">
-                        <button @click="increase" style="border:none">+</button>
+                        <button @click="increase1" style="border:none">+</button>
                         {{number}}
-                        <button @click="decrease" style="border:none">-</button>
-                        <!-- <input type='button' @click='count("minus")' value='-'/>
-                        <div id='result'>0</div>
-                        <input type='button' @click='count("plus")' value='+'/> -->
-                        <!-- <div class="cart_count">
-                            <img :src="cart_minus" class="cart_minus" />
-                            <img :src="cart_plus" class="cart_plus" />
-                        </div> -->
-                        <!-- <hr class="line" id="count_line"/> -->
+                        <button @click="decrease1" style="border:none">-</button>
                     </div>
                 </div>
                 <div class="cart_productbox3">
                     <div class="cart_price">
                         <p>[Price]</p>
+                        <p>35,000</p>
                     </div>
                 </div>
             </div>
@@ -44,20 +35,18 @@
                 <div class="cart_productbox5">
                     <div class="cart_content3">
                         <span>[Melixir]</span>
-                        <p>불가리 로즈힙 오일</p> 
-                        <!-- <p>세안비누</p> -->
+                        <p>불가리 로즈힙 오일fdsafasdasfafafafafadfasf</p> 
                     </div>
                     <div class="cart_content4">
-                        <button @click="increase" style="border:none">+</button>
-                        {{number}}
-                        <button @click="decrease" style="border:none">-</button>
-                        <!-- <span>[Quantity]</span>
-                        <p>숫자 증가하는걸 찾을 수 없어</p> -->
+                        <button @click="increase2" style="border:none">+</button>
+                        {{number1}}
+                        <button @click="decrease2" style="border:none">-</button>
                     </div>
                 </div>
                 <div class="cart_productbox6">
                     <div class="cart_price">
                         <p>[Price]</p>
+                        <p>25,200</p>
                     </div>
                 </div>
             </div>
@@ -92,22 +81,26 @@ import cart_plus from '@/assets/cart_plus.png';
                 cart_popup_img2 : cart_popup_img2,
                 cart_minus :cart_minus,
                 cart_plus : cart_plus,
-                number : 0
+                number : 0,
+                number1 : 0,
             }
         },
         components :{
             Footer : Footer
         },
         methods: {
-            increase : function() {
+            increase1 : function() {
                 this.number++;
             },
-            decrease : function() {
+            decrease1 : function() {
                 this.number--;
+            },
+            increase2 : function() {
+                this.number1++;
+            },
+            decrease2 : function() {
+                this.number1--;
             }
-            // count() {
-                
-            // },
         },
     }
 </script>
@@ -122,6 +115,7 @@ import cart_plus from '@/assets/cart_plus.png';
     /* border: 1px solid black; */
     display: inline-block;
     height : 100%;
+    width: 40%;
     padding-top: 50px;
 }
 .add_list{
@@ -154,17 +148,8 @@ import cart_plus from '@/assets/cart_plus.png';
 }
 .cart_content2 .cart_content4 {
     border: 1px solid black;
-    /* display: inline-flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-evenly;
-    align-items: center;
-    align-content: flex-start;
-    padding-top: 45px; */
+
     margin-left: 30px;
-}
-.cart_content4 {
-    
 }
 #count_line {
     border: 1px solid black;
@@ -175,14 +160,14 @@ import cart_plus from '@/assets/cart_plus.png';
     border: 1px solid black;
     width: 150px;
 }
-.cart_productbox2 {
+.cart_productbox2 .cart_productbox5 {
     border: 1px solid black;
-    width: 150px;
+    width: auto 0px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
 }
-.cart_productbox5 {
-    border: 1px solid black;
-    width: 150px;
-}
+
 .cart_productbox3 {
     border: 1px solid black;
     width: 30%;
