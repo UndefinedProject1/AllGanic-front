@@ -29,22 +29,15 @@
             </div>
             <div class="cate_insert_section">
                 <div class="cate_insert_selector">
-                    <select class="form-select"  aria-label="Default select example" @click="handle_catebig" v-model="selected1">
+                    <select class="form-select"  aria-label="Default select example" v-model="selected1">
                         <option value="100" >100</option>
                         <option value="200" >200</option> 
                         <option value="300" >300</option>
                         <option value="400" >400</option>
                     </select>
                     <select class="form-select" aria-label="Default select example" @click="handle_catemiddle" @change="watching" v-model="selected2">
-                        <!-- <option selected @click="handle_input">직접입력</option> -->
                         <option :value="select" v-for="select in resultset" v-bind:key="select">{{select}}</option>
                     </select>
-                    <!-- <div class="form-group" v-for="(input,k) in inputs" :key="k" >
-                                <input type="text" class="form-control" v-model="input.name">
-                                    <span>
-                                        <i class="fas fa-plus-circle" @click="add(k)" v-show="k == inputs.length-1"></i>
-                                    </span>
-                    </div> -->
                 </div>
                 <div class="cate_insert_input" v-if="openCateInput">
                     <input type="text" class="form-control" id="formGroupExampleInput" v-model="cate_insert1" placeholder="코드입력">
@@ -97,11 +90,6 @@ import axios from 'axios';
                 cate_insert1 : '',
                 cate_name1 : '',
                 token : sessionStorage.getItem("token"),
-                // inputs : [
-                //     {
-                //         name : ''
-                //     }
-                // ],
                 openCateInput : false
             }
         },
@@ -113,16 +101,10 @@ import axios from 'axios';
                     this.openCateInput = true;
                 }
             },
-            // async add() {
-            //     this.inputs.push({ name: '' });
-            // },
-            // async remove(index) {
-            //     this.inputs.splice(index, 1);
-            // },
             async handle_catemiddle() {
                 const headers = {"Content-Type" : "application/json", token : this.token};
-                const url = `REST/api/select_cproductnum?code=` + this.selected1;
-                const response = await axios.get(url,headers);
+                const url = `REST/api/select_catenum?code=` + this.selected1;
+                const response = await axios.get(url, {headers});
                 console.log(response);
                 if(response.data.result ===1) {
                     this.selects = response.data.list;
@@ -142,12 +124,6 @@ import axios from 'axios';
                     console.log(arr);
                     console.log(this.resultset);
                 }
-            },
-            async handle_catebig() {
-                const headers = {"Content-Type" : "application/json", token : this.token};
-                const url = `REST/api/select_cproductnum?code=` + this.selected1;
-                const response = await axios.get(url,headers);
-                console.log(response);
             },
             async handleInsertCate() {
                 const headers = {"Content-Type" : "application/json", token : this.token};

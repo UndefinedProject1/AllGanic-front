@@ -8,23 +8,21 @@
         <div class="apl_divider"></div>
         <div class="apl_content">
             <div class="selector_section">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>대분류</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option> 
-                    <option value="3">Three</option>
+                <select class="form-select" aria-label="Default select example" v-model="selected1">
+                    <option selected disabled>대분류</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option> 
+                    <option value="300">300</option>
+                    <option value="400">400</option>
                 </select>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>중분류</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option> 
-                    <option value="3">Three</option>
+                <select class="form-select" aria-label="Default select example" @click="handle_middle" v-model="selected2">
+                    <option selected disabled>중분류</option>
+                    <option :value="select" v-for="select in resultset" v-bind:key="select">{{select}}</option>
                 </select>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>소분류</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option> 
-                    <option value="3">Three</option>
+                <select class="form-select" aria-label="Default select example" @click="handle_small" v-model="selected3">
+                    <option selected disabled>소분류</option>
+                    <option :value="select1" v-for="select1 in resultset1" v-bind:key="select1">{{select1}}</option>
+
                 </select>
             </div>
             <div class="list_section">
@@ -149,7 +147,7 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 import default_image from '@/assets/default_image.jpg';
 import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
     export default {
@@ -162,14 +160,78 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 subimg2 : default_image,
                 subimg3 : default_image,
                 mainImg : default_image,
+                selected1 : '대분류',
+                selected2 : '중분류',
+                selected3 : '소분류',
+                select : '',
+                select1 : '',
+                resultset : [],
+                resultset1 : [],
+                selects : [],
+                selects1 : [],
+                productname : '',
+                productprice : '',
             }
         },
         // created :{
 
         // },
         methods : {
+            async productList() {
+                const header = {"Content-Type" : "application/json"};
+                const url = `REST/api/select_cproduct2?code=` + this.selected1+this.selected2+this.selected3;
+                const response = await axios.get(url, {header});
+                console.log(response);
+            },
             async updatemodal(){
                 this.$refs['testmodal']
+            },
+            async handle_middle() {
+                const headers = {"Content-Type" : "application/json", token : this.token};
+                const url = `REST/api/select_catenum?code=` + this.selected1;
+                const response = await axios.get(url, {headers});
+                console.log(response);
+                if(response.data.result ===1) {
+                    this.selects = response.data.list;
+
+                    //categorycode 추출
+                    var arr = [];
+                    for(var tmp of this.selects){
+                        // console.log(tmp.categorycode);
+                        const str1 = tmp.categorycode.substring(3,5);
+                        arr.push(str1);
+                    }
+                    //categorycode 중복제거
+                    const set = new Set(arr);
+                    this.resultset = [...set];
+                    
+                    console.log(arr);
+                    console.log(this.resultset);
+                }
+            },
+            async handle_small() {
+                const headers = {"Content-Type" : "application/json", token : this.token};
+                const url = `REST/api/select_catenum?code=` + this.selected1 + this.selected2;
+                const response = await axios.get(url, {headers});
+                console.log(url);
+                console.log(response);
+                if(response.data.result ===1) {
+                    this.selects1 = response.data.list;
+
+                    //categorycode 추출
+                    var arr = [];
+                    for(var tmp of this.selects1){
+                        // console.log(tmp.categorycode);
+                        const str1 = tmp.categorycode.substring(5);
+                        arr.push(str1);
+                    }
+                    //categorycode 중복제거
+                    const set = new Set(arr);
+                    this.resultset1 = [...set];
+                    
+                    console.log(arr);
+                    console.log(this.resultset1);
+                }
             }
         }
     }
