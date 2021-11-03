@@ -37,7 +37,7 @@
     <div class="nav_sections">
       <div class="fashion_section">
         <h3>Fashion</h3>
-        <a href="#">의류</a>
+        <a href="/product_table">의류</a>
         <a href="#">잡화</a>
       </div>
       <div class="lifestyle_section">
