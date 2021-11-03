@@ -136,7 +136,7 @@ import Footer from '@/components/Footer.vue';
     width: 100%;
     height: fit-content;
     display: flex;
-    margin: 10px 0px;
+    margin: 20px 0px;
 }
 .pt_product{
     /* border: 1px solid black; */
@@ -152,6 +152,10 @@ import Footer from '@/components/Footer.vue';
     height: 70%;
     border-radius: 3px;
     margin: 0 auto;
+}
+.pt_product:hover{
+    cursor: pointer;
+    opacity: 0.7;
 }
 .pd_text_section {
     margin-left: 10px;

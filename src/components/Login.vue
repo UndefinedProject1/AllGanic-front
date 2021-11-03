@@ -1,36 +1,36 @@
 <template>
     <div class="login_wrapper">
-         <div class="login_container">
-                <div class="insert_center">
-                    <div class="login">
-                        <p>로그인</p>
-                        <div class="divider"></div>
-                    </div>
-                    <div class="login_box">
-                        <div class="email">
-                            <div class="email_input">
-                                <img :src="login_email" style="right" class="logo_email"/>
-                                <input type="text" placeholder="이메일" id="id" v-model="userid">
-                            </div>
-                        </div>
-                        <div class="password">
-                            <div class="password_input">
-                                <img :src="login_password" style="right" class="logo_password"/>
-                                <input type="password" placeholder="비밀번호" id="password" v-model="userpw">
-                            </div>
-                        </div>
-                        <div class="login_nav">
-                            <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">회원가입</a></li>
-                                <li class="breadcrumb-item"><a href="#">비밀번호 찾기</a></li>
-                            </ol>
-                            </nav>
-                        </div>
-                        <button type="button" id="login_btn" @click="handleLogin" >Login</button>
-                    </div>
+        <div class="login_container">
+            <div class="insert_center">
+                <div class="login">
+                    <p>로그인</p>
+                    <div class="divider"></div>
                 </div>
-             </div>
+                <div class="login_box">
+                    <div class="email">
+                        <div class="email_input">
+                            <img :src="login_email" style="right" class="logo_email"/>
+                            <input type="text" placeholder="이메일" id="id" v-model="userid">
+                        </div>
+                    </div>
+                    <div class="password">
+                        <div class="password_input">
+                            <img :src="login_password" style="right" class="logo_password"/>
+                            <input type="password" placeholder="비밀번호" id="password" v-model="userpw">
+                        </div>
+                    </div>
+                    <div class="login_nav">
+                        <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">회원가입</a></li>
+                            <li class="breadcrumb-item"><a href="#">비밀번호 찾기</a></li>
+                        </ol>
+                        </nav>
+                    </div>
+                    <button type="button" id="login_btn" @click="handleLogin" >Login</button>
+                </div>
+            </div>
+        </div>
         <Footer></Footer>
     </div>
     
