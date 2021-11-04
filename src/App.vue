@@ -37,24 +37,24 @@
     <div class="nav_sections">
       <div class="fashion_section">
         <h3>Fashion</h3>
-        <router-link :to="{ name: 'product_table', params: { code: '10010' } } ">의류</router-link>
-        <router-link :to="{ name: 'product_table', params: { code: '10011' } }">잡화</router-link>
+        <router-link :to="{ name: 'product_table', params: { code: '10010' }, query: {code : '10010'} } ">의류</router-link>
+        <router-link :to="{ name: 'product_table', params: { code: '10011' }, query: {code : '10011'} }">잡화</router-link>
       </div>
       <div class="lifestyle_section">
         <h3>Life-Style</h3>
-        <router-link :to="{ name: 'product_table', params: { code: '30030' } } ">주방</router-link>
-        <router-link :to="{ name: 'product_table', params: { code: '30031' } }">욕실</router-link>
-        <router-link :to="{ name: 'product_table', params: { code: '30032' } }">기타</router-link>
+        <router-link :to="{ name: 'product_table', params: { code: '30030' }, query: {code : '30030'} } ">주방</router-link>
+        <router-link :to="{ name: 'product_table', params: { code: '30031' }, query: {code : '30031'} }">욕실</router-link>
+        <router-link :to="{ name: 'product_table', params: { code: '30032' }, query: {code : '30032'} }">기타</router-link>
       </div>
       <div class="beauty_section">
         <h3>Beauty</h3>
-        <router-link :to="{ name: 'product_table', params: { code: '40040' } } ">헤어</router-link>
-        <router-link :to="{ name: 'product_table', params: { code: '40041' } }">스킨</router-link>
-        <router-link :to="{ name: 'product_table', params: { code: '40042' } }">바디</router-link>                
+        <router-link :to="{ name: 'product_table', params: { code: '40040' }, query: {code : '40040'} } ">헤어</router-link>
+        <router-link :to="{ name: 'product_table', params: { code: '40041' }, query: {code : '40041'} }">스킨</router-link>
+        <router-link :to="{ name: 'product_table', params: { code: '40042' }, query: {code : '40042'} }">바디</router-link>                
       </div>
       <div class="food_section">
         <h3>Food</h3>
-        <router-link :to="{ name: 'product_table', params: { code: '20020' } }">마실거리</router-link> 
+        <router-link :to="{ name: 'product_table', params: { code: '20020' }, query: {code : '20020'}}">마실거리</router-link> 
       </div>
     </div>
   </div>

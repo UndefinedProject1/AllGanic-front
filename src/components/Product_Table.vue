@@ -12,7 +12,7 @@
                     <ul> 
                         <li class="pt_product_container" v-for="product in productlist" v-bind:key="product">
                             <div class="pt_product" >
-                                <img :src="`REST/api/select_productimage?no=${product.productcode}`">
+                                <img :src="`REST/api/select_productimage?no=${product.productcode}`" class="img-thumbnail">
                                 <div class="pd_text_section">
                                     <p id="pd_brand"><ins>{{product.brandname}}</ins></p>
                                     <p id="pd_name"><strong>{{product.productname}}</strong></p>
@@ -40,7 +40,8 @@ import Footer from '@/components/Footer.vue';
             return{
                 vegan_oil_img : vegan_oil_img,
                 cart_img : cart_img,
-                category_code : this.$route.params.code,
+                category_codeP : this.$route.params.code,
+                category_codeq : this.$route.query.code,
                 catelist : [],
                 productlist : [],
             }
@@ -48,37 +49,58 @@ import Footer from '@/components/Footer.vue';
         components : {
             Footer : Footer,
         },
-
-        async mounted(){
+        async created(){
             await this.handleContents();
-
         },
         watch: {
             async $route(to, from) {
                 if(to.params !== from.params){
-                    this.category_code = to.params.code;
+                    this.category_codeP = to.params.code;
+                    await this.changeContents();
+                }
+                else if(to.params === from.params){
+                    this.category_codeP = from.params.code;
                     await this.handleContents();
                 }
             }
         },
         methods : {
-            async handleContents(){
-                console.log('handleContents');
-                console.log(this.category_code);
-                const url = `REST/api/select_catenum?code=${this.category_code}`;
+            async changeContents(){
+                console.log(this.$route.params);
+                console.log(this.category_codeP);
+                const url = `REST/api/select_catenum?code=${this.category_codeP}`;
                 const header = {"Content-Type" : "application/json"};
                 const response = await axios.get(url, header);
 
                 if(response.data.result === 1){
                     this.catelist = response.data.list;
-                    console.log(this.catelist);
+                    // console.log(this.catelist);
                 }
 
-                const url1 = `REST/api/select_cproduct?code=${this.category_code}`;
+                const url1 = `REST/api/select_cproduct?code=${this.category_codeP}`;
                 const response1 = await axios.get(url1, header)
                 if(response1.data.result === 1){
                     this.productlist = response1.data.list;
-                    console.log(this.productlist);
+                    // console.log(this.productlist);
+                }
+            },
+            async handleContents(){
+                console.log(this.$route.params);
+                console.log(this.category_codeq);
+                const url = `REST/api/select_catenum?code=${this.category_codeq}`;
+                const header = {"Content-Type" : "application/json"};
+                const response = await axios.get(url, header);
+
+                if(response.data.result === 1){
+                    this.catelist = response.data.list;
+                    // console.log(this.catelist);
+                }
+
+                const url1 = `REST/api/select_cproduct?code=${this.category_codeq}`;
+                const response1 = await axios.get(url1, header)
+                if(response1.data.result === 1){
+                    this.productlist = response1.data.list;
+                    // console.log(this.productlist);
                 }
             },
             async goCate(catecode){
@@ -88,7 +110,7 @@ import Footer from '@/components/Footer.vue';
 
                 if(response.data.result === 1){
                     this.productlist = response.data.list;
-                    console.log(this.productlist);
+                    // console.log(this.productlist);
                 }
             }   
         }
@@ -183,8 +205,8 @@ import Footer from '@/components/Footer.vue';
     margin: 5px;
 }
 .pt_product img{
-    width: 93%;
-    height: 70%;
+    width: 100%;
+    height: 100%;
     border-radius: 3px;
     margin: 0 auto;
 }
