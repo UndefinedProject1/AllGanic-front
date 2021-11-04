@@ -203,13 +203,13 @@ import mypage from '@/assets/mypage.png';
 .or_li_box1 {
     border: 2px solid black;
     width: 100%;
-    height: 110px;
+    height: 135px;
     margin-bottom: 10px;
     border-radius: 5px;
 }
 .or_li_box2 {
     border: 2px solid black;
-    height: 160px;
+    height: 135px;
     border-radius: 5px;
     margin-bottom: 31px;
 }
