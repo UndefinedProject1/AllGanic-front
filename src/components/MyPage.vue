@@ -7,7 +7,7 @@
             </div>
             <div class="info_info">
                 <div class="info_email">
-                    <img :src="login_email"/>
+                    <img :src="mypage_mail"/>
                     <p>sksmsdiWkd!@naver.com</p>
                 </div>
                 <div class="info_ad_icon">
@@ -61,14 +61,14 @@
 
 <script>
 import Footer from '@/components/Footer.vue';
-import login_email from '@/assets/login_email.png';
+import mypage_mail from '@/assets/mypage_mail.png';
 import mypage_address from '@/assets/mypage_address.png';
 import mypage from '@/assets/mypage.png';
 
     export default {
         data() {
             return {
-                login_email : login_email,
+                mypage_mail : mypage_mail,
                 mypage_address : mypage_address,
                 mypage : mypage,
             }
