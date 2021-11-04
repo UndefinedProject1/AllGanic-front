@@ -37,24 +37,26 @@
     <div class="nav_sections">
       <div class="fashion_section">
         <h3>Fashion</h3>
-        <a href="/product_table">의류</a>
-        <a href="#">잡화</a>
+        <router-link :to="{ path: '/product_table', query: { category_code: '10010' } }">의류</router-link>
+        <router-link :to="{ path: '/product_table', query: { category_code: '10011' } }">잡화</router-link>
+        <!-- <a href="#" @click="goPage(10010)" @change="changepage">의류</a>
+        <a href="#" @click="goPage(10011)" @change="changepage">잡화</a> -->
       </div>
       <div class="lifestyle_section">
         <h3>Life-Style</h3>
-        <a href="#">주방</a>
-        <a href="#">욕실</a>
-        <a href="#">기타</a>
+        <a href="#" v-on:goPage(30030)="addnum()" @change="changepage">주방</a>
+        <a href="#" @click="goPage(30031)">욕실</a>
+        <a href="#" @click="goPage(30032)">기타</a>
       </div>
       <div class="beauty_section">
         <h3>Beauty</h3>          
-        <a href="#">헤어</a>
-        <a href="#">스킨</a>
-        <a href="#">바디</a>          
+        <a href="#" @click="goPage(40040)">헤어</a>
+        <a href="#" @click="goPage(40041)">스킨</a>
+        <a href="#" @click="goPage(40042)">바디</a>          
       </div>
       <div class="food_section">
         <h3>Food</h3>
-        <a href="#">마실거리</a>
+        <a href="#"  @click="goPage(20020)">마실거리</a>
       </div>
     </div>
   </div>
@@ -156,6 +158,7 @@
 </template>
 
 <script>
+// import axios from 'axios';
   export default {
     data() {
       return{
@@ -205,7 +208,15 @@
         this.sideNavStyle.width="0";
         this.sideNavStyle_b.width="0%";
         this.wrapper.opacity="1";
-      }
+      },
+      goPage(cate){
+        this.$router.push({path:'/product_table', query : {category_code:cate}});
+        $this.$emit()
+      },
+      async addnum(){
+        await this.goPage();
+      },
+      
     }
   }
 </script>
@@ -313,7 +324,7 @@ body{
   font-weight : bold;
   color: #F6EBCE;
 } 
-.nav_sections a{
+.nav_sections  a{
   width : 100%;
   padding : 8px 8px 8px 10px;
   text-decoration: none;

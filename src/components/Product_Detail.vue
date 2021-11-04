@@ -53,10 +53,39 @@
                 </div>
             </div>
             <div class="detail_section2">
-                <button>장바구니 담기</button>
-                <button>주문하기</button>
+                <button id="addcartbtn">ADD CART</button>
+                <button id="orderbtn">ORDER</button>
             </div>
-            <div class="detail_section3"></div>
+            <div class="detail_section3">
+                <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#scrollspyHeading1">상세설명</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#scrollspyHeading2">상품후기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#scrollspyHeading3">FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#scrollspyHeading5">교환/환불</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+                    <h4 id="scrollspyHeading1">First heading</h4>
+                        <p></p>
+                    <h4 id="scrollspyHeading2">Second heading</h4>
+                        <p></p>
+                    <h4 id="scrollspyHeading3">Third heading</h4>
+                        <p></p>
+                    <h4 id="scrollspyHeading4">Fourth heading</h4>
+                        <p>...</p>
+                    <h4 id="scrollspyHeading5">Fifth heading</h4>
+                        <p>...</p>
+                </div>
+            </div>
         </div>
         <Footer></Footer>
     </div>
@@ -78,7 +107,7 @@ import Footer from '@/components/Footer.vue';
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 .pd_detail_wrapper{
     width: 100%;
@@ -88,7 +117,7 @@ import Footer from '@/components/Footer.vue';
     font-family: 'Gowun Dodum', sans-serif;
 }
 .pd_detail_container{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin: 0 auto;
     width: 80%;
     display: flex;
@@ -98,27 +127,27 @@ import Footer from '@/components/Footer.vue';
 .detail_section1{
     width: 100%;
     height : 40%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: row;
     padding: 20px;
-    align-items: center;
+    align-items: stretch;
 }
 .detail_section1 img {
-    width : 40%;
-    height : 40%;
+    width : 43%;
+    height : 43%;
     margin-right: 20px;
     border-radius: 3px;
 }
 .pd_detail_info{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 100%;
     height : 100%;
     display: flex;
     flex-direction: column;
 }
 .pd_detail_info .pd_detail_header{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
 }
@@ -143,37 +172,37 @@ import Footer from '@/components/Footer.vue';
     border-bottom: 1px solid black ;
     display: flex;
     flex-direction: column;
-
+    padding : 15px 0px;
 }
 .pd_detail_table{
     width: 100%;
     height : fit-content;
+    font-family: 'Exo', sans-serif;
 }
 #saleprice{
     color: red;
 }
 .pd_detail_table tbody th{
-    padding: 0px 20px 0px 20px;
+    padding: 20px 10px;
     text-align: center;
 }
-
 .pd_detail_table tbody th span{
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 600;
 }
 .pd_detail_table tbody td {
     font-size: 18px;
-    font-weight: bold;
-    padding: 0px 20px 0px 20px;
+    font-weight: 600;
+    padding: 20px;
 }
 
 .th_area {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width : 20%;
     height: 50px;
 }
 .td_area {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width : 80%;
     height: 50px;
 }
@@ -194,12 +223,12 @@ import Footer from '@/components/Footer.vue';
     margin-left: 15px;
 }
 .th_area1 {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width : 15%;
     height: 50px;
 }
 .td_area1 {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width : 90%;
     height: 50px;
 }
@@ -211,20 +240,39 @@ import Footer from '@/components/Footer.vue';
 .detail_section2{
     width : 100%;
     height : 10%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 }
-.detail_section2 button{
-    width : 150px;
-    height : 50px;
+.detail_section2 #orderbtn{
+    width : 170px;
+    height : 65px;
     background-color: #715036;
     color: white;
-    margin-right: 5px;
-    border-radius: 5px; 
+    font-weight: bold;
+    /* margin-top: 10px; */
+    margin-right: 70px;
+    border-radius: 3px; 
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    border: none;
+}
+.detail_section2 #addcartbtn{
+    width : 170px;
+    height : 65px;
+    background-color: #ffffff;
+    color: #715036;
+    font-weight: bold;
+    /* margin-top: 10px; */
+    margin-right: 45px;
+    border-radius: 3px; 
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    border: none;
 }
 .detail_section2 button:hover{
+    box-shadow: 3px 2px 5px 0px #966d4f;
     opacity: 0.9;
 }
 </style>

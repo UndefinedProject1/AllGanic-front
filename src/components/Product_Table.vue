@@ -1,60 +1,29 @@
 <template>
     <div class="pt_table_wrapper">
         <div class="pt_table_container">
-            <div class="pt_table_cate">
-                <p>토너(1)</p><span>|</span>
-                <p>크림(2)</p><span>|</span>
-                <p>세안제(3)</p><span>|</span>
-                <p>세럼(4)</p><span>|</span>
-                <p>선크림(5)</p>
+            <div class="pt_table_cate_container" >
+                <div class="pt_table_cate" v-for="cate in catelist" v-bind:key="cate">
+                    <p @click="goCate(cate.categorycode)">{{cate.categoryname}}</p><span>|</span>
+                </div>
             </div>
             <div class="pt_table_divider"></div>
             <div class="pt_table">
                 <div class="table1">
-                    <div class="pt_product" v-for="item in 4" v-bind:key="item">
-                        <img :src="vegan_oil_img">
-                        <div class="pd_text_section">
-                            <p id="pd_brand"><ins>멜릭서</ins></p>
-                            <p id="pd_name"><strong>자연 100% 추출 어성초세럼</strong></p>
-                            <p id="pd_price">28,000원</p>
-                            <img :src="cart_img">
-                        </div>
-                    </div>
-                </div>
-                <div class="table1">
-                    <div class="pt_product" v-for="item in 4" v-bind:key="item">
-                        <img :src="vegan_oil_img">
-                        <div class="pd_text_section">
-                            <p id="pd_brand"><ins>멜릭서</ins></p>
-                            <p id="pd_name"><strong>자연 100% 추출 어성초세럼</strong></p>
-                            <p id="pd_price">28,000원</p>
-                            <img :src="cart_img">
-                        </div>
-                    </div>
-                </div>
-                <div class="table1">
-                    <div class="pt_product" v-for="item in 4" v-bind:key="item">
-                        <img :src="vegan_oil_img">
-                        <div class="pd_text_section">
-                            <p id="pd_brand"><ins>멜릭서</ins></p>
-                            <p id="pd_name"><strong>자연 100% 추출 어성초세럼</strong></p>
-                            <p id="pd_price">28,000원</p>
-                            <img :src="cart_img">
-                        </div>
-                    </div>
-                </div>
-                <div class="table1">
-                    <div class="pt_product" v-for="item in 4" v-bind:key="item">
-                        <img :src="vegan_oil_img">
-                        <div class="pd_text_section">
-                            <p id="pd_brand"><ins>멜릭서</ins></p>
-                            <p id="pd_name"><strong>자연 100% 추출 어성초세럼</strong></p>
-                            <p id="pd_price">28,000원</p>
-                            <img :src="cart_img">
-                        </div>
-                    </div>
-                </div>
+                    <ul> 
+                        <li class="pt_product_container" v-for="product in productlist" v-bind:key="product">
+                            <div class="pt_product" >
+                                <img :src="`REST/api/select_productimage?no=${product.productcode}`">
+                                <div class="pd_text_section">
+                                    <p id="pd_brand"><ins>{{product.brandname}}</ins></p>
+                                    <p id="pd_name"><strong>{{product.productname}}</strong></p>
+                                    <p id="pd_price">{{product.productprice}}원</p>
+                                    <img :src="cart_img">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
 
+                </div>
             </div>
         </div>
         <Footer></Footer>
@@ -62,6 +31,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import cart_img from '@/assets/cart_img.png';
 import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
 import Footer from '@/components/Footer.vue';
@@ -69,11 +39,50 @@ import Footer from '@/components/Footer.vue';
         data(){
             return{
                 vegan_oil_img : vegan_oil_img,
-                cart_img : cart_img
+                cart_img : cart_img,
+                category_code : this.$route.query.category_code,
+                catelist : [],
+                productlist : [],
             }
         },
         components : {
             Footer : Footer,
+        },
+        async mounted(){
+            await this.addnum();
+            await this.handleContents();
+        },
+        methods : {
+            addnum(){
+                this.$emit('goPage');
+            },
+            async handleContents(){
+                const url = `REST/api/select_catenum?code=${this.category_code}`;
+                const header = {"Content-Type" : "application/json"};
+                const response = await axios.get(url, header);
+
+                if(response.data.result === 1){
+                    this.catelist = response.data.list;
+                    console.log(this.catelist);
+                }
+
+                const url1 = `REST/api/select_cproduct?code=${this.category_code}`;
+                const response1 = await axios.get(url1, header)
+                if(response1.data.result === 1){
+                    this.productlist = response1.data.list;
+                    console.log(this.productlist);
+                }
+            },
+            async goCate(catecode){
+                const url = `REST/api/select_cproduct?code=` + catecode;
+                const header = {"Content-Type" : "application/json"};
+                const response = await axios.get(url, header);
+
+                if(response.data.result === 1){
+                    this.productlist = response.data.list;
+                    console.log(this.productlist);
+                }
+            }   
         }
     }
 </script>
@@ -90,11 +99,19 @@ import Footer from '@/components/Footer.vue';
 .pt_table_container{
     /* border: 1px solid black; */
     width: 90%;
-    height: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     padding: 20px;
+}
+.pt_table_cate_container {
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid black; */
+    margin: 10px 0px 10px 0px;
+    height: fit-content;
+    align-items: center;
 }
 .pt_table_cate {
     display: flex;
@@ -109,6 +126,7 @@ import Footer from '@/components/Footer.vue';
     color: #49654E;
     margin: 0;
     height: fit-content;
+    width: fit-content;
 }
 .pt_table_cate p:hover {
     color: black;
@@ -120,7 +138,6 @@ import Footer from '@/components/Footer.vue';
     font-weight: bold;
     height: fit-content;
 }
-
 .pt_table_divider{
     border : 0.2px solid #49654E;
     height: 0.2px;
@@ -136,15 +153,23 @@ import Footer from '@/components/Footer.vue';
 }
 .table1{
     width: 100%;
-    height: fit-content;
-    display: flex;
+    /* height: fit-content; */
+    display: table;
     margin: 20px 0px;
+}
+.table1 ul {
+    padding-left: 0;
+}
+.table1 ul li{
+    list-style: none;
+    display: inline-flex;
+    max-width: 25%;
 }
 .pt_product{
     /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
-    width: 24%;
+    min-width: 100%;
     height: fit-content;
     padding: 5px;
     margin: 5px;

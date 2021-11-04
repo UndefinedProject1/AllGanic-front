@@ -8,18 +8,18 @@
         <div class="apl_divider"></div>
         <div class="apl_content">
             <div class="selector_section">
-                <select class="form-select" aria-label="Default select example" v-model="selected1">
+                <select class="form-select" aria-label="Default select example" v-model="selected1" @change="selectCate1">
                     <option selected disabled>대분류</option>
                     <option value="100">100</option>
                     <option value="200">200</option> 
                     <option value="300">300</option>
                     <option value="400">400</option>
                 </select>
-                <select class="form-select" aria-label="Default select example" @click="handle_middle" v-model="selected2">
+                <select class="form-select" aria-label="Default select example" @click="handle_middle" v-model="selected2" @change="selectCate1">
                     <option selected disabled>중분류</option>
                     <option :value="select" v-for="select in resultset" v-bind:key="select">{{select}}</option>
                 </select>
-                <select class="form-select" aria-label="Default select example" @click="handle_small" v-model="selected3">
+                <select class="form-select" aria-label="Default select example" @click="handle_small" v-model="selected3" @change="selectCate1">
                     <option selected disabled>소분류</option>
                     <option :value="select1" v-for="select1 in resultset1" v-bind:key="select1">{{select1}}</option>
 
@@ -38,14 +38,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="num in 10" v-bind:key="num">
-                            <th scope="row">300102</th>
-                            <td>비건세럼</td>
-                            <td>멜릭서</td>
-                            <td>20,000</td>
-                            <td style="padding : 25px 0;"><img :src="vegan_oil_img"></td>
+                        <tr v-for="list in pList" v-bind:key="list">
+                            <th scope="row">{{list.productcode}}</th>
+                            <td>{{list.productname}}</td>
+                            <td>{{list.brandname}}</td>
+                            <td>{{list.productprice}}</td>
+                            <td style="padding : 25px 0;"><img :src="`REST/api/select_productimage?no=${list.productcode}`"></td>
                             <td>
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
+                                <button type="button" @click="handleModal(list.productcode)" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
                                 <button type="button">삭제</button>
                             </td>
                         </tr>
@@ -73,27 +73,23 @@
                         <tbody>
                             <tr>
                                 <th><span class="th_title">브랜드코드</span></th>
-                                <td>24</td>
-                            </tr>
-                            <tr>
-                                <th><span class="th_title">카테고리코드</span></th>
-                                <td>300312</td>
+                                <td>{{originProduct.productcode}}</td>
                             </tr>
                             <tr>
                                 <th><span class="th_title">제품명</span></th>
                                 <td>
-                                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="제품명 입력" v-model="productname">
+                                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="제품명 입력" v-model="originProduct.productname">
                                 </td>
                             </tr>
                             <tr>
                                 <th><span class="th_title">가격</span></th>
-                                <td><input type="text" class="form-control" id="formGroupExampleInput" placeholder="가격 설정" v-model="productprice"></td>
+                                <td><input type="text" class="form-control" id="formGroupExampleInput" placeholder="가격 설정" v-model="originProduct.productprice"></td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="right_section">
                         <div class="main_image_container">
-                            <img :src = "mainImg" id="mainImg">
+                            <img :src = "originProductImg" id="mainImg">
                             <label for="insertmainImg">이미지 추가</label>
                             <input type="file" @change="handleMainImg($event)" name="파일첨부" id="insertmainImg">
                         </div>
@@ -133,7 +129,6 @@
                                 <input type="file" @change="handleSubImg3($event)" name="파일첨부" id="insertsubimg3">
                             </div>
                         </div>
-                        
                     </div>
                 </div>                
             </div>
@@ -160,6 +155,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 subimg2 : default_image,
                 subimg3 : default_image,
                 mainImg : default_image,
+                mainfile : '',
                 selected1 : '',
                 selected2 : '',
                 selected3 : '',
@@ -171,21 +167,36 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 selects1 : [],
                 productname : '',
                 productprice : '',
-                pList : []
+                pList : [],
+                originProduct : '',
+                originProductImg : '',
             }
         },
         async created(){
             await this.productList();
         },
         methods : {
+            handleMainImg(e){
+                if(e.target.files.length > 0) {
+                    this.mainfile = e.target.files[0];
+                    var reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.originProductImg = e.target.result;
+                    }
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            },
+            async selectCate1(){
+                await this.productList();
+            },
             async productList() {
                 const header = {"Content-Type" : "application/json"};
-                const url = `REST/api/select_cproduct2?code=` + this.selected1+this.selected2+this.selected3;
+                const url = `/REST/api/select_cproduct?code=` + this.selected1+this.selected2+this.selected3;
                 const response = await axios.get(url, {header});
                 console.log(response);
                 if(response.data.result ===1) {
                     this.pList = response.data.list;
-                    console.log(this.pList);
+                    // console.log(this.pList);
                 }
             },
             async updatemodal(){
@@ -210,8 +221,8 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                     const set = new Set(arr);
                     this.resultset = [...set];
                     
-                    console.log(arr);
-                    console.log(this.resultset);
+                    // console.log(arr);
+                    // console.log(this.resultset);
                 }
             },
             async handle_small() {
@@ -234,8 +245,25 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                     const set = new Set(arr);
                     this.resultset1 = [...set];
                     
-                    console.log(arr);
-                    console.log(this.resultset1);
+                    // console.log(arr);
+                    // console.log(this.resultset1);
+                }
+            },
+            async handleModal(val){
+                const url= `REST/api/product_one?code=` + val;
+                const header = {"Content-Type" : "application/json"};
+                const response = await axios.get(url, header);
+                console.log(response);
+
+                if(response.data.result === 1){
+                    this.originProduct = response.data.product;
+                    // console.log(this.originProduct);
+                    this.originProductImg = response.data.imgurl;
+                    // console.log(this.originProductImg);
+
+                    // const url1 = `REST/api/select_subimage?product=` + val;
+                    // const response1 = await axios.get(url1, header);
+                    // console.log(response1);
                 }
             }
         }
