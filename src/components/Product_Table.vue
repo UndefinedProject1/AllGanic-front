@@ -40,7 +40,7 @@ import Footer from '@/components/Footer.vue';
             return{
                 vegan_oil_img : vegan_oil_img,
                 cart_img : cart_img,
-                category_code : this.$route.query.category_code,
+                category_code : this.$route.params.code,
                 catelist : [],
                 productlist : [],
             }
@@ -48,15 +48,23 @@ import Footer from '@/components/Footer.vue';
         components : {
             Footer : Footer,
         },
+
         async mounted(){
-            await this.addnum();
             await this.handleContents();
+
+        },
+        watch: {
+            async $route(to, from) {
+                if(to.params !== from.params){
+                    this.category_code = to.params.code;
+                    await this.handleContents();
+                }
+            }
         },
         methods : {
-            addnum(){
-                this.$emit('goPage');
-            },
             async handleContents(){
+                console.log('handleContents');
+                console.log(this.category_code);
                 const url = `REST/api/select_catenum?code=${this.category_code}`;
                 const header = {"Content-Type" : "application/json"};
                 const response = await axios.get(url, header);
