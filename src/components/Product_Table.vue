@@ -12,7 +12,7 @@
                     <ul> 
                         <li class="pt_product_container" v-for="product in productlist" v-bind:key="product">
                             <div class="pt_product" >
-                                <img :src="`REST/api/select_productimage?no=${product.productcode}`" class="img-thumbnail">
+                                <img :src="`REST/api/select_productimage?no=${product.productcode}`">
                                 <div class="pd_text_section">
                                     <p id="pd_brand"><ins>{{product.brandname}}</ins></p>
                                     <p id="pd_name"><strong>{{product.productname}}</strong></p>
@@ -57,10 +57,6 @@ import Footer from '@/components/Footer.vue';
                 if(to.params !== from.params){
                     this.category_codeP = to.params.code;
                     await this.changeContents();
-                }
-                else if(to.params === from.params){
-                    this.category_codeP = from.params.code;
-                    await this.handleContents();
                 }
             }
         },

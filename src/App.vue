@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="logo">
-        <p>All_ganic</p>
+        <p><a href="/">All_ganic</a></p>
       </div>
       <div class="right_section">
         <div class="search">
@@ -21,7 +21,7 @@
           <p>cart</p>
         </div>
         <div class="mypage">
-          <p>mypage</p>
+          <p><a href="/login">login</a></p>
         </div>
       </div>
     </div>
@@ -232,8 +232,8 @@ body{
   height: 100%;
   display: inline-flex;
   font-family: 'Playfair Display', serif;
-  color: #49654E;
-  background-color: #eeeeee;
+  color:  #eeeeee;
+  background-color: #49654E;
   z-index: 1;
   /* position: absolute;
   top: 0;
@@ -284,7 +284,9 @@ body{
   margin-bottom: 0;
 }
 .header .right_section div p:hover, 
-.header .left_section div p:hover {
+.header .left_section div p:hover,
+.mypage a:hover,
+.logo a:hover{
   cursor: pointer;
   color: #dfd192;
 }
@@ -297,6 +299,10 @@ body{
   font-size: 30px;
   margin-bottom: 0;
   font-weight: bold;
+}
+.mypage a, .logo a{
+  text-decoration: none;
+  color: #eeeeee;
 }
 .nav_sections {
   display: flex;

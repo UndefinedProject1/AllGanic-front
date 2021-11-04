@@ -2,70 +2,58 @@
     <div class="main_wrapper">
         <div class="main_container">
             <div class="banner_slider">
-                <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active" data-bs-interval="10000">
-                            <div class="slider1">
-                                <span>ZERO</span>
-                                <p>지구를 생각하는 당신의 완벽한 소비를 위해 <br> 포장재까지 모두 생각한 브랜드만</p>
+                <h1 class="display-4" id="text1">Here,</h1>
+                <div class="welcome_text">
+                    <h1 class="display-5" id="text1">In</h1>
+                    <transitiongroup id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" name="carousel" v-bind:style="carouselStyle">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" data-bs-interval="10000">
+                                <div class="slider1">
+                                    <span>ZERO</span>
+                                    <p>지구를 생각하는 당신의 완벽한 소비를 위해 <br> 포장재까지 모두 생각한 브랜드만</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item" data-bs-interval="2000">
+                                <div class="slider2">
+                                    <span>CLOSER</span>
+                                    <p>어디서부터 시작해야할지 막막한 당신을 위해<br> 그 어느때보다 더 가까이</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="slider3">
+                                    <span>FROM</span>
+                                    <p>당신으로부터 시작된 소중한 가치가 헛되지않도록 </p>
+                                </div>
                             </div>
                         </div>
-                        <div class="carousel-item" data-bs-interval="2000">
-                            <div class="slider2">
-                                <span>CLOSER</span>
-                                <p>어디서부터 시작해야할지 막막한 당신을 위해<br> 그 어느때보다 더 가까이</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="slider3">
-                                <span>FROM</span>
-                                <p>당신으로부터 시작된 소중한 가치가 헛되지않도록 </p>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </transitiongroup>
+                    <h1 class="display-4" id="textlogo">All_GANIC</h1>
                 </div>
+
             </div>
             <div class="right_float">
-                <div class="main_banner">
-                    <span>With,</span>
-                    <span>Earth</span>
-                </div>
+                <h1 class="display-5" id="text">You can take <br> " the best "</h1>
                 <div class="best_product">
-                    <p>BEST</p>
-                    <div class="best_product_list">
-                        <div class="section1">
-                            <div class="img1">
-                                <!-- <span>shop</span> -->
-                            </div>
-                            <p>perfume</p>
-                        </div>
-                        <div class="section2">
-                            <div class="img2"></div>
-                            <p>bag</p>
-                        </div>
-                        <div class="section3">
-                            <div class="img3"></div>
-                            <p>soap</p>
-                        </div>
-                    </div>
+                    <div class="img1"></div>
+                    <div class="img2"></div>
+                    <div class="img3"></div>
                 </div>
+                <h1 class="display-5" id="text2">For you, <br> For us.</h1>
             </div>
         </div>
-        <Footer></Footer>
     </div>
 
 </template>
 
 <script>
-import Footer from '@/components/Footer.vue';
 import slider_img1 from '@/assets/slider_img1.png';
 import slider_img2 from '@/assets/slider_img2.png';
 import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
@@ -84,16 +72,14 @@ import face_img from '@/assets/face_img.jpg';
                 vegan_oil_img : vegan_oil_img,
                 boxed_water : boxed_water,
                 zerowaste_package : zerowaste_package,
-                face_img : face_img
+                face_img : face_img,
             }
         },
-        components:{
-            Footer : Footer
-        }
     }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Playfair+Display:wght@400;500;700;800&display=swap');
 .main_wrapper{
     /* border: 1px solid black; */
@@ -105,6 +91,8 @@ import face_img from '@/assets/face_img.jpg';
     box-sizing: content-box;
     justify-content: center;
     flex-direction: column;
+    background: linear-gradient(#49654E, #49654E 60%, #17341C 60%, #17341C 100%);
+    max-height: 100vh;
 }
 .main_container{
     /* border: 1px solid black; */
@@ -112,28 +100,62 @@ import face_img from '@/assets/face_img.jpg';
     height : 100%;
     display: inline-flex;
     margin: 0 auto;
-    padding:40px;
+    padding:0px 50px;
 }
 
 
 /* 왼쪽 이미지 슬라이더 */
 .banner_slider{
-    width: 40%;
-    height: 90%;
-    margin: 5px;
-    margin-top: 20px;
-    margin-right: 20px;
+    /* border: 1px solid black; */
+    width: 61%;
+    height: 100%;
+    display : flex;
+    flex-direction: column;
+    padding: 10px 70px;
+    transition: 0.3s;
+}
+#text1{
+    width: fit-content;
+    height: fit-content;
+    color: #CCA53F;
+    font-weight: 800;
+    text-shadow: 1px 1px 2px #CCA53F;
+}
+#textlogo{
+    width: fit-content;
+    height: fit-content;
+    color: #CCA53F;
+    font-weight: 800;
+    position: absolute;
+    right: 7%;
+    text-shadow: 1px 1px 2px #CCA53F;
+}
+.welcome_text{
+    height: 100%;
+    width: 100%;
+    display: inline-flex;
+    position: relative;
+}
+.carousel-enter-from{
+    padding-top: 6px 10px;
+}
+.carousel-enter-to{
+    padding-top: 3px 10px;
+}
+.carousel-enter-active{
+    transition: all 2s ease;
 }
 #carouselExampleInterval {
-    width: 100%;
-    height: 100%;
+    width: 58%;
+    height: 92%;
+    margin: 3px 10px;
 }
 .carousel-inner {
     position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-radius: 3px;
+    border-radius: 15px;
 }
 .carousel-item {
     display: block;
@@ -146,7 +168,7 @@ import face_img from '@/assets/face_img.jpg';
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: cover;
-    opacity: 0.8;
+    opacity: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -160,7 +182,7 @@ import face_img from '@/assets/face_img.jpg';
     background-repeat: no-repeat;
     background-position: 50% 0%;
     background-size: cover;
-    opacity: 0.87;
+    opacity: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -174,7 +196,7 @@ import face_img from '@/assets/face_img.jpg';
     background-repeat: no-repeat;
     background-position: 50% 0%;
     background-size: cover;
-    opacity: 0.87;
+    opacity: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -204,10 +226,39 @@ import face_img from '@/assets/face_img.jpg';
 /* 오른쪽 배너 & BEST */
 .right_float{
     /* border: 1px solid black; */
-    width: 60%;
-    height: 100%;
+    width: 53%;
+    height: fit-content;
     display: block;
+    position: absolute;
+    padding: 0px 20px;
+    margin: auto 0;
+    top: 31%;
+    right : 6%;
 }
+.right_float #text{
+    width: fit-content;
+    height: fit-content;
+    color: #CCA53F;
+    font-weight: 800;
+    text-shadow: 1px 1px 2px #CCA53F;
+    float: right;
+    text-align: right;
+    margin-right: 25px;
+    font-size: 2.7rem;
+    line-height: 1.1;
+}
+.right_float #text2{
+    width: fit-content;
+    height: fit-content;
+    color: #CCA53F;
+    font-weight: 800;
+    text-shadow: 1px 1px 2px #CCA53F;
+    margin-left: 25px;
+    font-size: 2.7rem;
+    line-height: 1.1;
+}
+
+
 
 /* 오른쪽 상단, 웰컴배너 */
 .main_banner{
@@ -240,35 +291,13 @@ import face_img from '@/assets/face_img.jpg';
 .best_product{
     /* border: 1px solid black; */
     width: 100%;
-    height: 53%;
-    display: block;
-}
-.best_product > p {
-    /* border: 1px solid black; */
-    color: #49654E;
-    font-size: 20px;
-    font-weight: bold;
-    height: fit-content;
-    width: fit-content;
-    margin: 0 auto;
-    margin-bottom: 10px;
-}
-.best_product .best_product_list{
-    /* border: 1px solid black; */
+    height: 188px;
+    margin: 15px 0px;
     display: inline-flex;
-    height: 80%;
-    width : 100%;
     justify-content: space-evenly;
 }
-.section1, .section2, .section3{
-    /* border: 1px solid black; */
-    width: 30%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
 .img1 {
-    width: 100%;
+    width: 30%;
     height: 100%;
     background-image: url("/src/assets/perfume_img.png");
     background-repeat: no-repeat;
@@ -279,7 +308,7 @@ import face_img from '@/assets/face_img.jpg';
     align-items: center;
 }
 .img2 {
-    width: 100%;
+    width: 30%;
     height: 100%;
     background-image: url("/src/assets/vegan_bag.jpg");
     background-repeat: no-repeat;
@@ -288,24 +317,13 @@ import face_img from '@/assets/face_img.jpg';
     border-radius: 3px;
 }
 .img3 {
-    width: 100%;
+    width: 30%;
     height: 100%;
     background-image: url("/src/assets/vegan_soap_img2.jpg");
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: cover;
     border-radius: 3px;
-}
-.section1 p, .section2 p, .section3 p {
-    font-size: 18px;
-    width: fit-content;
-    margin: 0 auto;
-    margin-top: 5px;
-    color: #49654E;
-}
-.img1 > span {
-    margin: 0px auto;
-    font-size: 40px;
 }
 .img1:hover, .img2:hover, .img3:hover {
     cursor: pointer;

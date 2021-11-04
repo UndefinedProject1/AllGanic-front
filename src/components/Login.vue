@@ -22,7 +22,7 @@
                     <div class="login_nav">
                         <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">회원가입</a></li>
+                            <li class="breadcrumb-item"><a href="/join">회원가입</a></li>
                             <li class="breadcrumb-item"><a href="#">비밀번호 찾기</a></li>
                         </ol>
                         </nav>
