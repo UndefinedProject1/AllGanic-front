@@ -10,6 +10,7 @@ import MyPage from '@/components/MyPage.vue';
 import Product_Table from '@/components/Product_Table.vue';
 import Product_Detail from '@/components/Product_Detail.vue';
 import MyPage_Member_Update from '@/components/MyPage_Member_Update.vue';
+import MyPage_Delete from '@/components/MyPage_Delete.vue';
 
 const routes = [
     {path : '/' , name :'main', component : Main},
@@ -22,6 +23,7 @@ const routes = [
     {path : '/product_table' , name :'product_table', component : Product_Table},
     {path : '/product_detail' , name :'product_detail', component : Product_Detail},
     {path : '/mypage_member_update' , name :'mypage_member_update', component : MyPage_Member_Update},
+    {path : '/mypage_delete' , name :'mypage_delete', component : MyPage_Delete},
 ];
 
 const router = createRouter({
