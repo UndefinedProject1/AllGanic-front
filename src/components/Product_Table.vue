@@ -12,10 +12,14 @@
                     <ul> 
                         <li class="pt_product_container" v-for="product in productlist" v-bind:key="product">
                             <div class="pt_product" >
-                                <img :src="`REST/api/select_productimage?no=${product.productcode}`">
+                                <router-link :to="`/product_detail?code=${product.productcode}`">
+                                    <img :src="`REST/api/select_productimage?no=${product.productcode}`">
+                                </router-link>
                                 <div class="pd_text_section">
                                     <p id="pd_brand"><ins>{{product.brandname}}</ins></p>
-                                    <p id="pd_name"><strong>{{product.productname}}</strong></p>
+                                    <router-link :to="`/product_detail?code=${product.productcode}`" id="pd_name">
+                                        <p><strong>{{product.productname}}</strong></p>
+                                    </router-link>
                                     <p id="pd_price">{{product.productprice}}원</p>
                                     <img :src="cart_img">
                                 </div>
@@ -62,8 +66,8 @@ import Footer from '@/components/Footer.vue';
         },
         methods : {
             async changeContents(){
-                console.log(this.$route.params);
-                console.log(this.category_codeP);
+                // console.log(this.$route.params);
+                // console.log(this.category_codeP);
                 const url = `REST/api/select_catenum?code=${this.category_codeP}`;
                 const header = {"Content-Type" : "application/json"};
                 const response = await axios.get(url, header);
@@ -81,8 +85,8 @@ import Footer from '@/components/Footer.vue';
                 }
             },
             async handleContents(){
-                console.log(this.$route.params);
-                console.log(this.category_codeq);
+                // console.log(this.$route.params);
+                // console.log(this.category_codeq);
                 const url = `REST/api/select_catenum?code=${this.category_codeq}`;
                 const header = {"Content-Type" : "application/json"};
                 const response = await axios.get(url, header);
@@ -198,17 +202,13 @@ import Footer from '@/components/Footer.vue';
     min-width: 100%;
     height: fit-content;
     padding: 5px;
-    margin: 5px;
+    margin: 25px 0px;
 }
 .pt_product img{
     width: 100%;
-    height: 100%;
+    height: 90%;
     border-radius: 3px;
     margin: 0 auto;
-}
-.pt_product:hover{
-    cursor: pointer;
-    opacity: 0.7;
 }
 .pd_text_section {
     margin-left: 10px;
@@ -223,6 +223,15 @@ import Footer from '@/components/Footer.vue';
 .pd_text_section #pd_name{
     font-size: 15px;
     margin-bottom: 10px;
+    text-decoration: none;
+    text-decoration-line: none;
+    color: black;
+}
+.pd_text_section #pd_name:hover, 
+.pd_text_section #pd_brand:hover,
+.pt_product img:hover{
+    cursor: pointer;
+    opacity: 0.7;
 }
 .pd_text_section img{
     width : 15px;

@@ -2,11 +2,13 @@
     <div class="pd_detail_wrapper">
         <div class="pd_detail_container">
             <div class="detail_section1">
-                <img :src="vegan_oil_img">
+                <div style="max-width:43%; max-height : 43% inherit; border : 1px solid black; margin-right : 10px">
+                    <img :src="productmainimg" style="border:1px solid black; width : 100%; height : 100%;">
+                </div>
                 <div class="pd_detail_info">
                     <div class="pd_detail_header">
                         <p id="brandname">Melixar</p>
-                        <p id="productname">자연 100% 추출 어성초세럼</p>
+                        <p id="productname">{{detailcontents.productname}}</p>
                     </div>
                     <div class="pd_detail_infocontainer">
                         <table class="pd_detail_table">
@@ -17,11 +19,11 @@
                             <tbody>
                                 <tr>
                                     <th><span>판매가</span></th>
-                                    <td><s>28000</s></td>
+                                    <td><s>{{detailcontents.productprice}}</s></td>
                                 </tr>
                                 <tr>
                                     <th><span>할인가</span></th>
-                                    <td id="saleprice">24500</td>
+                                    <td id="saleprice">{{detailcontents.productprice}}</td>
                                 </tr>
                                 <tr>
                                     <th><span>주문수량</span></th>
@@ -92,16 +94,37 @@
 </template>
 
 <script>
+import axios from 'axios';
 import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
 import Footer from '@/components/Footer.vue';
     export default {
         data(){
             return{
-                vegan_oil_img : vegan_oil_img
+                vegan_oil_img : vegan_oil_img,
+                pcode : this.$route.query.code,
+                detailcontents : '',
+                productmainimg : '',
             }
         },
         components : {
             Footer : Footer
+        },
+        async created() {
+            await this.handleDetailContents();
+        },
+        methods : {
+            async handleDetailContents(){
+                const url = `REST/api/product_one?code=${this.pcode}`;
+                const header = {"Content-Type" : "application/json"};
+                const response = await axios.get(url, header);
+                console.log(response);
+
+                if(response.data.result === 1){
+                    this.detailcontents = response.data.product;
+                    console.log(this.detailcontents);
+                    this.productmainimg = response.data.imgurl;
+                }
+            }
         }
     }
 </script>

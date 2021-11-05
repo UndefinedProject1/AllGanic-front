@@ -66,21 +66,21 @@
       <div class="nav_section">
         <p>( * )</p>
         <div class="snav_section">
-          <a href="#">119REO / </a>
+          <a href="#">119REO</a><em> / </em>
           <a href="#">LAR</a>
         </div>
       </div>
       <div class="nav_section">
         <p>(ㄴ)</p>
         <div class="snav_section">
-          <a href="#">누깍 / </a>
+          <a href="#">누깍</a><em> / </em>
           <a href="#">니드포유</a>
         </div>
       </div>
       <div class="nav_section">
         <p>(ㄷ)</p>
         <div class="snav_section">
-          <a href="#">당신의 식탁 / </a>
+          <a href="#">당신의 식탁</a><em> / </em>
           <a href="#">더비건글로우</a>
         </div>
       </div>
@@ -93,7 +93,7 @@
       <div class="nav_section">
         <p>(ㅁ)</p>
         <div class="snav_section">
-          <a href="#">마이너피겨스 / </a>
+          <a href="#">마이너피겨스</a><em> / </em>
           <a href="#">멜릭서</a>
         </div>        
       </div>
@@ -112,17 +112,17 @@
       <div class="nav_section">
         <p>(o)</p>
         <div class="snav_section">
-          <a href="#">야다 / </a>
-          <a href="#">어스후드 / </a>
-          <a href="#">얼로젯 / </a>
-          <a href="#">에리제론 / </a>
+          <a href="#">야다</a><em> / </em>
+          <a href="#">어스후드</a><em> / </em>
+          <a href="#">얼로젯</a><em> / </em>
+          <a href="#">에리제론</a><em> / </em>
           <a href="#">오틀리</a>
         </div>  
       </div>
       <div class="nav_section">
         <p>(ㅋ)</p>
         <div class="snav_section">
-          <a href="#">카네이테이 / </a>
+          <a href="#">카네이테이</a><em> / </em>
           <a href="#">코드그린</a>
         </div> 
       </div>
@@ -135,17 +135,17 @@
       <div class="nav_section">
         <p>(ㅍ)</p>
         <div class="snav_section">
-          <a href="#">프로쉬 / </a>
-          <a href="#">프로젝트1907 / </a>
+          <a href="#">프로쉬</a><em> / </em>
+          <a href="#">프로젝트1907</a><em> / </em>
           <a href="#">플리츠마마</a>
         </div> 
       </div>
       <div class="nav_section">
         <p>(ㅎ)</p>
         <div class="snav_section">
-          <a href="#">하이사이클 / </a>
-          <a href="#">허블룸 / </a>
-          <a href="#">허스키 / </a>
+          <a href="#">하이사이클</a><em> / </em>
+          <a href="#">허블룸</a><em> / </em>
+          <a href="#">허스키</a><em> / </em>
           <a href="#">히녹</a>
         </div> 
       </div>
@@ -199,7 +199,7 @@
         this.wrapper.opacity="0.4";
       },
       openSideNav_b(){
-        this.sideNavStyle_b.width="30%";
+        this.sideNavStyle_b.width="32%";
         this.wrapper.opacity="0.4";
       },
       closeSideNav(){
@@ -331,7 +331,9 @@ body{
   font-family: 'Gowun Dodum', sans-serif;
 }
 .nav_sections a:hover {
-  color : white;
+  color : #49654E;
+  background-color: #eeeeee;
+  border-radius: 8px;
   opacity: 0.9;
 }
 .nav_section{
@@ -356,7 +358,23 @@ body{
 .snav_section a{
   width : fit-content;
   padding: 0;
-  margin: 0px 0px 0px 5px;
+  margin: 0px 0px 0px 0px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #F6EBCE;
+  transition: 0.3s;
+  font-family: 'Gowun Batang', sans-serif;
+}
+.snav_section a:hover{
+  color : #49654E;
+  background-color: #eeeeee;
+  border-radius: 5px;
+  opacity: 0.9;
+}
+.snav_section em{
+  width : fit-content;
+  padding: 0;
+  margin: 0px 8px;
   text-decoration: none;
   font-size: 15px;
   color: #F6EBCE;
