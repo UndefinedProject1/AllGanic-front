@@ -49,7 +49,7 @@ import mypage_address from '@/assets/mypage_address.png';
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
 .info_box {
     border: 1px solid black;
-    width: 500px;
+    width: 400px;
     height: 100%;
     border-radius: 10px;
     margin-right: 20px;
