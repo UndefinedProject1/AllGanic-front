@@ -122,6 +122,7 @@ import mypage_pw from '@/assets/mypage_pw.png';
 import mypage_profile from '@/assets/mypage_profile.png';
 import mypage_phone from '@/assets/mypage_phone.png';
 import mypage_address from '@/assets/mypage_address.png';
+import axios from 'axios';
 
 export default {
     data() {
@@ -133,17 +134,29 @@ export default {
             mypage_phone : mypage_phone,
             mypage_address : mypage_address,
             showModal : false,
+            member : '',
         }
     },
     components : {
         Footer : Footer,
         MyPage_Info : MyPage_Info
     },
-    created() {
-
+    async created() {
+        await this.handleMemberGet();
     },
     methods : {
+        async handleMemberGet() {
+            const url = `REST/api/member/find`;
+            const header = {"token" : this.token};
+            console.log(header);
+            const response = await axios.get(url, header);
 
+            if(response.data.result === 1) {
+                this.member = response.data.member;
+                console.log(this.member);
+            }
+            else alert("정보를 받아오지 못하였습니다.");
+        }
     }
 }
 </script>
@@ -152,7 +165,7 @@ export default {
 .mp_m_update {
     width: 100%;
     height: 100%;
-    padding: 20px;
+    padding: 40px;
     display: inline-flex;
     font-family: 'Gowun Dodum', sans-serif;
 }
@@ -177,7 +190,7 @@ export default {
 .m_update_insert {
     border: 2px solid black;
     width: 100%;
-    height: 570px;
+    height: 530px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -189,10 +202,10 @@ export default {
     display: flex;
     width: 100%;
     justify-content: center;
-    margin-bottom: 20px;
 }
 .m_update_mail > p {
     margin-right: 20px;
+    margin-top: 3px;
 }
 .m_update_mail > span {
     width: 50%;
@@ -202,8 +215,8 @@ export default {
     width: 100%;
     display: inline-flex;
     align-items: flex-end;
-    margin-top: 10px;
     justify-content: center;
+    margin-top: 10px;
 }
 .m_update_pw {
     /* border: 1px solid black; */
@@ -214,8 +227,14 @@ export default {
     width: fit-content;
     margin-right: 10px;
     margin-bottom: 5px;
+    margin-top: 3px;
 }
-.u_pw_box, .u_name_box, .u_phone_box {
+.u_name_box, .u_phone_box {
+    border-bottom: 2px solid black;
+    width: 50%;
+}
+.u_pw_box {
+    display: flex;
     border-bottom: 2px solid black;
     width: 50%;
 }
@@ -228,20 +247,22 @@ export default {
 }
 .m_update_mail > img, .m_update_pw > img, .m_update_name > img, .m_update_phone > img {
     /* border: 1px solid black; */
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
     margin-right: 5px;
     margin-bottom: 5px;
+    margin-top: 5px;
 }
 .u_pw_box > button {
-    width: 100px;
+    width: 110px;
     height: 25px;
     background-color: #715036;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 15px;
-    margin-left: 55px;
+    display: flex;
+    align-items: center;
 }
 .m_name {
     width: 100%;
@@ -280,9 +301,10 @@ export default {
     justify-content: center;
 }
 .m_update_address > img {
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
     margin-right: 5px;
+    margin-top: 5px;
 }
 .m_update_address {
     /* border: 1px solid black; */
@@ -319,14 +341,13 @@ export default {
     width: 80%;
 }
 .u_address_box > button {
-    width: 100px;
+    width: 110px;
     height: 25px;
     background-color: #715036;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 15px;
-    margin-left: 5px;
 }
 /* Modal */
 .modal-body {
