@@ -2,12 +2,12 @@
     <div class="info_wapper">
         <MyPage_Info></MyPage_Info>
         <div class="info_list">
-            <div class="order_list">
+            <div class="order_list" @click="mypage_orli_btn">
                 <p>최근 주문내역</p>
-                <p>더보기 <img :src="mypage" style="right" class="mypage_plus"/></p>
+                <p>더보기 <img :src="mypage" style="right" class="mypage_plus"/> </p>
             </div>
-            <div class="or_li_box1">
-                        
+            <div class="or_li_box1" v-for="orderlist in list_title" v-bind:key="orderlist">
+                <!-- {{orderlist.date}} -->
             </div>
             <div class="or_li_box2">
                         
@@ -43,7 +43,9 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
             MyPage_Info : MyPage_Info
         },
         methods : {
+            // async mypage_orli_btn() {
 
+            // }
         }
     }
 </script>

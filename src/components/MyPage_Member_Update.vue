@@ -16,9 +16,13 @@
                             <img :src="mypage_pw"/>
                             <p>비밀번호</p>
                         </div>
+                        <div class="chk_password" v-bind:style="doublecheck">
+                            {{chk_pw}}
+                        </div>
                         <div class="u_pw_box">
                             <input type="password" v-model="u_password_text">
-                            <button type="button" @click="handle_pw_modal">비밀번호변경</button>
+                            <!-- <button type="button" @click="handle_pw_modal">비밀번호변경</button> -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="handle_pw_modal">비밀번호변경</button>
                         </div>
                     </div>
                     <div class="m_name">
@@ -29,6 +33,9 @@
                         <div class="u_name_box">
                             <input type="text" v-model="u_name_text">
                         </div>
+                        <div class="chk_password" v-bind:style="doublecheck">
+                            {{chk_name}}
+                        </div>
                     </div>
                     <div class="m_phone">
                         <div class="m_update_phone">
@@ -37,6 +44,9 @@
                         </div>
                         <div class="u_phone_box">
                             <input type="text" v-model="u_phone_text">
+                        </div>
+                        <div class="chk_password" v-bind:style="doublecheck">
+                            {{chk_phone}}
                         </div>
                     </div>
                     <div class="m_address">
@@ -52,40 +62,59 @@
                     </div>
                     <div class="u_address_box">
                         <input type="text" v-model="u_address_text">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="handle_ad_btn">비밀번호변경</button>
+                        <button type="button" id="chage_address_btn" @click="handle_ad_btn">우편번호검색</button>
                     </div>
                     <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
                         <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" @click="foldDaumPostcode" alt="접기 버튼">
                     </div>
                 </div>
             </div>
-        </div>
         <!-- 비밀번호 변경 Modal -->
-        <!-- <div class="modal-dialog modal-dialog-scrollable"> -->
-
-        <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">비밀번호변경</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ...
+                <div class="update_modal_pw_box">
+                    <div class="update_modal_pw_oldpw">
+                        <p>기존 비밀번호</p>
+                        <span>*</span>
+                    </div>
+                    <div class="updatemodal_input_pw_oldpw">
+                        <input type="password">
+                    </div>
+                    <div class="update_modal_pw_newpw">
+                        <p>새 비밀번호</p>
+                        <span>*</span>
+                    </div>
+                    <div class="updatemodal_input_pw_newpw">
+                        <input type="password">
+                    </div>
+                    <div class="update_modal_pw_newpw_check">
+                        <p>새 비밀번호 확인</p>
+                        <span>*</span>
+                    </div>
+                    <div class="updatemodal_input_pw_newpw">
+                        <input type="password">
+                    </div>
+                    <!-- <button type="button" id="update_modal_pw_box_btn" @click="" -->
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
+                <button type="button" class="btn btn-primary">비밀번호변경</button>
             </div>
             </div>
         </div>
-        </div>
-    <Footer></Footer>
+    </div>
+</div>
+<Footer></Footer>
 </template>
 
 <script>
-import axios from 'axios';
+//import axios from 'axios';
 import MyPage_Info from '@/components/MyPage_Info.vue';
 import Footer from '@/components/Footer.vue';
 import mypage_mail from '@/assets/mypage_mail.png';
@@ -93,34 +122,30 @@ import mypage_pw from '@/assets/mypage_pw.png';
 import mypage_profile from '@/assets/mypage_profile.png';
 import mypage_phone from '@/assets/mypage_phone.png';
 import mypage_address from '@/assets/mypage_address.png';
-    export default {
-        data() {
-            return {
-                token : sessionStorage.getItem("token"),
-                mypage_mail : mypage_mail,
-                mypage_pw : mypage_pw,
-                mypage_profile : mypage_profile,
-                mypage_phone : mypage_phone,
-                mypage_address : mypage_address,
-                showModal : false,
-            }
-        },
-        components : {
-            Footer : Footer,
-            MyPage_Info : MyPage_Info
-        },
-        methods : {
-            async updatemodal(){
-                this.$refs['testmodal']
-            },
-            async handle_pw_modal() {
-                const headers = {"Content-Type" : "application/json", token : this.token};
-                const url = `REST/api/member/update`;
-                const response = await axios.post(url,{headers});
-                console.log(response);
-            }
+
+export default {
+    data() {
+        return {
+            token : sessionStorage.getItem("token"),
+            mypage_mail : mypage_mail,
+            mypage_pw : mypage_pw,
+            mypage_profile : mypage_profile,
+            mypage_phone : mypage_phone,
+            mypage_address : mypage_address,
+            showModal : false,
         }
+    },
+    components : {
+        Footer : Footer,
+        MyPage_Info : MyPage_Info
+    },
+    created() {
+
+    },
+    methods : {
+
     }
+}
 </script>
 
 <style scoped>
@@ -303,4 +328,39 @@ import mypage_address from '@/assets/mypage_address.png';
     font-size: 15px;
     margin-left: 5px;
 }
+/* Modal */
+.modal-body {
+    font-family: 'Gowun Dodum', sans-serif;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.update_modal_pw_oldpw {
+    display: flex;
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+.update_modal_pw_newpw, .update_modal_pw_newpw_check {
+    display: flex;
+    width: 80%;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+.updatemodal_input_pw_oldpw > input, .updatemodal_input_pw_newpw > input, .updatemodal_input_pw_newpw > input  {
+    border: none;
+    border-bottom: 2px solid black;
+    width: 250px;
+}
+.update_modal_pw_oldpw > p, .update_modal_pw_newpw > p, .update_modal_pw_newpw_check > p {
+    margin-bottom: 0px;
+}
+span{
+    width: fit-content;
+    height : fit-content;
+    font-size: 15px;
+    margin : 2px 5px 2px 0px;
+    color : #C30000;
+    font-weight: bold;
+}   
 </style>
