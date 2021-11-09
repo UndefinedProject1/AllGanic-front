@@ -9,7 +9,7 @@
                     <div class="m_update_mail">
                         <img :src="mypage_mail"/>
                         <p>이메일</p>
-                        <span>sksmsdiWkd!@naver.com</span>
+                        <span style="color:black">sksmsdiWkd!@naver.com</span>
                     </div>
                     <div class="m_password">
                         <div class="m_update_pw">
@@ -137,6 +137,11 @@ export default {
             member : '',
         }
     },
+    mounted() {
+        let daumPostCode = document.createElement('script')
+        daumPostCode.setAttribute('src', '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js')
+        document.head.appendChild(daumPostCode);
+    },
     components : {
         Footer : Footer,
         MyPage_Info : MyPage_Info
@@ -251,10 +256,10 @@ export default {
     height: 15px;
     margin-right: 5px;
     margin-bottom: 5px;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 .u_pw_box > button {
-    width: 110px;
+    /* width: 110px; */
     height: 25px;
     background-color: #715036;
     color: white;
@@ -263,6 +268,7 @@ export default {
     font-size: 15px;
     display: flex;
     align-items: center;
+    margin-bottom: 2px;
 }
 .m_name {
     width: 100%;
@@ -277,6 +283,7 @@ export default {
     width: fit-content;
     margin-right: 35px;
     margin-bottom: 5px;
+    margin-top: 3px;
 }
 .m_phone {
     width: 100%;
@@ -292,6 +299,7 @@ export default {
     margin-right: 22px;
     width: fit-content;
     margin-bottom: 5px;
+    margin-top: 3px;
 }
 .m_address {
     /* border: 1px solid black; */
@@ -299,6 +307,7 @@ export default {
     display: flex;
     margin-top: 30px;
     justify-content: center;
+    align-items: center;
 }
 .m_update_address > img {
     width: 15px;

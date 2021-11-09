@@ -56,7 +56,7 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
     /* border: 1px solid black; */
     width: 100%;
     height: 100%;
-    padding: 20px;
+    padding: 40px;
     display: inline-flex;
     font-family: 'Gowun Dodum', sans-serif;;
 }

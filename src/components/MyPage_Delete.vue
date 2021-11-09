@@ -1,18 +1,37 @@
 <template>
     <div class="mypage_delete">
         <MyPage_Info></MyPage_Info>
-        <div class="delete_box">
-            <div class="delete_name">
-                <p>회원탈퇴</p>
-            </div>
-            <div class="delete_insert">
-                <div class="delete_password">
-                    <img :src="mypage_pw">
-                    <p>비밀번호</p>
-                    <input type="password" v-model="input_pw">
-               </div>
-                <div class="delete_password_btn">
-                    <button type="button" id="del_pw_btn" @click="handleDelPw">비밀번호인증</button>
+            <div class="delete_box">
+                <div class="delete_name">
+                    <p>회원탈퇴</p>
+                </div>
+                <div class="delete_insert">
+                    <div class="delete_password">
+                        <img :src="mypage_pw">
+                        <p>비밀번호</p>
+                        <input type="password" v-model="input_pw">
+                </div>
+                    <div class="delete_password_btn">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="handle_pw_modal">비밀번호인증</button>
+                        <!-- <button type="button" id="del_pw_btn" @click="handleDelPw">비밀번호인증</button> -->
+                    </div>
+                </div>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Membership withdrawal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>탈퇴 하시겠습니까?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button">확인</button>
+                        <button type="button">취소</button>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,6 +47,7 @@ import mypage_pw from '@/assets/mypage_pw.png';
         data() {
             return {
                 mypage_pw : mypage_pw,
+                showModal : false,
             }
         },
         components : {
@@ -45,7 +65,7 @@ import mypage_pw from '@/assets/mypage_pw.png';
 .mypage_delete {
     width: 100%;
     height: 100%;
-    padding: 20px;
+    padding: 40px;
     display: inline-flex;
     font-family: 'Gowun Dodum', sans-serif;
 }
@@ -55,11 +75,15 @@ import mypage_pw from '@/assets/mypage_pw.png';
 .delete_name {
     width: 100%;
     display: flex;
+    color: #715036;
+    font-weight: 500;
+    font-size: 18px;
+    font-weight: bold;
 }
 .delete_insert {
     border: 2px solid black;
     width: 100%;
-    height: 570px;
+    height: 530px;
     border-radius: 5px;
 }
 .delete_password {
@@ -70,15 +94,16 @@ import mypage_pw from '@/assets/mypage_pw.png';
 }
 .delete_password > input {
     width: 30%;
+    height: 40px;
     border: none;
     border-bottom: 2px solid black;
     background-color: #eeeeee;
 }
 .delete_password > img {
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
     margin-right: 5px;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 .delete_password > p {
     margin-right: 10px;
@@ -92,14 +117,11 @@ import mypage_pw from '@/assets/mypage_pw.png';
     background-color: #715036;
     color: white;
     border-radius: 5px;
-    width: 100px;
+    width: 110px;
     height: 30px;
     border: none;
-
-}
-    /* width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center; */
-
+    align-items: center;
+    justify-content: center;
+}
 </style>

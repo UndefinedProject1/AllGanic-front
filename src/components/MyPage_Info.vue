@@ -11,11 +11,11 @@
                 </div>
                 <div class="info_ad_icon">
                     <img :src="mypage_address"/>
-                    <div class="info_address">
+                    <!-- <div class="info_address"> -->
                         <p>Address: 43 Oxford Road M13 4GR Manchester, UK
                             <button type="button" @click="handleAdUpdate">기본주소 수정</button>
                         </p>
-                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
             <hr class="solid" />
@@ -49,7 +49,7 @@ import mypage_address from '@/assets/mypage_address.png';
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
 .info_box {
     border: 1px solid black;
-    width: 400px;
+    width: 500px;
     height: 100%;
     border-radius: 10px;
     margin-right: 20px;
@@ -57,7 +57,6 @@ import mypage_address from '@/assets/mypage_address.png';
 .info_info {
     /* border: 1px solid black; */
     padding: 5px;
-    margin-left: 60px;
 }
 .info_name {
     /* border: 1px solid black; */
@@ -86,7 +85,7 @@ import mypage_address from '@/assets/mypage_address.png';
     /* border: 1px solid black; */
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
 }
 .info_email > img {
     /* border: 1px solid black; */
@@ -98,7 +97,7 @@ import mypage_address from '@/assets/mypage_address.png';
     /* border: 1px solid black; */
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     margin-top: 5px;
 }
 .info_ad_icon >img {
@@ -112,7 +111,11 @@ import mypage_address from '@/assets/mypage_address.png';
     width : 100%;
     height: 1px;
 }
-.info_address > p > button {
+.info_address {
+    display: flex;
+    justify-content: center;
+}
+.info_ad_icon > p > button {
     /* border: 1px solid black; */
     width: auto 0px;
     height: auto 0px;
@@ -123,7 +126,7 @@ import mypage_address from '@/assets/mypage_address.png';
     color: white;
     margin-top: 3px;
 }
-.info_address > p {
+.info_ad_icon > p {
     width: 80%;
 }
 .info_menu {
@@ -132,7 +135,7 @@ import mypage_address from '@/assets/mypage_address.png';
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 .info_menu > span {
     color: #715036;
