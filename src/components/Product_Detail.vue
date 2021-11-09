@@ -2,12 +2,12 @@
     <div class="pd_detail_wrapper">
         <div class="pd_detail_container">
             <div class="detail_section1">
-                <div style="max-width:43%; max-height : 43% inherit; border : 1px solid black; margin-right : 10px">
-                    <img :src="productmainimg" style="border:1px solid black; width : 100%; height : 100%;">
+                <div class="detail_imgcontainer">
+                    <img :src="productmainimg">
                 </div>
                 <div class="pd_detail_info">
                     <div class="pd_detail_header">
-                        <p id="brandname">Melixar</p>
+                        <p id="brandname">{{detailcontents.brandname}}</p>
                         <p id="productname">{{detailcontents.productname}}</p>
                     </div>
                     <div class="pd_detail_infocontainer">
@@ -59,72 +59,282 @@
                 <button id="orderbtn">ORDER</button>
             </div>
             <div class="detail_section3">
-                <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#scrollspyHeading1">상세설명</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#scrollspyHeading2">상품후기</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#scrollspyHeading3">FAQ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#scrollspyHeading5">교환/환불</a>
-                        </li>
-                    </ul>
-                </nav>
-                <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
-                    <h4 id="scrollspyHeading1">First heading</h4>
-                        <p></p>
-                    <h4 id="scrollspyHeading2">Second heading</h4>
-                        <p></p>
-                    <h4 id="scrollspyHeading3">Third heading</h4>
-                        <p></p>
-                    <h4 id="scrollspyHeading4">Fourth heading</h4>
-                        <p>...</p>
-                    <h4 id="scrollspyHeading5">Fifth heading</h4>
-                        <p>...</p>
+                <div class="selection3_navButtons">
+                    <button type="button" @click="clickDetail">상세설명</button>
+                    <button type="button" @click="clickReview">상품후기</button>
+                    <button type="button" @click="clickFaq">FAQ</button>
+                    <button type="button" @click="clickRefund">교환 및 환불</button>
+                </div>
+                <div class="section3_detailSection">
+                    <div class="detailInfo"><input type="text" ref="callDetailInfo">
+                        <div v-for="subcode in subImgCodeList" v-bind:key="subcode" class="subImgContainer">
+                            <img :src="`REST/api/select_subimage/find?no=${subcode.subcode}`">
+                        </div>
+                    </div>
+                    <div class="productReview"><input type="text"  ref="callProductReview">
+                        <div class="reviewContainer">
+                            <div class="reviewTitle">
+                                <h3>상품후기</h3>
+                                <span @click="showWritingReview">리뷰 작성하기</span>
+                            </div>
+                            <div class="reviewTable" >
+                                <div class="writeReviewSection" v-if="showWriting">
+                                    <table>
+                                        <colgroup>
+                                            <col class="th_area">
+                                            <col class="td_area">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <th><span class="th_title">아이디</span></th>
+                                                <td>
+                                                    <span>kyori0515</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th><span class="th_title">리뷰</span></th>
+                                                <td>
+                                                    <div class="reviewContents">
+                                                        <div class="reviewImage">
+                                                            <div class="main_image_container">
+                                                                <img :src = "default_image" id="mainImg">
+                                                                <label for="insertmainImg">이미지 추가</label>
+                                                                <input type="file" @change="handleMainImg($event)" name="파일첨부" id="insertmainImg">
+                                                            </div>                                                            
+                                                        </div>
+                                                        <div class="form-floating">
+                                                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
+                                                            <label for="floatingTextarea2">리뷰는 300자 이하로 작성해주세요.</label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>                                            
+                                        </tbody>
+                                    </table>
+                                    <div class="writeReviewSection_warning">
+                                        <span><strong>상품 리뷰 작성시 유의사항</strong></span>
+                                        <p>후기 사진은 제품 당 한장씩만 등록가능합니다.</p>
+                                        <p>상품 및 상품 구매 과정과 관련 없는 비방, 욕설, 명예훼손성 게시글 및 상품과 관련 없는 광고글 등<br/>
+                                            부적절한 게시글 등록 시 글쓰기 제한 및 게시글이 삭제 조치 될 수 있습니다.</p>
+                                    </div>
+                                    <div class="reviewBtnContainer">
+                                        <button id="writingReviewBtnClose" @click="closeWritingReview">닫기</button>
+                                        <button id="writingReviewBtn">작성완료</button>
+                                    </div>
+
+                                </div>
+                                <div class="reviewArea"  v-for="review in reviewList" v-bind:key="review">
+                                    <div id="reviewTitle">
+                                        <div id="titleSection">
+                                            <StarRating :star-size="15" :rating="review.reviewrating" :read-only="true" :border-width="1" active-color="#49654E" :show-rating="false" :rounded-corners="true" id="rating"></StarRating>
+                                            <p>kyori0515</p>
+                                        </div>
+                                        <p>{{review.reviewdate}}</p>
+                                    </div>
+                                    <div id="reviewContent">
+                                        <img :src="`REST/api/review_image?no=${review.reviewcode}`">
+                                        <p>{{review.reviewcontent}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="productFaq"><input type="text" ref="callProductFaq">
+                        <div class="faqContainer">
+                            <div class="faqTitleSection">
+                                <h3>상품문의</h3>
+                                <span @click="showWritingFaq">문의글 작성하기</span>
+                            </div>
+                            <div class="faqTable">
+                                <div class="faqWriting" v-if="showFaqWriting">
+                                    <table>
+                                        <colgroup>
+                                            <col class="th_area">
+                                            <col class="td_area">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <th><span class="th_title">아이디</span></th>
+                                                <td>
+                                                    <span>kyori0515</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th><span class="th_title">문의내용</span></th>
+                                                <td>
+                                                    <div class="faqWritingContents">
+                                                        <div class="faqWritingSelect">
+                                                            <select class="form-select" aria-label="Default select example" v-model="selected">
+                                                                <option selected>문의유형선택</option>
+                                                                <option value="1">상품문의</option>
+                                                                <option value="2">배송문의</option>
+                                                                <option value="3">기타</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-floating">
+                                                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
+                                                            <label for="floatingTextarea2">문의는 300자 이하로 작성해주세요.</label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>                                            
+                                        </tbody>
+                                    </table>
+                                    <div class="writeFaqSection_warning">
+                                        <span><strong>상품 Q&A 작성 시 유의사항</strong></span>
+                                        <p>교환, 반품, 취소는 1:1문의를 통해 접수 부탁드립니다.</p>
+                                        <p>상품 및 상품 구매 과정과 관련 없는 비방, 욕설, 명예훼손성 게시글 및 상품과 관련 없는 광고글 등 <br>
+                                            부적절한 게시글 등록 시 글쓰기 제한 및 게시글이 삭제 조치 될 수 있습니다.</p>
+                                        <p>전화번호, 이메일 등 개인 정보가 포함된 글 작성이 필요한 경우 판매자만 볼 수 있도록 비밀글로 문의해 주시기 바랍니다.</p>
+                                    </div>
+                                    <div class="reviewBtnContainer">
+                                        <button id="writingReviewBtnClose" @click="closeWritingFaq">닫기</button>
+                                        <button id="writingReviewBtn">작성완료</button>
+                                    </div>
+
+                                </div>
+                                <div class="faqList" v-for="question in questionList" v-bind:key="question">
+                                    <p>{{question.QUESTIONKIND}}</p>
+                                    <div class="faqContnet">
+                                        <div class="faqLead">
+                                            <i class="bi bi-eye-fill" style="width:20px; height:20px; margin-right : 10px;"></i>
+                                            <p>{{question.QUESTIONTITLE}}.</p>
+                                            <p>{{question.QUESTIONCONTENT}}.</p>
+                                        </div>
+                                        <div class="faqSecond">
+                                            <p>{{question.MEMBER}}</p>
+                                            <p>{{question.QUESTIONDATE}}</p>
+                                            <p class="badge bg-dark">답변완료</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="productRefundPolicy"><input type="text" ref="callProductRefundPolicy">
+                        <h3>교환, 환불, A/S 안내</h3>
+                        <div class="policyContent">
+                            <ul>
+                                <li>상품 수령일로부터 7일 이내 반품 / 환불 가능합니다.</li>
+                                <li>변심 반품의 경우 왕복배송비를 차감한 금액이 환불되며, 제품 및 포장 상태가 재판매 가능하여야 합니다.</li>
+                                <li>동일상품 또는 동일상품 내 추가금액이 없는 옵션만 교환가능합니다.</li>
+                                <li>상품 불량인 경우는 배송비를 포함한 전액이 환불됩니다.</li>
+                                <li>출고 이후 환불요청 시 상품 회수 후 처리됩니다.</li>
+                                <li>얼리 등 주문제작상품 / 카메라 / 밀봉포장상품 등은 변심에 따른 반품 / 환불이 불가합니다.</li>
+                                <li>일부 완제품으로 수입된 상품의 경우 A/S가 불가합니다.</li>
+                                <li>특정브랜드의 상품설명에 별도로 기입된 교환 / 환불 / AS 기준이 우선합니다.</li>
+                                <li>구매자가 미성년자인 경우에는 상품 구입 시 법정대리인이 동의하지 아니하면 미성년자 본인 또는 법정대리인이 구매취소 할 수 있습니다.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <Footer></Footer>
     </div>
 </template>
 
 <script>
+import default_image from '@/assets/default_image.jpg';
 import axios from 'axios';
-import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
-import Footer from '@/components/Footer.vue';
+import StarRating from 'vue-star-rating'
     export default {
         data(){
             return{
-                vegan_oil_img : vegan_oil_img,
                 pcode : this.$route.query.code,
                 detailcontents : '',
                 productmainimg : '',
+                subImgCodeList : [],
+                reviewList : [],
+                questionList : [],
+                showWriting : false,
+                showFaqWriting : false,
+                default_image :default_image,
+                mainfile : '',
+                selected : '',
             }
         },
         components : {
-            Footer : Footer
+            StarRating : StarRating
         },
         async created() {
             await this.handleDetailContents();
         },
         methods : {
+            handleMainImg(e){
+                if(e.target.files.length > 0) {
+                    this.mainfile = e.target.files[0];
+                    var reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.mainImg = e.target.result;
+                    }
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            },
             async handleDetailContents(){
+                // 상품 기본정보
                 const url = `REST/api/product_one?code=${this.pcode}`;
                 const header = {"Content-Type" : "application/json"};
                 const response = await axios.get(url, header);
-                console.log(response);
+                // console.log(response);
 
                 if(response.data.result === 1){
                     this.detailcontents = response.data.product;
-                    console.log(this.detailcontents);
+                    // console.log(this.detailcontents);
                     this.productmainimg = response.data.imgurl;
                 }
+
+                // 상세정보(상세이미지)
+                const url1 = `REST/api/select_subimage?product=${this.pcode}`;
+                const response1 = await axios.get(url1, header);
+                console.log(response1);
+                if(response1.data.result === 1){
+                    this.subImgCodeList = response1.data.list;
+                    console.log(this.subImgCodeList);
+                }
+
+                const url2 = `REST/api/review/list/product?code=${this.pcode}`;
+                const response2 = await axios.get(url2, header);
+                console.log(response2);
+                if(response2.data.result === 1){
+                    this.reviewList = response2.data.list;
+                    console.log(this.reviewList);
+                }
+
+                const url3 = `REST/api/question/product/selectlist?no=${this.pcode}&kind=`;
+                const response3 = await axios.get(url3,header);
+                console.log(response3);
+                if(response3.data.result === 1){
+                    this.questionList = response3.data.list;
+                    console.log(this.questionList);
+                }
+                
+            },
+            clickDetail(){
+                this.$refs.callDetailInfo.focus();
+            },
+            clickReview(){
+                this.$refs.callProductReview.focus();
+            },
+            clickFaq(){
+                this.$refs.callProductFaq.focus();
+            },
+            clickRefund(){
+                this.$refs.callProductRefundPolicy.focus();
+            },
+            showWritingReview(){
+                this.showWriting = true;
+            },
+            closeWritingReview(){
+                this.showWriting = false;
+            },
+            showWritingFaq(){
+                this.showFaqWriting = true;
+            },
+            closeWritingFaq(){
+                this.showFaqWriting = false;
             }
+            
+
         }
     }
 </script>
@@ -136,13 +346,12 @@ import Footer from '@/components/Footer.vue';
     width: 100%;
     height: 100%;
     overflow-y: scroll;
-    padding: 40px;
     font-family: 'Gowun Dodum', sans-serif;
 }
 .pd_detail_container{
     /* border: 1px solid black; */
     margin: 0 auto;
-    width: 80%;
+    width: 69%;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -154,12 +363,17 @@ import Footer from '@/components/Footer.vue';
     display: flex;
     flex-direction: row;
     padding: 20px;
-    align-items: stretch;
+    align-items: center;
 }
-.detail_section1 img {
-    width : 43%;
-    height : 43%;
-    margin-right: 20px;
+.detail_imgcontainer{
+    width:700px; 
+    height:450px; 
+    /* border : 1px solid black;  */
+    margin-right : 20px
+}
+.detail_imgcontainer img {
+    width : 100%;
+    height : 100%;
     border-radius: 3px;
 }
 .pd_detail_info{
@@ -200,14 +414,15 @@ import Footer from '@/components/Footer.vue';
 .pd_detail_table{
     width: 100%;
     height : fit-content;
-    font-family: 'Exo', sans-serif;
+}
+.pd_detail_table table th{
+    text-align: left;
 }
 #saleprice{
     color: red;
 }
 .pd_detail_table tbody th{
     padding: 20px 10px;
-    text-align: center;
 }
 .pd_detail_table tbody th span{
     font-size: 18px;
@@ -237,7 +452,7 @@ import Footer from '@/components/Footer.vue';
 }
 .pd_detail_shipping p{
     margin : 30px 0px 0px 15px;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: bold;
 }
 .pd_detail_shippingtable tbody th span {
@@ -256,7 +471,7 @@ import Footer from '@/components/Footer.vue';
     height: 50px;
 }
 .pd_detail_shippingtable tbody td {
-    font-size: 14px;
+    font-size: 13px;
     padding-left: 10px;
 }
 
@@ -269,33 +484,336 @@ import Footer from '@/components/Footer.vue';
     justify-content: flex-end;
 }
 .detail_section2 #orderbtn{
-    width : 170px;
+    width : 275px;
     height : 65px;
     background-color: #715036;
     color: white;
     font-weight: bold;
-    /* margin-top: 10px; */
-    margin-right: 70px;
+    margin: 10px;
     border-radius: 3px; 
     font-family: 'Playfair Display', serif;
     font-size: 20px;
     border: none;
 }
 .detail_section2 #addcartbtn{
-    width : 170px;
+    width : 275px;
     height : 65px;
     background-color: #ffffff;
     color: #715036;
     font-weight: bold;
-    /* margin-top: 10px; */
-    margin-right: 45px;
+    border: 0.3px solid #715036;
+    margin: 10px;
     border-radius: 3px; 
     font-family: 'Playfair Display', serif;
     font-size: 20px;
-    border: none;
 }
 .detail_section2 button:hover{
-    box-shadow: 3px 2px 5px 0px #966d4f;
     opacity: 0.9;
+}
+.detail_section3 {
+    margin-top: 100px;
+    display: block;
+    position: relative;
+    width: 100%;
+    height: fit-content;
+}
+.section3_navSection{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.selection3_navButtons{
+    display: inline-flex;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    justify-content: center;
+    border-bottom: 0.5px solid #49654E;
+}
+.selection3_navButtons button{
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: white;
+    color: #49654E;
+    border: 0.5px solid #49654E;
+    border-bottom: none;
+    border-radius: 3px;
+    margin: 0px 3px 0.5px 0px;
+}
+.section3_detailSection{
+    display: flex;
+    flex-direction: column;
+}
+.section3_detailSection .detailInfo{
+    margin : 20px 0px 50px 0px;
+}
+.productReview, .productFaq, .productRefundPolicy{
+    margin-bottom: 50px;
+    height: 450px;
+}
+.reviewTitle, .faqTitleSection{
+    /* border: 1px solid black; */
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+h3{
+    font-weight: bold;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    width : fit-content;
+    font-size: 25px;
+}
+.reviewContainer .reviewTitle > span,
+.faqTitleSection > span {
+    width: 120px;
+    height: fit-content;
+}
+.reviewContainer .reviewTitle span:hover,
+.faqTitleSection > span:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+.reviewTable, .faqTable, .policyContent{
+    border-top: 2px solid #49654E;
+    display: flex;
+    flex-direction: column;
+}
+.reviewTable .writeReviewSection{ 
+    width: 100%;
+    border: 0.5px solid #49654E;
+    padding: 20px 40px 0px 0px;
+    margin-top: 10px;
+    border-radius: 5px;
+}   
+table{ 
+    width: 100%;
+    height: fit-content;
+}  
+.writeReviewSection table th,
+.faqWriting table th{ 
+    width: 50px;
+    height: fit-content;
+    /* border: 1px solid black; */
+    text-align: center;
+}
+table td{ 
+    width: 50px;
+    height: fit-content;
+    /* border: 1px solid black; */
+    padding: 10px 0px 10px 10px;
+}
+table th span{ 
+    width : fit-content;
+}
+#floatingTextarea2{
+    width: 100%;
+    height: 140px;
+}
+.writeReviewSection_warning{
+    width: fit-content;
+    margin-left:12em;
+}
+.writeReviewSection_warning span{
+    font-size: 13px;
+    width: fit-content;
+}
+.writeFaqSection_warning{
+    width: fit-content;
+    margin-left:13em;
+}
+.writeFaqSection_warning p{
+    font-size: 12px;
+    width: fit-content;
+    margin : 0px;
+}
+.writeReviewSection_warning p{
+    font-size: 12px;
+    width: fit-content;
+    margin : 0px;
+}
+.reviewBtnContainer{
+    display: inline-flex;
+    width: fit-content;
+    float : right;
+    margin: 20px 0px;
+}
+#writingReviewBtnClose{
+    width: 110px;
+    height: 40px;
+    color: #715036;
+    background-color: white;
+    border: 0.5px solid #715036;
+    border-radius: 3px;
+    margin : 10px 5px 20px 0px;
+}
+#writingReviewBtn{
+    width: 110px;
+    height: 40px;
+    color: white;
+    background-color: #715036;
+    border: none;
+    border-radius: 3px;
+    margin : 10px 5px 20px 0px;
+}
+.reviewContents{
+    display: flex;
+    flex-direction: row;
+}
+.form-floating{
+    width : 100%;
+    /* margin: 0px 10px; */
+}
+input[type="file"]{
+    display: none;
+}
+.main_image_container{
+    border-radius: 2px;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+}
+#mainImg{
+    width :130px;
+    border-radius: 2px;
+}
+.main_image_container > label {
+    border: 1px solid rgb(206 212 217);
+    width: fit-content;
+    height: fit-content;
+    padding: 5px;
+    background-color: white;
+    color: black;
+    margin: 5px;
+    border-radius: 3px;
+ }
+.reviewArea, .faqList{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #49654E;
+    padding: 20px;
+}
+.reviewTable #reviewTitle{
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.reviewTable #reviewTitle #rating{
+    margin-top: 0;
+}
+.reviewTable #reviewTitle #rating, p{
+    width: fit-content;
+}
+.reviewTable #reviewTitle p:last-child{
+    margin: 0px 0px 0px 20px;
+}
+.reviewTable #titleSection{
+    display: inline-flex;
+    align-items: center;
+}
+.reviewTable #titleSection p{
+    margin: 0px 0px 0px 15px;
+}
+.reviewTable .reviewArea #reviewContent{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+.reviewTable .reviewArea #reviewContent img{
+    width: 90px;
+    height: 90px;
+    border-radius: 3px;
+}
+.reviewTable .reviewArea #reviewContent p{
+    margin : 0px 0px 0px 20px;
+}
+input[type="text"] {
+    border: none;
+}
+input:focus{
+    color: white;
+    outline: none;
+}
+button:hover{
+    background-color: #49654E;
+    color: white;
+}
+
+.subImgContainer{
+    width: 100%;
+    align-content: center;
+}
+.subImgContainer img{
+    width: 100%;
+}
+.faqContainer{
+    width: 100%;
+    /* border: 1px solid black; */
+}
+.faqContainer .faqTable{
+    /* border: 1px solid black; */
+    width: 100%;
+}
+.faqWriting {
+    width: 100%;
+    border: 0.5px solid #49654E;
+    padding: 30px 40px 0px 0px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+.faqTable .faqWritingContents{
+    display: flex;
+    flex-direction: column;
+}
+.faqWritingSelect{
+    width: 150px;
+}
+.form-select {
+    margin: 0px 0px 10px 0px;
+}
+.faqList > p{
+    margin: 0;
+    width: fit-content;
+    padding: 10px;
+    color: rgba(185, 185, 185, 0.933);
+    font-weight: bold;
+}
+.faqContnet { 
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0px 10px;
+}
+.faqContnet .faqLead{
+    display : inline-flex;
+    width : 100%;
+}
+.faqContnet .faqSecond{
+    display: inline-flex;
+    width : fit-content;
+    text-align: right;
+}
+.faqContnet .faqSecond p{
+    margin: 0px 10px;
+    width : max-content;
+}
+.faqContnet .faqSecond p:last-child{
+    /* margin-right: 20px; */
+    width : max-content;
+    margin-left: 20px;
+    height : fit-content
+}
+.productRefundPolicy .policyContent{
+    padding-top: 15px;
 }
 </style>

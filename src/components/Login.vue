@@ -88,9 +88,6 @@ import login_password from '@/assets/login_password.png';
                     alert('로그인실패');
                 }
             },
-            async handleRole(){
-                
-            }
         }
 
     }

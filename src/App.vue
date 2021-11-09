@@ -27,7 +27,7 @@
     </div>
     <!-- 메인 콘텐츠 -->
     <div class="content" @mouseover="closeSideNav">
-          <router-view></router-view>
+      <router-view></router-view>
     </div>
   </div>
 
@@ -160,13 +160,16 @@
   export default {
     data() {
       return{
+        showMain : false,
+        routes : this.$route.path,
         wrapper:{
           display: 'grid',
           gridTemplateColumns: '100%',
           gridTemplateRows: '10% 90%',
           gridTemplateAreas: '"header", "content"',
           height: '100vh',
-          fontFamily: '"Playfair Display", serif'
+          fontFamily: '"Playfair Display", serif',
+          backgroundColor : '#49654E'
         },
         sideNavStyle:{
           width : '0',
@@ -207,7 +210,7 @@
         this.sideNavStyle_b.width="0%";
         this.wrapper.opacity="1";
       },
-    }
+    },
   }
 </script>
 
@@ -218,6 +221,7 @@ body{
   width: 100%;
   height: 100%;
   font-family: 'Playfair Display', serif;
+  background-color: #49654E;
 }
 /* .wrapper{
   display: grid;
@@ -233,8 +237,7 @@ body{
   display: inline-flex;
   font-family: 'Playfair Display', serif;
   color:  #eeeeee;
-  background-color: #49654E;
-  z-index: 1;
+  /* z-index: 1; */
   /* position: absolute;
   top: 0;
   width: 100%; */
@@ -242,7 +245,7 @@ body{
 .content{
   /* border: 1px solid black; */
   height: 100%;
-  background-color: #eeeeee;
+  background-color: white;
 }
 
 
