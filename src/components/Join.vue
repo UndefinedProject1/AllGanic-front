@@ -392,7 +392,7 @@ export default {
           usertel: this.usertel,
           post: this.postcode,
           address: this.roadAddress,
-          detailaddress: this.detailAddress,
+          detaileaddress: this.detailAddress,
         };
         console.log(body);
         const url = `REST/api/member/join`;
