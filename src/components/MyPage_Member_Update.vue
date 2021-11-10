@@ -70,7 +70,7 @@
             v-model="member.DETAILEADDRESS"
             style="width: 100px"
           />
-          <button type="button" id="chage_address_btn" @click="openDaumPostCode">
+          <button type="button" id="postcode_btn" @click="openDaumPostCode">
             우편번호검색
           </button>
         </div>
@@ -128,17 +128,16 @@
           회원정보수정
         </button>
       </div>
-      <!-- <button type="button" class="btn btn-primary"  @click="handlUpdate">비밀번호변경</button> -->
     </div>
     <!-- 비밀번호 변경 Modal -->
-    <div
+    <div 
       class="modal fade"
       id="staticBackdrop"
       data-bs-backdrop="static"
       data-bs-keyboard="false"
       tabindex="-1"
       aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
+      aria-hidden="true" 
     >
       <div class="modal-dialog">
         <div class="modal-content">
@@ -186,12 +185,12 @@
             </div>
           </div>
           <div class="modal-footer">
+            <!-- 히든버튼 추가 -->
+            <button type="button" id="btn_close" style="display:none" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button 
               type="button"
               class="btn btn-primary"
               @click="handlPWUpdate" 
-              
-              
             >
               비밀번호변경 
             </button>
@@ -222,7 +221,7 @@ export default {
         mypage_profile: mypage_profile,
         mypage_phone: mypage_phone,
         mypage_address: mypage_address,
-        showModal: false,
+        
         postcode: "",
         roadAddress: "",
         detailAddress: "",
@@ -338,9 +337,10 @@ export default {
         theme: {
           searchBgColor: "#1B1B1C",
           queryTextColor: "#FFFFFF",
-        },
-      }).open()({
-        popupTitle: "LUSH 우편번호 검색", //팝업창 타이틀 설정 (영문,한글,숫자 모두 가능)
+        }
+      }).
+      open()({
+        popupTitle: "All_ganic", //팝업창 타이틀 설정 (영문,한글,숫자 모두 가능)
       });
     },
     async handlPWUpdate() {
@@ -370,11 +370,8 @@ export default {
         console.log(response);
         if(response.data.result === 1) {
             alert("비밀번호 수정 성공");
-            // if else()
-            // v-if="this.handlPWUpdate === close"
-            
-            // await this.handleMemberGet();
-
+            // alert버튼 누르면 모달창 사라짐
+            document.getElementById('btn_close').click();
         }
     },
     async handle_memupdate() {
@@ -532,6 +529,7 @@ export default {
   margin-bottom: 5px;
   margin-top: 8px;
 }
+/* 비밀번호변경  버튼 */
 .u_pw_box > button {
   /* width: 110px; */
   height: 25px;
@@ -646,7 +644,8 @@ export default {
   background-color: #fbfdff0f;
   width: 80%;
 }
-.u_address_box > button {
+/* 우편번호검색 버튼 */
+#postcode_btn {
   width: 110px;
   height: 25px;
   background-color: #715036;
@@ -695,6 +694,7 @@ span {
   color: #c30000;
   font-weight: bold;
 }
+/* 회원정보수정 버튼 */
 #handle_memupdate {
   width: 110px;
   height: 35px;
@@ -706,8 +706,19 @@ span {
   font-size: 15px;
 }
 /* 주소 */
-/* #postcode_btn:hover {
+/* #postcode_btn {
+  width: 110px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  background-color: #715036;
+  margin-bottom: 5px;
+  font-size: 15px;
+} */
+#postcode_btn:hover {
   cursor: pointer;
   opacity: 0.8;
-} */
+}
 </style>
