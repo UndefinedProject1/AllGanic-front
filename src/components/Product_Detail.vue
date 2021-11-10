@@ -103,7 +103,7 @@
                                                             </div>                                                            
                                                         </div>
                                                         <div class="form-floating">
-                                                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
+                                                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" v-model="reviewContent"></textarea>
                                                             <label for="floatingTextarea2">리뷰는 300자 이하로 작성해주세요.</label>
                                                         </div>
                                                     </div>
@@ -119,7 +119,7 @@
                                     </div>
                                     <div class="reviewBtnContainer">
                                         <button id="writingReviewBtnClose" @click="closeWritingReview">닫기</button>
-                                        <button id="writingReviewBtn">작성완료</button>
+                                        <button id="writingReviewBtn" @click="writeReview">작성완료</button>
                                     </div>
 
                                 </div>
@@ -171,9 +171,11 @@
                                                                 <option value="3">기타</option>
                                                             </select>
                                                         </div>
+                                                        <div class="form-floating" style="height:30px;">
+                                                            <input type="email" class="form-control" id="floatingInput" v-model="questionTitle" style="height:100%;">
+                                                        </div>
                                                         <div class="form-floating">
-                                                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
-                                                            <label for="floatingTextarea2">문의는 300자 이하로 작성해주세요.</label>
+                                                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" v-model="questionContent"></textarea>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -189,7 +191,7 @@
                                     </div>
                                     <div class="reviewBtnContainer">
                                         <button id="writingReviewBtnClose" @click="closeWritingFaq">닫기</button>
-                                        <button id="writingReviewBtn">작성완료</button>
+                                        <button id="writingReviewBtn" @click="writeQuestion">작성완료</button>
                                     </div>
 
                                 </div>
@@ -240,6 +242,7 @@ import StarRating from 'vue-star-rating'
     export default {
         data(){
             return{
+                gettoken : sessionStorage.getItem("token"),
                 pcode : this.$route.query.code,
                 detailcontents : '',
                 productmainimg : '',
@@ -251,6 +254,9 @@ import StarRating from 'vue-star-rating'
                 default_image :default_image,
                 mainfile : '',
                 selected : '',
+                reviewContent : '',
+                questionTitle :'',
+                questionContent :'',
             }
         },
         components : {
@@ -308,6 +314,33 @@ import StarRating from 'vue-star-rating'
                     console.log(this.questionList);
                 }
                 
+            },
+            async writeReview(){
+                const url = `REST/api/review/insert?no=${this.pcode}`;
+                const headers = {"Content-Type" : "multipart/form-data","token" : this.gettoken};
+                const formData = new FormData();
+                formData.append("reviewcontent", this.reviewContent);
+                formData.append("file", this.mainfile);
+
+                const response = await axios.post(url, formData, {headers});
+                console.log(headers);
+                if(response.data.result === 1){
+                    alert("끝");
+                }
+            },
+            async writeQuestion(){
+                const url = `REST/api/question/insert?no=${this.pcode}`;
+                const headers = {"Content-Type" : "application/json", "token" : this.gettoken};
+                const body = {
+                    questiontitle : this.questionTitle,
+                    questioncontent : this.questionContent,
+                    questionkind : this.selected
+                }
+
+                const response = await axios.post(url, body, {headers});
+                if(response.data.result === 1) {
+                    alert("끝");
+                }
             },
             clickDetail(){
                 this.$refs.callDetailInfo.focus();
@@ -554,7 +587,7 @@ import StarRating from 'vue-star-rating'
 }
 .productReview, .productFaq, .productRefundPolicy{
     margin-bottom: 50px;
-    height: 450px;
+    height: fit-content;
 }
 .reviewTitle, .faqTitleSection{
     /* border: 1px solid black; */
@@ -668,6 +701,13 @@ table th span{
 }
 .form-floating{
     width : 100%;
+    position : relative;
+    /* margin: 0px 10px; */
+}
+.faqWritingContents .form-floating{
+    width : 100%;
+    position : unset;
+    margin-top: 10px;
     /* margin: 0px 10px; */
 }
 input[type="file"]{

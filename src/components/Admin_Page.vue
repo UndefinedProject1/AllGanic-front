@@ -22,7 +22,11 @@
                     <p>미정</p>
                     <p>미정</p>
                 </div>
-                <h2 class="last_section">FAQ관리</h2>
+                <div class="section">
+                    <h2>FAQ관리</h2>
+                    <p @click="ChangeMenu(6)">문의글 목록</p>
+                    <p @click="ChangeMenu(7)">문의글(답변완료)</p>
+                </div>
             </div>
         </div>
         <div class="admin_content" >
@@ -38,11 +42,13 @@ import Admin_Main_Page from '@/components/Admin_Main_Page.vue';
 import Admin_Brand_Insert from '@/components/Admin_Brand_Insert.vue';
 import Admin_Product_List from '@/components/Admin_Product_List.vue';
 import Admin_Category_Insert from '@/components/Admin_Category_Insert.vue';
+import Admin_QA_List from '@/components/Admin_QA_List.vue';
+import Admin_QA_List_Complete from '@/components/Admin_QA_List_Complete.vue';
     export default {
         data () {
             return{
                 CurrentPage : 'AdminMainPage',
-                pages : ['AdminMainPage', 'AdminBrandInsert', 'AdminBrandList', 'AdminCategoryInsert', 'AdminProductInsert','AdminProductList']
+                pages : ['AdminMainPage', 'AdminBrandInsert', 'AdminBrandList', 'AdminCategoryInsert', 'AdminProductInsert','AdminProductList', 'Admin_QA_List', 'Admin_QA_List_Complete']
             }
         },
         components : {
@@ -51,7 +57,9 @@ import Admin_Category_Insert from '@/components/Admin_Category_Insert.vue';
             'AdminMainPage' : Admin_Main_Page,
             'AdminBrandInsert' : Admin_Brand_Insert,
             'AdminProductList' : Admin_Product_List,
-            'AdminCategoryInsert' : Admin_Category_Insert
+            'AdminCategoryInsert' : Admin_Category_Insert,
+            'Admin_QA_List' : Admin_QA_List,
+            'Admin_QA_List_Complete' : Admin_QA_List_Complete
         },
         methods : {
             ChangeMenu(val){
