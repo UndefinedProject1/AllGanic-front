@@ -6,28 +6,18 @@
         <p>회원정보 변경</p>
       </div>
       <div class="m_update_insert">
-        <!-- <option :value="member" v-for="member in memberinfo" v-bind:key="member">{{member}}</option> -->
         <div class="m_update_mail">
           <img :src="mypage_mail" />
           <p>이메일</p>
           <input type="text" v-model="member.USEREMAIL" readonly value />
-          <!-- {{member.USEREMAIL}} -->
-          <!-- <span style="color:black">sksmsdiWkd!@naver.com</span> -->
-          <div class="chk_password" v-bind:style="doublecheck">
-            {{ chk_mail }}
           </div>
-        </div>
         <div class="m_password">
           <div class="m_update_pw">
             <img :src="mypage_pw" />
             <p>비밀번호</p>
           </div>
-          <div class="chk_password" v-bind:style="doublecheck">
-            {{ chk_pw }}
-          </div>
           <div class="u_pw_box">
-            <input type="password" v-model="u_password_text" />
-            <!-- <button type="button" @click="handle_pw_modal">비밀번호변경</button> -->
+            <input type="password" v-model="u_password_text" refs="password" />
             <button
               type="button"
               class="btn btn-primary"
@@ -45,10 +35,7 @@
             <p>이름</p>
           </div>
           <div class="u_name_box">
-            <input type="text" v-model="member.USERNAME" />
-          </div>
-          <div class="chk_password" v-bind:style="doublecheck">
-            {{ chk_name }}
+            <input type="text" v-model="member.USERNAME" refs="name" />
           </div>
         </div>
         <div class="m_phone">
@@ -57,12 +44,9 @@
             <p>연락처</p>
           </div>
           <div class="u_phone_box">
-            <input type="text" v-model="member.USERTEL" />
+            <input type="text" v-model="member.USERTEL" refs="phone" />
           </div>
-          <div class="chk_password" v-bind:style="doublecheck">
-            {{ chk_phone }}
           </div>
-        </div>
         <div class="m_address">
           <div class="m_update_address">
             <img :src="mypage_address" />
@@ -84,11 +68,9 @@
           <input
             type="text"
             v-model="member.DETAILEADDRESS"
-            readonly
-            value
             style="width: 100px"
           />
-          <button type="button" id="chage_address_btn" @click="handle_ad_btn">
+          <button type="button" id="chage_address_btn" @click="openDaumPostCode">
             우편번호검색
           </button>
         </div>
@@ -176,32 +158,42 @@
                 <span>*</span>
               </div>
               <div class="updatemodal_input_pw_oldpw">
-                <input type="password" />
+                <input type="password" ref="pw1" v-model="pw1_btn"/>
               </div>
+                <div class="modal_password1" v-bind:style="modalcheck">
+                    {{ chk_pw1 }}
+                </div>
               <div class="update_modal_pw_newpw">
                 <p>새 비밀번호</p>
                 <span>*</span>
               </div>
               <div class="updatemodal_input_pw_newpw">
-                <input type="password" />
+                <input type="password" ref="pw2" v-model="pw2_btn" />
               </div>
+              <div class="modal_password1" v-bind:style="modalcheck">
+                    {{ chk_pw2 }}
+                </div>
               <div class="update_modal_pw_newpw_check">
                 <p>새 비밀번호 확인</p>
                 <span>*</span>
               </div>
-              <div class="updatemodal_input_pw_newpw">
-                <input type="password" />
+              <div class="updatemodal_input_pw_newpwchk">
+                <input type="password" ref="pw3" v-model="pw3_btn"/>
               </div>
-              <!-- <button type="button" id="update_modal_pw_box_btn" @click="" -->
+              <div class="modal_password1" v-bind:style="modalcheck">
+                    {{ chk_pw3 }}
+                </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button
+            <button 
               type="button"
               class="btn btn-primary"
-              @click="handlPWUpdate"
+              @click="handlPWUpdate" 
+              
+              
             >
-              비밀번호변경
+              비밀번호변경 
             </button>
           </div>
         </div>
@@ -224,33 +216,56 @@ import mypage_address from "@/assets/mypage_address.png";
 export default {
   data() {
     return {
-      token: sessionStorage.getItem("token"),
-      mypage_mail: mypage_mail,
-      mypage_pw: mypage_pw,
-      mypage_profile: mypage_profile,
-      mypage_phone: mypage_phone,
-      mypage_address: mypage_address,
-      showModal: false,
-      member: [],
-      memberinfo: "",
+        token: sessionStorage.getItem("token"),
+        mypage_mail: mypage_mail,
+        mypage_pw: mypage_pw,
+        mypage_profile: mypage_profile,
+        mypage_phone: mypage_phone,
+        mypage_address: mypage_address,
+        showModal: false,
+        postcode: "",
+        roadAddress: "",
+        detailAddress: "",
+        member:"",
 
-      userpw: "",
-      usernewpw: "",
+        useremail : "",
+        userpw : "",
+        username : "",
+        usertel : "",
+        post : "",
+        address : "",
 
-      chk_mail: "",
-      chk_pw: "",
-      chk_name: "",
-      chk_phone: "",
 
-      doublecheck: {
-        width: "fit-content",
-        height: "20px",
-        fontFamily: '"Gowun Dodum", serif',
-        fontSize: "13px",
-        marginTop: "10px",
-        marginRight: "15px",
-        color: "black",
-      },
+        // userpw: "",
+        // usernewpw: "",
+        // usernewpwchk :"",
+
+        // mail:"",
+        // password : "",
+        // phone : "",
+        // name : "",
+
+        // chk_mail: "",
+        // chk_pw: "",
+        // chk_name: "",
+        // chk_phone: "",
+        
+        chk_pw1 : "",
+        chk_pw2 : "",
+        chk_pw3 : "",
+        pw1_btn : "",
+        pw2_btn : "",
+        pw3_btn : "",
+
+        modalcheck: {
+            width: "fit-content",
+            height: "20px",
+            fontFamily: '"Gowun Dodum", serif',
+            fontSize: "13px",
+            marginTop: "10px",
+            marginRight: "15px",
+            color: "black",
+        },
     };
   },
   mounted() {
@@ -280,7 +295,7 @@ export default {
         console.log(this.member);
       } else alert("정보를 받아오지 못하였습니다.");
     },
-    handle_ad_btn() {
+    openDaumPostCode() {
       new window.daum.Postcode({
         oncomplete: (data) => {
           // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -328,24 +343,54 @@ export default {
         popupTitle: "LUSH 우편번호 검색", //팝업창 타이틀 설정 (영문,한글,숫자 모두 가능)
       });
     },
+    async handlPWUpdate() {
+        if(this.pw1_btn.length === 0) {
+            this.chk_pw1 = "기존 비밀번호는 필수항목 입니다.";
+            this.modalcheck.color = "Red";
+            return this.$refs.pw1.focus();
+        }
+        else if(this.pw2_btn.length === 0) {
+            this.chk_pw2 = "새 비밀번호는 필수 항목입니다.";
+            this.modalcheck.color = "Red";
+            return this.$refs.pw2.focus();
+        }
+        else if(this.pw2_btn !== this.pw3_btn) {
+            this.chk_pw3 = "새 비밀번호와 일치해야 합니다.";
+            this.modalcheck.color = "Red";
+            return this.$refs.pw3.focus();
+        }
+        const headers = {"token" : this.token};
+        const body = {
+            userpw : this.pw1_btn,
+            usernewpw : this.pw2_btn
+        };
+        console.log(body);
+        const url = `REST/api/member/passwd`;
+        const response = await axios.put(url, body, {headers});
+        console.log(response);
+        if(response.data.result === 1) {
+            alert("비밀번호 수정 성공");
+            // if else()
+            // v-if="this.handlPWUpdate === close"
+            
+            // await this.handleMemberGet();
+
+        }
+    },
+    async handle_memupdate() {
+      const url = `REST/api/member/update`;
+      const body = {
+        useremail : this.useremail ,
+        username : this.username,
+        usertel : this.usertel,
+        post : this.post,
+        address : this.address,
+      }
+      const headers = {"token" : this.token};
+      const response = await axios.put(url, body, {headers});
+      console.log(response);
+    }
   },
-  // async handlPWUpdate() {
-  //     const url = `REST/api/member/passwd`;
-  //     const headers = {"token" : this.token};
-  //     const obj = {
-  //         userpw : this.userpw,
-  //         usernewpw : this.usernewpw,
-  //     }
-  //     console.log(obj);
-  //     const response = await axios.put(url,obj,{headers});
-  // }
-  // async handlUpdate(){
-  //     const obj = {
-  //         id : this.member.USEREMAIL,
-  //         name : this.member.USERNAME
-  //     }
-  //     console.log(obj);
-  // }
 };
 </script>
 
@@ -438,7 +483,7 @@ export default {
   margin-right: 5px;
   height: 100%;
   width: 70%;
-  background-color: #eeeeee;
+  background-color: #fbfdff0f;
 }
 .m_update_mail > input {
   border: none;
@@ -446,7 +491,7 @@ export default {
   margin-left: 10px;
   height: 100%;
   width: 47%;
-  background-color: #eeeeee;
+  background-color: #fbfdff0f;
 }
 .m_update_mail > img {
   /* border: 1px solid black; */
@@ -586,7 +631,7 @@ export default {
   margin-right: 5px;
   width: 80px;
   height: 32px;
-  background-color: #eeeeee;
+  background-color: #fbfdff0f;
 }
 .u_address_box {
   /* border: 1px solid black; */
@@ -598,7 +643,7 @@ export default {
 }
 .u_address_box > input {
   border: none;
-  background-color: #eeeeee;
+  background-color: #fbfdff0f;
   width: 80%;
 }
 .u_address_box > button {
@@ -632,7 +677,7 @@ export default {
 }
 .updatemodal_input_pw_oldpw > input,
 .updatemodal_input_pw_newpw > input,
-.updatemodal_input_pw_newpw > input {
+.updatemodal_input_pw_newpwchk > input {
   border: none;
   border-bottom: 2px solid black;
   width: 250px;
@@ -660,4 +705,9 @@ span {
   border-radius: 5px;
   font-size: 15px;
 }
+/* 주소 */
+/* #postcode_btn:hover {
+  cursor: pointer;
+  opacity: 0.8;
+} */
 </style>
