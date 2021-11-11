@@ -172,7 +172,7 @@
           backgroundColor : '#49654E'
         },
         sideNavStyle:{
-          width : '0',
+          width : '0%',
           height : '100%',
           position : 'fixed',
           zIndex : '10000',
@@ -180,7 +180,6 @@
           left : '0',
           backgroundColor : '#49654E',
           overflowX : 'hidden',
-          paddingTop : '25px',
           transition : '0.3s'
         },
         sideNavStyle_b:{
@@ -190,6 +189,7 @@
           zIndex : '10000',
           top : '0',
           left : '0',
+          paddingTop : '10px',
           backgroundColor : '#49654E',
           overflowX : 'hidden',
           transition : '0.3s'
@@ -248,6 +248,7 @@ body{
   width: 100%;
   background-color: white;
   overflow-y: hidden;
+  scroll-behavior: smooth;
 }
 
 
@@ -310,7 +311,7 @@ body{
 .nav_sections {
   display: flex;
   flex-direction: column;
-  padding: 30px 30px 30px 45px;
+  padding: 20px 30px 30px 45px;
 }
 .fashion_section, .lifestyle_section, .beauty_section, .food_section{
   display: flex;
@@ -322,6 +323,7 @@ body{
   font-size : 25px;
   font-weight : bold;
   color: #F6EBCE;
+  margin: 10px 0px;
 } 
 .nav_sections  a{
   width : 100%;

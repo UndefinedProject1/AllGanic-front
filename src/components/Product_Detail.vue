@@ -103,9 +103,11 @@
                                                             </div>                                                            
                                                         </div>
                                                         <div class="form-floating">
-                                                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" v-model="reviewContent"></textarea>
-                                                            <label for="floatingTextarea2">리뷰는 300자 이하로 작성해주세요.</label>
+                                                            <StarRating :star-size="15" :rating="reviewrating" :read-only="false" :border-width="1" 
+                                                                active-color="#E6A23C" :show-rating="true" :rounded-corners="true" id="rating"></StarRating>
+                                                            <el-input v-model="reviewContent" :rows="6" type="textarea" placeholder="브랜드 설명 입력"  class="form-control"/>
                                                         </div>
+                                                        
                                                     </div>
                                                 </td>
                                             </tr>                                            
@@ -126,7 +128,7 @@
                                 <div class="reviewArea"  v-for="review in reviewList" v-bind:key="review">
                                     <div id="reviewTitle">
                                         <div id="titleSection">
-                                            <StarRating :star-size="15" :rating="review.reviewrating" :read-only="true" :border-width="1" active-color="#49654E" :show-rating="false" :rounded-corners="true" id="rating"></StarRating>
+                                            <StarRating :star-size="15" :rating="review.reviewrating" :read-only="true" :border-width="1" active-color="#E6A23C" :show-rating="false" :rounded-corners="true" id="rating"></StarRating>
                                             <p>kyori0515</p>
                                         </div>
                                         <p>{{review.reviewdate}}</p>
@@ -386,6 +388,7 @@ import StarRating from 'vue-star-rating'
     height: 100%;
     overflow-y: scroll;
     font-family: 'Gowun Dodum', sans-serif;
+    scroll-behavior: smooth;
 }
 .pd_detail_container{
     /* border: 1px solid black; */
@@ -633,7 +636,7 @@ h3{
     border-radius: 5px;
 }   
 table{ 
-    width: 100%;
+    width: 96%;
     height: fit-content;
 }  
 .writeReviewSection table th,
@@ -744,7 +747,7 @@ input[type="file"]{
     border-radius: 3px;
  }
 .reviewArea, .faqList{
-    width: 100%;
+    width: 96%;
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #49654E;
@@ -812,7 +815,7 @@ button:hover{
     width: 100%;
 }
 .faqWriting {
-    width: 100%;
+    width: 96%;
     border: 0.5px solid #49654E;
     padding: 30px 40px 0px 0px;
     margin-top: 10px;

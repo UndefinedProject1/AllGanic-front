@@ -33,7 +33,48 @@
                     <button type="button"></button>
                 </div>
             </div>
-            <div class="cart_summary"></div>
+            <div class="cart_summary">
+                <div class="cart_summary_container">
+                    <p id="amountTitle">주문하기</p>
+                    <div class="check_out_amount">
+                        <table>
+                            <colgroup>
+                                <col class="th_area">
+                                <col class="td_area">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>총 주문 금액 : </th>
+                                    <td>15,000 원</td>
+                                </tr>
+                                <tr>
+                                    <th>+</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>총 배송 금액 : </th>
+                                    <td>15,000 원</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="totalAmount">
+                        <table>
+                            <colgroup>
+                                <col class="th_area">
+                                <col class="td_area">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>총 주문 금액 : </th>
+                                    <td>15,000 원</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button type="button" id="checkoutBtn">CHECK OUT</button>
+            </div>
         </div>
 
     </div>
@@ -71,7 +112,7 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
     /* height: 100vh; */
     margin: 0;
     height: 100%;
-    padding: 10px;
+    padding: 30px;
     background-color: white;
     overflow-x: hidden;
     font-family: 'Playfair Display', serif;
@@ -131,12 +172,84 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
     flex-direction: row;
 }
 .cart_summary{
-    border: 1.5px solid #715036;
-    width: 30%;
-    border-radius: 5px;
-    height: 100%;
-    margin: 90px 0px 0px 10px;
+    width: 20%;
+    height: 70%;
+    right : 10%;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.cart_summary_container{
+    background-color: white;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    border: 3px solid #715036;
+    width: 100%;
+    height : 100%;
+    align-items: center;
+    padding: 8px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
+}
+#amountTitle{
+    width: fit-content;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Gowun Dodum', sans-serif;
+}
+.check_out_amount{
+    border-top: 0.5px solid black;
+    border-bottom: 0.5px solid black;
+    width: 100%;
+    padding: 30px 0px;
+    font-family: 'Gowun Dodum', sans-serif;
+}
+.check_out_amount table,
+.totalAmount table{
+    margin: 0 auto;
+    width : 100%;
+}
+.check_out_amount table th,
+.totalAmount table th{
+    /* border: 1px solid black; */
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    width: 50%;
+    line-height: 2.8;
+}
+.check_out_amount table td,
+.totalAmount table td{
+    /* border: 1px solid black; */
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+.totalAmount{
+    display: inline-flex;
+    font-family: 'Gowun Dodum', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    width: 100%;
+    align-content: space-between;
+    margin: 15px auto;
+}
+#checkoutBtn{
+    border-radius: 5px;
+    width: 100%;
+    height: 15%;
+    font-size: 20px;
+    color: white;
+    font-family: 'Gowun Batang', serif;
+    font-weight: bold;
+    padding: 3px;
+    margin: 10px 0px;
+    background-color: #715036;
+}
+#checkoutBtn:hover{
+    cursor: pointer;
+    opacity: 0.9;
 }
 .button_container{
     /* border: 1px solid black; */
