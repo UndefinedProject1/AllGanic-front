@@ -121,7 +121,7 @@ import Admin_QA_List_Complete from '@/components/Admin_QA_List_Complete.vue';
     display : flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 .sidemenu_container .section{
     /* border : 1px solid black; */

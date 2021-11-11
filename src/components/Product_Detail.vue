@@ -323,9 +323,10 @@ import StarRating from 'vue-star-rating'
                 formData.append("file", this.mainfile);
 
                 const response = await axios.post(url, formData, {headers});
-                console.log(headers);
+                console.log(response);
                 if(response.data.result === 1){
                     alert("끝");
+                    this.showWriting = false;
                 }
             },
             async writeQuestion(){
@@ -340,6 +341,7 @@ import StarRating from 'vue-star-rating'
                 const response = await axios.post(url, body, {headers});
                 if(response.data.result === 1) {
                     alert("끝");
+                    this.showFaqWriting = false;
                 }
             },
             clickDetail(){

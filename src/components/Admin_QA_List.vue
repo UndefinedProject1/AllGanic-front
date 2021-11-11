@@ -52,22 +52,46 @@
                 <div class="modal-body">
                     <div class="questionContents">
                         <div class="productInfo">
-                            <p id="productinfo">상품정보</p>
-                            <div class="infoContainer">
-                                <p>{{BList_Modal.brandname}}</p>
-                                <img :src="`REST/api/select_productimage?no=${PList_Modal.productcode}`">
-                                <p>{{PList_Modal.productname}}</p>
-                            </div>
-
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">브랜드정보</th>
+                                        <th scope="col">물품이름</th>
+                                        <th scope="col">물품코드</th>
+                                        <th scope="col">카테고리분류</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{BList_Modal.brandname}}</td>
+                                        <td>
+                                            <router-link :to="`/product_detail?code=${PList_Modal.productcode}`" id="pd_name">
+                                                {{PList_Modal.productname}}
+                                            </router-link>
+                                        </td>
+                                        <td>{{PList_Modal.productcode}}</td>
+                                        <td>{{CList_Modal.categoryname}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="questionContent">
                             {{QList_Modal.questioncontent}}
                         </div>
+                        <hr/>
+                        <div class="modalReply">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="답글 작성란" id="floatingTextarea2" v-model="replyContent"></textarea>
+                                <label for="floatingTextarea2">답글은 300자 이하로 작성해주세요.</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
+                    <!-- 히든버튼 추가 -->
+                    <button type="button" id="btn_close" style="display:none" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" @click="handleReply(QList_Modal.questioncode)">작성완료</button>
                 </div>
             </div>
         </div>
@@ -80,11 +104,14 @@ import axios from 'axios';
     export default {
         data(){
             return{
+                token : sessionStorage.getItem("token"),
                 selected : '',
                 QList : [],
                 QList_Modal : [],
                 PList_Modal : [],
                 BList_Modal : [],
+                CList_Modal : '',
+                replyContent : ''
             }
         },
         async created(){
@@ -100,7 +127,7 @@ import axios from 'axios';
                 // console.log(response);
                 if(response.data.result === 1){
                     this.QList = response.data.list;
-                    // console.log(this.QList);
+                    console.log(this.QList);
                 }
             },
             async showModal(val){
@@ -113,7 +140,23 @@ import axios from 'axios';
                     this.PList_Modal = response.data.question.product;
                     // console.log(this.PList_Modal);
                     this.BList_Modal = response.data.question.product.brand;
-                    console.log(this.BList_Modal);
+                    // console.log(this.BList_Modal);
+                    this.CList_Modal = response.data.question.product.category;
+                }
+            },
+            async handleReply(val){
+                const url = `REST/api/admin/question/reply/insert?code=` + val;
+                const headers = {"Content-Type" : "application/json", token : this.token};
+                const body = {
+                    answercontent : this.replyContent
+                }
+
+                const response = await axios.post(url, body, {headers});
+                console.log(response);
+                if(response.data.result === 1){
+                    alert("답글등록완료");
+                    // alert버튼 누르면 모달창 사라짐
+                    document.getElementById('btn_close').click();
                 }
             }
 
@@ -175,6 +218,9 @@ import axios from 'axios';
 .form-select{
     width: 150px;
 }
+.qa_list_table{
+    margin-top: 15px;
+}
 .qa_list_table table th,
 .qa_list_table table tbody td{
     text-align: center;
@@ -183,20 +229,26 @@ import axios from 'axios';
     border: none;
     width: 80px;
     height: 30px;
+    color: white;
+    background-color: #49654E;
+    border-radius: 3px;
+}
+.qa_list_table table tbody button:hover{
+    opacity: 0.9;
+    cursor: pointer;
 }
 
 /* 모달 */
 .questionContents{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
 }
 .questionContents .productInfo{
     /* border: 1px solid black; */
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
-    height: 80px;
     align-items: center;
 }
 .questionContents .productInfo #productinfo{
@@ -208,28 +260,32 @@ import axios from 'axios';
     height: fit-content;
     margin: 0px;
 }
-.infoContainer{
-    /* border: 1px solid black; */
-    display: flex;
-    flex-direction: row;
-    padding-left: 10px;
-    align-items: center;
+.productInfo table {
+    width: 100%;
 }
-.questionContents .infoContainer p{
-    width: fit-content;
-    height: fit-content;
-    margin-bottom: 5px;
+.productInfo table img{
+    width: 100%;
+    height: 100%;
 }
-.questionContents .infoContainer img{
-    width: 80px;
-    height: 80px;
-    margin: 0 auto;
+.productInfo table th,
+.productInfo table tbody td{
+    text-align: center;
+}
+.productInfo table tbody img{
+    width: 60px;
+    height: 60px;
 }
 .questionContents .questionContent{
-    border: 1px solid black;
+    border: 1px solid rgb(180, 180, 180);
     display: flex;
     flex-direction: column;
-    width : calc(100% - 200px);
-    height: 300px;
+    border-radius: 3px;
+    margin: 0 auto;
+    width: 100%;
+    height: 200px;
+    padding : 10px;
+}
+.modalReply .form-control{
+    height: 100px;
 }
 </style>

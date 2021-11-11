@@ -199,7 +199,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                     // console.log(this.pList);
                 }
             },
-            async updatemodal(){
+            async updatemodal(){ 
                 this.$refs['testmodal']
             },
             async handle_middle() {
