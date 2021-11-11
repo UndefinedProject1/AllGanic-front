@@ -70,61 +70,6 @@
         </div>
     </el-dialog>
 
-    <!-- Modal -->
-    <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{QList_Modal.questiontitle}}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="questionContents">
-                        <div class="productInfo">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">브랜드정보</th>
-                                        <th scope="col">물품이름</th>
-                                        <th scope="col">물품코드</th>
-                                        <th scope="col">카테고리분류</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{BList_Modal.brandname}}</td>
-                                        <td>
-                                            <router-link :to="`/product_detail?code=${PList_Modal.productcode}`" id="pd_name">
-                                                {{PList_Modal.productname}}
-                                            </router-link>
-                                        </td>
-                                        <td>{{PList_Modal.productcode}}</td>
-                                        <td>{{CList_Modal.categoryname}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="questionContent">
-                            {{QList_Modal.questioncontent}}
-                        </div>
-                        <hr/>
-                        <div class="modalReply">
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="답글 작성란" id="floatingTextarea2" v-model="replyContent"></textarea>
-                                <label for="floatingTextarea2">답글은 300자 이하로 작성해주세요.</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    히든버튼 추가
-                    <button type="button" id="btn_close" style="display:none" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                    <button type="button" class="btn btn-primary" @click="handleReply(QList_Modal.questioncode)">작성완료</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
 </template>
 

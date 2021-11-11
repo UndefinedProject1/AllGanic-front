@@ -27,7 +27,7 @@
                                 </tr>
                                 <tr>
                                     <th><span>주문수량</span></th>
-                                    <td><el-input-number v-model="num" :min="1" :max="10" @change="handleChange" /></td>
+                                    <td><el-input-number v-model="quantity" :min="1" :max="10" @change="handleQuantityChange" /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -257,6 +257,7 @@ import StarRating from 'vue-star-rating'
                 reviewContent : '',
                 questionTitle :'',
                 questionContent :'',
+                quantity : 1
             }
         },
         components : {
@@ -275,6 +276,9 @@ import StarRating from 'vue-star-rating'
                     }
                     reader.readAsDataURL(e.target.files[0]);
                 }
+            },
+            handleQuantityChange(){
+                console.log(this.quantity);
             },
             async handleDetailContents(){
                 // 상품 기본정보

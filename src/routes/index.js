@@ -12,6 +12,7 @@ import Product_Detail from '@/components/Product_Detail.vue';
 import MyPage_Member_Update from '@/components/MyPage_Member_Update.vue';
 import MyPage_Delete from '@/components/MyPage_Delete.vue';
 import Order_Page from '@/components/Order_Page.vue';
+import Product_Cart from '@/components/Product_Cart.vue';
 
 
 const routes = [
@@ -27,6 +28,7 @@ const routes = [
     {path : '/mypage_member_update' , name :'mypage_member_update', component : MyPage_Member_Update},
     {path : '/mypage_delete' , name :'mypage_delete', component : MyPage_Delete},
     {path : '/order_page' , name :'order_page', component : Order_Page},
+    {path : '/product_cart' , name :'product_cart', component : Product_Cart},
 
 ];
 

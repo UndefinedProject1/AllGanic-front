@@ -219,7 +219,7 @@
 body{
   margin: 0;
   width: 100%;
-  height: 100%;
+  /* height: 100vh; */
   font-family: 'Playfair Display', serif;
   background-color: #49654E;
 }
@@ -245,8 +245,9 @@ body{
 .content{
   /* border: 1px solid black; */
   height: 100%;
-  width: 100vw;
+  width: 100%;
   background-color: white;
+  overflow-y: hidden;
 }
 
 
