@@ -27,7 +27,7 @@
                                 </tr>
                                 <tr>
                                     <th><span>주문수량</span></th>
-                                    <td>주문수량표시</td>
+                                    <td><el-input-number v-model="num" :min="1" :max="10" @change="handleChange" /></td>
                                 </tr>
                             </tbody>
                         </table>
