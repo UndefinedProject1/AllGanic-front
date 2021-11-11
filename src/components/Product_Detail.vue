@@ -579,6 +579,7 @@ import StarRating from 'vue-star-rating'
     border-bottom: none;
     border-radius: 3px;
     margin: 0px 3px 0.5px 0px;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 .section3_detailSection{
     display: flex;

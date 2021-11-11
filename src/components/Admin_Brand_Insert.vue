@@ -5,11 +5,11 @@
             <span> > </span>
             <p id="brand_section">브랜드추가</p>
         </div>
-        <hr class="solid" />
+        <div class="solid"></div>
         <div class="admin_bri_content">
             <div class="admin_name">
                 <P>브랜드명</P>
-                <input type="text" class="form-control" id="adbr_put" placeholder="제품명 입력" v-model="brandname">
+                <el-input v-model="brandname" placeholder="제품명 입력" class="form-control" clearable style="font-family: 'Gowun Dodum', sans-serif;"/>
             </div>
             <div class="admin_put_img">
                 <P>이미지</P>
@@ -21,7 +21,7 @@
             </div>
             <div class="admin_history">
                 <P>브랜드 설명</P>
-                <textarea class="form-control" placeholder="브랜드 설명 입력" id="adbr_history"></textarea>
+                  <el-input v-model="textarea" :rows="3" type="textarea" placeholder="브랜드 설명 입력"  class="form-control"/>
             </div>
             <div class="ad_bri_btn">
                 <button type="button" id="ad_btn_insert" @click="handleAdmin" >등록하기</button>
@@ -39,7 +39,8 @@ import default_image from '@/assets/default_image.jpg';
                 uploadImageFile : default_image,
                 brandname :'',
                 token : sessionStorage.getItem("token"),
-                file : ''
+                file : '',
+                textarea: ''
             }
         },
         methods : {
@@ -113,9 +114,9 @@ import default_image from '@/assets/default_image.jpg';
 }
 .solid {
     /* border: 0.8px solid black; */
-    width : 100%;
-    height: 3px;
-    margin-top: 4px;
+    border: 0.3px solid black;
+    height: 0px;
+    width: 100%;
 }
 .admin_bri_content {
     /* border: 1px solid black; */
@@ -143,19 +144,24 @@ import default_image from '@/assets/default_image.jpg';
     /* border: 1px solid black; */
     margin-right: 15px;
     margin-top: 13px;
+    width : 60px
 }
-#adbr_put {
+.form-control {
     width: 300px;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 #adbr_history {
     width: 300px;
     margin:  auto 0px;
 }
+.el-input__inner, .el-textarea__inner{
+    font-family: 'Gowun Dodum', sans-serif;
+}
 .admin_history {
     /* border: 1px solid black; */
     display: flex;
     justify-content: center;
-    margin: auto 0px;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 .admin_history p {
     /* border: 1px solid black; */

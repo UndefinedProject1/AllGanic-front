@@ -15,77 +15,28 @@
             <div class="email_info">
               <div class="email_ad">
                 <img :src="login_email" />
-                <input
-                  type="text"
-                  placeholder="이메일"
-                  v-model="userid"
-                  refs="email"
-                />
+                <input type="text" placeholder="이메일"  v-model="userid"  refs="email" />
               </div>
               <p>@</p>
               <div class="email_domain_selector">
                 <div class="form-selector">
-                  <input
-                    type="text"
-                    class="selected"
-                    @change="changeDomain"
-                    ref="selected_domain"
-                    v-model="selected"
-                  />
-                  <img
-                    :src="select_arrow_down"
-                    id="selectorIcon"
-                    @click="openOptions"
-                  />
+                  <input type="text" class="selected" @change="changeDomain" ref="selected_domain" v-model="selected"/>
+                  <img :src="select_arrow_down" id="selectorIcon" @click="openOptions" />
                 </div>
-                <div
-                  class="select_options"
-                  v-bind:style="selectorStyle"
-                  @mouseup="closeOptions"
-                >
+                <div class="select_options" v-bind:style="selectorStyle" @mouseup="closeOptions">
                   <input type="radio" id="1" v-model="selected" value="" />
                   <label for="1">직접입력</label>
-                  <input
-                    type="radio"
-                    id="2"
-                    v-model="selected"
-                    value="naver.com"
-                  />
+                  <input type="radio" id="2" v-model="selected" value="naver.com" />
                   <label for="2">naver.com</label>
-                  <input
-                    type="radio"
-                    id="3"
-                    v-model="selected"
-                    value="hanmail.net"
-                  />
+                  <input type="radio" id="3" v-model="selected" value="hanmail.net"/>
                   <label for="3">hanmail.net</label>
-                  <input
-                    type="radio"
-                    id="4"
-                    v-model="selected"
-                    value="daum.net"
-                  />
+                  <input type="radio" id="4" v-model="selected" value="daum.net" />
                   <label for="4">daum.net</label>
-                  <input
-                    type="radio"
-                    id="5"
-                    v-model="selected"
-                    value="gmail.com"
-                  />
+                  <input type="radio" id="5" v-model="selected" value="gmail.com"/>
                   <label for="5">gmail.com</label>
-                  <input
-                    type="radio"
-                    id="6"
-                    v-model="selected"
-                    value="nate.com"
-                  />
+                  <input type="radio" id="6" v-model="selected" value="nate.com"/>
                   <label for="6">nate.com</label>
-                  <input
-                    type="radio"
-                    id="7"
-                    v-model="selected"
-                    value="yahoo.co.kr"
-                  />
+                  <input type="radio" id="7" v-model="selected" value="yahoo.co.kr"/>
                   <label for="7">yahoo.co.kr</label>
                 </div>
               </div>
@@ -99,12 +50,7 @@
           <div class="join_password">
             <div class="password_info">
               <img :src="login_password" />
-              <input
-                type="password"
-                placeholder="비밀번호"
-                v-model="userpw"
-                ref="pw"
-              />
+              <input type="password" placeholder="비밀번호" v-model="userpw" ref="pw"/>
               <span>*</span>
             </div>
             <div class="chk_password" v-bind:style="checkStyle">
@@ -115,12 +61,7 @@
           <div class="join_name">
             <div class="name_info">
               <img :src="join_profile" />
-              <input
-                type="text"
-                placeholder="이름"
-                v-model="username"
-                ref="name"
-              />
+              <input type="text" placeholder="이름" v-model="username" ref="name"/>
               <span>*</span>
             </div>
             <div class="chk_password" v-bind:style="checkStyle">
@@ -131,12 +72,7 @@
           <div class="join_tel">
             <div class="password_info">
               <img :src="join_call" />
-              <input
-                type="text"
-                placeholder="연락처"
-                v-model="usertel"
-                ref="tel"
-              />
+              <input type="text" placeholder="연락처" v-model="usertel" ref="tel"/>
               <span>*</span>
             </div>
             <div class="chk_password" v-bind:style="checkStyle">
@@ -191,13 +127,11 @@
         <button type="button" id="join_btn" @click="handleJoin">JOIN</button>
       </div>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import Footer from "@/components/Footer.vue";
 import login_email from "@/assets/login_email.png";
 import login_password from "@/assets/login_password.png";
 import join_profile from "@/assets/join_profile.png";
@@ -242,19 +176,19 @@ export default {
       },
 
       selectorStyle: {
-        width: "90%",
+        width: "85%",
         height: "0",
         display: "block",
         opacity: "1",
         position: "relative",
         flexFlow: "column",
         overflowY: "hidden",
+        overflowX: "hidden",
         transition: "0.3s",
         background: "white",
         borderRadius: "3px",
         marginLeft: "10px",
         padding: "5px",
-        backgroundColor: "#eeeeee",
       },
     };
   },
@@ -301,9 +235,9 @@ export default {
       }
     },
   },
-  components: {
-    Footer: Footer,
-  },
+  // components: {
+  //   Footer: Footer,
+  // },
   methods: {
     changeDomain() {
       console.log(this.selected);
@@ -315,7 +249,7 @@ export default {
     closeOptions() {
       this.selectorStyle.height = "0px";
       this.selectorStyle.border = "none";
-      this.selectorStyle.backgroundColor = "#eeeeee";
+      this.selectorStyle.backgroundColor = "white";
     },
     openDaumPostCode() {
       new window.daum.Postcode({
@@ -392,7 +326,7 @@ export default {
           usertel: this.usertel,
           post: this.postcode,
           address: this.roadAddress,
-          detaileaddress: this.detailAddress,
+          detailaddress: this.detailAddress,
         };
         console.log(body);
         const url = `REST/api/member/join`;
@@ -417,7 +351,7 @@ export default {
   font-family: "Gowun Dodum", sans-serif;
   display: flex;
   flex-direction: column;
-  background-color: #eeeeee;
+  background-color: white;
 }
 .join_container {
   /* border: 1px solid black; */
@@ -428,7 +362,6 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: #eeeeee;
 }
 
 /* 회원가입 타이틀 부분 */
@@ -469,7 +402,7 @@ span {
 /* 구분선 */
 .divider {
   border: 0.3px solid #49654e;
-  height: 0.3px;
+  height: -2px;
   width: 100%;
 }
 
@@ -537,7 +470,7 @@ img {
   height: 48.5px;
   padding-left: 15px;
   font-size: 15px;
-  background-color: #eeeeee;
+  font-family: "Gowun Dodum", sans-serif;
 }
 .email_info > p {
   /* border: 1px solid black; */
@@ -565,16 +498,15 @@ img {
   overflow: hidden;
 }
 .selected {
-  /* border : 1px solid black; */
-  width: 90%;
-  height: 100%;
-  padding: 15px 0px 15px 10px;
+  border : 1px solid black;
+  width: 95%;
+  height: 90%;
   font-size: 15px;
   font-weight: 200;
   color: black;
   text-align: center;
-  background-color: #eeeeee;
   border: none;
+  font-family: "Gowun Dodum", sans-serif;
 }
 .form-selector > img {
   width: 13px;
@@ -616,7 +548,7 @@ input[type="radio"] {
   border: none;
   padding-left: 10px;
   font-size: 15px;
-  background-color: #eeeeee;
+  font-family: "Gowun Dodum", sans-serif;
 }
 
 /* 이름 */
@@ -654,7 +586,7 @@ input[type="radio"] {
   height: 48.5px;
   padding-left: 10px;
   font-size: 15px;
-  background-color: #eeeeee;
+  font-family: "Gowun Dodum", sans-serif;
 }
 .address_info1 > p {
   /* border: 1px solid black; */
@@ -672,11 +604,11 @@ input[type="radio"] {
 }
 .address_main > input {
   border: none;
-  width: 90%;
-  height: 100%;
+  width: 95%;
+  height: 90%;
   padding-left: 10px;
   font-size: 15px;
-  background-color: #eeeeee;
+  font-family: "Gowun Dodum", sans-serif;
 }
 .address_info2 {
   border-bottom: 1px solid black;

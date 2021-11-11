@@ -5,7 +5,7 @@
             <span> > </span>
             <p id="brand_section">브랜드 등록현황</p>
         </div>
-        <hr class="solid" />
+        <div class="solid"></div>
         <div class="adbr_list">
             <table class="table table-borderless align-middle" style="margin-left:50px;" >
                 <thead>
@@ -75,43 +75,44 @@ import melixir from '@/assets/melixir.png';
 }
 .admin_brand_list_wrapper {
     height: 100%;
-    display : grid;
-    grid-template-rows: 14% 1% 85%;
-    grid-template-columns: 100%;
-    font-family: 'Exo', sans-serif;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 .br_in_header {
-    width: 100%;
-    display: flex;
+    height : 15%;
+    width : 100%;
+    display : flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
-    font-family: 'Gowun Dodum', sans-serif;
 }
 .br_in_header p, span {
     width : fit-content;
-    margin : 0 0px 0px 20px;
+    margin : 0 0px 0px 40px;
     color : rgba(29, 29, 29, 0.795);
     font-size: 20px;
-}
-.brand_section {
     font-family: 'Gowun Dodum', sans-serif;
-    font-weight: bold;
-    color: black;
+    font-weight : 400;
+}
+.br_in_header > span{
+    margin-left : 20px;
 }
 #brand_section {
     font-family: 'Gowun Dodum', sans-serif;
-    font-weight: bold;
+    font-weight: 700;
     color: black;
+    margin : 0 0px 0px 20px;
 }
 .solid {
-    /* border: 0.8px solid black; */
+    border: 0.8px solid black;
     width : 100%;
-    height: 2px;
     margin-top: 7px;
 }
 .adbr_list {
     padding: 70px;
+    height: 65%;
     display : flex;
+    flex-direction: row;
     justify-content: center;
 }
 .adbr_list th{

@@ -20,12 +20,10 @@
                         </div>
                     </div>
                     <div class="login_nav">
-                        <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/join">회원가입</a></li>
-                            <li class="breadcrumb-item"><a href="#">비밀번호 찾기</a></li>
-                        </ol>
-                        </nav>
+                        <el-breadcrumb separator="/">
+                            <el-breadcrumb-item :to="{ path: '/join' }">회원가입</el-breadcrumb-item>
+                            <el-breadcrumb-item :to="{ path: '/mypage_member_update' }">비밀번호찾기</el-breadcrumb-item>
+                        </el-breadcrumb>
                     </div>
                     <button type="button" id="login_btn" @click="handleLogin" >Login</button>
                 </div>
@@ -150,7 +148,7 @@ body {
 }
 .divider {
     border : 0.3px solid #49654E;
-    height: 0.3px;
+    height: 0.1px;
     width : 100%;
 }
 .login_box {
@@ -162,16 +160,18 @@ body {
     align-items: center;
 }
 .email {
-    border-bottom: 1px solid black;
     display: block;
     width : 100%;
 }
 .email_input {
-    /* border: 1px solid black; */
+    border: 0.5px solid #eee;
     padding-left: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
 }
 .email_input > img {
-    width: 30px;
+    width: 25px;
     height: 25px;
     padding-right: 5px;
 }
@@ -189,17 +189,18 @@ body {
     background-color: white;
 }
 .password {
-    border-bottom: 1px solid black;
+    border: 0.5px solid #eee;
     margin: 20px;
     width : 100%;
 }
 .password_input {
     /* border: 1px solid black; */
     padding-left: 10px;
+    display: flex;
+    align-items: center;
 }
 .password_input > img {
     margin-right: 5px;
-
 }
 .email p, .password p {
     width: fit-content;
@@ -227,12 +228,12 @@ body {
 
 #id, #password {
     border: none;
-    width: 90%;
+    width: 88%;
     height: 48.5px;
     font-size: 15px;
     font-weight :300;
-    background-color: #eeeeee;
     padding : 0px 0px 0px 15px;
+    font-family: 'Gowun Dodum', sans-serif;
 } 
 #img.logo_email, img.logo_password {
     width: 25px;

@@ -74,7 +74,7 @@ import Admin_QA_List_Complete from '@/components/Admin_QA_List_Complete.vue';
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500&display=swap');
 .admin_wrapper {
     background-color: white;
-    z-index: 1000000;
+    z-index: 1;
     height: 100%;
     width: 100%;
     position: absolute;
@@ -93,9 +93,12 @@ import Admin_QA_List_Complete from '@/components/Admin_QA_List_Complete.vue';
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100%;
 }
 .sidemenu_header{
-    height : 15%;
+    height: 14%;
+    display: flex;
+    align-items: center;
 }
 .admin_sidmenu p {
     /* border : 1px solid black; */
@@ -104,7 +107,6 @@ import Admin_QA_List_Complete from '@/components/Admin_QA_List_Complete.vue';
     font-size: 30px;
     font-weight: bold;
     color: white;
-    margin : 30px auto;
     font-family: 'Exo', sans-serif;
 }
 .admin_sidmenu p:hover {
@@ -113,7 +115,7 @@ import Admin_QA_List_Complete from '@/components/Admin_QA_List_Complete.vue';
 }
 .divider{
     border : 0.3px solid #ffffff;
-    height: 0.3px;
+    height: -2px;
     width : 100%;
 }
 .sidemenu_container{
@@ -121,14 +123,21 @@ import Admin_QA_List_Complete from '@/components/Admin_QA_List_Complete.vue';
     display : flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .sidemenu_container .section{
     /* border : 1px solid black; */
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin : 20px;
+    margin : 20px 20px 0px 20px;
+}
+.sidemenu_container .section:first-child{
+    /* border : 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin : 0px 20px 0px 20px;
 }
 .sidemenu_container h2{
     font-size: 20px;

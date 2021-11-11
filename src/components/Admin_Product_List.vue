@@ -8,22 +8,20 @@
         <div class="apl_divider"></div>
         <div class="apl_content">
             <div class="selector_section">
-                <select class="form-select" aria-label="Default select example" v-model="selected1" @change="selectCate1">
-                    <option selected disabled>대분류</option>
-                    <option value="100">100</option>
-                    <option value="200">200</option> 
-                    <option value="300">300</option>
-                    <option value="400">400</option>
-                </select>
-                <select class="form-select" aria-label="Default select example" @click="handle_middle" v-model="selected2" @change="selectCate1">
-                    <option selected disabled>중분류</option>
-                    <option :value="select" v-for="select in resultset" v-bind:key="select">{{select}}</option>
-                </select>
-                <select class="form-select" aria-label="Default select example" @click="handle_small" v-model="selected3" @change="selectCate1">
-                    <option selected disabled>소분류</option>
-                    <option :value="select1" v-for="select1 in resultset1" v-bind:key="select1">{{select1}}</option>
+                <el-select v-model="selected1" placeholder="대분류" class="form-select" @change="selectCate1">
+                    <el-option v-for="item in firstCateList" :key="item.value" :label="item.value" :value="item.value">
+                        <span style="float: left; font-size: 15px;">{{ item.label }}</span>
+                        <span style="float: right; color: var(--el-text-color-secondary); font-size: 13px;">( {{ item.value }} )</span>
+                    </el-option>
+                </el-select>
 
-                </select>
+                <el-select v-model="selected2" placeholder="중분류" @click="handle_middle" @change="selectCate1" class="form-select">
+                    <el-option v-for="select in resultset"  :key="select" :label="select" :value="select"></el-option>
+                </el-select>
+
+                <el-select v-model="selected3" placeholder="소분류" @click="handle_small" @change="selectCate1" class="form-select">
+                    <el-option v-for="select1 in resultset1"  :key="select1" :label="select1" :value="select1"></el-option>
+                </el-select>
             </div>
             <div class="list_section">
                 <table class="table table-hover" >
@@ -34,7 +32,7 @@
                             <th scope="col">브랜드</th>
                             <th scope="col">제품가격</th>
                             <th scope="col">이미지</th>
-                            <th scope="col"></th>
+                            <th scope="col">기타</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,7 +43,7 @@
                             <td>{{list.productprice}}</td>
                             <td style="padding : 25px 0;"><img :src="`REST/api/select_productimage?no=${list.productcode}`"></td>
                             <td>
-                                <button type="button" @click="handleModal(list.productcode)" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
+                                <button type="button" @click="handleModal(list.productcode)">수정</button>
                                 <button type="button">삭제</button>
                             </td>
                         </tr>
@@ -55,90 +53,81 @@
         </div>
     </div>
 
-    <!-- 수정창 Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">제품수정하기</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <el-dialog v-model="showModal" title="제품 수정하기">
+        <div class="modal-wrapper">
+            <div class="section">
+                <table class="left_section">
+                    <colgroup>
+                        <col class="th_area">
+                        <col class="td_area">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th><span class="th_title">브랜드코드</span></th>
+                            <td>{{originProduct.productcode}}</td>
+                        </tr>
+                        <tr>
+                            <th><span class="th_title">제품명</span></th>
+                            <td>
+                                <el-input v-model="originProduct.productname" placeholder="제품명 입력" clearable class="form-control"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="th_title">가격</span></th>
+                            <td>
+                                <el-input v-model="originProduct.productprice" placeholder="가격 설정" clearable class="form-control"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="right_section">
+                    <div class="main_image_container">
+                        <img :src = "originProductImg" id="mainImg">
+                        <label for="insertmainImg">이미지 추가</label>
+                        <input type="file" @change="handleMainImg($event)" name="파일첨부" id="insertmainImg">
+                    </div>
+                </div>
+            </div>            
+            <div class="section2">
+                <div class="title_area">
+                    <span class="th_title">제품설명</span>
+                </div>
+                <div class="content_area">
+                    <el-input v-model="textarea" :rows="8" type="textarea" placeholder="브랜드 설명 입력"  class="form-control2"/>
+                </div>
             </div>
-            <div class="modal-body">
-                <div class="section">
-                    <table class="left_section">
-                        <colgroup>
-                            <col class="th_area">
-                            <col class="td_area">
-                        </colgroup>
-                        <tbody>
-                            <tr>
-                                <th><span class="th_title">브랜드코드</span></th>
-                                <td>{{originProduct.productcode}}</td>
-                            </tr>
-                            <tr>
-                                <th><span class="th_title">제품명</span></th>
-                                <td>
-                                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="제품명 입력" v-model="originProduct.productname">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th><span class="th_title">가격</span></th>
-                                <td><input type="text" class="form-control" id="formGroupExampleInput" placeholder="가격 설정" v-model="originProduct.productprice"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="right_section">
-                        <div class="main_image_container">
-                            <img :src = "originProductImg" id="mainImg">
-                            <label for="insertmainImg">이미지 추가</label>
-                            <input type="file" @change="handleMainImg($event)" name="파일첨부" id="insertmainImg">
+            <div class="section3">
+                <div class="title_area2" style="padding-top:-10px">
+                    <span class="th_title" >상세 이미지</span>
+                </div>
+                <div class="content_area">
+                    <div class="subimage_container">
+                        <div class="subimg1_container">
+                            <img :src = "subimg1" id="subimage1">
+                            <label for="insertsubimg1">이미지 추가</label>
+                            <input type="file" @change="handleSubImg($event)" name="파일첨부" id="insertsubimg1">
+                        </div>
+                        <div class="subimg2_container">
+                            <img :src = "subimg2" id="subimage2">
+                            <label for="insertsubimg2">이미지 추가</label>
+                            <input type="file" @change="handleSubImg2($event)" name="파일첨부" id="insertsubimg2">
+                        </div>
+                        <div class="subimg3_container">
+                            <img :src = "subimg3" id="subimage3">
+                            <label for="insertsubimg3">이미지 추가</label>
+                            <input type="file" @change="handleSubImg3($event)" name="파일첨부" id="insertsubimg3">
                         </div>
                     </div>
                 </div>
-                <div class="section2">
-                    <div class="title_area">
-                        <span class="th_title">제품설명</span>
-                    </div>
-                    <div class="content_area">
-                        <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
-                            <label for="floatingTextarea2">제품 상세 설명</label>
-                        </div>
-                        <p>이미지는 보이는 파일 순서대로 수정됩니다.</p>
-                    </div>
-                </div>
-                <div class="section2">
-                    <div class="title_area2" style="padding-top:-10px">
-                        <span class="th_title" >상세 이미지</span>
-                    </div>
-                    <div class="content_area">
-                        <div class="subimage_container">
-                            <div class="subimg1_container">
-                                <img :src = "subimg1" id="subimage1">
-                                <label for="insertsubimg1">이미지 추가</label>
-                                <input type="file" @change="handleSubImg($event)" name="파일첨부" id="insertsubimg1">
-                            </div>
-                            <div class="subimg2_container">
-                                <img :src = "subimg2" id="subimage2">
-                                <label for="insertsubimg2">이미지 추가</label>
-                                <input type="file" @change="handleSubImg2($event)" name="파일첨부" id="insertsubimg2">
-                            </div>
-                            <div class="subimg3_container">
-                                <img :src = "subimg3" id="subimage3">
-                                <label for="insertsubimg3">이미지 추가</label>
-                                <input type="file" @change="handleSubImg3($event)" name="파일첨부" id="insertsubimg3">
-                            </div>
-                        </div>
-                    </div>
-                </div>                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">수정항목 저장</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closebtn">닫기</button>
-            </div>
+            </div>           
         </div>
-    </div>
-    </div>
+        <div class="modal-footer">
+            <el-button @click="showModal = false">Cancel</el-button>
+            <el-button @click="showModal = false">Confirm</el-button>
+        </div>
+
+
+    </el-dialog>
 </template>
 
 <script>
@@ -170,6 +159,12 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 pList : [],
                 originProduct : '',
                 originProductImg : '',
+                    firstCateList : [
+                    {value : 100, label : '패션'},
+                    {value : 200, label : '식품'},
+                    {value : 300, label : '생활잡화'},
+                    {value : 400, label : '뷰티'},
+                ],
             }
         },
         async created(){
@@ -182,6 +177,36 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                     var reader = new FileReader();
                     reader.onload = (e) => {
                         this.originProductImg = e.target.result;
+                    }
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            },
+            handleSubImg(e){
+                if(e.target.files.length > 0) {
+                    this.subfile1 = e.target.files[0];
+                    var reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.subimg1 = e.target.result;
+                    }
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            },
+            handleSubImg2(e){
+                if(e.target.files.length > 0) {
+                    this.subfile2 = e.target.files[0];
+                    var reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.subimg2 = e.target.result;
+                    }
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            },
+            handleSubImg3(e){
+                if(e.target.files.length > 0) {
+                    this.subfile3 = e.target.files[0];
+                    var reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.subimg3 = e.target.result;
                     }
                     reader.readAsDataURL(e.target.files[0]);
                 }
@@ -203,7 +228,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 this.$refs['testmodal']
             },
             async handle_middle() {
-                const headers = {"Content-Type" : "application/json", token : this.token};
+                const headers = {"Content-Type" : "application/json"};
                 const url = `REST/api/select_catenum?code=` + this.selected1;
                 const response = await axios.get(url, {headers});
                 console.log(response);
@@ -222,11 +247,11 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                     this.resultset = [...set];
                     
                     // console.log(arr);
-                    // console.log(this.resultset);
+                    console.log(this.resultset);
                 }
             },
             async handle_small() {
-                const headers = {"Content-Type" : "application/json", token : this.token};
+                const headers = {"Content-Type" : "application/json"};
                 const url = `REST/api/select_catenum?code=` + this.selected1 + this.selected2;
                 const response = await axios.get(url, {headers});
                 console.log(url);
@@ -250,6 +275,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 }
             },
             async handleModal(val){
+                this.showModal = true;
                 const url= `REST/api/product_one?code=` + val;
                 const header = {"Content-Type" : "application/json"};
                 const response = await axios.get(url, header);
@@ -282,7 +308,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
 .apl_header{
     /* border: 1px solid black; */
     width : 100%;
-    height: 15%;
+    height: 14.5%;
     display : flex;
     flex-direction: row;
     align-items: center;
@@ -306,16 +332,17 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
 }
 .apl_divider{
     border : 0.3px solid black;
-    height: 0.3px;
+    height: 0px;
     width : 100%;
 }   
 .apl_content {
     /* border : 1px solid black; */
-    height : 80%;
-    width : 100%;
+    height : 50%;
+    width : 80%;
     display : flex;
     flex-direction: column;
     padding : 60px;
+    margin: 0 auto;
 }
 .selector_section {
     display: inline-flex;
@@ -333,8 +360,9 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
 
 .list_section{
     /* border : 1px solid black; */
-    padding: 10px;
+    margin-top: 20px;
 }
+
 .list_section table{
     margin-top: 20px;
     text-align: center;
@@ -344,14 +372,33 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
     height : 80px;
     border-radius: 5px;
 }
-.list_section table th {
-    padding : 10px 0px;
+.list_section table thead tr th{
+    border-bottom: 1px solid black;
+}
+.list_section table th{
     text-align: center;
+    width: 100px;
+}
+.list_section table th:nth-child(2){
+    text-align: center;
+    width: 450px;
+}
+.list_section table th:nth-child(5){
+    text-align: center;
+    width: 150px;
+}
+.list_section table th:nth-child(6){
+    text-align: center;
+    width: 190px;
 }
 .list_section table tbody th, .list_section table tbody td {
     padding : 50px 0px;
 }
-
+.list_section table tbody tr:hover{
+    opacity: 0.9;
+    z-index: 1;
+    background-color: #eeeeee;
+}
 Button{
     width : 50px;
     height : 30px;
@@ -365,19 +412,9 @@ Button:hover{
 }
 
 /* 수정 모달창 */
-.modal-content {
+.modal-wrapper{
     width: 100%;
-}
-.modal-title{
-    font-size: 20px;
-    padding: 0px 0px 0px 8px;
-    font-weight: bold;
-}
-.modal-header button {
-    background-color: white;
-    width: fit-content;
-    height: fit-content;
-    margin: 0px 10px 0px 0px;
+    height: 100%;
 }
 .section {
     /* border : 1px solid black; */
@@ -388,7 +425,6 @@ Button:hover{
 
 .left_section {
     /* border : 1px solid black; */
-    width: 60%;
 }
 .tr{
     margin: 10px;
@@ -399,7 +435,6 @@ Button:hover{
     /* border : 1px solid black; */
 }
 th{
-    text-align: right;
     margin: 10px;
     /* border : 1px solid black; */
 }
@@ -407,7 +442,7 @@ th{
     margin-right: 10px;
     /* font-family: 'Exo', sans-serif; */
     font-weight: 700;
-    font-size : 17px;
+    font-size : 16px;
     letter-spacing: 0.25px;
 }
 .form-control {
@@ -421,7 +456,7 @@ td {
     padding-left: 15px;
 }
 .right_section {
-    width : 28%;
+    /* width : 28%; */
     height: 250px;
 }
 .main_image_container{
@@ -456,6 +491,14 @@ td {
     flex-direction: row;
     margin-top : 15px;
 }
+.section3 {
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    margin-top : 50px;
+}
 .title_area{
     width : 17.5%;
     height : 100%;
@@ -464,34 +507,16 @@ td {
     padding-top : 10px;
 }
 .title_area2{
-    width : 17.5%;
+    width : 18%;
     height : 100%;
     /* border : 1px solid black; */
-    text-align : right;
     margin-top : -3px;
 }
 .content_area{
-    width : 83%;
+    width : 80%;
     height : 100%;
     position: relative;
     /* border : 1px solid black; */
-}
-#floatingTextarea2{
-    width : 82%;
-    height: 235px;
-    margin : 13px 0px 40px 20px;
-}
-.form-floating>label {
-    color : rgba(37, 37, 37, 0.747);
-    position: absolute;
-    top: 0;
-    left: 25px;
-    height: 100%;
-    padding: 1rem 0.75rem;
-    pointer-events: none;
-    border: 1px solid transparent;
-    transform-origin: 0 0;
-    transition: opacity .1s ease-in-out,transform .1s ease-in-out;
 }
 .content_area > p{
     font-size: 13px;
@@ -505,8 +530,8 @@ td {
 .subimage_container{
     border: 1px solid rgb(206 212 217);
     border-radius : 2px;
-    margin : -3px 0px 13px 20px;
-    width : 82%;
+    margin : -3px 0px 13px 5px;
+    width : 98%;
     height : 270px;
     display : flex;
     flex-direction: row;
@@ -517,15 +542,14 @@ input[type="file"]{
     display: none;
 }
 #subimage1, #subimage2 ,#subimage3{
-    width : 200px;
-    height : 200px;
+    width : 150px;
+    height : 150px;
     border-radius: 2px;
 }
 .main_image_container, .subimg1_container, .subimg2_container, .subimg3_container{
     position: relative;
     width : fit-content;
     height : fit-content;
-    border : 1px solid rgb(206 212 217);
     border-radius : 2px;
     margin: 15px;
 }
@@ -536,6 +560,12 @@ input[type="file"]{
     color : white;
     /* font-family: 'Exo', sans-serif; */
     font-weight: 700;
+}
+.modal-footer{
+    /* border: 1px solid black; */
+    display: inline-flex;
+    justify-content: flex-end;
+    width: 100%;
 }
 .modal-footer button {
     background-color: #49654E;

@@ -16,16 +16,14 @@
             <img :src="mypage_pw" />
             <p>비밀번호</p>
           </div>
-          <div class="u_pw_box" style="password" >
-            <!-- <input type="password" v-model="u_password_text" refs="password" /> -->
-            {{pw3_btn}}
+          <div class="u_pw_box">
+            <input type="password" v-model="u_password_text" refs="password" />
             <button
               type="button"
               class="btn btn-primary"
               data-bs-toggle="modal"
               data-bs-target="#staticBackdrop"
               @click="handle_pw_modal"
-              
             >
               비밀번호변경
             </button>
@@ -37,7 +35,7 @@
             <p>이름</p>
           </div>
           <div class="u_name_box">
-            <input type="text" v-model="member.USERNAME" refs="name" id="username"/>
+            <input type="text" v-model="member.USERNAME" refs="name" />
           </div>
         </div>
         <div class="m_phone">
@@ -56,7 +54,6 @@
           </div>
           <div class="m_update_postcode">
             <input type="text" v-model="member.POST" readonly value />
-            <!-- <input type="text" v-model="postcode" readonly value /> -->
             <p>/</p>
             <input
               type="text"
@@ -64,7 +61,6 @@
               readonly
               value
               style="margin-left: 5px"
-              id="address_middel"
             />
           </div>
         </div>
@@ -72,38 +68,63 @@
           <input
             type="text"
             v-model="member.DETAILEADDRESS"
-            style="width: 400px"
+            style="width: 100px"
           />
           <button type="button" id="postcode_btn" @click="openDaumPostCode">
             우편번호검색
           </button>
         </div>
-      <div
-            id="wrap"
+        <div
+          id="wrap"
+          style="
+            display: none;
+            border: 1px solid;
+            width: 500px;
+            height: 300px;
+            margin: 5px 0;
+            position: relative;
+          "
+        >
+          <img
+            src="//t1.daumcdn.net/postcode/resource/images/close.png"
+            id="btnFoldWrap"
             style="
-              display: none;
-              border: 1px solid;
-              width: 500px;
-              height: 300px;
-              margin: 5px 0;
-              position: relative;
+              cursor: pointer;
+              position: absolute;
+              right: 0px;
+              top: -1px;
+              z-index: 1;
             "
-          >
-            <img
-              src="//t1.daumcdn.net/postcode/resource/images/close.png"
-              id="btnFoldWrap"
-              style="
-                cursor: pointer;
-                position: absolute;
-                right: 0px;
-                top: -1px;
-                z-index: 1;
-              "
-              @click="foldDaumPostcode"
-              alt="접기 버튼"
-            />
-          </div>
-        <button type="button" id="handle_memupdate1" @click="handle_memupdate">
+            @click="foldDaumPostcode"
+            alt="접기 버튼"
+          />
+        </div>
+        <div
+          id="wrap"
+          style="
+            display: none;
+            border: 1px solid;
+            width: 500px;
+            height: 300px;
+            margin: 5px 0;
+            position: relative;
+          "
+        >
+          <img
+            src="//t1.daumcdn.net/postcode/resource/images/close.png"
+            id="btnFoldWrap"
+            style="
+              cursor: pointer;
+              position: absolute;
+              right: 0px;
+              top: -1px;
+              z-index: 1;
+            "
+            @click="foldDaumPostcode"
+            alt="접기 버튼"
+          />
+        </div>
+        <button type="button" id="handle_memupdate" @click="handle_memupdate">
           회원정보수정
         </button>
       </div>
@@ -181,7 +202,6 @@
   <Footer></Footer>
 </template>
 
-
 <script>
 import axios from "axios";
 import MyPage_Info from "@/components/MyPage_Info.vue";
@@ -214,6 +234,21 @@ export default {
         post : "",
         address : "",
 
+
+        // userpw: "",
+        // usernewpw: "",
+        // usernewpwchk :"",
+
+        // mail:"",
+        // password : "",
+        // phone : "",
+        // name : "",
+
+        // chk_mail: "",
+        // chk_pw: "",
+        // chk_name: "",
+        // chk_phone: "",
+        
         chk_pw1 : "",
         chk_pw2 : "",
         chk_pw3 : "",
@@ -233,7 +268,7 @@ export default {
     };
   },
   mounted() {
-        let daumPostCode = document.createElement("script");
+    let daumPostCode = document.createElement("script");
     daumPostCode.setAttribute(
       "src",
       "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
@@ -289,12 +324,12 @@ export default {
 
           // 우편번호와 주소 정보를 해당 필드에 넣는다.
           // document.getElementById('address').value = addr
-          this.member.POST = postcode;
-          this.member.ADDRESS = addr;
+          this.postcode = postcode;
+          this.roadAddress = addr;
 
           // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
           if (addr !== "") {
-            this.member.DETAILEADDRESS = extraRoadAddr;
+            this.detailAddress = extraRoadAddr;
           } else {
             this.detailAddress = "";
           }
@@ -341,25 +376,16 @@ export default {
     },
     async handle_memupdate() {
       const url = `REST/api/member/update`;
-      const headers = {"Content-Type": "application/json","token" : this.token};
       const body = {
-        useremail : this.member.USEREMAIL ,
-        username : this.member.USERNAME,
-        usertel : this.member.USERTEL,
-        post : this.member.POST,
-        address : this.member.ADDRESS,
-        detaileaddress : this.member.DETAILEADDRESS
+        useremail : this.useremail ,
+        username : this.username,
+        usertel : this.usertel,
+        post : this.post,
+        address : this.address,
       }
-      console.log(body);
-      
+      const headers = {"token" : this.token};
       const response = await axios.put(url, body, {headers});
       console.log(response);
-      if(response.data.result === 1) {
-        alert("회원정보수정 성공");
-      }
-      else {
-        alert("땡");
-      }
     }
   },
 };
@@ -447,13 +473,7 @@ export default {
   width: 50%;
   margin-left: 37px;
 }
-.u_pw_box > input {
-  border: none;
-  margin-right: 5px;
-  height: 100%;
-  width: 60%;
-  background-color: #fbfdff0f;
-}
+.u_pw_box > input,
 .u_name_box > input,
 .u_phone_box > input {
   border: none;
@@ -521,8 +541,6 @@ export default {
   display: flex;
   align-items: center;
   margin-bottom: 2px;
-  margin-left: 200px;
-  position: static;
 }
 .m_name {
   width: 100%;
@@ -567,6 +585,12 @@ export default {
   /* border: 1px solid black; */
   display: flex;
 }
+/* .m_update_phone > p {
+    margin-right: 22px;
+    width: fit-content;
+    margin-bottom: 5px;
+    margin-top: 3px;
+} */
 .m_address {
   /* border: 1px solid black; */
   width: 100%;
@@ -575,6 +599,12 @@ export default {
   justify-content: center;
   align-items: center;
 }
+/* .m_update_address > img {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    margin-top: 5px;
+} */
 .m_update_address {
   /* border: 1px solid black; */
   display: flex;
@@ -593,12 +623,11 @@ export default {
   height: 35px;
   margin-top: 30px;
 }
-/* 주소 번지 */
 .m_update_postcode > input {
   /* border: 1px solid black; */
   border: none;
   margin-right: 5px;
-  width: 100px;
+  width: 80px;
   height: 32px;
   background-color: #fbfdff0f;
 }
@@ -609,29 +638,21 @@ export default {
   width: 50%;
   margin-left: 125px;
   margin-top: 20px;
-  justify-content: space-between;
 }
 .u_address_box > input {
   border: none;
   background-color: #fbfdff0f;
-  width: 500px;
-}
-/* 기본주소 */
-#address_middel {
-  border: none;
-  background-color: #fbfdff0f;
-  width: 500px;
+  width: 80%;
 }
 /* 우편번호검색 버튼 */
 #postcode_btn {
-  width: fit-content;
+  width: 110px;
   height: 25px;
   background-color: #715036;
   color: white;
   border: none;
   border-radius: 5px;
   font-size: 15px;
-  /* margin-left: 97px; */
 }
 /* Modal */
 .modal-body {
@@ -674,7 +695,7 @@ span {
   font-weight: bold;
 }
 /* 회원정보수정 버튼 */
-#handle_memupdate1 {
+#handle_memupdate {
   width: 110px;
   height: 35px;
   margin-top: 60px;
@@ -685,6 +706,17 @@ span {
   font-size: 15px;
 }
 /* 주소 */
+/* #postcode_btn {
+  width: 110px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  background-color: #715036;
+  margin-bottom: 5px;
+  font-size: 15px;
+} */
 #postcode_btn:hover {
   cursor: pointer;
   opacity: 0.8;

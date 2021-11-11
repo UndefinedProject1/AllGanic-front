@@ -245,6 +245,7 @@ body{
 .content{
   /* border: 1px solid black; */
   height: 100%;
+  width: 100vw;
   background-color: white;
 }
 
@@ -284,7 +285,6 @@ body{
   text-align: center;
   height: fit-content;
   font-size: 22px;
-  margin-bottom: 0;
 }
 .header .right_section div p:hover, 
 .header .left_section div p:hover,
@@ -300,7 +300,6 @@ body{
   text-align: center;
   height: fit-content;
   font-size: 30px;
-  margin-bottom: 0;
   font-weight: bold;
 }
 .mypage a, .logo a{

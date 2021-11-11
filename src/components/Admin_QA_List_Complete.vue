@@ -8,31 +8,17 @@
         <div class="qa_list_Cdivider"></div>
         <div class="qa_list_Ccontent">
             <div class="selector_section">
-                <select class="form-select" aria-label="Default select example" v-model="selected" @change="selectCate1">
-                    <option value="1">상품문의</option>
-                    <option value="2">배송문의</option> 
-                    <option value="3">기타</option>
-                </select>
+                <el-select v-model="selected" placeholder="Select" @change="selectCate1" class="form-select">
+                    <el-option v-for="select in firstQCateList"  :key="select.value" :label="select.label" :value="select.value"></el-option>
+                </el-select>
             </div>
             <div class="qa_list_table">
-                <table class="table table-hover" >
-                    <thead>
-                        <tr>
-                            <th scope="col">문의번호</th>
-                            <th scope="col">문의제목</th>
-                            <th scope="col">물품정보</th>
-                            <th scope="col">작성일</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="list in QCList" v-bind:key="list">
-                            <th scope="row">{{list.QUESTIONCODE}}</th>
-                            <td>{{list.QUESTIONTITLE}}</td>
-                            <td><router-link :to="`/product_detail?code=${list.PRODUCTCODE}`">물품정보</router-link></td>
-                            <td>{{list.QUESTIONDATE}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <el-table :data="QCList">
+                    <el-table-column label="문의번호" prop="QUESTIONCODE" />
+                    <el-table-column label="문의제목" prop="QUESTIONTITLE" />
+                    <el-table-column label="물품정보" prop="PRODUCTCODE" />
+                    <el-table-column label="작성일" prop="QUESTIONDATE" />
+                </el-table>
             </div>
 
         </div>
@@ -46,13 +32,21 @@ import axios from "axios";
             return{
                 token : sessionStorage.getItem("token"),
                 selected : '',
-                QCList : []
+                QCList : [],
+                firstQCateList : [
+                    {value : 1, label : '상품문의'},
+                    {value : 2, label : '배송문의'},
+                    {value : 3, label : '기타'},
+                ],
             }
         },
         async created(){
             await this.handleQCList();
         },
         methods : {
+            async selectCate1(){
+                await this.handleQCList();
+            },
             async handleQCList(){
                 const url = `REST/api/question/all/selectlist?reply=true&kind=${this.selected}`;
                 const response = await axios.get(url);
@@ -73,6 +67,7 @@ import axios from "axios";
     display: flex;
     flex-direction: column;
     font-family: 'Gowun Dodum', sans-serif;
+    overflow-x: hidden;
 }
 .qa_list_Cheader {
     height : 15%;

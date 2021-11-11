@@ -8,41 +8,70 @@
         <div class="qa_list_divider"></div>
         <div class="qa_list_content">
             <div class="selector_section">
-                <select class="form-select" aria-label="Default select example" v-model="selected" @change="selectCate1">
-                    <option value="1">상품문의</option>
-                    <option value="2">배송문의</option> 
-                    <option value="3">기타</option>
-                </select>
+                <el-select v-model="selected" placeholder="Select" @click="handle_catemiddle" @change="selectCate1" class="form-select">
+                    <el-option v-for="select in firstQCateList"  :key="select.value" :label="select.label" :value="select.value"></el-option>
+                </el-select>
             </div>
             <div class="qa_list_table">
-                <table class="table table-hover" >
-                    <thead>
-                        <tr>
-                            <th scope="col">문의번호</th>
-                            <th scope="col">문의제목</th>
-                            <th scope="col">물품정보</th>
-                            <th scope="col">작성일</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="list in QList" v-bind:key="list">
-                            <th scope="row">{{list.QUESTIONCODE}}</th>
-                            <td>{{list.QUESTIONTITLE}}</td>
-                            <td><router-link :to="`/product_detail?code=${list.PRODUCTCODE}`">물품정보</router-link></td>
-                            <td>{{list.QUESTIONDATE}}</td>
-                            <td>
-                                <button type="button" @click="showModal(list.QUESTIONCODE)"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">답글달기</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <el-table :data="QList">
+                    <el-table-column label="문의번호" prop="QUESTIONCODE" />
+                    <el-table-column label="문의제목" prop="QUESTIONTITLE" />
+                    <el-table-column label="물품정보" prop="PRODUCTCODE" />
+                    <el-table-column label="작성일" prop="QUESTIONDATE" />
+                    <el-table-column align="right">
+                        <template #default="scope">
+                            <el-button size="mini" @click="handleEdit(scope.row.QUESTIONCODE)">답글달기</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
             </div>
         </div>
     </div>
 
+    <el-dialog v-model="showModal" title="답글달기">
+        <div class="questionContents">
+            <div class="productInfo">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">브랜드정보</th>
+                            <th scope="col">물품이름</th>
+                            <th scope="col">물품코드</th>
+                            <th scope="col">카테고리분류</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{BList_Modal.brandname}}</td>
+                            <td>
+                                <router-link :to="`/product_detail?code=${PList_Modal.productcode}`" id="pd_name">
+                                    {{PList_Modal.productname}}
+                                </router-link>
+                            </td>
+                            <td>{{PList_Modal.productcode}}</td>
+                            <td>{{CList_Modal.categoryname}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="questionContent">
+                {{QList_Modal.questioncontent}}
+            </div>
+            <hr/>
+            <div class="modalReply">
+                <el-input v-model="replyContent" :rows="6" type="textarea" placeholder="답글 작성란"  class="form-control"/>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <!-- 히든버튼 추가 -->
+            <button type="button" id="btn_close" style="display:none" @click="showModal = false">Close</button>
+            <button type="button"  @click="showModal = false" id="closebtn">닫기</button>
+            <button type="button" @click="handleReply(QList_Modal.questioncode)">작성완료</button>
+        </div>
+    </el-dialog>
+
     <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -88,14 +117,14 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <!-- 히든버튼 추가 -->
+                    히든버튼 추가
                     <button type="button" id="btn_close" style="display:none" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                     <button type="button" class="btn btn-primary" @click="handleReply(QList_Modal.questioncode)">작성완료</button>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 </template>
 
@@ -106,12 +135,18 @@ import axios from 'axios';
             return{
                 token : sessionStorage.getItem("token"),
                 selected : '',
+                showModal :  false,
                 QList : [],
                 QList_Modal : [],
                 PList_Modal : [],
                 BList_Modal : [],
                 CList_Modal : '',
-                replyContent : ''
+                replyContent : '',
+                firstQCateList : [
+                    {value : 1, label : '상품문의'},
+                    {value : 2, label : '배송문의'},
+                    {value : 3, label : '기타'},
+                ],
             }
         },
         async created(){
@@ -130,7 +165,8 @@ import axios from 'axios';
                     console.log(this.QList);
                 }
             },
-            async showModal(val){
+            async handleEdit(val){
+                this.showModal = true;
                 const url = `REST/api/question/select?no=` + val;
                 const response = await axios.get(url);
                 // console.log(response);
@@ -169,11 +205,12 @@ import axios from 'axios';
 .qa_list_wrapper{
     height: 100%;
     display: flex;
+    overflow-x: hidden;
     flex-direction: column;
     font-family: 'Gowun Dodum', sans-serif;
 }
 .qa_list_header {
-    height : 15%;
+    height : 15.5%;
     width : 100%;
     display : flex;
     flex-direction: row;
@@ -198,7 +235,7 @@ import axios from 'axios';
 }
 .qa_list_divider{
     border : 0.3px solid black;
-    height: 0.3px;
+    height: 0px;
     width : 100%;
 }
 .qa_list_content {
@@ -221,10 +258,6 @@ import axios from 'axios';
 .qa_list_table{
     margin-top: 15px;
 }
-.qa_list_table table th,
-.qa_list_table table tbody td{
-    text-align: center;
-}
 .qa_list_table table tbody button{
     border: none;
     width: 80px;
@@ -232,6 +265,7 @@ import axios from 'axios';
     color: white;
     background-color: #49654E;
     border-radius: 3px;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 .qa_list_table table tbody button:hover{
     opacity: 0.9;
@@ -243,6 +277,8 @@ import axios from 'axios';
     /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
+    height: 100%;
+    width: 100%;
 }
 .questionContents .productInfo{
     /* border: 1px solid black; */
@@ -262,6 +298,7 @@ import axios from 'axios';
 }
 .productInfo table {
     width: 100%;
+    margin-bottom: 10px;
 }
 .productInfo table img{
     width: 100%;
@@ -280,12 +317,41 @@ import axios from 'axios';
     display: flex;
     flex-direction: column;
     border-radius: 3px;
-    margin: 0 auto;
-    width: 100%;
-    height: 200px;
+    margin: 10 auto;
+    width: 97%;
+    height: 150px;
     padding : 10px;
 }
-.modalReply .form-control{
-    height: 100px;
+.modal-footer{
+    /* border: 1px solid black; */
+    display: inline-flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin: 20px 0px;
 }
+.modal-footer button {
+    border: none;
+    border-radius: 3px;
+    background-color: #49654E;
+    width: 100px;
+    height: 40px;
+    margin: 0px 10px 0px 0px;
+    color: white;
+    font-family: 'Gowun Dodum', sans-serif;
+}
+#closebtn {
+    background-color: white;
+    width: 100px;
+    height: 40px;
+    margin: 0px 10px 0px 0px;
+    color: #49654E;
+    border: 0.5px solid #49654E;
+    font-weight: bold;
+    font-family: 'Gowun Dodum', sans-serif;
+}
+.modal-footer button:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+
 </style>

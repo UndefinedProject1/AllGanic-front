@@ -11,45 +11,44 @@
             <div class="cate_list_section">
                 <p>현재 카테고리 목록</p>
                 <div class="cate_list">
-                    <h5>Fashion <small>(100)</small></h5>
-                    <h6>의류</h6>
-                    <h6>잡화</h6>
-                    <h5>Life-Style <small>(300)</small></h5>
-                    <h6>주방</h6>
-                    <h6>욕실</h6>
-                    <h6>기타</h6>
-                    <h5>Beauty <small>(400)</small></h5>
-                    <h6>헤어</h6>
-                    <h6>스킨</h6>
-                    <h6>바디</h6>
-                    <h5>Food <small>(200)</small></h5>
-                    <h6>마실거리</h6>
+                    <h3>Fashion <small>(100)</small></h3>
+                    <h4>의류</h4>
+                    <h4>잡화</h4>
+                    <h3>Life-Style <small>(300)</small></h3>
+                    <h4>주방</h4>
+                    <h4>욕실</h4>
+                    <h4>기타</h4>
+                    <h3>Beauty <small>(400)</small></h3>
+                    <h4>헤어</h4>
+                    <h4>스킨</h4>
+                    <h4>바디</h4>
+                    <h3>Food <small>(200)</small></h3>
+                    <h4>마실거리</h4>
                 </div>
-
             </div>
             <div class="cate_insert_section">
                 <div class="cate_insert_selector">
-                    <select class="form-select"  aria-label="Default select example" v-model="selected1">
-                        <option value="100" >100</option>
-                        <option value="200" >200</option> 
-                        <option value="300" >300</option>
-                        <option value="400" >400</option>
-                    </select>
-                    <select class="form-select" aria-label="Default select example" @click="handle_catemiddle" @change="watching" v-model="selected2">
-                        <option :value="select" v-for="select in resultset" v-bind:key="select">{{select}}</option>
-                    </select>
+                    <el-select v-model="selected1" placeholder="Select" class="form-select" >
+                        <el-option v-for="item in firstCateList" :key="item.value" :label="item.value" :value="item.value">
+                            <span style="float: left; font-size: 15px;">{{ item.value }}</span>
+                            <span style="float: right; color: var(--el-text-color-secondary); font-size: 13px;">{{ item.label }}</span>
+                        </el-option>
+                    </el-select>
+                    <el-select v-model="selected2" placeholder="Select" @click="handle_catemiddle" @change="watching" class="form-select">
+                        <el-option v-for="select in resultset"  :key="select" :label="select" :value="select"></el-option>
+                    </el-select>
                 </div>
                 <div class="cate_insert_input" v-if="openCateInput">
-                    <input type="text" class="form-control" id="formGroupExampleInput" v-model="cate_insert1" placeholder="코드입력">
-                    <input type="text" class="form-control" id="formGroupExampleName" v-model="cate_name1" placeholder="이름 입력">
+                    <el-input v-model="cate_insert1" placeholder="코드 입력" clearable class="form-control" style="width:275px; height:30px;"/>
+                    <el-input v-model="cate_name1" placeholder="이름 입력" clearable class="form-control" style="width:275px; height:30px;"/>
                 </div>
                 <div class="cate_insert_input">
-                    <input type="text" class="form-control" id="formGroupExampleInput" v-model="cate_insert" placeholder="코드 입력">
-                    <input type="text" class="form-control" id="formGroupExampleName" v-model="cate_name" placeholder="이름 입력">
+                    <el-input v-model="cate_insert" placeholder="코드 입력" clearable class="form-control"/>
+                    <el-input v-model="cate_name" placeholder="이름 입력" clearable class="form-control"/>
                     <button type="button" @click="handleInsertCate">카테고리 추가</button>
                 </div>
                 <div class="cate_insert_note">
-                    <h6>*<mark>ISBN코드</mark>활용법</h6>
+                    <h4>*<mark>ISBN코드</mark>활용법</h4>
                     <p><small>앞 세자리는 대분류 카테고리 코드, 중간 두자리는 중분류 카테고리 코드, 마지막 끝 한자리는 소분류 카테고리 코드</small></p>
                     <p><small><strong>예시) 핸드워시</strong></small></p>
                     <div class="cate_code_ex_container">
@@ -90,7 +89,14 @@ import axios from 'axios';
                 cate_insert1 : '',
                 cate_name1 : '',
                 token : sessionStorage.getItem("token"),
-                openCateInput : false
+                openCateInput : false,
+                firstCateList : [
+                    {value : 100, label : '패션'},
+                    {value : 200, label : '식품'},
+                    {value : 300, label : '생활잡화'},
+                    {value : 400, label : '뷰티'},
+                ],
+                value : ''
             }
         },
         components : {
@@ -102,12 +108,13 @@ import axios from 'axios';
                 }
             },
             async handle_catemiddle() {
-                const headers = {"Content-Type" : "application/json", token : this.token};
+                const headers = {"Content-Type" : "application/json"};
                 const url = `REST/api/select_catenum?code=` + this.selected1;
                 const response = await axios.get(url, {headers});
                 console.log(response);
                 if(response.data.result ===1) {
                     this.selects = response.data.list;
+                    console.log(this.selects);
 
                     //categorycode 추출
                     var arr = [];
@@ -162,10 +169,11 @@ import axios from 'axios';
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
     font-family: 'Gowun Dodum', sans-serif;
 }
 .aci_header {
-    height : 15%;
+    height : 14.5%;
     width : 100%;
     display : flex;
     flex-direction: row;
@@ -190,11 +198,11 @@ import axios from 'axios';
 }
 .aci_divider{
     border : 0.3px solid black;
-    height: 0.3px;
+    height: 0px;
     width : 100%;
 }
 .aci_content{
-    padding: 50px 80px;
+    padding: 10px 80px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -209,24 +217,26 @@ import axios from 'axios';
     align-items: center;
 }
 .cate_list_section P {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 .cate_list {
     border : 1px solid rgb(206 212 217);
     border-radius: 3px;
-    padding : 0px 92px 10px 29px;
+    width : 70%;
+    padding : 0px 0px 20px 60px;
 }
-.cate_list h5 {
+.cate_list h3 {
     font-weight: bold;
     color: #49654E;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 small{
     font-size: 0.75em;
 }
-.cate_list h6{
-    margin: 8px 0px 10px 10px;
+.cate_list h4{
+    margin: 5px 0px 10px 10px;
 }
 .cate_insert_section{
     /* border: 1px solid black; */
@@ -234,6 +244,7 @@ small{
     height: 400px;
     display: flex;
     flex-direction: column;
+    padding-top: 40px;
 }
 .cate_insert_selector{
     /* border: 1px solid black; */
@@ -259,7 +270,7 @@ small{
     width: 100%;
     height : fit-content;
     display: inline-flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     padding: 10px;
 }
 .form-control{
@@ -269,11 +280,11 @@ small{
 }
 button {
     height: 37px;
-    width : 120px;
+    width : 125px;
     background-color: #49654E;
     border-radius: 5px;
     color: white;
-    font-size : 15px;
+    font-size : 14px;
 }
 Button:hover{
     opacity: 0.9;
@@ -286,14 +297,15 @@ Button:hover{
     display: flex;
     flex-direction: column;
 }
-.cate_insert_note h6{
+.cate_insert_note h4{
     font-weight: bold;
+    margin : 10px 0px;
 }
 .cate_insert_note small {
-    font-size: 0.85em;
+    font-size: 0.89em;
 }
 .cate_insert_note p {
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 .cate_code_ex_container{
     display: inline-flex;

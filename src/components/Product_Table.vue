@@ -30,7 +30,6 @@
                 </div>
             </div>
         </div>
-        <Footer></Footer>
     </div>
 </template>
 
@@ -38,7 +37,6 @@
 import axios from 'axios';
 import cart_img from '@/assets/cart_img.png';
 import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
-import Footer from '@/components/Footer.vue';
     export default {
         data(){
             return{
@@ -49,9 +47,6 @@ import Footer from '@/components/Footer.vue';
                 catelist : [],
                 productlist : [],
             }
-        },
-        components : {
-            Footer : Footer,
         },
         async created(){
             await this.handleContents();
@@ -120,15 +115,18 @@ import Footer from '@/components/Footer.vue';
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 .pt_table_wrapper{
-    width : 100%;
-    height : 100%;
+    width : 100vw;
+    height : 100vh;
     overflow-y: scroll;
+    overflow-x: hidden;
     font-family: 'Gowun Dodum', sans-serif;
-    padding: 80px;
+    /* padding: 80px; */
+    background-color: white;
+
 }
 .pt_table_container{
-    /* border: 1px solid black; */
-    width: 90%;
+    border: 1px solid black;
+    width: 80%;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -199,10 +197,10 @@ import Footer from '@/components/Footer.vue';
     /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
-    min-width: 100%;
+    max-width: 100%;
     height: fit-content;
-    padding: 5px;
-    margin: 25px 0px;
+    padding: 10px;
+    margin: 25px 5px;
 }
 .pt_product img{
     width: 100%;

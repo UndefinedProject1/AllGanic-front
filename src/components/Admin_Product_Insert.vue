@@ -17,30 +17,36 @@
                         <tr>
                             <th><span class="th_title">브랜드코드</span></th>
                             <td>
-                                <select class="form-select" v-model="selected">
-                                    <option>{{selected}}</option>
-                                    <option :value="code.brandcode" v-for="code in brandlist" v-bind:key="code">{{code.brandname}} ({{code.brandcode}})</option>
-                                </select>
+                                <el-select v-model="selected" placeholder="Select" class="form-select" >
+                                    <el-option v-for="code in brandlist" :key="code" :label="code.brandname" :value="code.brandcode">
+                                        <span style="float: left; color: var(--el-text-color-primary); font-size: 15px; font-family: 'Gowun Dodum', sans-serif;">{{ code.brandname }}</span>
+                                        <span style="float: right; color: var(--el-text-color-secondary); font-size: 14px; font-family: 'Gowun Dodum', sans-serif;">( {{ code.brandcode }} )</span>
+                                    </el-option>
+                                </el-select>
                             </td>
                         </tr>
                         <tr>
                             <th><span class="th_title">카테고리코드</span></th>
                             <td>
-                                <select class="form-select" v-model="selected2">
-                                    <option>{{selected2}}</option>
-                                    <option :value="code.categorycode" v-for="code in catelist" v-bind:key="code">{{code.categoryname}} ({{code.categorycode}})</option>
-                                </select>
+                                <el-select v-model="selected2" placeholder="Select" class="form-select" >
+                                    <el-option v-for="code in catelist" :key="code" :label="code.categoryname" :value="code.categorycode">
+                                        <span style="float: left; color: var(--el-text-color-primary); font-size: 15px; font-family: 'Gowun Dodum', sans-serif;">{{ code.categoryname }}</span>
+                                        <span style="float: right; color: var(--el-text-color-secondary); font-size: 14px; font-family: 'Gowun Dodum', sans-serif;" >( {{ code.categorycode }} )</span>
+                                    </el-option>
+                                </el-select>
                             </td>
                         </tr>
                         <tr>
                             <th><span class="th_title">제품명</span></th>
                             <td>
-                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="제품명 입력" v-model="productname">
+                                <el-input v-model="productname" placeholder="제품명 입력" clearable class="form-control"/>
                             </td>
                         </tr>
                         <tr>
                             <th><span class="th_title">가격</span></th>
-                            <td><input type="text" class="form-control" id="formGroupExampleInput" placeholder="가격 설정" v-model="productprice"></td>
+                            <td>
+                                <el-input v-model="productprice" placeholder="가격 설정" clearable class="form-control"/>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -57,14 +63,11 @@
                     <span class="th_title">제품설명</span>
                 </div>
                 <div class="content_area">
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
-                        <label for="floatingTextarea2">제품 상세 설명</label>
-                    </div>
+                    <el-input v-model="textarea" :rows="8" type="textarea" placeholder="브랜드 설명 입력"  class="form-control2"/>
                     <p>이미지는 보이는 파일 순서대로 업로드됩니다.</p>
                 </div>
             </div>
-            <div class="section2">
+            <div class="section3">
                 <div class="title_area2" style="padding-top:-10px">
                     <span class="th_title" >상세 이미지</span>
                 </div>
@@ -86,7 +89,6 @@
                             <input type="file" @change="handleSubImg3($event)" name="파일첨부" id="insertsubimg3">
                         </div>
                     </div>
-                    
                 </div>
             </div>
             <button type="button" @click="handleProductInsert">등록하기</button>
@@ -224,7 +226,7 @@ import default_image from '@/assets/default_image.jpg';
 .api_wrapper {
     height: 100%;
     display : grid;
-    grid-template-rows: 15% 1% 85%;
+    grid-template-rows: 14.5% 1% 85%;
     grid-template-columns: 100%;
     grid-template-areas: "api_header", "api_divider" "api_content";
     font-family: 'Gowun Dodum', sans-serif;
@@ -256,7 +258,7 @@ import default_image from '@/assets/default_image.jpg';
 }
 .api_divider{
     border : 0.3px solid black;
-    height: 0.3px;
+    height: 0px;
     width : 100%;
 }
 
@@ -371,22 +373,13 @@ th{
     position: relative;
     /* border : 1px solid black; */
 }
+ .content_area .form-control2{
+    width: 80%;
+}
 #floatingTextarea2{
     width : 80%;
     height: 235px;
     margin : 13px 0px 40px 20px;
-}
-.form-floating>label {
-    color : rgba(37, 37, 37, 0.747);
-    position: absolute;
-    top: 0;
-    left: 25px;
-    height: 100%;
-    padding: 1rem 0.75rem;
-    pointer-events: none;
-    border: 1px solid transparent;
-    transform-origin: 0 0;
-    transition: opacity .1s ease-in-out,transform .1s ease-in-out;
 }
 .content_area > p{
     font-size: 13px;
@@ -394,13 +387,20 @@ th{
     color : rgba(37, 37, 37, 0.747);
     font-weight: 300;
     position: absolute;
-    top: 93%;
+    top: 107%;
     right : 20%;
+}
+.section3 {
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    margin-top : 50px;
 }
 .subimage_container{
     border: 1px solid rgb(206 212 217);
     border-radius : 2px;
-    margin : -3px 0px 13px 20px;
     width : 80%;
     height : 270px;
     display : flex;
@@ -420,7 +420,6 @@ input[type="file"]{
     position: relative;
     width : fit-content;
     height : fit-content;
-    border : 1px solid rgb(206 212 217);
     border-radius : 2px;
     margin: 15px;
 }
@@ -433,7 +432,7 @@ input[type="file"]{
     font-weight: 700;
 }
 button {
-    height: 50px;
+    height: 40px;
     width : 120px;
     background-color: #49654E;
     margin : 90px auto;
@@ -441,6 +440,10 @@ button {
     color: white;
     /* font-family: 'Exo', sans-serif; */
     font-weight: 700;
-    font-size : 20px;
+    font-size : 18px;
+}
+button:hover {
+    opacity: 0.9;
+    cursor: pointer;
 }
 </style>
