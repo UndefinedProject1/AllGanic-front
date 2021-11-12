@@ -247,7 +247,7 @@ body{
   height: 100vh;
   width: 100%;
   background-color: white;
-  overflow-y: hidden;
+  /* overflow-y: scroll; */
   scroll-behavior: smooth;
 }
 

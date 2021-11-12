@@ -347,7 +347,7 @@ export default {
 .join_wrapper {
   width: 100%;
   height: fit-content;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   font-family: "Gowun Dodum", sans-serif;
   display: flex;
   flex-direction: column;
