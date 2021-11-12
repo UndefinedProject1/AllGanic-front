@@ -16,7 +16,6 @@
                                     <span style="font-size:14px; color:#333; font-weight:bold">[ {{scope.row.BRANDNAME}} ]</span>
                                     <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.PRODUCTNAME}}</p>
                                     <p style="font-size:14px; color:#E6A23C; margin:0;">쿠폰적용 불가상품</p>
-                                    <!-- <p style="font-size:14px; color:black; margin:0;">옵션 : {{scope.row.option}}</p> -->
                                 </div>
                             </template>
                         </el-table-column>
@@ -113,13 +112,7 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
         methods : {
             handleQuantityChange(){
                 console.log(this.productQuantity);
-            },
-            async saveQuantity(){
-                if("token" != null){
-                    
-                }
-                const url2 = `REST/api/cartitem/quantity/update?cnt=4&no=14`;
-            },  
+            }, 
             async getCartItem(){
                 const url=`REST/api/cartitem/member/list`;
                 const headers = {"Content-Type" : "application/json", "token" : this.token};
