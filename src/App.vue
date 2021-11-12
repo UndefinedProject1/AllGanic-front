@@ -244,7 +244,7 @@ body{
 }
 .content{
   /* border: 1px solid black; */
-  height: 100%;
+  height: 100vh;
   width: 100%;
   background-color: white;
   overflow-y: hidden;

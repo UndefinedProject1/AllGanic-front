@@ -97,15 +97,15 @@
                                                     <div class="reviewContents">
                                                         <div class="reviewImage">
                                                             <div class="main_image_container">
-                                                                <img :src = "default_image" id="mainImg">
+                                                                <img :src = "mainImg" id="mainImg">
                                                                 <label for="insertmainImg">이미지 추가</label>
                                                                 <input type="file" @change="handleMainImg($event)" name="파일첨부" id="insertmainImg">
                                                             </div>                                                            
                                                         </div>
                                                         <div class="form-floating">
-                                                            <StarRating :star-size="15" :rating="reviewrating" :read-only="false" :border-width="1" 
+                                                            <StarRating :star-size="15" @update:rating ="setReivewRating" :read-only="false" :border-width="1" 
                                                                 active-color="#E6A23C" :show-rating="true" :rounded-corners="true" id="rating"></StarRating>
-                                                            <el-input v-model="reviewContent" :rows="6" type="textarea" placeholder="브랜드 설명 입력"  class="form-control"/>
+                                                            <textarea name="content" row="30" v-model="reviewContent" placeholder="리뷰는 300자 이하로 적어주세요"></textarea>
                                                         </div>
                                                         
                                                     </div>
@@ -166,18 +166,15 @@
                                                 <td>
                                                     <div class="faqWritingContents">
                                                         <div class="faqWritingSelect">
-                                                            <select class="form-select" aria-label="Default select example" v-model="selected">
-                                                                <option selected>문의유형선택</option>
-                                                                <option value="1">상품문의</option>
-                                                                <option value="2">배송문의</option>
-                                                                <option value="3">기타</option>
-                                                            </select>
+                                                            <el-select v-model="selected" placeholder="Select" @change="selectCate1" class="form-select">
+                                                                <el-option v-for="select in firstQCateList"  :key="select.value" :label="select.label" :value="select.value"></el-option>
+                                                            </el-select>
                                                         </div>
                                                         <div class="form-floating" style="height:30px;">
-                                                            <input type="email" class="form-control" id="floatingInput" v-model="questionTitle" style="height:100%;">
+                                                            <el-input v-model="questionTitle" placeholder="리뷰제목 입력" class="form-control" clearable style="font-family: 'Gowun Dodum', sans-serif;"/>
                                                         </div>
                                                         <div class="form-floating">
-                                                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" v-model="questionContent"></textarea>
+                                                            <textarea name="content" row="30" v-model="questionContent" placeholder="문의내용은 300자 이하로 적어주세요" id="floatingTextarea2"></textarea>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -253,13 +250,19 @@ import StarRating from 'vue-star-rating'
                 questionList : [],
                 showWriting : false,
                 showFaqWriting : false,
-                default_image :default_image,
                 mainfile : '',
                 selected : '',
+                mainImg : default_image,
                 reviewContent : '',
+                reviewRating : 0,
                 questionTitle :'',
                 questionContent :'',
-                quantity : 1
+                quantity : 1,
+                firstQCateList : [
+                    {value : 1, label : '상품문의'},
+                    {value : 2, label : '배송문의'},
+                    {value : 3, label : '기타'},
+                ],
             }
         },
         components : {
@@ -321,10 +324,14 @@ import StarRating from 'vue-star-rating'
                 }
                 
             },
+            setReivewRating(reviewRating){
+                return this.reviewRating = reviewRating;
+            },
             async writeReview(){
                 const url = `REST/api/review/insert?no=${this.pcode}`;
                 const headers = {"Content-Type" : "multipart/form-data","token" : this.gettoken};
                 const formData = new FormData();
+                formData.append("reviewrating", this.reviewRating);
                 formData.append("reviewcontent", this.reviewContent);
                 formData.append("file", this.mainfile);
 
@@ -551,6 +558,7 @@ import StarRating from 'vue-star-rating'
 }
 .detail_section2 button:hover{
     opacity: 0.9;
+    cursor: pointer;
 }
 .detail_section3 {
     margin-top: 100px;
@@ -576,7 +584,7 @@ import StarRating from 'vue-star-rating'
     border-bottom: 0.5px solid #49654E;
 }
 .selection3_navButtons button{
-    width: 200px;
+    width: 250px;
     height: 50px;
     font-size: 18px;
     font-weight: bold;
@@ -603,7 +611,7 @@ import StarRating from 'vue-star-rating'
     /* border: 1px solid black; */
     display: inline-flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     width: 100%;
 }
 h3{
@@ -617,6 +625,7 @@ h3{
 .faqTitleSection > span {
     width: 120px;
     height: fit-content;
+    margin-bottom: 10px;
 }
 .reviewContainer .reviewTitle span:hover,
 .faqTitleSection > span:hover {
@@ -629,7 +638,7 @@ h3{
     flex-direction: column;
 }
 .reviewTable .writeReviewSection{ 
-    width: 100%;
+    width: 94%;
     border: 0.5px solid #49654E;
     padding: 20px 40px 0px 0px;
     margin-top: 10px;
@@ -656,7 +665,10 @@ table th span{
     width : fit-content;
 }
 #floatingTextarea2{
-    width: 100%;
+    border: 0.5px solid #b6b6b6;
+    margin-top: 10px;
+    width: 97%;
+    border-radius: 3px;
     height: 140px;
 }
 .writeReviewSection_warning{
@@ -687,6 +699,10 @@ table th span{
     float : right;
     margin: 20px 0px;
 }
+.reviewBtnContainer button:hover{
+    cursor: pointer;
+    opacity: 0.9;
+}
 #writingReviewBtnClose{
     width: 110px;
     height: 40px;
@@ -711,12 +727,20 @@ table th span{
 }
 .form-floating{
     width : 100%;
-    position : relative;
     /* margin: 0px 10px; */
+}
+.form-floating textarea{
+    border: 0.5px solid #b6b6b6;
+    width: 100%;
+    height: 70%;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 3px;
+    font-family: 'Gowun Dodum', sans-serif;
+    font-size: 14px;
 }
 .faqWritingContents .form-floating{
     width : 100%;
-    position : unset;
     margin-top: 10px;
     /* margin: 0px 10px; */
 }
@@ -753,10 +777,18 @@ input[type="file"]{
     border-bottom: 1px solid #49654E;
     padding: 20px;
 }
+.reviewArea:hover, 
+.faqList:hover{
+    cursor: pointer;
+    opacity: 0.9;
+    background-color: #dbdbdbb9;
+}
 .reviewTable #reviewTitle{
     display: inline-flex;
     width: 100%;
     justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0;
 }
 .reviewTable #reviewTitle #rating{
     margin-top: 0;

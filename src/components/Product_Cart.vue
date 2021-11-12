@@ -182,7 +182,7 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
 }
 .cart_summary_container{
     background-color: white;
-    border-radius: 7px;
+    border-radius: 3px;
     display: flex;
     flex-direction: column;
     border: 3px solid #715036;
@@ -236,7 +236,7 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
     margin: 15px auto;
 }
 #checkoutBtn{
-    border-radius: 5px;
+    border-radius: 3px;
     width: 100%;
     height: 15%;
     font-size: 20px;
@@ -245,7 +245,7 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
     font-weight: bold;
     padding: 3px;
     margin: 10px 0px;
-    background-color: #715036;
+    background-color: #715036e3;
 }
 #checkoutBtn:hover{
     cursor: pointer;
