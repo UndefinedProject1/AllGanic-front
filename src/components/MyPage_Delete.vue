@@ -1,7 +1,7 @@
 <template>
-    <div class="mypage_delete">
+    <div class="info_wapper">
         <MyPage_Info></MyPage_Info>
-            <div class="delete_box">
+            <div class="info_list">
                 <div class="delete_name">
                     <p>회원탈퇴</p>
                 </div>
@@ -10,29 +10,21 @@
                         <img :src="mypage_pw">
                         <p>비밀번호</p>
                         <input type="password" v-model="input_pw">
-                </div>
+                    </div>
                     <div class="delete_password_btn">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="handle_pw_modal">비밀번호인증</button>
-                        <!-- <button type="button" id="del_pw_btn" @click="handleDelPw">비밀번호인증</button> -->
+                    <el-button type="text" @click="centerDialogVisible = true">
+                    비밀번호인증</el-button>
                     </div>
-                </div>
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Membership withdrawal</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>탈퇴 하시겠습니까?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button">확인</button>
-                        <button type="button">취소</button>
-                    </div>
-                    </div>
-                </div>
+                <el-dialog v-model="centerDialogVisible" title="회원 탈퇴" width="30%" center id="modal_content">
+                    <p>All_ganic의 혜택들을 잃게 됩니다.</p>
+                    <p>그래도 탈퇴 하시겠습니까?</p>
+                    <template #footer>
+                        <span class="dialog-footer">
+                            <button type="primary" @click="centerDialogVisible = false">확인</button>
+                            <button @click="centerDialogVisible = false">취소</button>
+                        </span>
+                    </template>
+                </el-dialog>
             </div>
         </div>
     </div>
@@ -47,7 +39,7 @@ import mypage_pw from '@/assets/mypage_pw.png';
         data() {
             return {
                 mypage_pw : mypage_pw,
-                showModal : false,
+                centerDialogVisible: false,
             }
         },
         components : {
@@ -62,34 +54,29 @@ import mypage_pw from '@/assets/mypage_pw.png';
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
-.mypage_delete {
-    width: 100%;
-    height: 100%;
+.info_wapper {
+    display: flex;
     padding: 40px;
-    display: inline-flex;
     font-family: 'Gowun Dodum', sans-serif;
 }
-.delete_box {
+.info_list {
     width: 100%;
 }
-.delete_name {
-    width: 100%;
-    display: flex;
+.delete_name > p {
+    margin-top: 0px;
     color: #715036;
-    font-weight: 500;
-    font-size: 18px;
     font-weight: bold;
 }
 .delete_insert {
     border: 2px solid black;
     width: 100%;
-    height: 530px;
+    height: 475px;
     border-radius: 5px;
 }
 .delete_password {
     display: flex;
     justify-content: center;
-    margin-top: 240px;
+    margin-top: 185px;
     margin-bottom: 50px;
 }
 .delete_password > input {
@@ -97,7 +84,7 @@ import mypage_pw from '@/assets/mypage_pw.png';
     height: 40px;
     border: none;
     border-bottom: 2px solid black;
-    background-color: #eeeeee;
+    background-color: white;
 }
 .delete_password > img {
     width: 15px;
@@ -123,5 +110,20 @@ import mypage_pw from '@/assets/mypage_pw.png';
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Gowun Dodum', sans-serif;
+}
+.el-dialog__body > p {
+    text-align: initial;
+    /* padding: 25px calc(var(--el-dialog-padding-primary) + 5px) 30px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.dialog-footer > button {
+    background-color: #715036;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    height: 32px;
 }
 </style>

@@ -12,7 +12,7 @@
                 <div class="info_ad_icon">
                     <img :src="mypage_address"/>
                     <!-- <div class="info_address"> -->
-                        <p>Address: 43 Oxford Road M13 4GR Manchester, UK
+                        <p>43 Oxford Road M13 4GR Manchester, UK
                             <button type="button" @click="handleAdUpdate">기본주소 수정</button>
                         </p>
                     <!-- </div> -->
@@ -49,8 +49,8 @@ import mypage_address from '@/assets/mypage_address.png';
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
 .info_box {
     border: 1px solid black;
-    width: 500px;
-    height: 100%;
+    width: 450px;
+    height: 515px;
     border-radius: 10px;
     margin-right: 20px;
 }
@@ -59,12 +59,10 @@ import mypage_address from '@/assets/mypage_address.png';
     padding: 5px;
 }
 .info_name {
-    /* border: 1px solid black; */
     display: flex;
     flex-direction: row;
     justify-content: center;
-    width: auto 0px;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 .info_name > span {
     /* border: 1px solid black; */
@@ -86,26 +84,33 @@ import mypage_address from '@/assets/mypage_address.png';
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+.info_email > p {
+    margin-top: 0px;
 }
 .info_email > img {
     /* border: 1px solid black; */
     width: 25px;
     height: 25px;
     margin-right: 10px;
+    margin-bottom: 15px;
 }
 .info_ad_icon {
     /* border: 1px solid black; */
     width: 100%;
     display: flex;
-    justify-content: center;
-    margin-top: 5px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 0px;
+    margin-bottom: 10px;
 }
 .info_ad_icon >img {
     /* border: 1px solid black; */
     width: 25px;
     height: 25px;
     margin-right: 10px;
-    margin-top: 12px;
+    margin-bottom: 5px;
 }
 .solid {
     width : 100%;
@@ -116,18 +121,21 @@ import mypage_address from '@/assets/mypage_address.png';
     justify-content: center;
 }
 .info_ad_icon > p > button {
-    /* border: 1px solid black; */
-    width: auto 0px;
-    height: auto 0px;
     border-radius: 5px;
     font-size: 13px;
     justify-content: center;
     background-color: #715036;
     color: white;
+    border: none;
+    display: flex;
+    width: 100px;
     margin-top: 3px;
+    height: 22px;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 .info_ad_icon > p {
     width: 80%;
+    margin-bottom: 2px;
 }
 .info_menu {
     /* border: 1px solid black; */
@@ -135,11 +143,20 @@ import mypage_address from '@/assets/mypage_address.png';
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 40px;
+    line-height: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.info_menu > p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* line-height: 100%; */
 }
 .info_menu > span {
     color: #715036;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 20px;
+    margin-bottom: 5px;
+    /* line-height: 100%; */
 }
 </style>

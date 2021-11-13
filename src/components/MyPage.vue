@@ -7,7 +7,6 @@
                 <p>더보기 <img :src="mypage" style="right" class="mypage_plus"/> </p>
             </div>
             <div class="or_li_box1" v-for="orderlist in list_title" v-bind:key="orderlist">
-                <!-- {{orderlist.date}} -->
             </div>
             <div class="or_li_box2">
                         
@@ -19,6 +18,7 @@
             <div class="qna_li_box2">
             </div>
         </div>
+        
     </div>
     <Footer></Footer>
 </template>
@@ -53,12 +53,10 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
 .info_wapper {
-    /* border: 1px solid black; */
-    width: 100%;
-    height: 100%;
+    /* border: 1px solsid black; */
+    display: flex;
     padding: 40px;
-    display: inline-flex;
-    font-family: 'Gowun Dodum', sans-serif;;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 .info_list {
     /* border: 1px solid black; */
@@ -66,26 +64,27 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
 }
 .order_list {
     /* border: 1px solid black; */
-    width: 100%;
+    color: #715036;
+    font-weight: bold;
     display: flex;
     justify-content: space-between;
 }
 .order_list > p {
     /* border: 1px solid black; */
-    display: inline-block;
+    margin-top: 0px;
     color: #715036;
-    font-weight: 500;
+    font-weight: bold;
 }
 .or_li_box1 {
-    border: 2px solid black;
+    /* border: 2px solid black; */
     width: 100%;
     height: 135px;
     margin-bottom: 10px;
     border-radius: 5px;
 }
 .or_li_box2 {
-    border: 2px solid black;
-    height: 135px;
+    border: 1px solid black;
+    height: 223px;
     border-radius: 5px;
     margin-bottom: 31px;
 }
@@ -99,9 +98,10 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
 .qna_list > p {
     /* border: 1px solid black; */
     color: #715036;
+    font-weight: bold;
 }
 .qna_li_box2 {
-    border: 2px solid black;
+    border: 1px solid black;
     height: 165px;
     border-radius: 5px;
 }
@@ -109,12 +109,12 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
     /* border: 1px solid black; */
     width: 10px;
     height: 16px;
-    margin-bottom: 3px;
+    /* margin-bottom: 3px; */
 }
 .qna_list > p > img {
     /* border: 1px solid black; */
     width: 10px;
     height: 16px;
-    margin-bottom: 3px;
+    /* margin-bottom: 3px; */
 }
 </style>

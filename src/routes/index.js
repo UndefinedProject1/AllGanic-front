@@ -13,6 +13,8 @@ import MyPage_Member_Update from '@/components/MyPage_Member_Update.vue';
 import MyPage_Delete from '@/components/MyPage_Delete.vue';
 import Order_Page from '@/components/Order_Page.vue';
 import Product_Cart from '@/components/Product_Cart.vue';
+import MyPage_Order_List from '@/components/MyPage_Order_List.vue';
+import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
 
 
 const routes = [
@@ -29,6 +31,8 @@ const routes = [
     {path : '/mypage_delete' , name :'mypage_delete', component : MyPage_Delete},
     {path : '/order_page' , name :'order_page', component : Order_Page},
     {path : '/product_cart' , name :'product_cart', component : Product_Cart},
+    {path : '/mypage_order_list' , name :'mypage_order_list', component : MyPage_Order_List},
+    {path : '/mypage_qa_list' , name :'mypage_qa_list', component : MyPage_QA_List},
 
 ];
 

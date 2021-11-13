@@ -1,7 +1,7 @@
 <template>
-  <div class="mp_m_update">
+  <div class="info_wapper">
     <MyPage_Info></MyPage_Info>
-    <div class="m_update_box">
+    <div class="info_list">
       <div class="m_update_title">
         <p>회원정보 변경</p>
       </div>
@@ -15,10 +15,13 @@
           <div class="m_update_pw">
             <img :src="mypage_pw" />
             <p>비밀번호</p>
+            {{ chk_pw2 }}
           </div>
           <div class="u_pw_box">
             <input type="password" v-model="u_password_text" refs="password" />
-            <button
+            <button type="password" @click="centerDialogVisible = true">비밀번호변경</button>
+            <!-- <el-button type="text" @click="centerDialogVisible = true" id="pw_change">비밀번호변경</el-button> -->
+            <!-- <button
               type="button"
               class="btn btn-primary"
               data-bs-toggle="modal"
@@ -26,7 +29,7 @@
               @click="handle_pw_modal"
             >
               비밀번호변경
-            </button>
+            </button> -->
           </div>
         </div>
         <div class="m_name">
@@ -53,14 +56,14 @@
             <p>주소</p>
           </div>
           <div class="m_update_postcode">
-            <input type="text" v-model="member.POST" readonly value />
-            <p>/</p>
+            <input type="text" v-model="member.POST" readonly value style="width:100px;" />
+            <p style="margin-top:9px;">/</p>
             <input
               type="text"
               v-model="member.ADDRESS"
               readonly
               value
-              style="margin-left: 5px"
+              style="margin-left: 5px;"
             />
           </div>
         </div>
@@ -68,7 +71,6 @@
           <input
             type="text"
             v-model="member.DETAILEADDRESS"
-            style="width: 100px"
           />
           <button type="button" id="postcode_btn" @click="openDaumPostCode">
             우편번호검색
@@ -129,7 +131,53 @@
         </button>
       </div>
     </div>
-    <!-- 비밀번호 변경 Modal -->
+
+    <!-- modal -->
+    <el-dialog 
+    v-model="centerDialogVisible"
+    title="비밀번호 변경"
+    width="30%">
+    <div class="update_modal_pw_box">
+      <div class="update_modal_pw_oldpw">
+        <p>기존 비밀번호</p>
+        <span>*</span>
+      </div>
+      <div class="updatemodal_input_pw_oldpw">
+        <input type="password" ref="pw1" v-model="pw1_btn"/>
+      </div>
+        <div class="modal_password1" v-bind:style="modalcheck">
+            {{ chk_pw1 }}
+        </div>
+      <div class="update_modal_pw_newpw">
+        <p>새 비밀번호</p>
+        <span>*</span>
+      </div>
+      <div class="updatemodal_input_pw_newpw">
+        <input type="password" ref="pw2" v-model="pw2_btn" />
+      </div>
+      <div class="modal_password1" v-bind:style="modalcheck">
+            {{ chk_pw2 }}
+        </div>
+      <div class="update_modal_pw_newpw_check">
+        <p>새 비밀번호 확인</p>
+        <span>*</span>
+      </div>
+      <div class="updatemodal_input_pw_newpwchk">
+        <input type="password" ref="pw3" v-model="pw3_btn"/>
+      </div>
+      <div class="modal_password1" v-bind:style="modalcheck">
+            {{ chk_pw3 }}
+        </div>
+    </div>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">Cancel</el-button>
+        <!-- <el-button type="button" id="btn_close" style="display:none">Close</el-button> -->
+        <el-button type="primary" @click="handlPWUpdate">Confirm</el-button>
+      </span>
+    </template>
+  </el-dialog>
+    <!-- 비밀번호 변경 Modal
     <div 
       class="modal fade"
       id="staticBackdrop"
@@ -185,7 +233,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <!-- 히든버튼 추가 -->
+            히든버튼 추가
             <button type="button" id="btn_close" style="display:none" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button 
               type="button"
@@ -197,7 +245,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   <Footer></Footer>
 </template>
@@ -234,21 +282,8 @@ export default {
         post : "",
         address : "",
 
-
-        // userpw: "",
-        // usernewpw: "",
-        // usernewpwchk :"",
-
-        // mail:"",
-        // password : "",
-        // phone : "",
-        // name : "",
-
-        // chk_mail: "",
-        // chk_pw: "",
-        // chk_name: "",
-        // chk_phone: "",
-        
+        centerDialogVisible: false,
+    
         chk_pw1 : "",
         chk_pw2 : "",
         chk_pw3 : "",
@@ -292,7 +327,8 @@ export default {
       if (response.data.result === 1) {
         this.member = response.data.member;
         console.log(this.member);
-      } else alert("정보를 받아오지 못하였습니다.");
+      } 
+      else alert("정보를 받아오지 못하였습니다.");
     },
     openDaumPostCode() {
       new window.daum.Postcode({
@@ -392,35 +428,26 @@ export default {
 </script>
 
 <style scoped>
-.mp_m_update {
-  width: 100%;
-  height: 100%;
-  padding: 40px;
-  display: inline-flex;
-  font-family: "Gowun Dodum", sans-serif;
-}
-.mp_m_update > p {
+.info_wapper {
   display: flex;
+  padding: 40px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
-.m_update_box {
+.info_list {
   width: 100%;
 }
 .m_update_title {
-  /* border: 1px solid black; */
-  width: 100%;
-  display: flex;
   color: #715036;
-  font-weight: 500;
-  font-size: 18px;
   font-weight: bold;
+  display: flex;
 }
-.mp_m_update > p {
-  height: fit-content;
+.m_update_title > p {
+  margin-top: 0px;
 }
 .m_update_insert {
   border: 2px solid black;
   width: 100%;
-  height: 530px;
+  height: 475px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -433,16 +460,13 @@ export default {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  /* margin-top: 30px; */
 }
 .m_update_mail > p {
   width: fit-content;
-  margin-right: 23px;
+  margin-right: 45px;
   margin-bottom: 5px;
   margin-top: 3px;
-}
-.m_update_mail > span {
-  width: 50%;
-  font-weight: bold;
 }
 .m_password {
   width: 100%;
@@ -462,10 +486,25 @@ export default {
   margin-bottom: 5px;
   margin-top: 3px;
 }
-.u_name_box,
 .u_phone_box {
   border-bottom: 2px solid black;
   width: 50%;
+  margin-right: 15px;
+}
+.u_phone_box > input {
+  border: none;
+  width: 250px;
+  height: 30px;
+}
+.u_name_box {
+  border-bottom: 2px solid black;
+  width: 50%;
+  margin-right: 7px;
+}
+.u_name_box > input {
+  border: none;
+  width: 432px;
+  height: 30px;
 }
 .u_pw_box {
   display: flex;
@@ -473,19 +512,15 @@ export default {
   width: 50%;
   margin-left: 37px;
 }
-.u_pw_box > input,
-.u_name_box > input,
-.u_phone_box > input {
+.u_pw_box > input {
   border: none;
-  margin-right: 5px;
-  height: 100%;
-  width: 70%;
-  background-color: #fbfdff0f;
+  width: 432px;
+  height: 30px;
 }
 .m_update_mail > input {
   border: none;
   margin-right: 5px;
-  margin-left: 10px;
+  margin-left: 15px;
   height: 100%;
   width: 47%;
   background-color: #fbfdff0f;
@@ -527,19 +562,24 @@ export default {
   margin-right: 5px;
   margin-left: 15px;
   margin-bottom: 5px;
-  margin-top: 8px;
+  margin-top: 20px;
 }
 /* 비밀번호변경  버튼 */
-.u_pw_box > button {
-  /* width: 110px; */
-  height: 25px;
+.u_address_box > button {
   background-color: #715036;
   color: white;
   border: none;
   border-radius: 5px;
   font-size: 15px;
-  display: flex;
-  align-items: center;
+  margin-bottom: 2px;
+}
+.u_pw_box > button {
+  width: 110px;
+  background-color: #715036;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
   margin-bottom: 2px;
 }
 .m_name {
@@ -553,7 +593,7 @@ export default {
 }
 .m_update_name > p {
   width: fit-content;
-  margin-right: 40px;
+  margin-right: 52px;
   margin-bottom: 5px;
   margin-top: 3px;
 }
@@ -585,26 +625,13 @@ export default {
   /* border: 1px solid black; */
   display: flex;
 }
-/* .m_update_phone > p {
-    margin-right: 22px;
-    width: fit-content;
-    margin-bottom: 5px;
-    margin-top: 3px;
-} */
 .m_address {
   /* border: 1px solid black; */
   width: 100%;
   display: flex;
-  margin-top: 30px;
   justify-content: center;
   align-items: center;
 }
-/* .m_update_address > img {
-    width: 15px;
-    height: 15px;
-    margin-right: 5px;
-    margin-top: 5px;
-} */
 .m_update_address {
   /* border: 1px solid black; */
   display: flex;
@@ -619,7 +646,7 @@ export default {
   display: flex;
   border-bottom: 2px solid black;
   width: 50%;
-  margin-left: 33px;
+  margin-left: 40px;
   height: 35px;
   margin-top: 30px;
 }
@@ -627,27 +654,28 @@ export default {
   /* border: 1px solid black; */
   border: none;
   margin-right: 5px;
-  width: 80px;
-  height: 32px;
+  width: 400px;
+  height: 25px;
+  margin-top: 8px;
   background-color: #fbfdff0f;
 }
 .u_address_box {
   /* border: 1px solid black; */
   display: flex;
   border-bottom: 2px solid black;
-  width: 50%;
-  margin-left: 125px;
+  margin-left: 135px;
   margin-top: 20px;
+  width: 50%;
 }
 .u_address_box > input {
   border: none;
   background-color: #fbfdff0f;
-  width: 80%;
+  width: 432px;
 }
 /* 우편번호검색 버튼 */
 #postcode_btn {
   width: 110px;
-  height: 25px;
+  height: 30px;
   background-color: #715036;
   color: white;
   border: none;
@@ -660,6 +688,9 @@ export default {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+.update_modal_pw_box {
+  margin-left: 80px;
 }
 .update_modal_pw_oldpw {
   display: flex;
@@ -698,7 +729,7 @@ span {
 #handle_memupdate {
   width: 110px;
   height: 35px;
-  margin-top: 60px;
+  margin-top: 42px;
   background-color: #715036;
   color: white;
   border: none;
@@ -706,17 +737,6 @@ span {
   font-size: 15px;
 }
 /* 주소 */
-/* #postcode_btn {
-  width: 110px;
-  height: 40px;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  font-weight: bold;
-  background-color: #715036;
-  margin-bottom: 5px;
-  font-size: 15px;
-} */
 #postcode_btn:hover {
   cursor: pointer;
   opacity: 0.8;
