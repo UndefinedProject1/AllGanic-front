@@ -8,7 +8,7 @@
                 </div>
                 <div class="product_info_section">
                     <el-table ref="multipleTable" :data="itemList" @selection-change="handleSelectionChange">
-                        <el-table-column type="selection" width="50" align="center" />
+                        <el-table-column type="selection" width="50" align="center" v-bind:value="idx" />
                         <el-table-column label="상품정보" width="400" align="center">
                             <template #default="scope">
                                 <el-image style="width: 135px; height: 150px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
@@ -22,7 +22,7 @@
                         <el-table-column label="수량" width="150" align="center">
                             <template #default="scope">
                                 <el-input-number v-model="scope.row.QUANTITY" :min="1" :max="10" @change="handleQuantityChange" size="mini"/>
-                                <el-link type="primary" @click="saveQuantity" style="font-size:13px; color:black; margin:10px 0px;">변경수량 저장</el-link>
+                                <p type="primary" @click="saveQuantity(scope.row.QUANTITY, scope.row.CARTITEMCODE)" style="font-size:13px; color:black; margin:10px 0px;">변경수량 저장</p>
                             </template>
                         </el-table-column>
                         <el-table-column property="finalPrice" label="상품 금액" width="125" align="center">
@@ -39,7 +39,8 @@
                     </el-table>
                 </div>
                 <div class="button_container">
-                    <button type="button"></button>
+                    <button type="button" @click="allDeleteBtn"><i class="el-icon-delete"></i>전체삭제</button>
+                    <button type="button" @click="someDeleteBtn(val)"><i class="el-icon-delete"></i>선택항목 삭제</button>
                 </div>
             </div>
             <div class="cart_summary">
@@ -97,22 +98,35 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
             return{
                 token : sessionStorage.getItem("token"),
                 vegan_soap_img2 : vegan_soap_img2,
-                productQuantity : 0,
+                productQuantity : 1,
                 itemList : [],
                 cartCode : 0,
                 eachPrice : [],
                 totalPrice : 0,
                 totalShippingPrice : 0,
                 totalOrderPrice : 0,
+                selectionArr : []
             }
         },
         async created(){
             await this.getCartItem();
         },
         methods : {
-            handleQuantityChange(){
+            handleSelectionChange(val){
+                console.log(val);
+                this.selectionArr = val; 
+            },
+            async handleQuantityChange(){
                 console.log(this.productQuantity);
+                await this.getTotalPirce();
             }, 
+            async saveQuantity(cnt, no){
+                const url = `REST/api/cartitem/quantity/update?cnt=${cnt}&no=${no}`;
+                const response = await axios.put(url);
+                if(response.data.resulf === 1){
+                    alert(response.data.state);
+                }else alert(response.data.state);
+            },
             async getCartItem(){
                 const url=`REST/api/cartitem/member/list`;
                 const headers = {"Content-Type" : "application/json", "token" : this.token};
@@ -123,17 +137,27 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
                     this.cartCode = response.data.cart;
                 }
 
+                await this.getTotalPirce();
+            },
+            getTotalPirce(){
+                this.totalPrice = 0; 
+
                 for(var i=0; i<this.itemList.length; i++){
                     this.eachPrice[i] = this.itemList[i].PRODUCTPRICE * this.itemList[i].QUANTITY;
                     this.totalPrice += this.eachPrice[i];
-
                 }
+
                 this.totalShippingPrice = this.itemList.length * 2500;
                 this.totalOrderPrice = this.totalPrice + this.totalShippingPrice;
             },
             async handleTotalPrice(){
                 await this.getCartItem();
             },
+            async someDeleteBtn(val){
+                console.log(val);
+                // const url = `REST/api/cartitem/delete/check`;
+
+            }
         }
     }
 </script>
@@ -287,6 +311,10 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
 }
 .button_container{
     /* border: 1px solid black; */
-    height: 200px;
+    height: 30px;
+    display: inline-flex;
+}
+.button_container button{
+    height: 30px;
 }
 </style>
