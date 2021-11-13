@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="detail_section2">
-                <button id="addcartbtn">ADD CART</button>
+                <button id="addcartbtn" @click="handleGoCart">ADD CART</button>
                 <button id="orderbtn">ORDER</button>
             </div>
             <div class="detail_section3">
@@ -380,6 +380,23 @@ import StarRating from 'vue-star-rating'
             },
             closeWritingFaq(){
                 this.showFaqWriting = false;
+            },
+            async handleGoCart(){
+                const url = `REST/api/cart/create/insert?cnt=${this.quantity}&no=${this.pcode}`;
+                const headers = {"Content-Type" : "application/json", "token" : this.gettoken};
+                const response = await axios.post(url, { }, {headers});
+                console.log(response);
+
+                if(response.data.result === 1){
+                    alert(response.data.state);
+                    this.$router.push({ path: "/product_cart" });
+                }
+                else if(response.data.result === 0){
+                    alert(response.data.state);
+                }
+                else{
+                    alert("error");
+                }
             }
             
 

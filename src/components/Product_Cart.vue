@@ -7,26 +7,35 @@
                     <p id="product_info_warning">장바구니에 담긴 상품은 30일 동안만 보관됩니다.</p>
                 </div>
                 <div class="product_info_section">
-                    <el-table ref="multipleTable" :data="tableData" @selection-change="handleSelectionChange">
-                        <el-table-column type="selection" width="60" align="center" />
+                    <el-table ref="multipleTable" :data="itemList" @selection-change="handleSelectionChange">
+                        <el-table-column type="selection" width="50" align="center" />
                         <el-table-column label="상품정보" width="400" align="center">
                             <template #default="scope">
-                                <el-image style="width: 135px; height: 150px;"  :src="vegan_soap_img2" :fit="fit"></el-image>
+                                <el-image style="width: 135px; height: 150px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
                                 <div class="product_detail_info" style="width: 60%; float:right;  text-align:left; padding:5px 10px;">
-                                    <span style="font-size:14px; color:#333; font-weight:bold">[ {{scope.row.brandName}} ]</span>
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}</p>
-                                    <p style="font-size:14px; color:black; margin:0;">{{scope.row.productPrice}} 원</p>
-                                    <p style="font-size:14px; color:black; margin:0;">옵션 : {{scope.row.option}}</p>
+                                    <span style="font-size:14px; color:#333; font-weight:bold">[ {{scope.row.BRANDNAME}} ]</span>
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.PRODUCTNAME}}</p>
+                                    <p style="font-size:14px; color:#E6A23C; margin:0;">쿠폰적용 불가상품</p>
                                 </div>
                             </template>
                         </el-table-column>
                         <el-table-column label="수량" width="150" align="center">
                             <template #default="scope">
-                                <el-input-number v-model="scope.row.productQuantity" :min="1" :max="10" @change="handleQuantityChange" size="mini"/>
+                                <el-input-number v-model="scope.row.QUANTITY" :min="1" :max="10" @change="handleQuantityChange" size="mini"/>
+                                <el-link type="primary" @click="saveQuantity" style="font-size:13px; color:black; margin:10px 0px;">변경수량 저장</el-link>
                             </template>
                         </el-table-column>
-                        <el-table-column property="finalPrice" label="주문금액" width="127" align="center"/>
-                        <el-table-column property="shippingCost" label="배송비"  width="125" align="center"/>
+                        <el-table-column property="finalPrice" label="상품 금액" width="125" align="center">
+                            <template #default="scope">
+                                <p style="font-size:14px; color:black; margin:0;">{{scope.row.PRODUCTPRICE}} 원</p>
+                            </template>
+                        </el-table-column>
+                        <el-table-column property="shippingCost" label="배송비"  width="155" align="center">
+                            <template #default="scope">
+                                <p style="font-size:13px; color:#333; font-weight:bold; margin:5px 0px;">[{{ scope.row.BRANDNAME }}]</p>
+                                <span style="font-size:13px; color:black; letter: spacing 0.06em;">상품으로만 3,0000원 이상 주문시 배송비 무료</span>
+                            </template>
+                        </el-table-column>
                     </el-table>
                 </div>
                 <div class="button_container">
@@ -45,7 +54,7 @@
                             <tbody>
                                 <tr>
                                     <th>총 주문 금액 : </th>
-                                    <td>15,000 원</td>
+                                    <td @change="handleTotalPrice">{{totalPrice}} 원</td>
                                 </tr>
                                 <tr>
                                     <th>+</th>
@@ -53,7 +62,7 @@
                                 </tr>
                                 <tr>
                                     <th>총 배송 금액 : </th>
-                                    <td>15,000 원</td>
+                                    <td @change="handleTotalShippingPrice">{{totalShippingPrice}} 원</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -67,7 +76,7 @@
                             <tbody>
                                 <tr>
                                     <th>총 주문 금액 : </th>
-                                    <td>15,000 원</td>
+                                    <td>{{totalOrderPrice}} 원</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -81,26 +90,50 @@
 </template>
 
 <script>
+import axios from 'axios';
 import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
     export default {
         data(){
             return{
-                tableData : [
-                    {brandName : '멜릭서', productName : '에리제론 올인원 비건 뷰티볼 - 단호박 (모든피부적합, 영양)', productPrice : 2000, option : '블랙', productQuantity : 3, finalPrice : 6000, shippingCost : 2500},
-                    {brandName : '멜릭서', productName : '에리제론 올인원 비건 뷰티볼 - 단호박 (모든피부적합, 영양)', productPrice : 2000, option : '블랙', productQuantity : 3, finalPrice : 6000, shippingCost : 2500},
-                    {brandName : '멜릭서', productName : '에리제론 올인원 비건 뷰티볼 - 단호박 (모든피부적합, 영양)', productPrice : 2000, option : '블랙', productQuantity : 3, finalPrice : 6000, shippingCost : 2500},
-                    {brandName : '멜릭서', productName : '에리제론 올인원 비건 뷰티볼 - 단호박 (모든피부적합, 영양)', productPrice : 2000, option : '블랙', productQuantity : 3, finalPrice : 6000, shippingCost : 2500},
-                    {brandName : '멜릭서', productName : '에리제론 올인원 비건 뷰티볼 - 단호박 (모든피부적합, 영양)', productPrice : 2000, option : '블랙', productQuantity : 3, finalPrice : 6000, shippingCost : 2500},
-                    {brandName : '멜릭서', productName : '에리제론 올인원 비건 뷰티볼 - 단호박 (모든피부적합, 영양)', productPrice : 2000, option : '블랙', productQuantity : 3, finalPrice : 6000, shippingCost : 2500},
-                ],
+                token : sessionStorage.getItem("token"),
                 vegan_soap_img2 : vegan_soap_img2,
-                productQuantity : 0
+                productQuantity : 0,
+                itemList : [],
+                cartCode : 0,
+                eachPrice : [],
+                totalPrice : 0,
+                totalShippingPrice : 0,
+                totalOrderPrice : 0,
             }
+        },
+        async created(){
+            await this.getCartItem();
         },
         methods : {
             handleQuantityChange(){
                 console.log(this.productQuantity);
-            }
+            }, 
+            async getCartItem(){
+                const url=`REST/api/cartitem/member/list`;
+                const headers = {"Content-Type" : "application/json", "token" : this.token};
+                const response = await axios.get(url, {headers});
+                console.log(response);
+                if(response.data.result === 1){
+                    this.itemList = response.data.list;
+                    this.cartCode = response.data.cart;
+                }
+
+                for(var i=0; i<this.itemList.length; i++){
+                    this.eachPrice[i] = this.itemList[i].PRODUCTPRICE * this.itemList[i].QUANTITY;
+                    this.totalPrice += this.eachPrice[i];
+
+                }
+                this.totalShippingPrice = this.itemList.length * 2500;
+                this.totalOrderPrice = this.totalPrice + this.totalShippingPrice;
+            },
+            async handleTotalPrice(){
+                await this.getCartItem();
+            },
         }
     }
 </script>
@@ -111,7 +144,8 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
 .cart_wrapper{
     /* height: 100vh; */
     margin: 0;
-    height: 100%;
+    height: fit-content;
+    /* overflow-y: scroll; */
     padding: 30px;
     background-color: white;
     overflow-x: hidden;
@@ -129,7 +163,7 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
 .product_info{
     margin-right: 10px;
     /* border: 1px solid black; */
-    width: 70%;
+    width: 72%;
     height: fit-content;
     padding: 0px 0px 90px 0px
 }

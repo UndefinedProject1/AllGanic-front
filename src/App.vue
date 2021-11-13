@@ -221,7 +221,9 @@ body{
   width: 100%;
   /* height: 100vh; */
   font-family: 'Playfair Display', serif;
-  background-color: #49654E;
+  /* background-color: #49654E; */
+  background-color: white;
+  overflow-x: hidden;
 }
 /* .wrapper{
   display: grid;
@@ -247,7 +249,7 @@ body{
   height: 100vh;
   width: 100%;
   background-color: white;
-  overflow-y: hidden;
+  /* overflow-y: scroll; */
   scroll-behavior: smooth;
 }
 
