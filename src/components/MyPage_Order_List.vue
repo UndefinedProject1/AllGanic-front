@@ -1,4 +1,4 @@
-<template>
++<template>
     <div class="info_wapper">
         <MyPage_Info></MyPage_Info>
             <div class="info_list">
@@ -18,10 +18,10 @@
                     <!-- 주문목록 Table -->
                     <div class="orderlist_info_section">
                         <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 90%; margin-left:50px;" @selection-change="OrderListBtn">
-                                <el-table-column prop="img" label="이미지" style="width: 110px; height: 100px;">
+                                <el-table-column prop="img" label="이미지" style="width: 110px; height: 100px;" align="center">
                                     <el-image style= "width: 110px; height: 100px;" :src="vegan_cream_img" :fit="fit"></el-image>
                                 </el-table-column>
-                                    <el-table-column label="주문정보" width="410px; margin-left:100px;">
+                                    <el-table-column label="주문정보" width="410px; margin-left:100px;" align="center">
                                         <template #default="scope">
                                             <div class="product_detail_info" style="width: 100%; text-align:left; padding:5px 10px; margin-left:30px;">
                                                 <span style="font-size:14px; color:#333; font-weight:bold">{{scope.row.brandName}}브랜드명</span>
@@ -31,17 +31,17 @@
                                             </div>
                                         </template>
                                     </el-table-column>
-                                <el-table-column label="가격" width="150">
+                                <el-table-column label="가격" width="150" align="center">
                                     <template #default="scope">
                                         <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}3개</p>
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="배송비" width="150">
+                                <el-table-column label="배송비" width="150" align="center">
                                     <template #default="scope">
                                         <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}3,000원</p>
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="주문상태" width="150">
+                                <el-table-column label="주문상태" width="150" align="center">
                                     <template #default="scope">
                                         <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}상품 준비중</p>
                                     </template>
@@ -66,10 +66,10 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
                 OrderListData: [
                     {
                     img : '',
-                    info: '2016-05-03',
-                    price: 'Tom',
-                    delivery: 'No. 189, Grove St, Los Angeles',
-                    state : '배송완료',
+                    info: '',
+                    price: '',
+                    delivery: '',
+                    state : '',
                     },
                 ],
             }
@@ -98,7 +98,7 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     font-weight: bold;
 }
 .insert_list {
-    border: 1px solid black;
+    border: 2px solid black;
     width: 100%;
     height: 475px;
     border-radius: 5px;
@@ -111,7 +111,8 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 }
 .solid {
     border: 1px solid rgb(228, 227, 227);
-    width: 90%;
+    width: 95%;
+    margin-bottom: 2px;
 }
 .insert_content {
     display: flex;
@@ -156,7 +157,7 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     justify-content: center;
 }
 .orderlist_info_section {
-    border-bottom:3px solid #715036;
+    /* border-bottom:3px solid #715036; */
     font-family: 'Gowun Dodum', sans-serif;
     width: 100%;
     height: fit-content;
