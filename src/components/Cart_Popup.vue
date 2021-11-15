@@ -25,7 +25,7 @@
                 <div class="cart_subtotal">
                     <div class="subtotal_inner">
                         <p>SUBTOTAL</p>
-                        <p>58,000</p>
+                        <p>{{totalPriceF}} 원</p>
                     </div>
                     <div class="subtotal_btn">
                         <button type="button" id="gocart_btn" @click="goCart()" >장바구니로 이동</button>
@@ -58,7 +58,8 @@ import cart_plus from '@/assets/cart_plus.png';
                 itemList : [],
                 cartCode : 0,
                 eachPrice : [],
-                totalPrice : 0
+                totalPrice : 0,
+                totalPriceF : 0,
             }
         },
         async created(){
@@ -81,16 +82,17 @@ import cart_plus from '@/assets/cart_plus.png';
                     this.cartCode = response.data.cart;
                 }
 
-                // await this.getTotalPirce();
+                await this.getTotalPirce();
             },
-            // getTotalPirce(){
-            //     this.totalPrice = 0; 
+            getTotalPirce(){
+                this.totalPrice = 0; 
 
-            //     for(var i=0; i<this.itemList.length; i++){
-            //         this.eachPrice[i] = this.itemList[i].PRODUCTPRICE * this.itemList[i].QUANTITY;
-            //         this.totalPrice += this.eachPrice[i];
-            //     }
-            // },
+                for(var i=0; i<this.itemList.length; i++){
+                    this.eachPrice[i] = this.itemList[i].PRODUCTPRICE * this.itemList[i].QUANTITY;
+                    this.totalPrice += this.eachPrice[i];
+                    this.totalPriceF = this.totalPrice.toLocaleString();
+                }
+            },
         }
     }
 </script>
@@ -247,6 +249,7 @@ button{
     width: fit-content;
     /* border: 1px solid black; */
     margin-right: 40px;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 .subtotal_btn {
     /* border: 1px solid black; */
@@ -261,12 +264,13 @@ button{
     width: 180px;
     height: 40px;
     border: none;
-    color: #F6EBCE;
+    color: white;
     border-radius: 5px;
     font-weight: bold;
     justify-content: space-evenly;
     padding: 8px;
     margin: 0px 10px;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 #keepshopping_btn {
     /* border: 1px solid black; */
@@ -274,13 +278,13 @@ button{
     width: 180px;
     height: 40px;
     border: none;
-    color: #F6EBCE;
+    color: white;
     border-radius: 5px;
     font-weight: bold;
     justify-content: space-evenly;
     padding: 8px;
     margin: 0px 10px;
-
+    font-family: 'Gowun Dodum', sans-serif;
 }
 
 

@@ -237,24 +237,27 @@
 
 <script>
 import default_image from '@/assets/default_image.jpg';
-// import { ElNotification } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import axios from 'axios';
 import StarRating from 'vue-star-rating'
 import Cart_Popup from './Cart_Popup.vue';
     export default {
-        // setup() {
-        //     const handleCartMg = () => {
-        //         ElNotification({
-        //             title: '장바구니로 이동?',
-        //             button : 'alert',
-        //             message: "I'm at the top right corner",
-        //             position: 'bottom-right',
-        //         })
-        //     }
-        //     return{
-        //         handleCartMg
-        //     }
-        // },
+        setup() {
+            const successAlertMSG = () => {
+                ElMessage.success('작성완료')
+            }
+            const addProductAlertMSG = () => {
+                ElMessage.message('상품 리스트 추가')
+            }
+            const failAlertMSG = () => {
+                ElMessage.error('작성실패')
+            }
+            return{
+                successAlertMSG,
+                addProductAlertMSG,
+                failAlertMSG,
+            }
+        },
         data(){
             return{
                 CartPopup : false,
@@ -363,9 +366,9 @@ import Cart_Popup from './Cart_Popup.vue';
                 const response = await axios.post(url, formData, {headers});
                 console.log(response);
                 if(response.data.result === 1){
-                    alert("끝");
+                    this.successAlertMSG();
                     this.showWriting = false;
-                }
+                }else this.failAlertMSG();
             },
             async writeQuestion(){
                 const url = `REST/api/question/insert?no=${this.pcode}`;
@@ -378,9 +381,9 @@ import Cart_Popup from './Cart_Popup.vue';
 
                 const response = await axios.post(url, body, {headers});
                 if(response.data.result === 1) {
-                    alert("끝");
+                    this.successAlertMSG();
                     this.showFaqWriting = false;
-                }
+                }else this.failAlertMSG();
             },
             clickDetail(){
                 this.$refs.callDetailInfo.focus();
@@ -414,7 +417,7 @@ import Cart_Popup from './Cart_Popup.vue';
                 console.log(response);
 
                 if(response.data.result === 1){
-                    alert("물품이 추가되었습니다.");
+                    this.addProductAlertMSG;
                 }
                 else if(response.data.result === 0){
                     alert(response.data.state);

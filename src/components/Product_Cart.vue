@@ -95,7 +95,44 @@
 <script>
 import axios from 'axios';
 import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
+import { ElMessageBox, ElMessage } from 'element-plus'
     export default {
+        setup(){
+            const deleteConfirm = () => {
+                ElMessageBox.confirm(
+                    '삭제하시겠습니까?',
+                    'Warning',
+                    {
+                    confirmButtonText: '삭제',
+                    cancelButtonText: '취소',
+                    type: 'warning',
+                    }
+                )
+                .then(() => {
+                    ElMessage({
+                        type: 'success',
+                        message: '해당 제품이 삭제되었습니다.',
+                    })
+                })
+                .catch(() => {
+                    ElMessage({
+                        type: 'info',
+                        message: '삭제 취소',
+                    })
+                })
+            }
+            const failAlertMSG = () => {
+                ElMessage.error('삭제 실패')
+            }
+            const infoAlertMSG = () => {
+                ElMessage.message('장바구니가 비어있습니다.')
+            }
+            return {
+                deleteConfirm,
+                failAlertMSG,
+                infoAlertMSG
+            }
+        },
         data(){
             return{
                 token : sessionStorage.getItem("token"),
@@ -186,19 +223,19 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
                 const url = `REST/api/cartitem/delete/check?chks=${this.chks}`;
                 const response = await axios.delete(url);
                 if(response.data.result === 1){
-                    alert("삭제쓰");
+                    this.deleteConfirm();
                     await this.getCartItem();
-                }else alert("아니야..");
+                }else this.failAlertMSG();
             },
             async allDeleteBtn(){
                 const url = `REST/api/cartitem/delete/all?code=${this.cartCode}`;
                 const response = await axios.delete(url);
                 if(response.data.result >= 1){
-                    alert("전체 삭제 성공");
-                    alert("장바구니에 물품이 없습니다.");
+                    this.deleteConfirm();
+                    this.infoAlertMSG();
                     await this.getCartItem();
                 }else if(response.data.result === 0){
-                    alert("전체 삭제에 실패했습니다.");
+                    this.failAlertMSG();
                 }
                 else alert("error");
             },
