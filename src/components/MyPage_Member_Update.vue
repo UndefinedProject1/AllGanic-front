@@ -58,23 +58,13 @@
           <div class="m_update_postcode">
             <input type="text" v-model="member.POST" readonly value style="width:100px;" />
             <p style="margin-top:9px;">/</p>
-            <input
-              type="text"
-              v-model="member.ADDRESS"
-              readonly
-              value
-              style="margin-left: 5px;"
-            />
+            <input type="text" v-model="member.ADDRESS" readonly value style="margin-left: 5px;" />
+            
           </div>
         </div>
         <div class="u_address_box">
-          <input
-            type="text"
-            v-model="member.DETAILEADDRESS"
-          />
-          <button type="button" id="postcode_btn" @click="openDaumPostCode">
-            우편번호검색
-          </button>
+          <input type="text" v-model="member.DETAILEADDRESS" />
+          <button type="button" id="postcode_btn" @click="openDaumPostCode">우편번호검색</button>
         </div>
         <div
           id="wrap"
@@ -172,7 +162,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="centerDialogVisible = false">Cancel</el-button>
-        <!-- <el-button type="button" id="btn_close" style="display:none">Close</el-button> -->
+        <el-button type="button" id="btn_close" style="display:none">Close</el-button>
         <el-button type="primary" @click="handlPWUpdate">Confirm</el-button>
       </span>
     </template>
@@ -272,15 +262,24 @@ export default {
         
         postcode: "",
         roadAddress: "",
-        detailAddress: "",
+        // detaileAddress: "",
         member:"",
 
-        useremail : "",
-        userpw : "",
-        username : "",
-        usertel : "",
-        post : "",
-        address : "",
+        useremail : '',
+        userpw : '',
+        username : '',
+        usertel : '',
+        post : '',
+        address : '',
+        detaileAddress :'',
+
+        USEREMAIL : "",
+        USERPW : "",
+        USERNAME : "",
+        USERTEL : "",
+        POST : "",
+        ADDRESS : "",
+        DETAILEADDRESS:"",
 
         centerDialogVisible: false,
     
@@ -413,12 +412,14 @@ export default {
     async handle_memupdate() {
       const url = `REST/api/member/update`;
       const body = {
-        useremail : this.useremail ,
-        username : this.username,
-        usertel : this.usertel,
-        post : this.post,
-        address : this.address,
+        useremail : this.USEREMAIL ,
+        username : this.USERNAME,
+        usertel : this.USERTEL,
+        post : this.POST,
+        address : this.ADDRESS,
+        detaileaddress : this.DETAILEADDRESS, 
       }
+      console.log(body);
       const headers = {"token" : this.token};
       const response = await axios.put(url, body, {headers});
       console.log(response);

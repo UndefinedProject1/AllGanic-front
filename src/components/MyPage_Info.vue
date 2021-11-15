@@ -1,7 +1,8 @@
 <template>
     <div class="info_box">
             <div class="info_name">
-                <span>정지희</span>
+                <input type="text" v-model="member.USERNAME" readonly value />
+                <!-- <span>정지희</span> -->
                 <p>님</p>
             </div>
             <div class="info_info">
@@ -14,7 +15,7 @@
                     <img :src="mypage_address"/>
                     <!-- <div class="info_address"> -->
                         <!-- <p>43 Oxford Road M13 4GR Manchester, UK</p> -->
-                        <input type="text" v-model="member.DETAILEADDRESS" readonly value>
+                        <input type="text" v-model="member.ADDRESS" readonly value>
                         
                         
                         <button type="button" @click="handleAddressUpdate">기본주소 수정</button>
@@ -46,6 +47,7 @@ import mypage_address from '@/assets/mypage_address.png';
                 mypage_mail : mypage_mail,
                 mypage_address : mypage_address,
                 member : '',
+                USERNAME : '',
                 USEREMAIL :'',
                 POST : '',
                 ADDRESS : '',
@@ -111,12 +113,14 @@ import mypage_address from '@/assets/mypage_address.png';
 }
 .info_name {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    /* flex-direction: row;
+    justify-content: center; */
     margin-top: 20px;
+    /* align-items: flex-start; */
 }
-.info_name > span {
+.info_name > input {
     /* border: 1px solid black; */
+    border: none;
     color: #49654E;
     font-size: 30px;
     font-weight: 300;
@@ -142,6 +146,7 @@ import mypage_address from '@/assets/mypage_address.png';
     height: 30px;
     font-size: 16px;
     font-family: 'Gowun Dodum', sans-serif;
+    margin-top: -20px;
 }
 .info_email > p {
     margin-top: 0px;
@@ -167,6 +172,7 @@ import mypage_address from '@/assets/mypage_address.png';
     height: 30px;
     font-size: 16px;
     font-family: 'Gowun Dodum', sans-serif;
+    margin-bottom: 10px;
 }
 .info_ad_icon >img {
     /* border: 1px solid black; */

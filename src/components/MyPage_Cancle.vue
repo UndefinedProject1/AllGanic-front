@@ -16,8 +16,8 @@
                         </div>
                         <hr class="solid" style="border-top-width: 0px;"/>
                         <!-- Cancle Table -->
-                        <div class="orderlist_info_section">
-                        <el-table ref="multipleTable" :data="CancleData"  stripe style="width: 90%; margin-left:55px;" @selection-change="OrderListBtn">
+                        <div class="orderlist_info_section" >
+                        <el-table ref="multipleTable" :data="CancleData"  stripe style="width: 81%; margin-left:55px;" >
                                 <el-table-column prop="img" label="이미지" align="center" width="110"  style="margin-left:50px;">
                                     <el-image style= "width: 110px; height: 100px;" :src="vegan_cream_img" :fit="fit"></el-image>
                                 </el-table-column>
@@ -110,5 +110,7 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 }
 .orderlist_info_section {
     display: flex;
+    align-items: center;
+    margin-left: 70px;
 }
 </style>
