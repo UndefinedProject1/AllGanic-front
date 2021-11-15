@@ -17,11 +17,11 @@
                     <hr class="solid" style="border-top-width: 0px;"/>
                     <!-- 주문목록 Table -->
                     <div class="orderlist_info_section">
-                        <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 90%; margin-left:50px;" @selection-change="OrderListBtn">
-                                <el-table-column prop="img" label="이미지" style="width: 110px; height: 100px;" align="center">
+                        <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 90%; margin-left:55px;" @selection-change="OrderListBtn">
+                                <el-table-column prop="img" label="이미지" align="center" width="110"  style="margin-left:50px;">
                                     <el-image style= "width: 110px; height: 100px;" :src="vegan_cream_img" :fit="fit"></el-image>
                                 </el-table-column>
-                                    <el-table-column label="주문정보" width="410px; margin-left:100px;" align="center">
+                                    <el-table-column label="주문정보" width="400px;" align="center">
                                         <template #default="scope">
                                             <div class="product_detail_info" style="width: 100%; text-align:left; padding:5px 10px; margin-left:30px;">
                                                 <span style="font-size:14px; color:#333; font-weight:bold">{{scope.row.brandName}}브랜드명</span>
@@ -65,13 +65,9 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
                 vegan_cream_img : vegan_cream_img,
                 OrderListData: [
                     {
-                    img : '',
-                    info: '',
-                    price: '',
-                    delivery: '',
-                    state : '',
+
                     },
-                ],
+                ]
             }
         },
         components : {
@@ -162,9 +158,4 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     width: 100%;
     height: fit-content;
 }
-/* .orderlist_info_section {
-    display: flex;
-    align-items: center;
-} */
-
 </style>

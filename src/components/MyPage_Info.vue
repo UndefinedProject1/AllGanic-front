@@ -7,39 +7,89 @@
             <div class="info_info">
                 <div class="info_email">
                     <img :src="mypage_mail"/>
-                    <p>sksmsdiWkd!@naver.com</p>
+                    <input type="text" v-model="member.USEREMAIL" readonly value />
+                    <!-- <p>sksmsdiWkd!@naver.com</p> -->
                 </div>
                 <div class="info_ad_icon">
                     <img :src="mypage_address"/>
                     <!-- <div class="info_address"> -->
-                        <p>43 Oxford Road M13 4GR Manchester, UK
-                            <button type="button" @click="handleAdUpdate">기본주소 수정</button>
-                        </p>
+                        <!-- <p>43 Oxford Road M13 4GR Manchester, UK</p> -->
+                        <input type="text" v-model="member.DETAILEADDRESS" readonly value>
+                        
+                        
+                        <button type="button" @click="handleAddressUpdate">기본주소 수정</button>
                     <!-- </div> -->
                 </div>
             </div>
             <hr class="solid" />
             <div class="info_menu">
                 <span>Member</span>
-                <p>회원정보변경</p>
-                <p>회원탈퇴</p>
+                <p @click="handleUpdate">회원정보변경</p>
+                <p @click="handleDelete">회원탈퇴</p>
                 <span>Order</span>
-                <p>취소/교환/반품 내역</p>
-                <p>주문내역</p>
+                <p @click="handleCancle">취소/교환/반품 내역</p>
+                <p @click="handleOrder">주문내역</p>
                 <span>QnA</span>
-                <p>문의내역</p>
+                <p @click="handleQA">문의내역</p>
             </div>
         </div>
 </template>
 
 <script>
+import axios from "axios";
 import mypage_mail from '@/assets/mypage_mail.png';
 import mypage_address from '@/assets/mypage_address.png';
     export default {
         data() {
             return {
+                token: sessionStorage.getItem("token"),
                 mypage_mail : mypage_mail,
                 mypage_address : mypage_address,
+                member : '',
+                USEREMAIL :'',
+                POST : '',
+                ADDRESS : '',
+                DETAILEADDRESS : '',
+                // alladdress : '',
+                alladdress : 'POST' + 'ADDRESS' + 'DETAILEADDRESS',
+            }
+        },
+        async created() {
+            await this.handleMemberGet();
+        },
+        components : {
+
+        },
+        methods : {
+            async handleMemberGet() {
+                const url = `REST/api/member/find`;
+                const headers = { token: this.token };
+                // console.log(headers);
+                const response = await axios.get(url, { headers });
+                console.log(response);
+                if (response.data.result === 1) {
+                    this.member = response.data.member;
+                    console.log(this.member);
+                } 
+                else alert("정보를 받아오지 못하였습니다.");
+            },
+            handleAddressUpdate() {
+                window.location.href = 'http://127.0.0.1:9090/mypage_member_update';
+            },
+            handleUpdate() {
+                window.location.href = 'http://127.0.0.1:9090/mypage_member_update';
+            },
+            handleDelete() {
+                window.location.href = 'http://127.0.0.1:9090/mypage_delete';
+            },
+            // handleCancle() {
+            //     window.location.href =
+            // },
+            handleOrder() {
+                window.location.href = 'http://127.0.0.1:9090/mypage_order_list';
+            },
+            handleQA() {
+                window.location.href = 'http://127.0.0.1:9090/mypage_qa_list';
             }
         }
     }
@@ -53,6 +103,7 @@ import mypage_address from '@/assets/mypage_address.png';
     height: 515px;
     border-radius: 10px;
     margin-right: 20px;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 .info_info {
     /* border: 1px solid black; */
@@ -86,6 +137,12 @@ import mypage_address from '@/assets/mypage_address.png';
     justify-content: center;
     align-items: center;
 }
+.info_email > input {
+    border: none;
+    height: 30px;
+    font-size: 16px;
+    font-family: 'Gowun Dodum', sans-serif;
+}
 .info_email > p {
     margin-top: 0px;
 }
@@ -105,6 +162,12 @@ import mypage_address from '@/assets/mypage_address.png';
     margin-top: 0px;
     margin-bottom: 10px;
 }
+.info_ad_icon > input {
+    border: none;
+    height: 30px;
+    font-size: 16px;
+    font-family: 'Gowun Dodum', sans-serif;
+}
 .info_ad_icon >img {
     /* border: 1px solid black; */
     width: 25px;
@@ -120,7 +183,7 @@ import mypage_address from '@/assets/mypage_address.png';
     display: flex;
     justify-content: center;
 }
-.info_ad_icon > p > button {
+.info_ad_icon > button {
     border-radius: 5px;
     font-size: 13px;
     justify-content: center;
