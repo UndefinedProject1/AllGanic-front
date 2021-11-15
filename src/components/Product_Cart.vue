@@ -55,7 +55,7 @@
                             <tbody>
                                 <tr>
                                     <th>총 주문 금액 : </th>
-                                    <td @change="handleTotalPrice">{{totalPrice}} 원</td>
+                                    <td @change="handleTotalPrice">{{totalPriceF}} 원</td>
                                 </tr>
                                 <tr>
                                     <th>+</th>
@@ -63,7 +63,7 @@
                                 </tr>
                                 <tr>
                                     <th>총 배송 금액 : </th>
-                                    <td @change="handleTotalShippingPrice">{{totalShippingPrice}} 원</td>
+                                    <td @change="handleTotalShippingPrice">{{totalShippingPriceF}} 원</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -77,14 +77,14 @@
                             <tbody>
                                 <tr>
                                     <th>총 주문 금액 : </th>
-                                    <td>{{totalOrderPrice}} 원</td>
+                                    <td>{{totalOrderPriceF}} 원</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <button type="button" id="checkoutBtn" @click="handlePayment">
-                    <router-link :to="`/order_page?chks=${this.chks}`">CHECK OUT</router-link>
+                    <router-link :to="`/order_page?chks=${this.chks}`" id="checkoutBtnlink">CHECK OUT</router-link>
                 </button>
             </div>
         </div>
@@ -108,7 +108,10 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
                 totalShippingPrice : 0,
                 totalOrderPrice : 0,
                 selectionArr : [],
-                chks : []
+                chks : [],
+                totalPriceF : 0,
+                totalShippingPriceF : 0,
+                totalOrderPriceF : 0
             }
         },
         async created(){
@@ -155,12 +158,21 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
                     this.eachPrice[i] = this.itemList[i].PRODUCTPRICE * this.itemList[i].QUANTITY;
                     this.totalPrice += this.eachPrice[i];
 
+                    // 최종가격 -> 금액단위 표시
+                    this.totalPriceF = this.totalPrice.toLocaleString();
+
                     if(this.itemList[i].PRODUCTPRICE * this.itemList[i].QUANTITY < 30000){
                         this.totalShippingPrice += 2500;
+
+                        // 최종가격 -> 금액단위 표시
+                        this.totalShippingPriceF = this.totalShippingPrice.toLocaleString();
                     }
                 }
 
                 this.totalOrderPrice = this.totalPrice + this.totalShippingPrice;
+
+                // 최종가격 -> 금액단위 표시
+                this.totalOrderPriceF = this.totalOrderPrice.toLocaleString();
             },
             async handleTotalPrice(){
                 await this.getCartItem();
@@ -190,12 +202,6 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
                 }
                 else alert("error");
             },
-            // async handlePayment(){
-            //     this.$router.push({
-            //         path:'/order_page', 
-            //         params:{ chks : this.chks }
-            //     });
-            // }
         }
     }
 </script>
@@ -203,6 +209,11 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700;800&display=swap');
+router-link{
+    text-decoration-color: none;
+    text-decoration-line: none;
+    text-decoration: none;
+}
 .cart_wrapper{
     /* height: 100vh; */
     margin: 0;
@@ -343,6 +354,10 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
     margin: 10px 0px;
     background-color: #715036e3;
 }
+#checkoutBtnlink{
+    color: white;
+    text-decoration-line: none;
+}
 #checkoutBtn:hover{
     cursor: pointer;
     opacity: 0.8;
@@ -350,7 +365,7 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
 .button_container{
     justify-content: flex-end;
     width: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: fit-content;
     display: inline-flex;
 }

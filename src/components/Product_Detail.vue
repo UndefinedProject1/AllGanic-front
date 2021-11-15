@@ -19,11 +19,11 @@
                             <tbody>
                                 <tr>
                                     <th><span>판매가</span></th>
-                                    <td><s>{{detailcontents.productprice}}</s></td>
+                                    <td><s>{{productPriceF}} 원</s></td>
                                 </tr>
                                 <tr>
                                     <th><span>할인가</span></th>
-                                    <td id="saleprice">{{detailcontents.productprice}}</td>
+                                    <td id="saleprice">{{productPriceF}} 원</td>
                                 </tr>
                                 <tr>
                                     <th><span>주문수량</span></th>
@@ -280,6 +280,8 @@ import Cart_Popup from './Cart_Popup.vue';
                     {value : 2, label : '배송문의'},
                     {value : 3, label : '기타'},
                 ],
+                productPrice : 0,
+                productPriceF : 0
             }
         },
         components : {
@@ -315,6 +317,8 @@ import Cart_Popup from './Cart_Popup.vue';
 
                 if(response.data.result === 1){
                     this.detailcontents = response.data.product;
+                    this.productPrice = response.data.product.productprice;
+                    this.productPriceF = this.productPrice.toLocaleString();
                     // console.log(this.detailcontents);
                     this.productmainimg = response.data.imgurl;
                 }

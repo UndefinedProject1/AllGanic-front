@@ -105,7 +105,6 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
 
                 if(response.data.result === 1){
                     this.productlist = response.data.list;
-                    // console.log(this.productlist);
                 }
             }   
         }

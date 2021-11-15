@@ -110,15 +110,15 @@ button{
 .cart_popup_container {
     /* border: 1px solid red; */
     display: inline-block;
-    height : 100%;
+    height : 100vh;
     width: 97%;
     padding : 8px;
     position: relative;
 }
 .cart_product_container{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     overflow-y: scroll;
-    height: 50%;
+    height: 70%;
 }
 
 /*  */
@@ -221,8 +221,9 @@ button{
     display: block;
     padding-bottom: 45px;
     position: absolute;
-    bottom: 0;
+    /* bottom: 0; */
     width: 97%;
+    height: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;

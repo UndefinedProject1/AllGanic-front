@@ -98,30 +98,8 @@
               </button>
             </div>
           </div>
-          <div
-            id="wrap"
-            style="
-              display: none;
-              border: 1px solid;
-              width: 500px;
-              height: 300px;
-              margin: 5px 0;
-              position: relative;
-            "
-          >
-            <img
-              src="//t1.daumcdn.net/postcode/resource/images/close.png"
-              id="btnFoldWrap"
-              style="
-                cursor: pointer;
-                position: absolute;
-                right: 0px;
-                top: -1px;
-                z-index: 1;
-              "
-              @click="foldDaumPostcode"
-              alt="접기 버튼"
-            />
+          <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
+              <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" @click="foldDaumPostcode" alt="접기 버튼">
           </div>
         </div>
         <button type="button" id="join_btn" @click="handleJoin">JOIN</button>
@@ -295,9 +273,7 @@ export default {
           searchBgColor: "#1B1B1C",
           queryTextColor: "#FFFFFF",
         },
-      }).open()({
-        popupTitle: "LUSH 우편번호 검색", //팝업창 타이틀 설정 (영문,한글,숫자 모두 가능)
-      });
+      }).open();
     },
     async handleJoin() {
       if (this.userid.length === 0) {
