@@ -56,14 +56,13 @@
             <p>주소</p>
           </div>
           <div class="m_update_postcode">
-            <input type="text" v-model="member.POST" readonly value style="width:100px;" />
+            <input type="text" v-model="postcode" readonly value style="width:100px;" />
             <p style="margin-top:9px;">/</p>
-            <input type="text" v-model="member.ADDRESS" readonly value style="margin-left: 5px;" />
-            
+            <input type="text" v-model="roadAddress" readonly value style="margin-left: 5px;" />
           </div>
         </div>
         <div class="u_address_box">
-          <input type="text" v-model="member.DETAILEADDRESS" />
+          <input type="text" v-model="detailAddress" />
           <button type="button" id="postcode_btn" @click="openDaumPostCode">우편번호검색</button>
         </div>
         <div
@@ -116,9 +115,7 @@
             alt="접기 버튼"
           />
         </div>
-        <button type="button" id="handle_memupdate" @click="handle_memupdate">
-          회원정보수정
-        </button>
+        <button type="button" id="handle_memupdate" @click="handle_memupdate">회원정보수정</button>
       </div>
     </div>
 
@@ -162,7 +159,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="centerDialogVisible = false">Cancel</el-button>
-        <el-button type="button" id="btn_close" style="display:none">Close</el-button>
+        <!-- <el-button type="button" id="btn_close" style="display:none">Close</el-button> -->
         <el-button type="primary" @click="handlPWUpdate">Confirm</el-button>
       </span>
     </template>
@@ -262,24 +259,12 @@ export default {
         
         postcode: "",
         roadAddress: "",
-        // detaileAddress: "",
-        member:"",
+        detaileAddress: "",
+        member:[],
 
-        useremail : '',
-        userpw : '',
-        username : '',
-        usertel : '',
-        post : '',
-        address : '',
-        detaileAddress :'',
-
-        USEREMAIL : "",
-        USERPW : "",
-        USERNAME : "",
-        USERTEL : "",
-        POST : "",
-        ADDRESS : "",
-        DETAILEADDRESS:"",
+        USEREMAIL : '',
+        USERNAME : '',
+        USERTEL : '',
 
         centerDialogVisible: false,
     
@@ -301,14 +286,14 @@ export default {
         },
     };
   },
-  mounted() {
-    let daumPostCode = document.createElement("script");
-    daumPostCode.setAttribute(
-      "src",
-      "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
-    );
-    document.head.appendChild(daumPostCode);
-  },
+  // mounted() {
+  //   let daumPostCode = document.createElement("script");
+  //   daumPostCode.setAttribute(
+  //     "src",
+  //     "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+  //   );
+  //   document.head.appendChild(daumPostCode);
+  // },
   async created() {
     await this.handleMemberGet();
   },
@@ -325,6 +310,11 @@ export default {
       console.log(response);
       if (response.data.result === 1) {
         this.member = response.data.member;
+
+        this.postcode = response.data.member.POST;
+        this.roadAddress = response.data.member.ADDRESS;
+        this.detailAddress = response.data.member.DETAILEADDRESS;
+
         console.log(this.member);
       } 
       else alert("정보를 받아오지 못하였습니다.");
@@ -359,14 +349,14 @@ export default {
 
           // 우편번호와 주소 정보를 해당 필드에 넣는다.
           // document.getElementById('address').value = addr
-          this.postcode = postcode;
-          this.roadAddress = addr;
+          this.member.postcode = postcode;
+          this.member.roadAddress = addr;
 
           // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
           if (addr !== "") {
-            this.detailAddress = extraRoadAddr;
+            this.member.detailAddress = extraRoadAddr;
           } else {
-            this.detailAddress = "";
+            this.member.detailAddress = "";
           }
         },
         theme: {
@@ -406,23 +396,25 @@ export default {
         if(response.data.result === 1) {
             alert("비밀번호 수정 성공");
             // alert버튼 누르면 모달창 사라짐
-            document.getElementById('btn_close').click();
+            // document.getElementById('btn_close').click();
         }
     },
     async handle_memupdate() {
+      // console.log("ddd");
       const url = `REST/api/member/update`;
       const body = {
-        useremail : this.USEREMAIL ,
-        username : this.USERNAME,
-        usertel : this.USERTEL,
-        post : this.POST,
-        address : this.ADDRESS,
-        detaileaddress : this.DETAILEADDRESS, 
+        USEREMAIL : this.member.USEREMAIL,
+        USERNAME : this.member.USERNAME,
+        USERTEL : this.member.USERTEL,
+        POST : this.member.POST,
+        ADDRESS : this.member.ADDRESS,
+        DETAILEADDRESS : this.member.DETAILEADDRESS, 
       }
       console.log(body);
       const headers = {"token" : this.token};
       const response = await axios.put(url, body, {headers});
       console.log(response);
+      alert("회원정보수정 성공");
     }
   },
 };

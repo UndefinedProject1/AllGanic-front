@@ -15,12 +15,21 @@
                     <img :src="mypage_address"/>
                     <!-- <div class="info_address"> -->
                         <!-- <p>43 Oxford Road M13 4GR Manchester, UK</p> -->
-                        <input type="text" v-model="member.ADDRESS" readonly value>
+                        <!-- <input type="text" v-model="member.ADDRESS" readonly value img :src="mypage_address"> -->
+                        <div class="m_address">
+                            <div class="m_update_postcode">
+                                <input type="text" v-model="postcode" readonly value style="width:60px;" />
+                                <p style="margin-top:9px;">/</p>
+                                <input type="text" v-model="roadAddress" readonly value style="width:210px;"  />
+                            </div>
+                            <div class="m_update_detailAddress">
+                                <input type="text" v-model="detailAddress" readonly value  />
+                            </div>
+                        </div>
                         
-                        
-                        <button type="button" @click="handleAddressUpdate">기본주소 수정</button>
                     <!-- </div> -->
                 </div>
+                <button type="button" @click="handleAddressUpdate">기본주소 수정</button>
             </div>
             <hr class="solid" />
             <div class="info_menu">
@@ -52,8 +61,6 @@ import mypage_address from '@/assets/mypage_address.png';
                 POST : '',
                 ADDRESS : '',
                 DETAILEADDRESS : '',
-                // alladdress : '',
-                alladdress : 'POST' + 'ADDRESS' + 'DETAILEADDRESS',
             }
         },
         async created() {
@@ -163,23 +170,29 @@ import mypage_address from '@/assets/mypage_address.png';
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    /* justify-content: flex-end;
     margin-top: 0px;
-    margin-bottom: 10px;
+    margin-bottom: 10px; */
 }
 .info_ad_icon > input {
     border: none;
-    height: 30px;
+    width: 100%;
+    height: 70px;
     font-size: 16px;
     font-family: 'Gowun Dodum', sans-serif;
     margin-bottom: 10px;
+    white-space: normal;
+    word-wrap: break-word;
 }
-.info_ad_icon >img {
+.info_ad_icon > img {
     /* border: 1px solid black; */
     width: 25px;
     height: 25px;
     margin-right: 10px;
     margin-bottom: 5px;
+}
+.info_ad_icon > button {
+    display: flex;
 }
 .solid {
     width : 100%;
@@ -189,7 +202,7 @@ import mypage_address from '@/assets/mypage_address.png';
     display: flex;
     justify-content: center;
 }
-.info_ad_icon > button {
+.info_info > button {
     border-radius: 5px;
     font-size: 13px;
     justify-content: center;
@@ -227,5 +240,26 @@ import mypage_address from '@/assets/mypage_address.png';
     font-size: 20px;
     margin-bottom: 5px;
     /* line-height: 100%; */
+}
+.m_address {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.m_update_postcode {
+    display: flex;
+}
+.m_update_postcode > input {
+    height: 25px;
+    width: 80%;
+}
+.m_update_detailAddress {
+    width: 100%;
+}
+.m_update_detailAddress > input {
+    height: 25px;
+    width: 80%;
 }
 </style>
