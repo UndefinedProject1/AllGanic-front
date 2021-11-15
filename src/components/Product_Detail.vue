@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="detail_section2">
-                <button id="addcartbtn" @click="handleGoCart">ADD CART</button>
+                <button id="addcartbtn" @click="addCartList">ADD CART</button>
                 <button id="orderbtn">ORDER</button>
             </div>
             <div class="detail_section3">
@@ -232,15 +232,32 @@
             </div>
         </div>
     </div>
+    <CartPopup v-on:addEvent ="closeDrawer" v-on:handleEvent = "handleGoCart" v-model="CartPopup"></CartPopup>
 </template>
 
 <script>
 import default_image from '@/assets/default_image.jpg';
+// import { ElNotification } from 'element-plus'
 import axios from 'axios';
 import StarRating from 'vue-star-rating'
+import Cart_Popup from './Cart_Popup.vue';
     export default {
+        // setup() {
+        //     const handleCartMg = () => {
+        //         ElNotification({
+        //             title: '장바구니로 이동?',
+        //             button : 'alert',
+        //             message: "I'm at the top right corner",
+        //             position: 'bottom-right',
+        //         })
+        //     }
+        //     return{
+        //         handleCartMg
+        //     }
+        // },
         data(){
             return{
+                CartPopup : false,
                 gettoken : sessionStorage.getItem("token"),
                 pcode : this.$route.query.code,
                 detailcontents : '',
@@ -266,12 +283,16 @@ import StarRating from 'vue-star-rating'
             }
         },
         components : {
-            StarRating : StarRating
+            StarRating : StarRating,
+            CartPopup : Cart_Popup
         },
         async created() {
             await this.handleDetailContents();
         },
         methods : {
+            closeDrawer(){
+                this.CartPopup = false;
+            },
             handleMainImg(e){
                 if(e.target.files.length > 0) {
                     this.mainfile = e.target.files[0];
@@ -381,15 +402,15 @@ import StarRating from 'vue-star-rating'
             closeWritingFaq(){
                 this.showFaqWriting = false;
             },
-            async handleGoCart(){
+            async addCartList(){
+                this.CartPopup = true;
                 const url = `REST/api/cart/create/insert?cnt=${this.quantity}&no=${this.pcode}`;
                 const headers = {"Content-Type" : "application/json", "token" : this.gettoken};
                 const response = await axios.post(url, { }, {headers});
                 console.log(response);
 
                 if(response.data.result === 1){
-                    alert(response.data.state);
-                    this.$router.push({ path: "/product_cart" });
+                    alert("물품이 추가되었습니다.");
                 }
                 else if(response.data.result === 0){
                     alert(response.data.state);
@@ -397,6 +418,10 @@ import StarRating from 'vue-star-rating'
                 else{
                     alert("error");
                 }
+
+            },
+            async handleGoCart(){
+                this.$router.push({ path: "/product_cart" });
             }
             
 

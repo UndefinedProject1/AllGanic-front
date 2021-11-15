@@ -8,7 +8,7 @@
                 </div>
                 <div class="product_info_section">
                     <el-table ref="multipleTable" :data="itemList" @selection-change="handleSelectionChange">
-                        <el-table-column type="selection" width="50" align="center" v-bind:value="idx" />
+                        <el-table-column type="selection" width="50" align="center" v-model="chks"/>
                         <el-table-column label="상품정보" width="400" align="center">
                             <template #default="scope">
                                 <el-image style="width: 135px; height: 150px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
@@ -33,14 +33,14 @@
                         <el-table-column property="shippingCost" label="배송비"  width="155" align="center">
                             <template #default="scope">
                                 <p style="font-size:13px; color:#333; font-weight:bold; margin:5px 0px;">[{{ scope.row.BRANDNAME }}]</p>
-                                <span style="font-size:13px; color:black; letter: spacing 0.06em;">상품으로만 3,0000원 이상 주문시 배송비 무료</span>
+                                <span style="font-size:13px; color:black; letter: spacing 0.06em;">상품으로만 30,000원 이상 주문시 배송비 무료</span>
                             </template>
                         </el-table-column>
                     </el-table>
                 </div>
                 <div class="button_container">
-                    <button type="button" @click="allDeleteBtn"><i class="el-icon-delete"></i>전체삭제</button>
-                    <button type="button" @click="someDeleteBtn(val)"><i class="el-icon-delete"></i>선택항목 삭제</button>
+                    <button type="button" id="allDeleteBtn" @click="allDeleteBtn"><i class="el-icon-delete"></i>전체삭제</button>
+                    <button type="button" id="someDeleteBtn" @click="someDeleteBtn"><i class="el-icon-delete"></i>선택항목 삭제</button>
                 </div>
             </div>
             <div class="cart_summary">
@@ -83,7 +83,9 @@
                         </table>
                     </div>
                 </div>
-                <button type="button" id="checkoutBtn">CHECK OUT</button>
+                <button type="button" id="checkoutBtn" @click="handlePayment">
+                    <router-link :to="`/order_page?chks=${this.chks}`">CHECK OUT</router-link>
+                </button>
             </div>
         </div>
 
@@ -105,7 +107,8 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
                 totalPrice : 0,
                 totalShippingPrice : 0,
                 totalOrderPrice : 0,
-                selectionArr : []
+                selectionArr : [],
+                chks : []
             }
         },
         async created(){
@@ -115,6 +118,11 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
             handleSelectionChange(val){
                 console.log(val);
                 this.selectionArr = val; 
+
+                for(var i=0; i<this.selectionArr.length; i++){
+                    this.chks[i] = this.selectionArr[i].CARTITEMCODE;
+                    console.log(this.chks);
+                }
             },
             async handleQuantityChange(){
                 console.log(this.productQuantity);
@@ -141,23 +149,53 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
             },
             getTotalPirce(){
                 this.totalPrice = 0; 
+                this.totalShippingPrice = 0;
 
                 for(var i=0; i<this.itemList.length; i++){
                     this.eachPrice[i] = this.itemList[i].PRODUCTPRICE * this.itemList[i].QUANTITY;
                     this.totalPrice += this.eachPrice[i];
+
+                    if(this.itemList[i].PRODUCTPRICE * this.itemList[i].QUANTITY < 30000){
+                        this.totalShippingPrice += 2500;
+                    }
                 }
 
-                this.totalShippingPrice = this.itemList.length * 2500;
                 this.totalOrderPrice = this.totalPrice + this.totalShippingPrice;
             },
             async handleTotalPrice(){
                 await this.getCartItem();
             },
-            async someDeleteBtn(val){
-                console.log(val);
-                // const url = `REST/api/cartitem/delete/check`;
-
-            }
+            async someDeleteBtn(){
+                // for(var i=0; i<this.selectionArr.length; i++){
+                //     this.chks[i] = this.selectionArr[i].CARTITEMCODE;
+                //     console.log(this.chks);
+                // }
+                
+                const url = `REST/api/cartitem/delete/check?chks=${this.chks}`;
+                const response = await axios.delete(url);
+                if(response.data.result === 1){
+                    alert("삭제쓰");
+                    await this.getCartItem();
+                }else alert("아니야..");
+            },
+            async allDeleteBtn(){
+                const url = `REST/api/cartitem/delete/all?code=${this.cartCode}`;
+                const response = await axios.delete(url);
+                if(response.data.result >= 1){
+                    alert("전체 삭제 성공");
+                    alert("장바구니에 물품이 없습니다.");
+                    await this.getCartItem();
+                }else if(response.data.result === 0){
+                    alert("전체 삭제에 실패했습니다.");
+                }
+                else alert("error");
+            },
+            // async handlePayment(){
+            //     this.$router.push({
+            //         path:'/order_page', 
+            //         params:{ chks : this.chks }
+            //     });
+            // }
         }
     }
 </script>
@@ -187,7 +225,7 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
 .product_info{
     margin-right: 10px;
     /* border: 1px solid black; */
-    width: 72%;
+    width: 69%;
     height: fit-content;
     padding: 0px 0px 90px 0px
 }
@@ -307,14 +345,29 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
 }
 #checkoutBtn:hover{
     cursor: pointer;
-    opacity: 0.9;
+    opacity: 0.8;
 }
 .button_container{
-    /* border: 1px solid black; */
-    height: 30px;
+    justify-content: flex-end;
+    width: 100%;
+    border: 1px solid black;
+    height: fit-content;
     display: inline-flex;
 }
 .button_container button{
     height: 30px;
+    margin: 10px;
+    border-radius: 3px;
+    background-color: #715036e3;
+    color: white;
+    border: none;
+    width: 120px;
+    padding: 5px;
+}
+#allDeleteBtn{
+
+}
+#someDeleteBtn{
+
 }
 </style>
