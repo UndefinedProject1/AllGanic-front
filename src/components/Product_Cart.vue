@@ -76,7 +76,7 @@
                             </colgroup>
                             <tbody>
                                 <tr>
-                                    <th>총 주문 금액 : </th>
+                                    <th><mark>총 주문 금액</mark> : </th>
                                     <td>{{totalOrderPriceF}} 원</td>
                                 </tr>
                             </tbody>
@@ -84,7 +84,8 @@
                     </div>
                 </div>
                 <button type="button" id="checkoutBtn" @click="handlePayment">
-                    <router-link :to="`/order_page?chks=${this.chks}`" id="checkoutBtnlink">CHECK OUT</router-link>
+                    CHECK OUT
+                    <!-- <router-link :to="`/order_page?chks=${this.chks}`" id="checkoutBtnlink">CHECK OUT</router-link> -->
                 </button>
             </div>
         </div>
@@ -127,10 +128,14 @@ import { ElMessageBox, ElMessage } from 'element-plus'
             const infoAlertMSG = () => {
                 ElMessage.message('장바구니가 비어있습니다.')
             }
+            const warningAlertMSG = () => {
+                ElMessage.error('주문하실 제품들을 체크해주세요.')
+            }
             return {
                 deleteConfirm,
                 failAlertMSG,
-                infoAlertMSG
+                infoAlertMSG,
+                warningAlertMSG
             }
         },
         data(){
@@ -239,6 +244,17 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 }
                 else alert("error");
             },
+            handlePayment(){
+                if(this.chks.length == 0){
+                    this.warningAlertMSG();
+                }
+                else{
+                    this.$router.push({
+                        path:'/order_page', 
+                        query:{ chks : this.chks }
+                    });
+                }
+            }
         }
     }
 </script>
