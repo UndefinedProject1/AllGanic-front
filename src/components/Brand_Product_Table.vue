@@ -2,21 +2,20 @@
     <div class="pt_table_wrapper">
         <div class="pt_table_container">
             <div class="pt_table_cate_container" >
-                <div class="pt_table_cate" v-for="cate in catelist" v-bind:key="cate">
-                    <p @click="goCate(cate.categorycode)">{{cate.categoryname}}</p><span>|</span>
+                <div class="pt_table_cate" v-for="productname in brndProductlist" v-bind:key="productname">
+                    <p>{{productname.brandname}}</p>
                 </div>
             </div>
             <div class="pt_table_divider"></div>
             <div class="pt_table">
                 <div class="table1">
                     <ul> 
-                        <li class="pt_product_container" v-for="product in productlist" v-bind:key="product">
+                        <li class="pt_product_container" v-for="product in brndProductlist" v-bind:key="product">
                             <div class="pt_product" >
                                 <router-link :to="`/product_detail?code=${product.productcode}`">
                                     <img :src="`REST/api/select_productimage?no=${product.productcode}`">
                                 </router-link>
                                 <div class="pd_text_section">
-                                    <p id="pd_brand"><ins>{{product.brandname}}</ins></p>
                                     <router-link :to="`/product_detail?code=${product.productcode}`" id="pd_name">
                                         <p><strong>{{product.productname}}</strong></p>
                                     </router-link>
@@ -36,15 +35,13 @@
 <script>
 import axios from 'axios';
 import cart_img from '@/assets/cart_img.png';
-import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
     export default {
         data(){
             return{
-                vegan_oil_img : vegan_oil_img,
                 cart_img : cart_img,
                 category_codeP : this.$route.params.code,
                 category_codeq : this.$route.query.code,
-                catelist : [],
+                brndProductlist : [],
                 productlist : [],
             }
         },
@@ -63,50 +60,27 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
             async changeContents(){
                 // console.log(this.$route.params);
                 // console.log(this.category_codeP);
-                const url = `REST/api/select_catenum?code=${this.category_codeP}`;
+                const url = `REST/api/select_bproduct?code=${this.category_codeP}`;
                 const header = {"Content-Type" : "application/json"};
                 const response = await axios.get(url, header);
 
                 if(response.data.result === 1){
-                    this.catelist = response.data.list;
+                    this.brndProductlist = response.data.list;
                     // console.log(this.catelist);
-                }
-
-                const url1 = `REST/api/select_cproduct?code=${this.category_codeP}`;
-                const response1 = await axios.get(url1, header)
-                if(response1.data.result === 1){
-                    this.productlist = response1.data.list;
-                    // console.log(this.productlist);
                 }
             },
             async handleContents(){
                 // console.log(this.$route.params);
                 // console.log(this.category_codeq);
-                const url = `REST/api/select_catenum?code=${this.category_codeq}`;
+                const url = `REST/api/select_bproduct?code=${this.category_codeq}`;
                 const header = {"Content-Type" : "application/json"};
                 const response = await axios.get(url, header);
 
                 if(response.data.result === 1){
-                    this.catelist = response.data.list;
+                    this.brndProductlist = response.data.list;
                     // console.log(this.catelist);
                 }
-
-                const url1 = `REST/api/select_cproduct?code=${this.category_codeq}`;
-                const response1 = await axios.get(url1, header)
-                if(response1.data.result === 1){
-                    this.productlist = response1.data.list;
-                    // console.log(this.productlist);
-                }
             },
-            async goCate(catecode){
-                const url = `REST/api/select_cproduct?code=` + catecode;
-                const header = {"Content-Type" : "application/json"};
-                const response = await axios.get(url, header);
-
-                if(response.data.result === 1){
-                    this.productlist = response.data.list;
-                }
-            }   
         }
     }
 </script>
@@ -121,6 +95,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
     font-family: 'Gowun Dodum', sans-serif;
     /* padding: 80px; */
     background-color: white;
+
 }
 .pt_table_container{
     /* border: 1px solid black; */
@@ -138,6 +113,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
     margin: 10px 0px 10px 0px;
     height: fit-content;
     align-items: center;
+    color: black;
 }
 .pt_table_cate {
     display: flex;
@@ -146,7 +122,6 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
     margin: 10px 0px 10px 0px;
     height: fit-content;
     align-items: center;
-    padding-left: 10px;
 }
 .pt_table_cate p {
     font-size: 15px;
@@ -154,7 +129,6 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
     margin: 0;
     height: fit-content;
     width: fit-content;
-    font-weight: bold;
 }
 .pt_table_cate p:hover {
     color: black;

@@ -16,6 +16,7 @@ import Product_Cart from '@/components/Product_Cart.vue';
 import MyPage_Order_List from '@/components/MyPage_Order_List.vue';
 import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
 import MyPage_Cancle from '@/components/MyPage_Cancle.vue';
+import Brand_Product_Table from '@/components/Brand_Product_Table.vue';
 
 
 const routes = [
@@ -35,6 +36,7 @@ const routes = [
     {path : '/mypage_order_list' , name :'mypage_order_list', component : MyPage_Order_List},
     {path : '/mypage_qa_list' , name :'mypage_qa_list', component : MyPage_QA_List},
     {path : '/mypage_cancle' , name :'mypage_cancle', component : MyPage_Cancle},
+    {path : '/brand_product_table' , name :'brand_product_table', component : Brand_Product_Table},
 
 ];
 

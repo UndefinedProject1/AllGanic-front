@@ -123,7 +123,7 @@
         </div>
         <div class="modal-footer">
             <el-button @click="showModal = false">Cancel</el-button>
-            <el-button @click="showModal = false">Confirm</el-button>
+            <el-button @click="handleProductUpdate">Confirm</el-button>
         </div>
 
 
@@ -291,6 +291,23 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                     // const response1 = await axios.get(url1, header);
                     // console.log(response1);
                 }
+            },
+            async handleProductUpdate(){
+                const url = `REST/api/admin/product_update`;
+                const headers = { "Content-Type" : "multipart/form-data", "token" : this.gettoken };
+                const formData = new FormData();
+                formData.append("productcode", this.originProduct.productcode);
+                formData.append("productname", this.originProduct.productname);
+                formData.append("productprice", this.originProduct.productprice);
+                formData.append("file", this.mainfile);
+                
+                const response = await axios.post(url, formData, {headers});
+                console.log(response);
+                if(response.data.result === 1){
+                    alert("제품수정완료");
+                    this.showModal = false;
+                }
+                
             }
         }
     }

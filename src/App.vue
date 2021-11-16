@@ -18,7 +18,7 @@
           <p>search</p>
         </div>
         <div class="cart">
-          <p>cart</p>
+          <p @click="goCart">cart</p>
         </div>
         <div class="mypage">
           <p><a href="/login">login</a></p>
@@ -66,87 +66,102 @@
       <div class="nav_section">
         <p>( * )</p>
         <div class="snav_section">
-          <a href="#">119REO</a><em> / </em>
-          <a href="#">LAR</a>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '1' }, query: {code : '1'} } ">119REO</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '2' }, query: {code : '2'} } ">LAR</router-link>
         </div>
       </div>
       <div class="nav_section">
         <p>(ㄴ)</p>
         <div class="snav_section">
-          <a href="#">누깍</a><em> / </em>
-          <a href="#">니드포유</a>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '3' }, query: {code : '3'} } ">누깍</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '4' }, query: {code : '4'} } ">니드포유</router-link>
         </div>
       </div>
       <div class="nav_section">
         <p>(ㄷ)</p>
         <div class="snav_section">
-          <a href="#">당신의 식탁</a><em> / </em>
-          <a href="#">더비건글로우</a>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '5' }, query: {code : '5'} } ">당신의 식탁</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '6' }, query: {code : '6'} } ">더비건글로우</router-link>
         </div>
       </div>
       <div class="nav_section">
         <p>(ㄹ)</p>
         <div class="snav_section">
-          <a href="#">로우레스</a>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '7' }, query: {code : '7'} } ">로우레스</router-link>
         </div>
       </div>
       <div class="nav_section">
         <p>(ㅁ)</p>
         <div class="snav_section">
-          <a href="#">마이너피겨스</a><em> / </em>
-          <a href="#">멜릭서</a>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '8' }, query: {code : '8'} } ">마이너피겨스</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '9' }, query: {code : '9'} } ">멜릭서</router-link>
         </div>        
       </div>
       <div class="nav_section">
         <p>(ㅂ)</p>
         <div class="snav_section">
-          <a href="#">보시아</a>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '10' }, query: {code : '10'} } ">보시아</router-link>
         </div>       
       </div>
       <div class="nav_section">
         <p>(ㅅ)</p>
         <div class="snav_section">
-          <a href="#">스프라우드</a>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '11' }, query: {code : '11'} } ">스프라우드</router-link>
         </div>        
       </div>
       <div class="nav_section">
         <p>(o)</p>
         <div class="snav_section">
-          <a href="#">야다</a><em> / </em>
-          <a href="#">어스후드</a><em> / </em>
-          <a href="#">얼로젯</a><em> / </em>
-          <a href="#">에리제론</a><em> / </em>
-          <a href="#">오틀리</a>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '12' }, query: {code : '12'} } ">야다</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '13' }, query: {code : '13'} } ">어스후드</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '14' }, query: {code : '14'} } ">얼로젯</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '15' }, query: {code : '15'} } ">에리제론</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '16' }, query: {code : '16'} } ">오틀리</router-link>
         </div>  
       </div>
       <div class="nav_section">
         <p>(ㅋ)</p>
         <div class="snav_section">
-          <a href="#">카네이테이</a><em> / </em>
-          <a href="#">코드그린</a>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '17' }, query: {code : '17'} } ">카네이테이</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '18' }, query: {code : '18'} } ">코드그린</router-link>
         </div> 
       </div>
       <div class="nav_section">
         <p>(ㅌ)</p>
         <div class="snav_section">
-          <a href="#">톤28</a>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '19' }, query: {code : '19'} } ">톤28</router-link>
+          <a href="#"></a>
         </div> 
       </div>
       <div class="nav_section">
         <p>(ㅍ)</p>
         <div class="snav_section">
-          <a href="#">프로쉬</a><em> / </em>
-          <a href="#">프로젝트1907</a><em> / </em>
-          <a href="#">플리츠마마</a>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '20' }, query: {code : '20'} } ">프로쉬</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '21' }, query: {code : '21'} } ">프로젝트1907</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '22' }, query: {code : '22'} } ">플리츠마마</router-link>
         </div> 
       </div>
       <div class="nav_section">
         <p>(ㅎ)</p>
         <div class="snav_section">
-          <a href="#">하이사이클</a><em> / </em>
-          <a href="#">허블룸</a><em> / </em>
-          <a href="#">허스키</a><em> / </em>
-          <a href="#">히녹</a>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '23' }, query: {code : '23'} } ">하이사이클</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '24' }, query: {code : '24'} } ">허블룸</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '25' }, query: {code : '25'} } ">허스키</router-link>
+          <em> / </em>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '26' }, query: {code : '26'} } ">히녹</router-link>
         </div> 
       </div>
       
@@ -210,6 +225,9 @@
         this.sideNavStyle_b.width="0%";
         this.wrapper.opacity="1";
       },
+      goCart(){
+        this.$router.push({ path: "/product_cart" });
+      }
     },
   }
 </script>
@@ -246,7 +264,7 @@ body{
 }
 .content{
   /* border: 1px solid black; */
-  height: 100vh;
+  height: 100%;
   width: 100%;
   background-color: white;
   /* overflow-y: scroll; */

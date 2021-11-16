@@ -164,7 +164,8 @@ import Admin_QA_List_Complete from '@/components/Admin_QA_List_Complete.vue';
 .admin_content{
     /* border: 1px solid black; */
     overflow-y: scroll;
-    height : 100%;
+    height : 100vh;
+    overflow-x: hidden;
 }
 
 </style>

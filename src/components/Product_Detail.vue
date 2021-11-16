@@ -473,6 +473,7 @@ import Cart_Popup from './Cart_Popup.vue';
     width : 100%;
     height : 100%;
     border-radius: 3px;
+    object-fit: cover;
 }
 .pd_detail_info{
     /* border: 1px solid black; */
@@ -628,12 +629,13 @@ import Cart_Popup from './Cart_Popup.vue';
     position: sticky;
     top: 0;
     width: 100%;
+    z-index : 1;
     background-color: white;
     justify-content: center;
     border-bottom: 0.5px solid #49654E;
 }
 .selection3_navButtons button{
-    width: 250px;
+    width: 255px;
     height: 50px;
     font-size: 18px;
     font-weight: bold;
