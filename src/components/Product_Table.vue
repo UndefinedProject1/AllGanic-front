@@ -167,7 +167,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
 }
 .pt_table_divider{
     border : 0.2px solid #49654E;
-    height: 0.2px;
+    height: 0px;
     width : 100%;
 }
 

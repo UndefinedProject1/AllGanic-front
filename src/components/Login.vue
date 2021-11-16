@@ -39,7 +39,24 @@ import axios from 'axios';
 import Footer from '@/components/Footer.vue';
 import login_email from '@/assets/login_email.png';
 import login_password from '@/assets/login_password.png';
+import { ElMessage } from 'element-plus'
     export default {
+        setup() {
+            const successAlertMSG = () => {
+                ElMessage.success('로그인 성공')
+            }
+            const addProductAlertMSG = () => {
+                ElMessage.message('상품 리스트 추가')
+            }
+            const failAlertMSG = () => {
+                ElMessage.error('로그인 실패')
+            }
+            return{
+                successAlertMSG,
+                addProductAlertMSG,
+                failAlertMSG,
+            }
+        },
         data() {
             return {
                 login_email : login_email,
@@ -66,7 +83,7 @@ import login_password from '@/assets/login_password.png';
                 console.log(response);
                 if(response.data.result === 1){
                     sessionStorage.setItem("token", this.key + response.data.token);
-                    alert("로그인성공");
+                    this.successAlertMSG();
                     const headers = {"Content-Type" : "application/json", "token" : this.key + response.data.token};
                     const url1 = `REST/api/member/role`;
                     console.log(headers);
@@ -81,9 +98,11 @@ import login_password from '@/assets/login_password.png';
                     else{
                         alert("토큰값이 유효하지 않습니다");
                     }
+
+                    this.$router.push({ path: "/" });
                 }
                 else {
-                    alert('로그인실패');
+                    this.failAlertMSG();
                 }
             },
         }
