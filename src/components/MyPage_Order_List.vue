@@ -11,7 +11,7 @@
                         <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">2021.11.07</p>
                     <div class="insert_prdcode">
                         <p style="margin-left:40px; color:#715036; font-weight: bold; margin-bottom:0px;">주문번호</p>
-                        <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">ORD20211019-tue10</p>
+                        <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">{{merchant_uid}}</p>
                     </div>
                     </div>
                     <hr class="solid" style="border-top-width: 0px;"/>
@@ -19,7 +19,7 @@
                     <div class="orderlist_info_section">
                         <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 90%; margin-left:55px;" @selection-change="OrderListBtn">
                                 <el-table-column prop="img" label="이미지" align="center" width="110"  style="margin-left:50px;">
-                                    <el-image style= "width: 110px; height: 100px;" :src="vegan_cream_img" :fit="fit"></el-image>
+                                    <el-image style= "width: 110px; height: 100px; object-fit:cover;" :src="vegan_cream_img" :fit="fit"></el-image>
                                 </el-table-column>
                                     <el-table-column label="주문정보" width="400px;" align="center">
                                         <template #default="scope">
@@ -54,23 +54,38 @@
 </template>
 
 <script>
+import axios from "axios";
 import MyPage_Info from '@/components/MyPage_Info.vue';
 import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     export default {
          data() {
             return {
+                token: sessionStorage.getItem("token"),
                 vegan_cream_img : vegan_cream_img,
-                OrderListData: [
-                    {
-
-                    },
-                ]
+                OrderListData: [],
             }
+        },
+        async created() {
+            await this.orderListGet();
         },
         components : {
             MyPage_Info : MyPage_Info,
         },
         methods : {
+            async orderListGet() {
+                const url = `REST/api/payments/member/list`;
+                const headers = { token: this.token };
+                const response = await axios.get(url, { headers });
+                console.log('=============================');
+                console.log(response);
+                if(response.data.result === 1) {
+                    alert("데이터 잘 옵니돩!!");
+                }
+                else if(response.data.result === 0) {
+                    alert(response.data.state);
+                }
+                
+            }
         }
     }
 </script>

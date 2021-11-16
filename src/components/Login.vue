@@ -98,7 +98,6 @@ import { ElMessage } from 'element-plus'
                     else{
                         alert("토큰값이 유효하지 않습니다");
                     }
-
                     this.$router.push({ path: "/" });
                 }
                 else {

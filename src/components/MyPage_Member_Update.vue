@@ -353,6 +353,8 @@ export default {
 }
 .m_update_title > p {
   margin-top: 0px;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 .m_update_insert {
   border: 2px solid black;
@@ -665,5 +667,8 @@ span {
 #postcode_btn:hover {
   cursor: pointer;
   opacity: 0.8;
+}
+input[type="text"] {
+  font-family: 'Gowun Dodum', sans-serif;
 }
 </style>

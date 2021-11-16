@@ -9,42 +9,78 @@
                     <div class="delete_password">
                         <img :src="mypage_pw">
                         <p>비밀번호</p>
-                        <input type="password" v-model="input_pw">
+                        <input type="password" v-model="userpw">
                     </div>
                     <div class="delete_password_btn">
-                    <el-button type="text" @click="centerDialogVisible = true">
-                    비밀번호인증</el-button>
+                        <button type="text" @click="handleModal">회원 탈퇴</button>
                     </div>
-                <el-dialog v-model="centerDialogVisible" title="회원 탈퇴" width="30%" center id="modal_content">
-                    <p>탈퇴하시면 그동안의 고객정보는 사라집니다.</p>
-                    <p>그래도 탈퇴 하시겠습니까?</p>
-                    <template #footer>
-                        <span class="dialog-footer">
-                            <button type="primary" @click="centerDialogVisible = false">확인</button>
-                            <button @click="centerDialogVisible = false">취소</button>
-                        </span>
-                    </template>
-                </el-dialog>
+                </div>
             </div>
-        </div>
+        <el-dialog v-model="showModal" title="회원 탈퇴" width="30%" center id="modal_content">
+            <p>탈퇴하시면 고객정보는 사라집니다.</p>
+            <p>탈퇴 하시겠습니까?</p>
+            <template #footer>
+                <div class="delete_modal_btn">
+                    <button @click="leave">확인</button>
+                    <button @click="showModal=false">취소</button>
+                </div>
+            </template>
+        </el-dialog>
     </div>
 </template>
 
 <script>
+import axios from "axios";
 import MyPage_Info from '@/components/MyPage_Info.vue';
 import mypage_pw from '@/assets/mypage_pw.png';
+import { ElMessage } from 'element-plus';
     export default {
+         setup() {
+            const failpwMSG = () => {
+                ElMessage.error('비밀번호를 다시 입력하세요.')
+            }
+            return{
+                failpwMSG,
+            }
+        },
         data() {
             return {
+                token: sessionStorage.getItem("token"),
                 mypage_pw : mypage_pw,
-                centerDialogVisible: false,
+                showModal : false,
+                modalokay : false,
+                modalfalse : false,
+                userpw : '',
             }
         },
         components : {
             MyPage_Info : MyPage_Info,
         },
         methods : {
-
+            handleModal() {
+                this.showModal = true;
+            },
+            async leave() {
+                const url = `REST/api/member/leave`;
+                const body = {
+                    userpw : this.userpw
+                }
+                console.log(body);
+                const headers = {"Content-Type" : "application/json", "token" : this.token};
+                const response = await axios.delete(url, {
+                    headers:headers,
+                    data : body
+                });
+                console.log(response);
+                if(response.data.result === 1) {
+                    alert("회원탈퇴 완료");    
+                    this.$router.push({ path: "/" });
+                }
+                else if(response.data.result === 0){
+                    this.failpwMSG();
+                }
+                // else alert("error");
+            }
         }
     }
 </script>
@@ -59,10 +95,15 @@ import mypage_pw from '@/assets/mypage_pw.png';
 .info_list {
     width: 100%;
 }
-.delete_name > p {
-    margin-top: 0px;
+.delete_name {
     color: #715036;
     font-weight: bold;
+    display: flex;    
+}
+.delete_name > p {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 .delete_insert {
     border: 2px solid black;
@@ -116,11 +157,19 @@ import mypage_pw from '@/assets/mypage_pw.png';
     flex-direction: column;
     align-items: center;
 }
-.dialog-footer > button {
+.delete_modal_btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.delete_modal_btn > button {
     background-color: #715036;
     color: white;
     border-radius: 5px;
+    width: 80px;
+    height: 30px;
     border: none;
-    height: 32px;
+    margin-left: 8px;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 </style>

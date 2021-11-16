@@ -82,7 +82,7 @@ import mypage_address from '@/assets/mypage_address.png';
                 const headers = { token: this.token };
                 // console.log(headers);
                 const response = await axios.get(url, { headers });
-                console.log(response);
+                // console.log(response);
                 if (response.data.result === 1) {
                     this.member = response.data.member;
 
@@ -102,9 +102,9 @@ import mypage_address from '@/assets/mypage_address.png';
             handleDelete() {
                 window.location.href = 'http://127.0.0.1:9090/mypage_delete';
             },
-            // handleCancle() {
-            //     window.location.href =
-            // },
+            handleCancle() {
+                window.location.href = 'http://127.0.0.1:9090/mypage_cancle';
+            },
             handleOrder() {
                 window.location.href = 'http://127.0.0.1:9090/mypage_order_list';
             },
@@ -204,16 +204,16 @@ img {
 }
 .btn_box > button {
     border-radius: 5px;
-    font-size: 14px;
     justify-content: center;
     background-color: #715036;
     color: white;
     border: none;
-    width: 100px;
+    width: 90px;
     height: 22px;
-    margin: 0;
+    margin: 3px 0px 0px 0px;
     float: right;
     font-family: 'Gowun Dodum', sans-serif;
+    font-size: 12px;
 }
 .info_ad_icon > p {
     width: 80%;
@@ -278,6 +278,8 @@ img {
     font-family: 'Gowun Dodum', sans-serif;
     border: none;
     margin: 0;
+    word-wrap: break-word;
+    word-break: keep-all;
 }
 .info_menu {
     /* border: 1px solid black; */

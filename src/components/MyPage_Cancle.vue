@@ -17,11 +17,11 @@
                         <hr class="solid" style="border-top-width: 0px;"/>
                         <!-- Cancle Table -->
                         <div class="orderlist_info_section" >
-                        <el-table ref="multipleTable" :data="CancleData"  stripe style="width: 81%; margin-left:55px;" >
-                                <el-table-column prop="img" label="이미지" align="center" width="110"  style="margin-left:50px;">
-                                    <el-image style= "width: 110px; height: 100px;" :src="vegan_cream_img" :fit="fit"></el-image>
+                        <el-table ref="multipleTable" :data="CancleData"  stripe style="width: 90%;" >
+                                <el-table-column prop="img" label="이미지" align="center" width="110"  >
+                                    <el-image style= "width: 110px; height: 100px; object-fit:cover;" :src="vegan_cream_img" :fit="fit"></el-image>
                                 </el-table-column>
-                                    <el-table-column label="주문정보" width="400px;" align="center">
+                                    <el-table-column label="주문정보" width="500px;" align="center">
                                         <template #default="scope">
                                             <div class="product_detail_info" style="width: 60%; text-align:left; padding:5px 10px; margin-left:30px;">
                                                 <span style="font-size:14px; color:#333; font-weight:bold">{{scope.row.cancleName}}브랜드명</span>
