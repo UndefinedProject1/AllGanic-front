@@ -232,7 +232,7 @@
             </div>
         </div>
     </div>
-    <CartPopup v-on:addEvent ="closeDrawer" v-on:handleEvent = "handleGoCart" v-model="CartPopup"></CartPopup>
+    <CartPopup v-on:addEvent ="closeDrawer" v-on:handleEvent = "handleGoCart" v-model="CartPopup" ref="handlePopCart"></CartPopup>
 </template>
 
 <script>
@@ -410,14 +410,14 @@ import Cart_Popup from './Cart_Popup.vue';
                 this.showFaqWriting = false;
             },
             async addCartList(){
-                this.CartPopup = true;
                 const url = `REST/api/cart/create/insert?cnt=${this.quantity}&no=${this.pcode}`;
                 const headers = {"Content-Type" : "application/json", "token" : this.gettoken};
                 const response = await axios.post(url, { }, {headers});
                 console.log(response);
 
                 if(response.data.result === 1){
-                    this.addProductAlertMSG;
+                    this.CartPopup = true;
+                    this.addProductAlertMSG();
                 }
                 else if(response.data.result === 0){
                     alert(response.data.state);
