@@ -44,12 +44,10 @@
             </div>
         </div>
     </div>
-    <Footer></Footer>
 </template>
 
 <script>
 import MyPage_Info from '@/components/MyPage_Info.vue';
-import Footer from '@/components/Footer.vue';
     export default {
         data() {
             return {
@@ -67,7 +65,6 @@ import Footer from '@/components/Footer.vue';
         },
         components : {
             MyPage_Info : MyPage_Info,
-            Footer : Footer,
         },
         methods : {
 

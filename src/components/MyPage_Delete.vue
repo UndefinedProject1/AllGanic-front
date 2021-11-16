@@ -16,7 +16,7 @@
                     비밀번호인증</el-button>
                     </div>
                 <el-dialog v-model="centerDialogVisible" title="회원 탈퇴" width="30%" center id="modal_content">
-                    <p>All_ganic의 혜택들을 잃게 됩니다.</p>
+                    <p>탈퇴하시면 그동안의 고객정보는 사라집니다.</p>
                     <p>그래도 탈퇴 하시겠습니까?</p>
                     <template #footer>
                         <span class="dialog-footer">
@@ -28,12 +28,10 @@
             </div>
         </div>
     </div>
-    <Footer></Footer>
 </template>
 
 <script>
 import MyPage_Info from '@/components/MyPage_Info.vue';
-import Footer from '@/components/Footer.vue';
 import mypage_pw from '@/assets/mypage_pw.png';
     export default {
         data() {
@@ -44,7 +42,6 @@ import mypage_pw from '@/assets/mypage_pw.png';
         },
         components : {
             MyPage_Info : MyPage_Info,
-            Footer : Footer,
         },
         methods : {
 

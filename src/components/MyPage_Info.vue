@@ -1,48 +1,55 @@
 <template>
     <div class="info_box">
+        <div class="info_container">
             <div class="info_name">
-                <input type="text" v-model="member.USERNAME" readonly value />
-                <!-- <span>정지희</span> -->
+                <p type="text">{{member.USERNAME}}</p>
                 <p>님</p>
             </div>
             <div class="info_info">
                 <div class="info_email">
                     <img :src="mypage_mail"/>
-                    <input type="text" v-model="member.USEREMAIL" readonly value />
-                    <!-- <p>sksmsdiWkd!@naver.com</p> -->
+                    <p type="text">{{member.USEREMAIL}}</p>
                 </div>
                 <div class="info_ad_icon">
                     <img :src="mypage_address"/>
-                    <!-- <div class="info_address"> -->
-                        <!-- <p>43 Oxford Road M13 4GR Manchester, UK</p> -->
-                        <!-- <input type="text" v-model="member.ADDRESS" readonly value img :src="mypage_address"> -->
-                        <div class="m_address">
-                            <div class="m_update_postcode">
-                                <input type="text" v-model="postcode" readonly value style="width:60px;" />
-                                <p style="margin-top:9px;">/</p>
-                                <input type="text" v-model="roadAddress" readonly value style="width:210px;"  />
-                            </div>
-                            <div class="m_update_detailAddress">
-                                <input type="text" v-model="detailAddress" readonly value  />
-                            </div>
+                    <div class="m_address">
+                        <div class="m_update_postcode">
+                            <p type="text" >{{postcode}}</p>
+                            <p >/</p>
+                            <p type="text" >{{roadAddress}}</p>
                         </div>
-                        
+                        <div class="m_update_detailAddress">
+                            <p type="text" >{{detailAddress}}</p>
+                        </div>
+                    </div> 
                     <!-- </div> -->
                 </div>
-                <button type="button" @click="handleAddressUpdate">기본주소 수정</button>
+                <div class="btn_box">
+                    <button type="button" @click="handleAddressUpdate">기본주소 수정</button>
+                </div>
+                
             </div>
-            <hr class="solid" />
-            <div class="info_menu">
+        </div>
+
+        <hr class="solid" />
+
+        <div class="info_menu">
+            <div class="info_member">
                 <span>Member</span>
                 <p @click="handleUpdate">회원정보변경</p>
                 <p @click="handleDelete">회원탈퇴</p>
+            </div>
+            <div class="info_order">
                 <span>Order</span>
                 <p @click="handleCancle">취소/교환/반품 내역</p>
                 <p @click="handleOrder">주문내역</p>
+            </div>
+            <div class="info_qa">
                 <span>QnA</span>
                 <p @click="handleQA">문의내역</p>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
@@ -78,6 +85,10 @@ import mypage_address from '@/assets/mypage_address.png';
                 console.log(response);
                 if (response.data.result === 1) {
                     this.member = response.data.member;
+
+                    this.postcode = response.data.member.POST;
+                    this.roadAddress = response.data.member.ADDRESS;
+                    this.detailAddress = response.data.member.DETAILEADDRESS;
                     console.log(this.member);
                 } 
                 else alert("정보를 받아오지 못하였습니다.");
@@ -114,56 +125,60 @@ import mypage_address from '@/assets/mypage_address.png';
     margin-right: 20px;
     font-family: 'Gowun Dodum', sans-serif;
 }
+.info_container {
+    /* border: 1px solid black; */
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+}
 .info_info {
     /* border: 1px solid black; */
     padding: 5px;
+    width: 75%;
+    margin: 0 auto;
 }
 .info_name {
+    width: 100%;
     display: flex;
-    /* flex-direction: row;
-    justify-content: center; */
-    margin-top: 20px;
-    /* align-items: flex-start; */
-}
-.info_name > input {
     /* border: 1px solid black; */
-    border: none;
+    justify-content: center;
+    align-items: center;
+}
+.info_name > p:first-child {
+    /* border: 1px solid black; */
     color: #49654E;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 300;
+    margin: 5px 0px 0px 0px;
+    height: fit-content;
     font-family: 'Gowun Dodum', sans-serif;
 }
-.info_name > p {
+.info_name > p:last-child {
     /* border: 1px solid black; */
     font-family: 'Gowun Dodum', sans-serif;
-    font-size: 20px;
+    font-size: 15px;
     color: black;
     margin-left: 5px;
-    margin-top: 10px;
+    height: fit-content;
+    margin: 5px 0px 0px 3px;
+
 }
 .info_email {
     /* border: 1px solid black; */
     width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
-.info_email > input {
-    border: none;
-    height: 30px;
-    font-size: 16px;
-    font-family: 'Gowun Dodum', sans-serif;
-    margin-top: -20px;
-}
 .info_email > p {
-    margin-top: 0px;
-}
-.info_email > img {
     /* border: 1px solid black; */
-    width: 25px;
-    height: 25px;
-    margin-right: 10px;
-    margin-bottom: 15px;
+    font-size: 14px;
+    font-family: 'Gowun Dodum', sans-serif;
+    margin-left: 8px;
+}
+img {
+    /* border: 1px solid black; */
+    width: 20px;
+    height: 20px;
 }
 .info_ad_icon {
     /* border: 1px solid black; */
@@ -174,26 +189,6 @@ import mypage_address from '@/assets/mypage_address.png';
     margin-top: 0px;
     margin-bottom: 10px; */
 }
-.info_ad_icon > input {
-    border: none;
-    width: 100%;
-    height: 70px;
-    font-size: 16px;
-    font-family: 'Gowun Dodum', sans-serif;
-    margin-bottom: 10px;
-    white-space: normal;
-    word-wrap: break-word;
-}
-.info_ad_icon > img {
-    /* border: 1px solid black; */
-    width: 25px;
-    height: 25px;
-    margin-right: 10px;
-    margin-bottom: 5px;
-}
-.info_ad_icon > button {
-    display: flex;
-}
 .solid {
     width : 100%;
     height: 1px;
@@ -202,44 +197,27 @@ import mypage_address from '@/assets/mypage_address.png';
     display: flex;
     justify-content: center;
 }
-.info_info > button {
+.btn_box {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.btn_box > button {
     border-radius: 5px;
-    font-size: 13px;
+    font-size: 14px;
     justify-content: center;
     background-color: #715036;
     color: white;
     border: none;
-    display: flex;
     width: 100px;
-    margin-top: 3px;
     height: 22px;
+    margin: 0;
+    float: right;
     font-family: 'Gowun Dodum', sans-serif;
 }
 .info_ad_icon > p {
     width: 80%;
     margin-bottom: 2px;
-}
-.info_menu {
-    /* border: 1px solid black; */
-    width: auto 0px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 100%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.info_menu > p {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    /* line-height: 100%; */
-}
-.info_menu > span {
-    color: #715036;
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 5px;
-    /* line-height: 100%; */
 }
 .m_address {
   width: 100%;
@@ -247,19 +225,88 @@ import mypage_address from '@/assets/mypage_address.png';
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-left: 8px;
 }
 .m_update_postcode {
     display: flex;
+    font-size: 14px;
+    font-family: 'Gowun Dodum', sans-serif;
+    height: fit-content;
+    width: 100%;
+    /* border: 1px solid black; */
 }
-.m_update_postcode > input {
+.m_update_postcode > p:first-child {
     height: 25px;
-    width: 80%;
+    width: fit-content;
+    font-size: 14px;
+    font-family: 'Gowun Dodum', sans-serif;
+    /* border: 1px solid black; */
+    margin: 0;
+    /* margin-left: 5px;
+    margin-top: 5px; */
+}
+.m_update_postcode > p:nth-child(2) {
+    height: 25px;
+    width: fit-content;
+    font-size: 14px;
+    font-family: 'Gowun Dodum', sans-serif;
+    /* border: 1px solid black; */
+    margin: 0;
+    /* margin-left: 5px;
+    margin-top: 5px; */
+}
+.m_update_postcode > p:last-child {
+    height: 25px;
+    width: fit-content;
+    font-size: 14px;
+    font-family: 'Gowun Dodum', sans-serif;
+    /* border: 1px solid black; */
+    margin: 0;
+    /* margin-left: 5px;
+    margin-top: 5px; */
 }
 .m_update_detailAddress {
+    /* border: 1px solid black; */
     width: 100%;
+    height: fit-content;
 }
-.m_update_detailAddress > input {
-    height: 25px;
-    width: 80%;
+.m_update_detailAddress > p {
+    /* border: 1px solid black; */
+    height: fit-content;
+    width: fit-content;
+    font-size: 14px;
+    font-family: 'Gowun Dodum', sans-serif;
+    border: none;
+    margin: 0;
 }
+.info_menu {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+.info_member, .info_order, .info_qa {
+    /* border: 1px solid black; */
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.info_member > span, .info_order > span, .info_qa > span {
+    color: #715036;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.info_member > p, .info_order > p, .info_qa > p {
+    margin-bottom: 0;
+    margin-top: 5px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+.info_member > p:last-child, .info_order > p:last-child {
+    margin-bottom: 10px;
+}
+
 </style>

@@ -20,16 +20,6 @@
           <div class="u_pw_box">
             <input type="password" v-model="u_password_text" refs="password" />
             <button type="password" @click="centerDialogVisible = true">비밀번호변경</button>
-            <!-- <el-button type="text" @click="centerDialogVisible = true" id="pw_change">비밀번호변경</el-button> -->
-            <!-- <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop"
-              @click="handle_pw_modal"
-            >
-              비밀번호변경
-            </button> -->
           </div>
         </div>
         <div class="m_name">
@@ -164,83 +154,12 @@
       </span>
     </template>
   </el-dialog>
-    <!-- 비밀번호 변경 Modal
-    <div 
-      class="modal fade"
-      id="staticBackdrop"
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true" 
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">비밀번호변경</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="update_modal_pw_box">
-              <div class="update_modal_pw_oldpw">
-                <p>기존 비밀번호</p>
-                <span>*</span>
-              </div>
-              <div class="updatemodal_input_pw_oldpw">
-                <input type="password" ref="pw1" v-model="pw1_btn"/>
-              </div>
-                <div class="modal_password1" v-bind:style="modalcheck">
-                    {{ chk_pw1 }}
-                </div>
-              <div class="update_modal_pw_newpw">
-                <p>새 비밀번호</p>
-                <span>*</span>
-              </div>
-              <div class="updatemodal_input_pw_newpw">
-                <input type="password" ref="pw2" v-model="pw2_btn" />
-              </div>
-              <div class="modal_password1" v-bind:style="modalcheck">
-                    {{ chk_pw2 }}
-                </div>
-              <div class="update_modal_pw_newpw_check">
-                <p>새 비밀번호 확인</p>
-                <span>*</span>
-              </div>
-              <div class="updatemodal_input_pw_newpwchk">
-                <input type="password" ref="pw3" v-model="pw3_btn"/>
-              </div>
-              <div class="modal_password1" v-bind:style="modalcheck">
-                    {{ chk_pw3 }}
-                </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            히든버튼 추가
-            <button type="button" id="btn_close" style="display:none" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button 
-              type="button"
-              class="btn btn-primary"
-              @click="handlPWUpdate" 
-            >
-              비밀번호변경 
-            </button>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
-  <Footer></Footer>
 </template>
 
 <script>
 import axios from "axios";
 import MyPage_Info from "@/components/MyPage_Info.vue";
-import Footer from "@/components/Footer.vue";
 import mypage_mail from "@/assets/mypage_mail.png";
 import mypage_pw from "@/assets/mypage_pw.png";
 import mypage_profile from "@/assets/mypage_profile.png";
@@ -259,12 +178,8 @@ export default {
         
         postcode: "",
         roadAddress: "",
-        detaileAddress: "",
+        detailAddress: "",
         member:[],
-
-        USEREMAIL : '',
-        USERNAME : '',
-        USERTEL : '',
 
         centerDialogVisible: false,
     
@@ -286,19 +201,18 @@ export default {
         },
     };
   },
-  // mounted() {
-  //   let daumPostCode = document.createElement("script");
-  //   daumPostCode.setAttribute(
-  //     "src",
-  //     "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
-  //   );
-  //   document.head.appendChild(daumPostCode);
-  // },
+  mounted() {
+    let daumPostCode = document.createElement("script");
+    daumPostCode.setAttribute(
+      "src",
+      "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+    );
+    document.head.appendChild(daumPostCode);
+  },
   async created() {
     await this.handleMemberGet();
   },
   components: {
-    Footer: Footer,
     MyPage_Info: MyPage_Info,
   },
   methods: {
@@ -311,6 +225,7 @@ export default {
       if (response.data.result === 1) {
         this.member = response.data.member;
 
+        // 주소 입력칸에 보이게 하는 부분 
         this.postcode = response.data.member.POST;
         this.roadAddress = response.data.member.ADDRESS;
         this.detailAddress = response.data.member.DETAILEADDRESS;
@@ -349,14 +264,14 @@ export default {
 
           // 우편번호와 주소 정보를 해당 필드에 넣는다.
           // document.getElementById('address').value = addr
-          this.member.postcode = postcode;
-          this.member.roadAddress = addr;
+          this.postcode = postcode;
+          this.roadAddress = addr;
 
           // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
           if (addr !== "") {
-            this.member.detailAddress = extraRoadAddr;
+            this.detailAddress = extraRoadAddr;
           } else {
-            this.member.detailAddress = "";
+            this.detailAddress = "";
           }
         },
         theme: {
@@ -364,9 +279,7 @@ export default {
           queryTextColor: "#FFFFFF",
         }
       }).
-      open()({
-        popupTitle: "All_ganic", //팝업창 타이틀 설정 (영문,한글,숫자 모두 가능)
-      });
+      open();
     },
     async handlPWUpdate() {
         if(this.pw1_btn.length === 0) {
@@ -403,18 +316,22 @@ export default {
       // console.log("ddd");
       const url = `REST/api/member/update`;
       const body = {
-        USEREMAIL : this.member.USEREMAIL,
-        USERNAME : this.member.USERNAME,
-        USERTEL : this.member.USERTEL,
-        POST : this.member.POST,
-        ADDRESS : this.member.ADDRESS,
-        DETAILEADDRESS : this.member.DETAILEADDRESS, 
+        username : this.member.USERNAME,
+        usertel : this.member.USERTEL,
+        post : this.postcode,
+        address : this.roadAddress,
+        detaileaddress : this.detailAddress, 
       }
       console.log(body);
-      const headers = {"token" : this.token};
+      const headers = {"Content-Type" : "application/json", "token" : this.token};
       const response = await axios.put(url, body, {headers});
       console.log(response);
-      alert("회원정보수정 성공");
+      if(response.data.result === 1) {
+        alert("회원정보수정 성공");
+      }
+      else if(response.data.result !== 1) {
+        alert("회원정보수정 실패");
+      }
     }
   },
 };
@@ -453,6 +370,7 @@ export default {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  font-family: 'Gowun Dodum', sans-serif;
   /* margin-top: 30px; */
 }
 .m_update_mail > p {
@@ -488,6 +406,7 @@ export default {
   border: none;
   width: 250px;
   height: 30px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 .u_name_box {
   border-bottom: 2px solid black;
@@ -498,6 +417,7 @@ export default {
   border: none;
   width: 432px;
   height: 30px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 .u_pw_box {
   display: flex;
@@ -565,6 +485,7 @@ export default {
   border-radius: 5px;
   font-size: 15px;
   margin-bottom: 2px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 .u_pw_box > button {
   width: 110px;
@@ -574,6 +495,7 @@ export default {
   border-radius: 5px;
   font-size: 15px;
   margin-bottom: 2px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 .m_name {
   width: 100%;
@@ -607,12 +529,14 @@ export default {
   margin-right: 52px;
   margin-bottom: 5px;
   margin-top: 3px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 .m_phone {
   width: 100%;
   display: flex;
   margin-top: 30px;
   justify-content: center;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 .m_update_phone {
   /* border: 1px solid black; */
@@ -631,6 +555,7 @@ export default {
   height: 30px;
   margin-left: 10px;
   margin-top: 35px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 .m_update_address > p {
   margin-right: 20px;
@@ -642,6 +567,7 @@ export default {
   margin-left: 40px;
   height: 35px;
   margin-top: 30px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 .m_update_postcode > input {
   /* border: 1px solid black; */
@@ -651,6 +577,8 @@ export default {
   height: 25px;
   margin-top: 8px;
   background-color: #fbfdff0f;
+  font-family: 'Gowun Dodum', sans-serif;
+  height: 30px;
 }
 .u_address_box {
   /* border: 1px solid black; */
@@ -659,11 +587,13 @@ export default {
   margin-left: 135px;
   margin-top: 20px;
   width: 50%;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 .u_address_box > input {
   border: none;
   background-color: #fbfdff0f;
   width: 432px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 /* 우편번호검색 버튼 */
 #postcode_btn {
@@ -674,6 +604,7 @@ export default {
   border: none;
   border-radius: 5px;
   font-size: 15px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 /* Modal */
 .modal-body {
@@ -728,6 +659,7 @@ span {
   border: none;
   border-radius: 5px;
   font-size: 15px;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 /* 주소 */
 #postcode_btn:hover {

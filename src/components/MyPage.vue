@@ -20,11 +20,9 @@
         </div>
         
     </div>
-    <Footer></Footer>
 </template>
 
 <script>
-import Footer from '@/components/Footer.vue';
 import mypage_mail from '@/assets/mypage_mail.png';
 import mypage_address from '@/assets/mypage_address.png';
 import mypage from '@/assets/mypage.png';
@@ -39,13 +37,9 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
             }
         },
         components : {
-            Footer : Footer,
             MyPage_Info : MyPage_Info
         },
         methods : {
-            // async mypage_orli_btn() {
-
-            // }
         }
     }
 </script>
