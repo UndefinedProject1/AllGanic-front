@@ -102,12 +102,12 @@
                 </div>
                 <div class="content_area">
                     <div class="subimage_container">
-                        <div class="subimg1_container">
-                            <img :src = "subimg1" id="subimage1">
+                        <div class="subimg1_container" v-for="subimgcode in originProductSubImg" v-bind:key="subimgcode">
+                            <img :src="`REST/api/select_subimage/find?no=${subimgcode.subcode}`"  id="subimage1">
                             <label for="insertsubimg1">이미지 추가</label>
                             <input type="file" @change="handleSubImg($event)" name="파일첨부" id="insertsubimg1">
                         </div>
-                        <div class="subimg2_container">
+                        <!-- <div class="subimg2_container">
                             <img :src = "subimg2" id="subimage2">
                             <label for="insertsubimg2">이미지 추가</label>
                             <input type="file" @change="handleSubImg2($event)" name="파일첨부" id="insertsubimg2">
@@ -116,7 +116,7 @@
                             <img :src = "subimg3" id="subimage3">
                             <label for="insertsubimg3">이미지 추가</label>
                             <input type="file" @change="handleSubImg3($event)" name="파일첨부" id="insertsubimg3">
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>           
@@ -159,6 +159,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 pList : [],
                 originProduct : '',
                 originProductImg : '',
+                originProductSubImg : [],
                     firstCateList : [
                     {value : 100, label : '패션'},
                     {value : 200, label : '식품'},
@@ -279,22 +280,26 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 const url= `REST/api/product_one?code=` + val;
                 const header = {"Content-Type" : "application/json"};
                 const response = await axios.get(url, header);
-                console.log(response);
+                // console.log(response);
 
                 if(response.data.result === 1){
                     this.originProduct = response.data.product;
-                    // console.log(this.originProduct);
                     this.originProductImg = response.data.imgurl;
-                    // console.log(this.originProductImg);
 
-                    // const url1 = `REST/api/select_subimage?product=` + val;
-                    // const response1 = await axios.get(url1, header);
-                    // console.log(response1);
+                    const url1 = `REST/api/select_subimage?product=` + val;
+                    const response1 = await axios.get(url1, header);
+                    console.log(response1);
+                    if(response1.data.result === 1){
+                        for(var i=0; i<response1.data.list.length; i++){
+                            this.originProductSubImg[i] = response1.data.list[i];
+                            console.log(this.originProductSubImg);
+                        }
+                    }
                 }
             },
             async handleProductUpdate(){
                 const url = `REST/api/admin/product_update`;
-                const headers = { "Content-Type" : "multipart/form-data", "token" : this.gettoken };
+                const headers = { "Content-Type" : "multipart/form-data", "token" : this.token };
                 const formData = new FormData();
                 formData.append("productcode", this.originProduct.productcode);
                 formData.append("productname", this.originProduct.productname);
@@ -304,6 +309,11 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 const response = await axios.post(url, formData, {headers});
                 console.log(response);
                 if(response.data.result === 1){
+                    // const url1 = `REST/api/admin/subimg_update?product=${this.originProduct.productcode}&subcode=`;
+                    // const formData1 = new FormData();
+                    // formData1.append("file", this.subfile1);
+                    // formData1.append("file", this.subfile2);
+                    // formData1.append("file", this.subfile3);
                     alert("제품수정완료");
                     this.showModal = false;
                 }

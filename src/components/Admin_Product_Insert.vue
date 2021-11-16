@@ -160,7 +160,7 @@ import default_image from '@/assets/default_image.jpg';
                 console.log(response);
                 // console.log(formData);
                 if(response.data.result === 1){
-                    this.pcode = response.data.productcode;
+                    this.pcode = response.data.code;
                     console.log(this.pcode);
                     const url1 = `REST/api/admin/subimg_insert?product=${this.pcode}`;
                     const formData1 = new FormData();
