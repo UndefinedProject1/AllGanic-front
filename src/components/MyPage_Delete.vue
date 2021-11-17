@@ -88,13 +88,17 @@ import { ElMessage } from 'element-plus';
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
 .info_wapper {
+    /* border: 1px solsid black; */
+    width: 100%;
+    height: 100%;
     display: flex;
-    padding: 40px;
     font-family: 'Gowun Dodum', sans-serif;
-    margin-top: 4.5%;
 }
 .info_list {
+    /* border: 1px solid black; */
     width: 100%;
+    height: 100%;
+    margin-left: 30px;
 }
 .delete_name {
     color: #715036;
@@ -107,7 +111,7 @@ import { ElMessage } from 'element-plus';
   font-size: 20px;
 }
 .delete_insert {
-    border: 2px solid black;
+    border: 1px solid black;
     width: 100%;
     height: 510px;
     border-radius: 5px;

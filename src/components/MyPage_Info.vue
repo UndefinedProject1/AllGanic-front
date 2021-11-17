@@ -67,18 +67,23 @@ import MyPage_Delete from '@/components/MyPage_Delete.vue';
 import MyPage_Cancle from '@/components/MyPage_Cancle.vue';
 import MyPage_Order_List from '@/components/MyPage_Order_List.vue';
 import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
+import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
     export default {
         data() {
             return {
                 token: sessionStorage.getItem("token"),
                 mypage_mail : mypage_mail,
                 mypage_address : mypage_address,
-                member : '',
-                USERNAME : '',
-                USEREMAIL :'',
-                POST : '',
-                ADDRESS : '',
-                DETAILEADDRESS : '',
+
+                postcode: '',
+                roadAddress: '',
+                detailAddress: '',
+                member : [],
+                // USERNAME : '',
+                // USEREMAIL :'',
+                // POST : '',
+                // ADDRESS : '',
+                // DETAILEADDRESS : '',
 
                 MainPage : 'MyPageNearList',
                 pages : ['MyPageNearList', 'MyPageMemberUpdate', 'MyPageDelete', 'MyPageCancle','MyPageOrderList','MyPageQAList']
@@ -139,25 +144,18 @@ import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
 .info_box {
     border: 1px solid black;
-    width: 450px;
-    height: 550px;
-    border-radius: 10px;
-    margin-right: 20px;
+    width: 28%;
+    height: 100%;
+    border-radius: 3px;
     font-family: 'Gowun Dodum', sans-serif;
-    /* margin-top: 4.5%; */
-
-    /* display: grid;
-    grid-template-rows: 100%;
-    grid-template-columns: 15% 85%;
-    grid-template-areas: "info_menu", "admin_content";
-    height: 100vh;
-    font-family: 'Gowun Dodum', sans-serif; */
 }
 .info_container {
     /* border: 1px solid black; */
     width: 100%;
+    height: 100%;
     height: fit-content;
     padding: 10px;
+    margin-top: 10px;
 }
 .info_info {
     /* border: 1px solid black; */
@@ -168,21 +166,23 @@ import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
 .info_name {
     width: 100%;
     display: flex;
-    /* border: 1px solid black; */
+    border: 1px solid black;
     justify-content: center;
     align-items: center;
 }
 .info_name > p:first-child {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     color: #49654E;
     font-size: 25px;
     font-weight: 300;
     margin: 5px 0px 0px 0px;
-    height: fit-content;
+    width: 50%;
+    height: 15px;
+    /* height: fit-content; */
     font-family: 'Gowun Dodum', sans-serif;
 }
 .info_name > p:last-child {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     font-family: 'Gowun Dodum', sans-serif;
     font-size: 15px;
     color: black;
@@ -191,24 +191,24 @@ import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
     margin: 5px 0px 0px 3px;
 }
 .info_email {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     width: 100%;
     display: flex;
     align-items: center;
 }
 .info_email > p {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     font-size: 14px;
     font-family: 'Gowun Dodum', sans-serif;
     margin-left: 8px;
 }
 img {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     width: 20px;
     height: 20px;
 }
 .info_ad_icon {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     width: 100%;
     display: flex;
     align-items: center;
@@ -218,6 +218,7 @@ img {
     height: 1px;
 }
 .info_address {
+    border: 1px solid black;
     display: flex;
     justify-content: center;
 }
@@ -265,7 +266,7 @@ img {
     width: fit-content;
     font-size: 14px;
     font-family: 'Gowun Dodum', sans-serif;
-    /* border: 1px solid black; */
+    border: 1px solid black;
     margin: 0;
 }
 .m_update_postcode > p:nth-child(2) {
@@ -273,7 +274,7 @@ img {
     width: fit-content;
     font-size: 14px;
     font-family: 'Gowun Dodum', sans-serif;
-    /* border: 1px solid black; */
+    border: 1px solid black;
     margin: 0;
 }
 .m_update_postcode > p:last-child {
@@ -281,7 +282,7 @@ img {
     width: fit-content;
     font-size: 14px;
     font-family: 'Gowun Dodum', sans-serif;
-    /* border: 1px solid black; */
+    border: 1px solid black;
     margin: 0;
 }
 .m_update_detailAddress {
@@ -306,6 +307,7 @@ img {
     flex-direction: column;
     align-items: center;
     margin-top: 40px;
+    margin-bottom: 40PX;
 }
 .info_member, .info_order, .info_qa {
     /* border: 1px solid black; */
@@ -341,5 +343,8 @@ img {
 }
 .info_member > p:last-child, .info_order > p:last-child {
     margin-bottom: 10px;
+}
+.admin_content {
+    width: 100%;
 }
 </style>

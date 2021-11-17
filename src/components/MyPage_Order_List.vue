@@ -92,13 +92,16 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 
 <style scoped>
 .info_wapper {
+    width: 100%;
+    height: 100%;
     display: flex;
-    padding: 40px;
     font-family: 'Gowun Dodum', sans-serif;
-    margin-top: 4.5%;
 }
 .info_list {
+    /* border: 1px solid black; */
     width: 100%;
+    height: 100%;
+    margin-left: 30px;
 }
 .order_list {
     color: #715036;
@@ -111,7 +114,7 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
   font-size: 20px;
 }
 .insert_list {
-    border: 2px solid black;
+    border: 1px solid black;
     width: 100%;
     height: 510px;
     border-radius: 5px;

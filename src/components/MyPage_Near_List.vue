@@ -2,22 +2,28 @@
      <div class="info_wapper">
         <MyPage_Info></MyPage_Info>
         <div class="info_list">
+            <div class="info_title">
+                <p>My Page</p>
+            </div>
             <div class="order_list" @click="mypage_orli_btn">
-                <p>최근 주문내역</p>
-                <p>더보기 <img :src="mypage" style="right" class="mypage_plus"/> </p>
-            </div>
-            <div class="or_li_box1" v-for="orderlist in list_title" v-bind:key="orderlist">
-            </div>
-            <div class="or_li_box2">
+                <div class="order_list_name">
+                     <p>최근 주문내역</p>
+                    <p>더보기 <img :src="mypage" style="right" class="mypage_plus"/> </p>
+                </div>
+                <div class="or_li_box1" >
+                </div>
             </div>
             <div class="qna_list">
-                <p>최근 문의내역</p>
-                <p>더보기 <img :src="mypage" style="right" class="mypage_plus"/></p>
-            </div>
-            <div class="qna_li_box2">
+                <div class="order_list_qa">
+                    <p>최근 문의내역</p>
+                    <p>더보기 <img :src="mypage" style="right" class="mypage_plus"/></p>
+                </div>
+                <div class="or_qa_box1">
+                </div>
             </div>
         </div>
     </div>
+    <!-- <Footer></Footer> -->
 </template>
 
 <script>
@@ -25,6 +31,7 @@ import mypage_mail from '@/assets/mypage_mail.png';
 import mypage_address from '@/assets/mypage_address.png';
 import mypage from '@/assets/mypage.png';
 import MyPage_Info from '@/components/MyPage_Info.vue';
+//import Footer from './Footer.vue';
     export default {
         data() {
             return {
@@ -34,7 +41,8 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
             }
         },
         components : {
-            MyPage_Info : MyPage_Info
+            MyPage_Info : MyPage_Info,
+            //Footer : Footer
         },
         methods : {
         }
@@ -45,21 +53,39 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
 .info_wapper {
     /* border: 1px solsid black; */
+    width: 100%;
+    height: 100%;
     display: flex;
-    padding: 40px;
     font-family: 'Gowun Dodum', sans-serif;
-    margin-top: 4.5%;
-}
+} 
 .info_list {
     /* border: 1px solid black; */
     width: 100%;
+    height: 100%;
+    margin-left: 30px;
 }
-.order_list {
+.info_title {
+    color: #715036;
+    font-weight: bold;
+    display: flex;
+}
+.info_title > p {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.order_list, .qna_list {
     /* border: 1px solid black; */
     color: #715036;
     font-weight: bold;
     display: flex;
+    flex-direction: column;
+}
+.order_list_name, .order_list_qa {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 5px;
 }
 .order_list > p {
     /* border: 1px solid black; */
@@ -67,18 +93,12 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
     color: #715036;
     font-weight: bold;
 }
-.or_li_box1 {
-    /* border: 2px solid black; */
-    width: 100%;
-    height: 135px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-.or_li_box2 {
+.or_li_box1, .or_qa_box1 {
     border: 1px solid black;
-    height: 223px;
-    border-radius: 5px;
-    margin-bottom: 31px;
+    width: 100%;
+    height: 215px;
+    margin-bottom: 10px;
+    border-radius: 3px;
 }
 .qna_list {
     /* border: 1px solid black; */
@@ -92,21 +112,14 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
     color: #715036;
     font-weight: bold;
 }
-.qna_li_box2 {
-    border: 1px solid black;
-    height: 165px;
-    border-radius: 5px;
-}
-.order_list > p > img {
+.order_list_name > p > img {
     /* border: 1px solid black; */
     width: 10px;
-    height: 16px;
-    /* margin-bottom: 3px; */
+    height: 14px;
 }
-.qna_list > p > img {
+.order_list_qa > p > img {
     /* border: 1px solid black; */
     width: 10px;
-    height: 16px;
-    /* margin-bottom: 3px; */
+    height: 14px;
 }
 </style>
