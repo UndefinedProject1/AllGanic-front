@@ -41,7 +41,7 @@
             </div>
             <div class="info_order">
                 <span>Order</span>
-                <p @click="handleCancle">취소/교환/반품 내역</p>
+                <p @click="handleCancle">교환내역</p>
                 <p @click="handleOrder">주문내역</p>
             </div>
             <div class="info_qa">
@@ -135,7 +135,7 @@ import mypage_address from '@/assets/mypage_address.png';
 .info_info {
     /* border: 1px solid black; */
     padding: 5px;
-    width: 75%;
+    width: 80%;
     margin: 0 auto;
 }
 .info_name {
@@ -234,6 +234,7 @@ img {
     font-family: 'Gowun Dodum', sans-serif;
     height: fit-content;
     width: 100%;
+    margin-top: 10px;
     /* border: 1px solid black; */
 }
 .m_update_postcode > p:first-child {
@@ -287,7 +288,7 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 .info_member, .info_order, .info_qa {
     /* border: 1px solid black; */

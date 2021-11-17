@@ -360,7 +360,7 @@ export default {
 .m_update_insert {
   border: 2px solid black;
   width: 100%;
-  height: 475px;
+  height: 510px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;

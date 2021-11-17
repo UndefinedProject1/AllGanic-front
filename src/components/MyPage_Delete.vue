@@ -17,7 +17,7 @@
                 </div>
             </div>
         <el-dialog v-model="showModal" title="회원 탈퇴" width="30%" center id="modal_content">
-            <p>탈퇴하시면 고객정보는 사라집니다.</p>
+            <p>탈퇴하시면 기존의 고객정보는 사라집니다.</p>
             <p>탈퇴 하시겠습니까?</p>
             <template #footer>
                 <div class="delete_modal_btn">
@@ -109,7 +109,7 @@ import { ElMessage } from 'element-plus';
 .delete_insert {
     border: 2px solid black;
     width: 100%;
-    height: 475px;
+    height: 510px;
     border-radius: 5px;
 }
 .delete_password {
@@ -144,11 +144,12 @@ import { ElMessage } from 'element-plus';
     color: white;
     border-radius: 5px;
     width: 110px;
-    height: 30px;
+    height: 35px;
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 15px;
     font-family: 'Gowun Dodum', sans-serif;
 }
 .el-dialog__body > p {

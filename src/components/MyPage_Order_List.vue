@@ -2,7 +2,7 @@
     <div class="info_wapper">
         <MyPage_Info></MyPage_Info>
             <div class="info_list">
-                <div class="order_list" style="margin-top: 0px;">
+                <div class="order_list">
                     <p>주문내역</p>
                 </div>
                 <div class="insert_list">
@@ -100,27 +100,36 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 .info_list {
     width: 100%;
 }
-.order_list > p {
-    margin-top: 0px;
+.order_list {
     color: #715036;
     font-weight: bold;
+    display: flex;   
+}
+.order_list > p {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 .insert_list {
     border: 2px solid black;
     width: 100%;
-    height: 475px;
+    height: 510px;
     border-radius: 5px;
 }
 .insert_date {
     display: flex;
+    margin-top: 10px;
+    margin-left: 15px;
 }
 .insert_prdcode { 
     display: flex;
 }
 .solid {
     border: 1px solid rgb(228, 227, 227);
-    width: 95%;
+    width: 90%;
     margin-bottom: 2px;
+    margin-top: 10px;
+    margin-left: 42px;
 }
 .insert_content {
     display: flex;
@@ -165,9 +174,9 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     justify-content: center;
 }
 .orderlist_info_section {
-    /* border-bottom:3px solid #715036; */
     font-family: 'Gowun Dodum', sans-serif;
     width: 100%;
-    height: fit-content;
+    
 }
+
 </style>

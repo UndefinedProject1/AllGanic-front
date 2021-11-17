@@ -47,27 +47,35 @@
 </template>
 
 <script>
+import axios from "axios";
 import MyPage_Info from '@/components/MyPage_Info.vue';
     export default {
         data() {
             return {
                 token : sessionStorage.getItem("token"),
-                QAListData : [
-                    {
-                        qaSelect : '',
-                        qaTitle : '',
-                        qaContent : '',
-                        qaDate : '',
-                        qaAction : '',
-                    },
-                ],
+                member : [],
+                QAListData : [],
             }
+        },
+        async created() {
+            await this.handleQaListGet();
         },
         components : {
             MyPage_Info : MyPage_Info,
         },
         methods : {
-
+            async handleQaListGet() {
+                const url = `REST/api/question/member/selectlist`;
+                const headers = {"Content-Type" : "application/json", "token" : this.token};
+                const response = await axios.get(url, {headers});
+                console.log(response);
+                if(response.data.result === 1) {
+                    alert("문의 내역이 없습니다.");
+                }
+                else if(response.data.result === 0) {
+                    alert("데이터가 존재하지 않습니다.");
+                }
+            }
         }
     }
 </script>
@@ -82,23 +90,35 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
 .info_list {
     width: 100%;
 }
-.qa_title > p {
-    margin-top: 0px;
+.qa_title {
     color: #715036;
     font-weight: bold;
+    display: flex;   
+}
+.qa_title > p {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-size: 20px;
 }
 .qa_insert {
     border: 2px solid black;
     width: 100%;
-    height: 475px;
+    height: 510px;
     border-radius: 5px;
 }
 .insert_date {
     display: flex;
+    margin-top: 10px;
+    margin-left: 15px;
 }
 .solid {
     border: 1px solid rgb(228, 227, 227);
-    width: 95%;
+    width: 90%;
     margin-bottom: 2px;
+    margin-top: 10px;
+    margin-left: 42px;
+}
+.insert_prdcode {
+    width: 100%;
 }
 </style>

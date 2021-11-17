@@ -164,6 +164,7 @@ body {
     font-size: 30px;
     font-family: 'Gowun Dodum', sans-serif;
     font-weight: bold;
+    margin-bottom: 15px;
 }
 .divider {
     border : 0.3px solid #49654E;
