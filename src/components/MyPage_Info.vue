@@ -14,16 +14,15 @@
                     <img :src="mypage_address"/>
                     <div class="m_address">
                         <div class="m_update_postcode">
-                            <p type="text" >{{postcode}}</p>
+                            <p type="text">{{postcode}}</p>
                             <p >/</p>
-                            <p type="text" >{{roadAddress}}</p>
+                            <p type="text">{{roadAddress}}</p>
                         </div>
                         <div class="m_update_detailAddress">
-                            <p type="text" >{{detailAddress}}</p>
+                            <p type="text">{{detailAddress}}</p>
                         </div>
                     </div> 
-                    <!-- </div> -->
-                </div>
+               </div>
                 <div class="btn_box">
                     <button type="button" @click="handleAddressUpdate">기본주소 수정</button>
                 </div>
@@ -34,21 +33,27 @@
         <hr class="solid" />
 
         <div class="info_menu">
+            <div class="info_mypage_home">
+                <p @click="hadleClickUrl(0)">[MyPage Home]</p>
+            </div>
             <div class="info_member">
                 <span>Member</span>
-                <p @click="handleUpdate">회원정보변경</p>
-                <p @click="handleDelete">회원탈퇴</p>
+                <p @click="hadleClickUrl(1)">회원정보변경</p>
+                <p @click="hadleClickUrl(2)">회원탈퇴</p>
             </div>
             <div class="info_order">
                 <span>Order</span>
-                <p @click="handleCancle">교환내역</p>
-                <p @click="handleOrder">주문내역</p>
+                <p @click="hadleClickUrl(3)">교환내역</p>
+                <p @click="hadleClickUrl(4)">주문내역</p>
             </div>
             <div class="info_qa">
                 <span>QnA</span>
-                <p @click="handleQA">문의내역</p>
+                <p @click="hadleClickUrl(5)">문의내역</p>
             </div>
         </div>
+    </div>
+    <div class="admin_content" >
+        <component v-bind:is="MainPage"></component>
     </div>
 </template>
 
@@ -56,6 +61,12 @@
 import axios from "axios";
 import mypage_mail from '@/assets/mypage_mail.png';
 import mypage_address from '@/assets/mypage_address.png';
+import MyPage from '@/components/MyPage.vue';
+import MyPage_Member_Update from '@/components/MyPage_Member_Update.vue';
+import MyPage_Delete from '@/components/MyPage_Delete.vue';
+import MyPage_Cancle from '@/components/MyPage_Cancle.vue';
+import MyPage_Order_List from '@/components/MyPage_Order_List.vue';
+import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
     export default {
         data() {
             return {
@@ -68,15 +79,24 @@ import mypage_address from '@/assets/mypage_address.png';
                 POST : '',
                 ADDRESS : '',
                 DETAILEADDRESS : '',
+
+                MainPage : 'MyPageNearList',
+                pages : ['MyPageNearList', 'MyPageMemberUpdate', 'MyPageDelete', 'MyPageCancle','MyPageOrderList','MyPageQAList']
             }
         },
-        async created() {
-            await this.handleMemberGet();
-        },
         components : {
-
+            'MyPage' : MyPage,
+            'MyPageMemberUpdate' : MyPage_Member_Update,
+            'MyPageDelete' : MyPage_Delete,
+            'MyPageCancle' : MyPage_Cancle,
+            'MyPageOrderList' : MyPage_Order_List,
+            'MyPageQAList' : MyPage_QA_List,
+            'MyPageNearList' : MyPage_Near_List,
         },
         methods : {
+            hadleClickUrl(val){
+                this.MainPage = this.pages[val];
+            },
             async handleMemberGet() {
                 const url = `REST/api/member/find`;
                 const headers = { token: this.token };
@@ -93,24 +113,24 @@ import mypage_address from '@/assets/mypage_address.png';
                 } 
                 else alert("정보를 받아오지 못하였습니다.");
             },
-            handleAddressUpdate() {
-                window.location.href = 'http://127.0.0.1:9090/mypage_member_update';
-            },
-            handleUpdate() {
-                window.location.href = 'http://127.0.0.1:9090/mypage_member_update';
-            },
-            handleDelete() {
-                window.location.href = 'http://127.0.0.1:9090/mypage_delete';
-            },
-            handleCancle() {
-                window.location.href = 'http://127.0.0.1:9090/mypage_cancle';
-            },
-            handleOrder() {
-                window.location.href = 'http://127.0.0.1:9090/mypage_order_list';
-            },
-            handleQA() {
-                window.location.href = 'http://127.0.0.1:9090/mypage_qa_list';
-            }
+            // handleAddressUpdate() {
+            //     window.location.href = 'http://127.0.0.1:9090/mypage_member_update';
+            // },
+            // handleUpdate() {
+            //     window.location.href = 'http://127.0.0.1:9090/mypage_member_update';
+            // },
+            // handleDelete() {
+            //     window.location.href = 'http://127.0.0.1:9090/mypage_delete';
+            // },
+            // handleCancle() {
+            //     window.location.href = 'http://127.0.0.1:9090/mypage_cancle';
+            // },
+            // handleOrder() {
+            //     window.location.href = 'http://127.0.0.1:9090/mypage_order_list';
+            // },
+            // handleQA() {
+            //     window.location.href = 'http://127.0.0.1:9090/mypage_qa_list';
+            // }
         }
     }
 </script>
@@ -125,6 +145,13 @@ import mypage_address from '@/assets/mypage_address.png';
     margin-right: 20px;
     font-family: 'Gowun Dodum', sans-serif;
     /* margin-top: 4.5%; */
+
+    /* display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 15% 85%;
+    grid-template-areas: "info_menu", "admin_content";
+    height: 100vh;
+    font-family: 'Gowun Dodum', sans-serif; */
 }
 .info_container {
     /* border: 1px solid black; */
@@ -162,7 +189,6 @@ import mypage_address from '@/assets/mypage_address.png';
     margin-left: 5px;
     height: fit-content;
     margin: 5px 0px 0px 3px;
-
 }
 .info_email {
     /* border: 1px solid black; */
@@ -186,9 +212,6 @@ img {
     width: 100%;
     display: flex;
     align-items: center;
-    /* justify-content: flex-end;
-    margin-top: 0px;
-    margin-bottom: 10px; */
 }
 .solid {
     width : 100%;
@@ -244,8 +267,6 @@ img {
     font-family: 'Gowun Dodum', sans-serif;
     /* border: 1px solid black; */
     margin: 0;
-    /* margin-left: 5px;
-    margin-top: 5px; */
 }
 .m_update_postcode > p:nth-child(2) {
     height: 25px;
@@ -254,8 +275,6 @@ img {
     font-family: 'Gowun Dodum', sans-serif;
     /* border: 1px solid black; */
     margin: 0;
-    /* margin-left: 5px;
-    margin-top: 5px; */
 }
 .m_update_postcode > p:last-child {
     height: 25px;
@@ -264,8 +283,6 @@ img {
     font-family: 'Gowun Dodum', sans-serif;
     /* border: 1px solid black; */
     margin: 0;
-    /* margin-left: 5px;
-    margin-top: 5px; */
 }
 .m_update_detailAddress {
     /* border: 1px solid black; */
@@ -297,11 +314,24 @@ img {
     flex-direction: column;
     align-items: center;
 }
+.info_mypage_home {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+}
 .info_member > span, .info_order > span, .info_qa > span {
+    color: #715036;
+    font-weight: 550;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.info_mypage_home > p {
     color: #715036;
     font-weight: bold;
     font-size: 20px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 .info_member > p, .info_order > p, .info_qa > p {
     margin-bottom: 0;
@@ -312,5 +342,4 @@ img {
 .info_member > p:last-child, .info_order > p:last-child {
     margin-bottom: 10px;
 }
-
 </style>

@@ -79,7 +79,7 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
                 console.log('=============================');
                 console.log(response);
                 if(response.data.result === 1) {
-                    alert("데이터 잘 옵니돩!!");
+                    alert("주문 내역이 없습니다.");
                 }
                 else if(response.data.result === 0) {
                     alert(response.data.state);

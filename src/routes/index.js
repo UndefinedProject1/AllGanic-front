@@ -17,6 +17,7 @@ import MyPage_Order_List from '@/components/MyPage_Order_List.vue';
 import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
 import MyPage_Cancle from '@/components/MyPage_Cancle.vue';
 import Brand_Product_Table from '@/components/Brand_Product_Table.vue';
+import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
 
 
 const routes = [
@@ -37,6 +38,7 @@ const routes = [
     {path : '/mypage_qa_list' , name :'mypage_qa_list', component : MyPage_QA_List},
     {path : '/mypage_cancle' , name :'mypage_cancle', component : MyPage_Cancle},
     {path : '/brand_product_table' , name :'brand_product_table', component : Brand_Product_Table},
+    {path : '/mypage_near_list' , name :'mypage_near_list', component : MyPage_Near_List},
 
 ];
 
