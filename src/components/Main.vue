@@ -1,6 +1,12 @@
 <template>
     <div class="main_wrapper">
-        <div class="main_container">
+        <section class="firstSection">
+            <p>COMMING SOON</p>
+        </section>
+        <!-- <section class="firstSection">
+            <p>COMMING SOON</p>
+        </section> -->
+        <!-- <div class="main_container">
             <div class="banner_slider">
                 <h1 class="display-4" id="text1">Here,</h1>
                 <div class="welcome_text">
@@ -48,7 +54,7 @@
                 </div>
                 <h1 class="display-5" id="text2">For you, <br> For us.</h1>
             </div>
-        </div>
+        </div> -->
     </div>
 
 </template>
@@ -82,7 +88,35 @@ import face_img from '@/assets/face_img.jpg';
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Playfair+Display:wght@400;500;700;800&display=swap');
 .main_wrapper{
-    /* border: 1px solid black; */
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+    /* margin-top: 4.5%; */
+}
+section{
+    border: 1px solid black;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+    scroll-snap-align: center;
+    display: flex;
+    overflow-x: hidden;
+}
+.firstSection{
+    opacity: 0.88;
+    background-image: url("/src/assets/vegan_cream_img.jpg");
+    background-size: cover;
+    align-items: center;
+    background-position-y: 30%;
+    justify-content: center;
+}
+.firstSection > p{
+    font-size: 100px;
+    font-weight: bold;
+    color: white;
+}
+/* .main_wrapper{
+    border: 1px solid black;
     width: 100%;
     height: 100%;
     display: flex;
@@ -93,7 +127,7 @@ import face_img from '@/assets/face_img.jpg';
     flex-direction: column;
     background: linear-gradient(#49654E, #49654E 60%, #17341C 60%, #17341C 100%);
     max-height: 100vh;
-}
+} */
 .main_container{
     /* border: 1px solid black; */
     width: 100%;

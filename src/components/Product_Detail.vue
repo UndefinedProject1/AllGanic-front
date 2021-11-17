@@ -397,8 +397,20 @@ import Cart_Popup from './Cart_Popup.vue';
             clickRefund(){
                 this.$refs.callProductRefundPolicy.focus();
             },
-            showWritingReview(){
-                this.showWriting = true;
+            async showWritingReview(){
+                const url = `REST/api/payments/paylist/check?no=${this.pcode}`;
+                const headers = {"token" : this.gettoken};
+                const response = await axios.get(url, {headers});
+                // console.log(response.data);
+                if(response.data === 1){
+                    alert("통과");
+                    this.showWriting = true;
+                }else if(response.data === 0){
+                    alert("결제하신 상품이 아닙니다.")
+                }else if(response.data === 2){
+                    alert("이미 작성하신 리뷰는 마이페이지에서 수정하실 수 있습니다.")
+                }
+                else alert("ERROR");
             },
             closeWritingReview(){
                 this.showWriting = false;
@@ -441,10 +453,11 @@ import Cart_Popup from './Cart_Popup.vue';
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 .pd_detail_wrapper{
     width: 100%;
-    height: 100%;
-    overflow-y: scroll;
+    /* height: 100%;
+    overflow-y: scroll; */
     font-family: 'Gowun Dodum', sans-serif;
     scroll-behavior: smooth;
+    margin-top: 4.5%;
 }
 .pd_detail_container{
     /* border: 1px solid black; */

@@ -103,27 +103,17 @@
                 <div class="content_area">
                     <div class="subimage_container">
                         <div class="subimg1_container" v-for="subimgcode in originProductSubImg" v-bind:key="subimgcode">
-                            <img :src="`REST/api/select_subimage/find?no=${subimgcode.subcode}`"  id="subimage1">
+                            <img :src="`REST/api/select_subimage/find?no=${subimgcode}`"  id="subimage1">
                             <label for="insertsubimg1">이미지 추가</label>
                             <input type="file" @change="handleSubImg($event)" name="파일첨부" id="insertsubimg1">
                         </div>
-                        <!-- <div class="subimg2_container">
-                            <img :src = "subimg2" id="subimage2">
-                            <label for="insertsubimg2">이미지 추가</label>
-                            <input type="file" @change="handleSubImg2($event)" name="파일첨부" id="insertsubimg2">
-                        </div>
-                        <div class="subimg3_container">
-                            <img :src = "subimg3" id="subimage3">
-                            <label for="insertsubimg3">이미지 추가</label>
-                            <input type="file" @change="handleSubImg3($event)" name="파일첨부" id="insertsubimg3">
-                        </div> -->
                     </div>
                 </div>
             </div>           
         </div>
         <div class="modal-footer">
-            <el-button @click="showModal = false">Cancel</el-button>
-            <el-button @click="handleProductUpdate">Confirm</el-button>
+            <el-button @click="showModal = false">취소</el-button>
+            <el-button @click="handleProductUpdate">수정완료</el-button>
         </div>
 
 
@@ -140,7 +130,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 vegan_oil_img : vegan_oil_img,
                 token : sessionStorage.getItem("token"),
                 showModal : false,
-                subimg1 : default_image,
+                subimage1 : default_image,
                 subimg2 : default_image,
                 subimg3 : default_image,
                 mainImg : default_image,
@@ -187,7 +177,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                     this.subfile1 = e.target.files[0];
                     var reader = new FileReader();
                     reader.onload = (e) => {
-                        this.subimg1 = e.target.result;
+                        this.subimage1 = e.target.result;
                     }
                     reader.readAsDataURL(e.target.files[0]);
                 }
@@ -291,7 +281,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                     console.log(response1);
                     if(response1.data.result === 1){
                         for(var i=0; i<response1.data.list.length; i++){
-                            this.originProductSubImg[i] = response1.data.list[i];
+                            this.originProductSubImg[i] = response1.data.list[i].subcode;
                             console.log(this.originProductSubImg);
                         }
                     }
@@ -304,20 +294,22 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 formData.append("productcode", this.originProduct.productcode);
                 formData.append("productname", this.originProduct.productname);
                 formData.append("productprice", this.originProduct.productprice);
-                formData.append("file", this.mainfile);
+                formData.append("file", this.originProductImg);
                 
                 const response = await axios.post(url, formData, {headers});
                 console.log(response);
                 if(response.data.result === 1){
-                    // const url1 = `REST/api/admin/subimg_update?product=${this.originProduct.productcode}&subcode=`;
-                    // const formData1 = new FormData();
-                    // formData1.append("file", this.subfile1);
-                    // formData1.append("file", this.subfile2);
-                    // formData1.append("file", this.subfile3);
-                    alert("제품수정완료");
-                    this.showModal = false;
+                    const url1 = `REST/api/admin/subimg_update?product=${this.originProduct.productcode}&subcode=${this.originProductSubImg}`;
+                    const formData1 = new FormData();
+                    formData1.append("file", this.subimage1);
+                    formData1.append("file", this.subfile2);
+                    formData1.append("file", this.subfile3);
+                    const response1 = await axios.post(url1, formData1, {headers});
+                    if(response1.data.result === 1){
+                        alert("제품수정완료");
+                        this.showModal = false;
+                    }else alert("error");
                 }
-                
             }
         }
     }

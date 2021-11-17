@@ -9,13 +9,15 @@
                 <div class="login_box">
                     <div class="email">
                         <div class="email_input">
-                            <img :src="login_email" style="right" class="logo_email"/>
+                            <i class="el-icon-message" :size="50"></i>
+                            <!-- <img :src="login_email" style="right" class="logo_email"/> -->
                             <input type="text" placeholder="이메일" id="id" v-model="userid">
                         </div>
                     </div>
                     <div class="password">
                         <div class="password_input">
-                            <img :src="login_password" style="right" class="logo_password"/>
+                            <i class="el-icon-lock" :size="50"></i>
+                            <!-- <img :src="login_password" style="right" class="logo_password"/> -->
                             <input type="password" placeholder="비밀번호" id="password" v-model="userpw">
                         </div>
                     </div>
@@ -29,14 +31,12 @@
                 </div>
             </div>
         </div>
-        <Footer></Footer>
     </div>
     
 </template>
 
 <script>
 import axios from 'axios';
-import Footer from '@/components/Footer.vue';
 import login_email from '@/assets/login_email.png';
 import login_password from '@/assets/login_password.png';
 import { ElMessage } from 'element-plus'
@@ -66,9 +66,6 @@ import { ElMessage } from 'element-plus'
                 key   : '123456_',
                 login : false
             }
-        },
-        components :{
-            Footer : Footer
         },
         methods :{
             async handleLogin(){
@@ -111,6 +108,9 @@ import { ElMessage } from 'element-plus'
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
+input:focus{
+    outline: none;
+}
 .login_wrapper{
     /* border: 1px solid black; */
     width: 100%;
@@ -122,6 +122,7 @@ import { ElMessage } from 'element-plus'
     justify-content: center;
     flex-direction: column;
     font-family: 'Gowun Dodum', sans-serif;
+    margin-top: 4.5%;
 }
 .login_container{
     /* border: 1px solid black; */

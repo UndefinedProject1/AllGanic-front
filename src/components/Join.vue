@@ -328,6 +328,7 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: white;
+  margin-top: 4.5%;
 }
 .join_container {
   /* border: 1px solid black; */

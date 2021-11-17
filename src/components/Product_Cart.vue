@@ -44,8 +44,8 @@
                 </div>
             </div>
             <div class="cart_summary">
+                <p id="amountTitle">Summary</p>
                 <div class="cart_summary_container">
-                    <p id="amountTitle">주문하기</p>
                     <div class="check_out_amount">
                         <table>
                             <colgroup>
@@ -82,11 +82,11 @@
                             </tbody>
                         </table>
                     </div>
+                    <button type="button" id="checkoutBtn" @click="handlePayment">
+                        CHECK OUT
+                        <!-- <router-link :to="`/order_page?chks=${this.chks}`" id="checkoutBtnlink">CHECK OUT</router-link> -->
+                    </button>
                 </div>
-                <button type="button" id="checkoutBtn" @click="handlePayment">
-                    CHECK OUT
-                    <!-- <router-link :to="`/order_page?chks=${this.chks}`" id="checkoutBtnlink">CHECK OUT</router-link> -->
-                </button>
             </div>
         </div>
 
@@ -276,6 +276,7 @@ router-link{
     background-color: white;
     overflow-x: hidden;
     font-family: 'Playfair Display', serif;
+    margin-top: 4.5%;
 }
 .cart_container{
     /* border: 1px solid black; */
@@ -289,7 +290,7 @@ router-link{
 .product_info{
     margin-right: 10px;
     /* border: 1px solid black; */
-    width: 69%;
+    width: 75%;
     height: fit-content;
     padding: 0px 0px 90px 0px
 }
@@ -354,13 +355,16 @@ router-link{
 }
 #amountTitle{
     width: fit-content;
-    font-size: 20px;
-    font-weight: bold;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    color: #715036;
+    width: 100%;
+    margin-bottom: 10px;
 }
 .check_out_amount{
-    border-top: 0.5px solid black;
-    border-bottom: 0.5px solid black;
+    /* border-top: 0.5px solid black;
+    border-bottom: 0.5px solid black; */
     width: 100%;
     padding: 30px 0px;
     font-family: 'Gowun Dodum', sans-serif;
@@ -392,8 +396,11 @@ router-link{
     font-size: 20px;
     font-weight: bold;
     width: 100%;
+    height: 150px;
     align-content: space-between;
     margin: 15px auto;
+    border-top: 0.5px solid black;
+    border-bottom: 0.5px solid black;
 }
 #checkoutBtn{
     border-radius: 3px;

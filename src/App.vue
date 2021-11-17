@@ -178,13 +178,14 @@
         showMain : false,
         routes : this.$route.path,
         wrapper:{
-          display: 'grid',
-          gridTemplateColumns: '100%',
-          gridTemplateRows: '10% 90%',
+          display: 'flex',
+          flexDirection : 'column',
+          // gridTemplateColumns: '100%',
+          // gridTemplateRows: '10% 90%',
           gridTemplateAreas: '"header", "content"',
           height: '100vh',
           fontFamily: '"Playfair Display", serif',
-          backgroundColor : '#49654E'
+          // backgroundColor : '#49654E'
         },
         sideNavStyle:{
           width : '0%',
@@ -234,15 +235,46 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
-body{
+*{
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.wrapper{
   width: 100%;
-  /* height: 100vh; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.header{
+  /* border: 4px solid red; */
+  height: 10%;
+  display: inline-flex;
   font-family: 'Playfair Display', serif;
-  /* background-color: #49654E; */
+  color: #3c5240;
+  position: fixed;
+  z-index: 1;
+  right : 0;
+  top: 0;
+  width: 100%;
+}
+.content{
+  /* border: 3px solid blue; */
+  width: 100%;
+  background-color: white;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  height: 100vh;
+}
+
+
+/* body{
+  margin: 0;
+  height: 100vh;
+  font-family: 'Playfair Display', serif;
   background-color: white;
   overflow-x: hidden;
-}
+} */
 /* .wrapper{
   display: grid;
   grid-template-columns: 100%;
@@ -251,25 +283,26 @@ body{
   height: 100vh;
   font-family: 'Playfair Display', serif;
 } */
-.header{
-  /* border: 1px solid black; */
-  height: 100%;
+/* .header{
+  border: 1px solid black;
+  height: 10%;
   display: inline-flex;
   font-family: 'Playfair Display', serif;
   color:  #eeeeee;
-  /* z-index: 1; */
-  /* position: absolute;
+  position: fixed;
+  z-index: 1;
+  right : 0;
   top: 0;
-  width: 100%; */
+  width: 100%;
 }
 .content{
-  /* border: 1px solid black; */
+  border: 1px solid black;
   height: 100%;
   width: 100%;
   background-color: white;
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
   scroll-behavior: smooth;
-}
+} */
 
 
 .header .left_section, .right_section{
@@ -277,6 +310,7 @@ body{
   width: 42%;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
 }
 .header .logo{
   display: inline-flex;
@@ -326,7 +360,7 @@ body{
 }
 .mypage a, .logo a{
   text-decoration: none;
-  color: #eeeeee;
+  color: #3c5240;
 }
 .nav_sections {
   display: flex;

@@ -114,13 +114,12 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 .pt_table_wrapper{
-    width : 100vw;
-    height : 100vh;
-    overflow-y: scroll;
+    width : 100%;
     overflow-x: hidden;
     font-family: 'Gowun Dodum', sans-serif;
     /* padding: 80px; */
-    background-color: white;
+    /* background-color: white; */
+    margin-top: 4.5%;
 }
 .pt_table_container{
     /* border: 1px solid black; */
