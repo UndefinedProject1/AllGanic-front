@@ -75,6 +75,7 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     display: flex;
     padding: 40px;
     font-family: 'Gowun Dodum', sans-serif;
+    margin-top: 4.5%;
 }
 .cancle_list {
     width: 100%;

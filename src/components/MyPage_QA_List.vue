@@ -77,6 +77,7 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
     display: flex;
     padding: 40px;
     font-family: 'Gowun Dodum', sans-serif;
+    margin-top: 4.5%;
 }
 .info_list {
     width: 100%;

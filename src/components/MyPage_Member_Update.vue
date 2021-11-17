@@ -342,6 +342,7 @@ export default {
   display: flex;
   padding: 40px;
   font-family: 'Gowun Dodum', sans-serif;
+  margin-top: 4.5%;
 }
 .info_list {
   width: 100%;

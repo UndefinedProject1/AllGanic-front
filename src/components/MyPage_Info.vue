@@ -120,10 +120,11 @@ import mypage_address from '@/assets/mypage_address.png';
 .info_box {
     border: 1px solid black;
     width: 450px;
-    height: 515px;
+    height: 550px;
     border-radius: 10px;
     margin-right: 20px;
     font-family: 'Gowun Dodum', sans-serif;
+    /* margin-top: 4.5%; */
 }
 .info_container {
     /* border: 1px solid black; */
