@@ -236,6 +236,7 @@
 </template>
 
 <script>
+import {getCurrentInstance} from '@vue/runtime-core';
 import default_image from '@/assets/default_image.jpg';
 import { ElMessage } from 'element-plus'
 import axios from 'axios';
@@ -260,6 +261,7 @@ import Cart_Popup from './Cart_Popup.vue';
         },
         data(){
             return{
+                $socket : '',
                 CartPopup : false,
                 gettoken : sessionStorage.getItem("token"),
                 pcode : this.$route.query.code,
@@ -293,6 +295,9 @@ import Cart_Popup from './Cart_Popup.vue';
         },
         async created() {
             await this.handleDetailContents();
+            const app = getCurrentInstance();
+            this.$socket = app.appContext.config.globalProperties.$socket;
+            console.log(this.$socket);
         },
         methods : {
             closeDrawer(){
@@ -428,6 +433,7 @@ import Cart_Popup from './Cart_Popup.vue';
                 console.log(response);
 
                 if(response.data.result === 1){
+                    this.$socket.emit('addcart', {data : {cartin:1}});
                     this.CartPopup = true;
                     this.addProductAlertMSG();
                 }

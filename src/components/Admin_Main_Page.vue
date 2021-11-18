@@ -1,24 +1,23 @@
 <template>
     <div class="chartWrapper">
-        <div id="chart" class="chart1">
-            <p>브랜드 점유율</p>
-            <apexchart type="polarArea" :options="chartOptions" :series="series" width='100%'></apexchart>
-        </div>
-        <div id="chart" class="chart1">
-            <p>브랜드 점유율</p>
-            <apexchart type="polarArea" :options="chartOptions" :series="series" width='100%'></apexchart>
-        </div>
+        <PieChart :options="chartOptions" :series="seriesPieChart"></PieChart>
+        <LineChart :options="LineChartOptions" :series="seriesLineChart"></LineChart>
     </div>
 
 </template>
 
 <script>
+import {getCurrentInstance} from '@vue/runtime-core';
+import axios from 'axios';
+import PieChart from '@/components/chart/PieChart.vue';
+import LineChart from '@/components/chart/LineChart.vue';
 export default {
     data(){
         return{
-            // polarArea -> data 는 series[], 해당 항목명은 labels []
-            series: [23, 11, 54, 72, 12],
-            labels: ["Apple", "Mango", "Banana", "Papaya", "Orange"],
+            token: sessionStorage.getItem("token"),
+            $socket : '',
+            // PieChart.vue 자식 컴포넌트에 보내는 데이터
+            seriesPieChart: [],
             chartOptions: {
                 chart: {
                     type: 'polarArea',
@@ -29,20 +28,86 @@ export default {
                 fill: {
                     opacity: 0.8
                 },
-                // responsive: [{
-                //     breakpoint: 480,
-                //     options: {
-                //         chart: {
-                //             width : 200,
-                //             height : 200},
-                //         legend: {
-                //             position: 'bottom'
-                //         }
-                //     }
-                // }]
+                labels: ["Apple", "Mango", "Banana", "Papaya", "Orange"],
             },
+
+            // LineChart.vue 자식 컴포넌트에 보내는 데이터
+            seriesLineChart: [{
+                name: "Desktops",
+                data: []
+            }],
+            LineChartOptions :{
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                grid: {
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: [1],
+                }
+                
+            }
         }
     },
+    components : {
+        PieChart : PieChart,
+        LineChart : LineChart
+    },
+    async created(){
+        await this.getDailySalesRate();
+        await this.getBrandPercentage();
+        const app = getCurrentInstance();
+        this.$socket = app.appContext.config.globalProperties.$socket;
+        console.log(this.$socket);
+    },
+    mounted() {
+        this.$socket.on("sell", async (recv) => {
+            console.log(recv);
+            await this.getDailySalesRate();
+        })
+    },
+    methods : {
+        async getDailySalesRate(){
+            const url = `REST/api/admin/payhistory/list`;
+            const headers = {"token" : this.token};
+            const response = await axios.get(url, {headers});
+            // console.log(response);
+            if(response.data.result === 1){
+                for(var i=0; i<response.data.list.length; i++){
+                    this.LineChartOptions.xaxis.categories[i] = response.data.list[i].DUAL_DATE;
+                    this.seriesLineChart[0].data[i] = response.data.list[i].CNT;
+                }
+            }
+        },
+        async getBrandPercentage(){
+            const url = `REST/api/admin/brand/share`;
+            const headers = {"token" : this.token};
+            const response = await axios.get(url, {headers});
+            console.log(response);
+            if(response.data.result === 1){
+                for(var i=0; i<5; i++){
+                    this.seriesPieChart[i] = response.data.list[i].PERCENTAGE;
+                    this.chartOptions.labels[i] = response.data.list[i].BRANDNAME;
+                }
+                console.log(this.seriesPieChart);
+                console.log(this.chartOptions.labels);
+            }
+        }
+    }
 }
 
 </script>

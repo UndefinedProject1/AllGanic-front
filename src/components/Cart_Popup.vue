@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import {getCurrentInstance} from '@vue/runtime-core';
 import axios from 'axios';
 import cart_popup_img1 from '@/assets/cart_popup_img1.png';
 import cart_popup_img2 from '@/assets/cart_popup_img2.png';
@@ -47,6 +48,7 @@ import cart_plus from '@/assets/cart_plus.png';
     export default {
         data() {
             return {
+                $socket : '',
                 token : sessionStorage.getItem("token"),
                 drawer : true,
                 cart_popup_img1 : cart_popup_img1,
@@ -64,6 +66,15 @@ import cart_plus from '@/assets/cart_plus.png';
         },
         async created(){
             await this.getCartItem();
+            const app = getCurrentInstance();
+            this.$socket = app.appContext.config.globalProperties.$socket;
+            console.log(this.$socket);
+        },
+        mounted() {
+            this.$socket.on("cartin", async (recv) => {
+                console.log(recv);
+                await this.getCartItem();
+            })
         },
         methods : {
             handleDrawer(){
