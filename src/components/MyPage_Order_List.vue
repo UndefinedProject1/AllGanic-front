@@ -1,6 +1,4 @@
 +<template>
-    <div class="info_wapper">
-        <MyPage_Info></MyPage_Info>
             <div class="info_list">
                 <div class="order_list">
                     <p>주문내역</p>
@@ -52,12 +50,11 @@
                     </div>
                 </div>
             </div>
-    </div>
 </template>
 
 <script>
 import axios from "axios";
-import MyPage_Info from '@/components/MyPage_Info.vue';
+// import MyPage_Info from '@/components/MyPage_Info.vue';
 import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     export default {
          data() {
@@ -70,9 +67,9 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
         async created() {
             await this.orderListGet();
         },
-        components : {
-            MyPage_Info : MyPage_Info,
-        },
+        // components : {
+        //     MyPage_Info : MyPage_Info,
+        // },
         methods : {
             async orderListGet() {
                 const url = `REST/api/payments/member/list`;
@@ -93,15 +90,9 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 </script>
 
 <style scoped>
-.info_wapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    font-family: 'Gowun Dodum', sans-serif;
-}
 .info_list {
     /* border: 1px solid black; */
-    width: 100%;
+    width: 98.5%;
     height: 100%;
     margin-left: 30px;
 }
@@ -118,7 +109,7 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 .insert_list {
     border: 1px solid black;
     width: 100%;
-    height: 497px;
+    height: 545px;
     border-radius: 5px;
 }
 .insert_date_code {

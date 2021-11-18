@@ -7,7 +7,6 @@ import Login from '@/components/Login.vue';
 import Cart_Popup from '@/components/Cart_Popup.vue';
 import Admin_Page from '@/components/Admin_Page.vue';
 import Restrict_Page from '@/components/Restrict_Page.vue';
-import MyPage from '@/components/MyPage.vue';
 import Product_Table from '@/components/Product_Table.vue';
 import Product_Detail from '@/components/Product_Detail.vue';
 import MyPage_Member_Update from '@/components/MyPage_Member_Update.vue';
@@ -19,6 +18,8 @@ import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
 import MyPage_Cancle from '@/components/MyPage_Cancle.vue';
 import Brand_Product_Table from '@/components/Brand_Product_Table.vue';
 import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
+import MyPage_Info from '@/components/MyPage_Info.vue';
+import test from '@/components/test.vue';
 
 
 const routes = [
@@ -28,7 +29,6 @@ const routes = [
     {path : '/cart_popup' , name :'cart_popup', component : Cart_Popup},
     {path : '/admin_page' , name :'admin_page', component : Admin_Page},
     {path : '/restrict_page' , name :'restrict_page', component : Restrict_Page},
-    {path : '/mypage' , name :'mypage', component : MyPage},
     {path : '/product_table' , name :'product_table', component : Product_Table},
     {path : '/product_detail' , name :'product_detail', component : Product_Detail},
     {path : '/mypage_member_update' , name :'mypage_member_update', component : MyPage_Member_Update},
@@ -40,6 +40,8 @@ const routes = [
     {path : '/mypage_cancle' , name :'mypage_cancle', component : MyPage_Cancle},
     {path : '/brand_product_table' , name :'brand_product_table', component : Brand_Product_Table},
     {path : '/mypage_near_list' , name :'mypage_near_list', component : MyPage_Near_List},
+    {path : '/mypage_info' , name :'mypage_info', component : MyPage_Info},
+    {path : '/test' , name :'test', component : test},
 
 ];
 

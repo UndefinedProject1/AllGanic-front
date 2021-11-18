@@ -1,6 +1,4 @@
 <template>
-  <div class="info_wapper">
-    <MyPage_Info></MyPage_Info>
     <div class="info_list">
       <div class="m_update_title">
         <p>회원정보 변경</p>
@@ -36,7 +34,8 @@
             <p>연락처</p>
           </div>
           <div class="u_phone_box">
-            <input type="text" v-model="member.USERTEL" refs="phone" />
+            <input type="text" oninput="autoHyphen(this)" maxlength="13"  v-model="member.USERTEL" refs="phone" @keyup="numberHipen">
+            <!-- <input type="number" /> -->
           </div>
           </div>
         <div class="m_address">
@@ -106,7 +105,6 @@
         </div>
         <button type="button" id="handle_memupdate" @click="handle_memupdate">회원정보수정</button>
       </div>
-    </div>
 
     <!-- modal -->
     <el-dialog 
@@ -156,195 +154,203 @@
   </div>
 </template>
 
+
 <script>
 import axios from "axios";
-import MyPage_Info from "@/components/MyPage_Info.vue";
+//import MyPage_Info from "@/components/MyPage_Info.vue";
 import mypage_mail from "@/assets/mypage_mail.png";
 import mypage_pw from "@/assets/mypage_pw.png";
 import mypage_profile from "@/assets/mypage_profile.png";
 import mypage_phone from "@/assets/mypage_phone.png";
 import mypage_address from "@/assets/mypage_address.png";
+  export default {
+      data() {
+        return {
+            token: sessionStorage.getItem("token"),
+            mypage_mail: mypage_mail,
+            mypage_pw: mypage_pw,
+            mypage_profile: mypage_profile,
+            mypage_phone: mypage_phone,
+            mypage_address: mypage_address,
+            
+            postcode: "",
+            roadAddress: "",
+            detailAddress: "",
+            member:[],
 
-export default {
-  data() {
-    return {
-        token: sessionStorage.getItem("token"),
-        mypage_mail: mypage_mail,
-        mypage_pw: mypage_pw,
-        mypage_profile: mypage_profile,
-        mypage_phone: mypage_phone,
-        mypage_address: mypage_address,
+            centerDialogVisible: false,
         
-        postcode: "",
-        roadAddress: "",
-        detailAddress: "",
-        member:[],
+            chk_pw1 : "",
+            chk_pw2 : "",
+            chk_pw3 : "",
+            pw1_btn : "",
+            pw2_btn : "",
+            pw3_btn : "",
 
-        centerDialogVisible: false,
-    
-        chk_pw1 : "",
-        chk_pw2 : "",
-        chk_pw3 : "",
-        pw1_btn : "",
-        pw2_btn : "",
-        pw3_btn : "",
-
-        modalcheck: {
-            width: "fit-content",
-            height: "20px",
-            fontFamily: '"Gowun Dodum", serif',
-            fontSize: "13px",
-            marginTop: "10px",
-            marginRight: "15px",
-            color: "black",
-        },
-    };
-  },
-  mounted() {
-    let daumPostCode = document.createElement("script");
-    daumPostCode.setAttribute(
-      "src",
-      "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
-    );
-    document.head.appendChild(daumPostCode);
-  },
-  async created() {
-    await this.handleMemberGet();
-  },
-  components: {
-    MyPage_Info: MyPage_Info,
-  },
-  methods: {
-    async handleMemberGet() {
-      const url = `REST/api/member/find`;
-      const headers = { token: this.token };
-      // console.log(header);
-      const response = await axios.get(url, { headers });
-      console.log(response);
-      if (response.data.result === 1) {
-        this.member = response.data.member;
-
-        // 주소 입력칸에 보이게 하는 부분 
-        this.postcode = response.data.member.POST;
-        this.roadAddress = response.data.member.ADDRESS;
-        this.detailAddress = response.data.member.DETAILEADDRESS;
-
-        console.log(this.member);
-      } 
-      else alert("정보를 받아오지 못하였습니다.");
-    },
-    openDaumPostCode() {
-      new window.daum.Postcode({
-        oncomplete: (data) => {
-          // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-          // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-          let addr = data.query; // 주소 변수
-          let postcode = data.zonecode;
-          let extraRoadAddr = "";
-
-          // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-          // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-          if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-            extraRoadAddr += data.bname;
-          }
-          // 건물명이 있고, 공동주택일 경우 추가한다.
-          if (data.buildingName !== "" && data.apartment === "Y") {
-            extraRoadAddr +=
-              extraRoadAddr !== ""
-                ? ", " + data.buildingName
-                : data.buildingName;
-          }
-          // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-          if (extraRoadAddr !== "") {
-            extraRoadAddr = " (" + extraRoadAddr + ")";
-          }
-
-          // 우편번호와 주소 정보를 해당 필드에 넣는다.
-          // document.getElementById('address').value = addr
-          this.postcode = postcode;
-          this.roadAddress = addr;
-
-          // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-          if (addr !== "") {
-            this.detailAddress = extraRoadAddr;
-          } else {
-            this.detailAddress = "";
-          }
-        },
-        theme: {
-          searchBgColor: "#1B1B1C",
-          queryTextColor: "#FFFFFF",
-        }
-      }).
-      open();
-    },
-    async handlPWUpdate() {
-        if(this.pw1_btn.length === 0) {
-            this.chk_pw1 = "기존 비밀번호는 필수항목 입니다.";
-            this.modalcheck.color = "Red";
-            return this.$refs.pw1.focus();
-        }
-        else if(this.pw2_btn.length === 0) {
-            this.chk_pw2 = "새 비밀번호는 필수 항목입니다.";
-            this.modalcheck.color = "Red";
-            return this.$refs.pw2.focus();
-        }
-        else if(this.pw2_btn !== this.pw3_btn) {
-            this.chk_pw3 = "새 비밀번호와 일치해야 합니다.";
-            this.modalcheck.color = "Red";
-            return this.$refs.pw3.focus();
-        }
-        const headers = {"token" : this.token};
-        const body = {
-            userpw : this.pw1_btn,
-            usernewpw : this.pw2_btn
+            modalcheck: {
+                width: "fit-content",
+                height: "20px",
+                fontFamily: '"Gowun Dodum", serif',
+                fontSize: "13px",
+                marginTop: "10px",
+                marginRight: "15px",
+                color: "black",
+            },
         };
-        console.log(body);
-        const url = `REST/api/member/passwd`;
-        const response = await axios.put(url, body, {headers});
-        console.log(response);
-        if(response.data.result === 1) {
-            alert("비밀번호 수정 성공");
-            // alert버튼 누르면 모달창 사라짐
-            document.getElementById('btn_close').click();
+      },
+      mounted() {
+        let daumPostCode = document.createElement("script");
+        daumPostCode.setAttribute(
+          "src",
+          "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+        );
+        document.head.appendChild(daumPostCode);
+
+        
+      },
+      async created() {
+      await this.handleMemberGet();
+      },
+      // components: {
+      //   MyPage_Info: MyPage_Info,
+      // },
+      methods: {
+      async numberHipen() {
+        // const autoHyphen = (target) => {
+        //   target.value = target.value
+        //     .replace(/[^0-9]/, '')
+        //     .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+
+        //     console.log(autoHyphen);
+        //   }
+        // $(document).on("keyup", ".phoneNumber", function() { $(this).val( $(this).val().replace(/[^0-9]/g, "")
+        // .replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); });
+      },
+
+        async handleMemberGet() {
+          const url = `REST/api/member/find`;
+          const headers = { token: this.token };
+          // console.log(header);
+          const response = await axios.get(url, { headers });
+          console.log(response);
+          if (response.data.result === 1) {
+            this.member = response.data.member;
+
+            // 주소 입력칸에 보이게 하는 부분 
+            this.postcode = response.data.member.POST;
+            this.roadAddress = response.data.member.ADDRESS;
+            this.detailAddress = response.data.member.DETAILEADDRESS;
+
+            console.log(this.member);
+          } 
+          else alert("정보를 받아오지 못하였습니다.");
+        },
+        openDaumPostCode() {
+          new window.daum.Postcode({
+            oncomplete: (data) => {
+              // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+              // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+              // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+              let addr = data.query; // 주소 변수
+              let postcode = data.zonecode;
+              let extraRoadAddr = "";
+
+              // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+              // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+              if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+                extraRoadAddr += data.bname;
+              }
+              // 건물명이 있고, 공동주택일 경우 추가한다.
+              if (data.buildingName !== "" && data.apartment === "Y") {
+                extraRoadAddr +=
+                  extraRoadAddr !== ""
+                    ? ", " + data.buildingName
+                    : data.buildingName;
+              }
+              // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+              if (extraRoadAddr !== "") {
+                extraRoadAddr = " (" + extraRoadAddr + ")";
+              }
+
+              // 우편번호와 주소 정보를 해당 필드에 넣는다.
+              // document.getElementById('address').value = addr
+              this.postcode = postcode;
+              this.roadAddress = addr;
+
+              // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+              if (addr !== "") {
+                this.detailAddress = extraRoadAddr;
+              } else {
+                this.detailAddress = "";
+              }
+            },
+            theme: {
+              searchBgColor: "#1B1B1C",
+              queryTextColor: "#FFFFFF",
+            }
+          }).
+          open();
+        },
+        async handlPWUpdate() {
+            if(this.pw1_btn.length === 0) {
+                this.chk_pw1 = "기존 비밀번호는 필수항목 입니다.";
+                this.modalcheck.color = "Red";
+                return this.$refs.pw1.focus();
+            }
+            else if(this.pw2_btn.length === 0) {
+                this.chk_pw2 = "새 비밀번호는 필수 항목입니다.";
+                this.modalcheck.color = "Red";
+                return this.$refs.pw2.focus();
+            }
+            else if(this.pw2_btn !== this.pw3_btn) {
+                this.chk_pw3 = "새 비밀번호와 일치해야 합니다.";
+                this.modalcheck.color = "Red";
+                return this.$refs.pw3.focus();
+            }
+            const headers = {"token" : this.token};
+            const body = {
+                userpw : this.pw1_btn,
+                usernewpw : this.pw2_btn
+            };
+            console.log(body);
+            const url = `REST/api/member/passwd`;
+            const response = await axios.put(url, body, {headers});
+            console.log(response);
+            if(response.data.result === 1) {
+                alert("비밀번호 수정 성공");
+                // alert버튼 누르면 모달창 사라짐
+                document.getElementById('btn_close').click();
+            }
+        },
+        async handle_memupdate() {
+          // console.log("ddd");
+          const url = `REST/api/member/update`;
+          const body = {
+            username : this.member.USERNAME,
+            usertel : this.member.USERTEL,
+            post : this.postcode,
+            address : this.roadAddress,
+            detaileaddress : this.detailAddress, 
+          }
+          console.log(body);
+          const headers = {"Content-Type" : "application/json", "token" : this.token};
+          const response = await axios.put(url, body, {headers});
+          console.log(response);
+          if(response.data.result === 1) {
+            alert("회원정보수정 성공");
+          }
+          else if(response.data.result !== 1) {
+            alert("회원정보수정 실패");
+          }
         }
-    },
-    async handle_memupdate() {
-      // console.log("ddd");
-      const url = `REST/api/member/update`;
-      const body = {
-        username : this.member.USERNAME,
-        usertel : this.member.USERTEL,
-        post : this.postcode,
-        address : this.roadAddress,
-        detaileaddress : this.detailAddress, 
-      }
-      console.log(body);
-      const headers = {"Content-Type" : "application/json", "token" : this.token};
-      const response = await axios.put(url, body, {headers});
-      console.log(response);
-      if(response.data.result === 1) {
-        alert("회원정보수정 성공");
-      }
-      else if(response.data.result !== 1) {
-        alert("회원정보수정 실패");
-      }
-    }
-  },
-};
+      },
+  }
 </script>
 
 <style scoped>
-.info_wapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  font-family: 'Gowun Dodum', sans-serif;
-}
 .info_list {
-  width: 100%;
+  width: 98.5%;
   height: 100%;
   margin-left: 30px;
 }
@@ -361,7 +367,7 @@ export default {
 .m_update_insert {
   border: 1px solid black;
   width: 100%;
-  height: 497px;
+  height: 545px;
   border-radius: 3px;
   display: flex;
   flex-direction: column;

@@ -1,59 +1,60 @@
 <template>
-    <div class="info_box">
-        <div class="info_container">
-            <div class="info_name">
-                <p type="text">{{member.USERNAME}}</p>
-                <p>님</p>
+    <div class="info_wapper">
+        <div class="info_box">
+            <div class="info_container">
+                <div class="info_name">
+                    <p type="text">{{member.USERNAME}}</p>
+                    <p>님</p>
+                </div>
+                <div class="info_info">
+                    <div class="info_email">
+                        <img :src="mypage_mail"/>
+                        <p type="text">{{member.USEREMAIL}}</p>
+                    </div>
+                    <div class="info_ad_icon">
+                        <img :src="mypage_address"/>
+                        <div class="m_address">
+                            <div class="m_update_postcode">
+                                <p type="text">{{postcode}}</p>
+                                <p >/</p>
+                                <p type="text">{{roadAddress}}</p>
+                            </div>
+                            <div class="m_update_detailAddress">
+                                <p type="text">{{detailAddress}}</p>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="btn_box">
+                        <button type="button" @click="hadleClickUrl(1)">기본주소 수정</button>
+                    </div>
+                </div>
             </div>
-            <div class="info_info">
-                <div class="info_email">
-                    <img :src="mypage_mail"/>
-                    <p type="text">{{member.USEREMAIL}}</p>
+
+            <hr class="solid" />
+
+            <div class="info_menu">
+                <div class="info_mypage_home">
+                    <p @click="hadleClickUrl(0)">[MyPage Home]</p>
                 </div>
-                <div class="info_ad_icon">
-                    <img :src="mypage_address"/>
-                    <div class="m_address">
-                        <div class="m_update_postcode">
-                            <p type="text">{{postcode}}</p>
-                            <p >/</p>
-                            <p type="text">{{roadAddress}}</p>
-                        </div>
-                        <div class="m_update_detailAddress">
-                            <p type="text">{{detailAddress}}</p>
-                        </div>
-                    </div> 
-               </div>
-                <div class="btn_box">
-                    <button type="button" @click="hadleClickUrl(1)">기본주소 수정</button>
+                <div class="info_member">
+                    <span>Member</span>
+                    <p @click="hadleClickUrl(1)">회원정보변경</p>
+                    <p @click="hadleClickUrl(2)">회원탈퇴</p>
                 </div>
-                
+                <div class="info_order">
+                    <span>Order</span>
+                    <p @click="hadleClickUrl(3)">교환내역</p>
+                    <p @click="hadleClickUrl(4)">주문내역</p>
+                </div>
+                <div class="info_qa">
+                    <span>QnA</span>
+                    <p @click="hadleClickUrl(5)">문의내역</p>
+                </div>
             </div>
         </div>
-
-        <hr class="solid" />
-
-        <div class="info_menu">
-            <div class="info_mypage_home">
-                <p @click="hadleClickUrl(0)">[MyPage Home]</p>
-            </div>
-            <div class="info_member">
-                <span>Member</span>
-                <p @click="hadleClickUrl(1)">회원정보변경</p>
-                <p @click="hadleClickUrl(2)">회원탈퇴</p>
-            </div>
-            <div class="info_order">
-                <span>Order</span>
-                <p @click="hadleClickUrl(3)">교환내역</p>
-                <p @click="hadleClickUrl(4)">주문내역</p>
-            </div>
-            <div class="info_qa">
-                <span>QnA</span>
-                <p @click="hadleClickUrl(5)">문의내역</p>
-            </div>
+        <div class="admin_content" >
+            <component v-bind:is="MainPage" @hadleClickUrl="hadleClickUrl"></component>
         </div>
-    </div>
-    <div class="admin_content" >
-        <component v-bind:is="MainPage"></component>
     </div>
 </template>
 
@@ -61,7 +62,7 @@
 import axios from "axios";
 import mypage_mail from '@/assets/mypage_mail.png';
 import mypage_address from '@/assets/mypage_address.png';
-import MyPage from '@/components/MyPage.vue';
+// import MyPage from '@/components/MyPage.vue';
 import MyPage_Member_Update from '@/components/MyPage_Member_Update.vue';
 import MyPage_Delete from '@/components/MyPage_Delete.vue';
 import MyPage_Cancle from '@/components/MyPage_Cancle.vue';
@@ -90,20 +91,24 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
             }
         },
         components : {
-            'MyPage' : MyPage,
             'MyPageMemberUpdate' : MyPage_Member_Update,
             'MyPageDelete' : MyPage_Delete,
             'MyPageCancle' : MyPage_Cancle,
             'MyPageOrderList' : MyPage_Order_List,
             'MyPageQAList' : MyPage_QA_List,
             'MyPageNearList' : MyPage_Near_List,
+            
         },
         async created() {
             await this.handleMemberGet();
         },
         methods : {
+            handleMypageInfo(){
+                this.$emit('changeLogged', true);
+            },
             hadleClickUrl(val){
                 this.MainPage = this.pages[val];
+                console.log(this.MainPage);
             },
             async handleMemberGet() {
                 const url = `REST/api/member/find`;
@@ -150,7 +155,7 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
 .info_info {
     /* border: 1px solid black; */
     padding: 5px;
-    width: 95%;
+    width: 100%;
     margin: 0 auto;
 }
 .info_name {
@@ -336,5 +341,12 @@ img {
 }
 .admin_content {
     width: 100%;
+}
+.info_wapper {
+    /* border: 1px solsid black; */
+    display: flex;
+    padding: 40px;
+    font-family: 'Gowun Dodum', sans-serif;
+    margin-top: 4.5%;
 }
 </style>

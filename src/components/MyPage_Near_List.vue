@@ -1,6 +1,4 @@
 <template>
-     <div class="info_wapper">
-        <MyPage_Info></MyPage_Info>
         <div class="info_list">
             <div class="info_title">
                 <p>My Page</p>
@@ -8,7 +6,7 @@
             <div class="order_list" @click="mypage_orli_btn">
                 <div class="order_list_name">
                      <p>최근 주문내역</p>
-                    <p>더보기 <img :src="mypage" style="right" class="mypage_plus"/> </p>
+                    <p @click="moreorderlist">더보기 <img :src="mypage" style="right" class="mypage_plus"/> </p>
                 </div>
                 <div class="or_li_box1" >
                     <div class="insert_date_code">
@@ -60,7 +58,7 @@
             <div class="qna_list">
                 <div class="order_list_qa">
                     <p>최근 문의내역</p>
-                    <p>더보기 <img :src="mypage" style="right" class="mypage_plus"/></p>
+                    <p @click="morequestion">더보기 <img :src="mypage" style="right" class="mypage_plus"/></p>
                 </div>
                 <div class="or_qa_box1">
                     <div class="insert_date_code">
@@ -107,7 +105,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
     <!-- <Footer></Footer> -->
 </template>
 
@@ -115,8 +113,6 @@
 import mypage_mail from '@/assets/mypage_mail.png';
 import mypage_address from '@/assets/mypage_address.png';
 import mypage from '@/assets/mypage.png';
-import MyPage_Info from '@/components/MyPage_Info.vue';
-//import Footer from './Footer.vue';
     export default {
         data() {
             return {
@@ -125,27 +121,22 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
                 mypage : mypage,
             }
         },
-        components : {
-            MyPage_Info : MyPage_Info,
-            //Footer : Footer
-        },
         methods : {
+            moreorderlist() {
+                this.$emit("hadleClickUrl",4);
+            },
+            morequestion() {
+               this.$emit("hadleClickUrl",5); 
+            }
         }
     }
 </script>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
-.info_wapper {
-    /* border: 1px solsid black; */
-    width: 100%;
-    height: 100%;
-    display: flex;
-    font-family: 'Gowun Dodum', sans-serif;
-} 
 .info_list {
     /* border: 1px solid black; */
-    width: 100%;
+    width: 98.5%;
     height: 100%;
     margin-left: 30px;
 }

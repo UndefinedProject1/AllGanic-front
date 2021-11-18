@@ -1,6 +1,4 @@
 <template>
-    <div class="info_wapper">
-        <MyPage_Info></MyPage_Info>
             <div class="cancle_list">
                 <div class="cancle_name">
                     <p>교환 내역</p>
@@ -76,11 +74,10 @@
                     </div> -->
                 </div>
             </div>
-    </div>
 </template>
 
 <script>
-import MyPage_Info from '@/components/MyPage_Info.vue';
+// import MyPage_Info from '@/components/MyPage_Info.vue';
 import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     export default {
         data() {
@@ -93,9 +90,9 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
                 ]
             }
         },
-        components : {
-            MyPage_Info : MyPage_Info,
-        },
+        // components : {
+        //     MyPage_Info : MyPage_Info,
+        // },
             methods : {
         }
     }
@@ -103,15 +100,9 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
-.info_wapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    font-family: 'Gowun Dodum', sans-serif;
-}
 .cancle_list {
     /* border: 1px solid black; */
-    width: 100%;
+    width: 98.5%;
     height: 100%;
     margin-left: 30px;
 }
@@ -128,7 +119,7 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 .cancle_insert {
     border: 1px solid black;
     width: 100%;
-    height: 497px;
+    height: 545px;
     border-radius: 5px;
 }
 .cancle_date {
