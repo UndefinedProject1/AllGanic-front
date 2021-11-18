@@ -128,7 +128,7 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 .cancle_insert {
     border: 1px solid black;
     width: 100%;
-    height: 510px;
+    height: 497px;
     border-radius: 5px;
 }
 .cancle_date {

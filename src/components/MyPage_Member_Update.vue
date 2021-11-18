@@ -15,7 +15,6 @@
           <div class="m_update_pw">
             <img :src="mypage_pw" />
             <p>비밀번호</p>
-            {{ chk_pw2 }}
           </div>
           <div class="u_pw_box">
             <input type="password" v-model="u_password_text" refs="password" />
@@ -149,7 +148,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="centerDialogVisible = false">Cancel</el-button>
-        <!-- <el-button type="button" id="btn_close" style="display:none">Close</el-button> -->
+        <el-button @click="centerDialogVisible = false" id="btn_close" style="display:none">Close</el-button>
         <el-button type="primary" @click="handlPWUpdate">Confirm</el-button>
       </span>
     </template>
@@ -309,7 +308,7 @@ export default {
         if(response.data.result === 1) {
             alert("비밀번호 수정 성공");
             // alert버튼 누르면 모달창 사라짐
-            // document.getElementById('btn_close').click();
+            document.getElementById('btn_close').click();
         }
     },
     async handle_memupdate() {
@@ -362,7 +361,7 @@ export default {
 .m_update_insert {
   border: 1px solid black;
   width: 100%;
-  height: 510px;
+  height: 497px;
   border-radius: 3px;
   display: flex;
   flex-direction: column;

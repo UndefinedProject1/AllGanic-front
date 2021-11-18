@@ -24,7 +24,7 @@
                     </div> 
                </div>
                 <div class="btn_box">
-                    <button type="button" @click="handleAddressUpdate">기본주소 수정</button>
+                    <button type="button" @click="hadleClickUrl(1)">기본주소 수정</button>
                 </div>
                 
             </div>
@@ -98,6 +98,9 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
             'MyPageQAList' : MyPage_QA_List,
             'MyPageNearList' : MyPage_Near_List,
         },
+        async created() {
+            await this.handleMemberGet();
+        },
         methods : {
             hadleClickUrl(val){
                 this.MainPage = this.pages[val];
@@ -114,28 +117,13 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
                     this.postcode = response.data.member.POST;
                     this.roadAddress = response.data.member.ADDRESS;
                     this.detailAddress = response.data.member.DETAILEADDRESS;
-                    console.log(this.member);
+                    console.log(this.member)
                 } 
                 else alert("정보를 받아오지 못하였습니다.");
             },
             // handleAddressUpdate() {
             //     window.location.href = 'http://127.0.0.1:9090/mypage_member_update';
             // },
-            // handleUpdate() {
-            //     window.location.href = 'http://127.0.0.1:9090/mypage_member_update';
-            // },
-            // handleDelete() {
-            //     window.location.href = 'http://127.0.0.1:9090/mypage_delete';
-            // },
-            // handleCancle() {
-            //     window.location.href = 'http://127.0.0.1:9090/mypage_cancle';
-            // },
-            // handleOrder() {
-            //     window.location.href = 'http://127.0.0.1:9090/mypage_order_list';
-            // },
-            // handleQA() {
-            //     window.location.href = 'http://127.0.0.1:9090/mypage_qa_list';
-            // }
         }
     }
 </script>
@@ -160,29 +148,29 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
 .info_info {
     /* border: 1px solid black; */
     padding: 5px;
-    width: 80%;
+    width: 95%;
     margin: 0 auto;
 }
 .info_name {
     width: 100%;
     display: flex;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     justify-content: center;
     align-items: center;
 }
 .info_name > p:first-child {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     color: #49654E;
     font-size: 25px;
     font-weight: 300;
     margin: 5px 0px 0px 0px;
-    width: 50%;
-    height: 15px;
-    /* height: fit-content; */
+    /* width: 50%; */
+    /* height: 15px; */
+    height: fit-content;
     font-family: 'Gowun Dodum', sans-serif;
 }
 .info_name > p:last-child {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     font-family: 'Gowun Dodum', sans-serif;
     font-size: 15px;
     color: black;
@@ -191,24 +179,24 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
     margin: 5px 0px 0px 3px;
 }
 .info_email {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 100%;
     display: flex;
     align-items: center;
 }
 .info_email > p {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     font-size: 14px;
     font-family: 'Gowun Dodum', sans-serif;
     margin-left: 8px;
 }
 img {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 20px;
     height: 20px;
 }
 .info_ad_icon {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 100%;
     display: flex;
     align-items: center;
@@ -218,7 +206,7 @@ img {
     height: 1px;
 }
 .info_address {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     justify-content: center;
 }
@@ -266,7 +254,7 @@ img {
     width: fit-content;
     font-size: 14px;
     font-family: 'Gowun Dodum', sans-serif;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin: 0;
 }
 .m_update_postcode > p:nth-child(2) {
@@ -274,7 +262,7 @@ img {
     width: fit-content;
     font-size: 14px;
     font-family: 'Gowun Dodum', sans-serif;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin: 0;
 }
 .m_update_postcode > p:last-child {
@@ -282,7 +270,7 @@ img {
     width: fit-content;
     font-size: 14px;
     font-family: 'Gowun Dodum', sans-serif;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin: 0;
 }
 .m_update_detailAddress {
@@ -335,7 +323,7 @@ img {
     font-size: 20px;
     margin-bottom: 10px;
 }
-.info_member > p, .info_order > p, .info_qa > p {
+.info_member > p, .info_order > p, .info_qa > p, .info_mypage_home > p {
     margin-bottom: 0;
     margin-top: 5px;
     cursor: pointer;

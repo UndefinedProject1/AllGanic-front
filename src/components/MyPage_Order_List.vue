@@ -6,13 +6,15 @@
                     <p>주문내역</p>
                 </div>
                 <div class="insert_list">
-                    <div class="insert_date">
-                        <p style="margin-left:30px; color:#715036; font-weight: bold; margin-bottom:0px;">주문일자</p>
-                        <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">2021.11.07</p>
-                    <div class="insert_prdcode">
-                        <p style="margin-left:40px; color:#715036; font-weight: bold; margin-bottom:0px;">주문번호</p>
-                        <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">{{merchant_uid}}</p>
-                    </div>
+                    <div class="insert_date_code">
+                        <div class="insert_date">
+                            <p style="margin-left:30px; color:#715036; font-weight: bold; margin-bottom:0px;">주문일자</p>
+                            <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">2021.11.07</p>
+                        </div>
+                        <div class="insert_ordercode">
+                            <p style="margin-left:40px; color:#715036; font-weight: bold; margin-bottom:0px;">주문번호</p>
+                            <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">20111114-000856</p>
+                        </div>
                     </div>
                     <hr class="solid" style="border-top-width: 0px;"/>
                     <!-- 주문목록 Table -->
@@ -116,16 +118,21 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 .insert_list {
     border: 1px solid black;
     width: 100%;
-    height: 510px;
+    height: 497px;
     border-radius: 5px;
+}
+.insert_date_code {
+    display: flex;
+    
 }
 .insert_date {
     display: flex;
     margin-top: 10px;
     margin-left: 15px;
 }
-.insert_prdcode { 
+.insert_ordercode { 
     display: flex;
+    margin-top: 10px;
 }
 .solid {
     border: 1px solid rgb(228, 227, 227);
