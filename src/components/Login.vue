@@ -100,6 +100,8 @@ import { ElMessage } from 'element-plus'
                 else {
                     this.failAlertMSG();
                 }
+
+                this.$emit('changeLogged', true);
             },
         }
 

@@ -89,7 +89,7 @@ import face_img from '@/assets/face_img.jpg';
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Playfair+Display:wght@400;500;700;800&display=swap');
 .main_wrapper{
     scroll-snap-type: y mandatory;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     height: 100vh;
     /* margin-top: 4.5%; */
 }

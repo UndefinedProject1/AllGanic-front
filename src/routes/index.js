@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
+// import axios from "axios";
 
 import Main from '@/components/Main.vue';
 import Join from '@/components/Join.vue';
@@ -51,14 +52,45 @@ const router = createRouter({
 //     console.log(to);
 //     console.log(from);
 
-//     const role = sessionStorage.getItem("role");
+//     // const role = sessionStorage.getItem("role");
+//     const token = sessionStorage.getItem("token");
+//     var result = 0;
+
+
+//     const url = `REST/api/member/validtoken`;
+//     const headers = {"token" : token };
+//     const response = await axios.get(url, {headers}); 
+//     result = response.data.ret;
+
+//     // URL 저장해서 마지막으로 있었던 페이지를 기억할 필요가 없는 경우(로그인, 조인 등)
+//     sessionStorage.setItem("URL", JSON.stringify({path:"/", query:{}}));
     
-//     if(to.name === 'admin_page' && role !== 2){
-//         next({name : 'restrict_page'});
+//     // URL 저장을 통해 마지막으로 있었던 페이지를 기억해야하는 경우
+//     if(to.name !== 'login' && to.name !== 'join' && to.name !== 'maypage' && result === 1){
+//         sessionStorage.setItem("URL", JSON.stringify({path:to.path, query:to.query}));
 //     }
-//     else{
-//         next()
+
+//     // 로그인이 되지 않은채로 장바구니 접근시 -> 로그인 페이지로
+//     if(to.name === 'product_cart' && result !== 1){
+//         if(result === 0){
+//             next({name:'login'});
+//         }
 //     }
+
+//     // 로그인이 되지 않은채로 주문 페이지 접근시 -> 로그인 페이지로
+//     if(to.name === 'order_page' && result !== 1){
+//         if(result === 0){
+//             next({name:'login'});
+//         }
+//     }
+
+//     // // 관리자 페이지 막기
+//     // if(to.name === 'admin_page' && role !== 2){
+//     //     next({name : 'restrict_page'});
+//     // }
+//     // else{
+//     //     next()
+//     // }
 // });
 
 export default router;

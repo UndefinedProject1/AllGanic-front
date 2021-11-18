@@ -327,7 +327,7 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
 .apl_header{
     /* border: 1px solid black; */
     width : 100%;
-    height: 14.5%;
+    height: 14%;
     display : flex;
     flex-direction: row;
     align-items: center;

@@ -173,7 +173,7 @@ import axios from 'axios';
     font-family: 'Gowun Dodum', sans-serif;
 }
 .aci_header {
-    height : 14.5%;
+    height : 14%;
     width : 100%;
     display : flex;
     flex-direction: row;
@@ -202,7 +202,7 @@ import axios from 'axios';
     width : 100%;
 }
 .aci_content{
-    padding: 10px 80px;
+    padding: 50px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -292,7 +292,7 @@ Button:hover{
 .cate_insert_note{
     border : 1px solid rgb(206 212 217);
     width : 100%;
-    height : 50%;
+    height : 60%;
     padding: 20px ;
     display: flex;
     flex-direction: column;

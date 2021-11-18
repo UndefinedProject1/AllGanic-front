@@ -155,7 +155,7 @@ import axios from 'axios';
     font-family: 'Gowun Dodum', sans-serif;
 }
 .qa_list_header {
-    height : 15.5%;
+    height : 14%;
     width : 100%;
     display : flex;
     flex-direction: row;

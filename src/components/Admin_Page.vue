@@ -123,14 +123,14 @@ import Admin_QA_List_Complete from '@/components/Admin_QA_List_Complete.vue';
     display : flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 .sidemenu_container .section{
     /* border : 1px solid black; */
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin : 20px 20px 0px 20px;
+    margin : 40px 20px 0px 20px;
 }
 .sidemenu_container .section:first-child{
     /* border : 1px solid black; */

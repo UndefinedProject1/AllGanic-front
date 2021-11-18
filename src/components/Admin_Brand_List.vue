@@ -80,7 +80,7 @@ import melixir from '@/assets/melixir.png';
     font-family: 'Gowun Dodum', sans-serif;
 }
 .br_in_header {
-    height : 15%;
+    height : 13%;
     width : 100%;
     display : flex;
     flex-direction: row;
@@ -131,7 +131,7 @@ tbody td {
 .adbr_box {
     /* border: 1px solid black;  */
     width: 110px;
-    height: 70px; 
+    height: 60px; 
     border-radius: 30%;
     overflow: hidden;
 }
@@ -143,11 +143,16 @@ tbody td {
 }
 #brand_deleteBtn{
     margin: 20px 0; 
-    width: 50px; 
+    width: 60px; 
+    height: 40px;
     border-radius: 7px;
     color: white; 
     background-color: #49654E; 
     border:none;
+}
+#brand_deleteBtn:hover{
+    cursor: pointer;
+    opacity: 0.8;
 }
 
 

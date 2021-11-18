@@ -5,6 +5,10 @@
 </template>
 
 <script>
+// import axios from 'axios';
+import mypage_mail from '@/assets/mypage_mail.png';
+import mypage_address from '@/assets/mypage_address.png';
+import mypage from '@/assets/mypage.png';
 import MyPage_Info from '@/components/MyPage_Info.vue';
     export default {
          data() {
@@ -14,7 +18,13 @@ import MyPage_Info from '@/components/MyPage_Info.vue';
         components : {
             MyPage_Info : MyPage_Info
         },
+        async created() {
+            await this.handleMypageInfo();
+        },
         methods : {
+            handleMypageInfo(){
+                this.$emit('changeLogged', true);
+            }
         }
     }
 </script>

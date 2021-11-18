@@ -70,7 +70,7 @@ import axios from "axios";
     overflow-x: hidden;
 }
 .qa_list_Cheader {
-    height : 15%;
+    height : 14%;
     width : 100%;
     display : flex;
     flex-direction: row;
