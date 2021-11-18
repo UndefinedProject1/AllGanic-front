@@ -21,13 +21,14 @@
           <p @click="goCart">cart</p>
         </div>
         <div class="mypage">
-          <p><a href="/login">login</a></p>
+          <p><a href="/login" v-if="!logged">login</a></p>
+          <p><a href="/mypage" v-if="logged">my page</a></p>
         </div>
       </div>
     </div>
     <!-- 메인 콘텐츠 -->
     <div class="content" @mouseover="closeSideNav">
-      <router-view></router-view>
+      <router-view @changeLogged="changeLogged"></router-view>
     </div>
   </div>
 
@@ -171,12 +172,13 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
   export default {
     data() {
       return{
-        showMain : false,
+        logged : false,
         routes : this.$route.path,
+        token : sessionStorage.getItem("token"),
         wrapper:{
           display: 'flex',
           flexDirection : 'column',
@@ -212,6 +214,18 @@
         }
       }
     },
+    async created(){
+      this.logged = false;
+      const url = `REST/api/member/validtoken`;
+      const headers = {"token" : this.token };
+      const response = await axios.get(url, headers);
+      if(response.data.ret === 1){
+        this.logged = true;
+      }
+      else if(response.data.ret === 0){
+        this.logged = false;
+      }else alert("error");
+    },
     methods : {
       openSideNav(){
         this.sideNavStyle.width="20%";
@@ -228,6 +242,9 @@
       },
       goCart(){
         this.$router.push({ path: "/product_cart" });
+      },
+      changeLogged(logged){
+        this.logged = logged;
       }
     },
   }

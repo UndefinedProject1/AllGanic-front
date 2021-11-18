@@ -117,7 +117,9 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
                     this.postcode = response.data.member.POST;
                     this.roadAddress = response.data.member.ADDRESS;
                     this.detailAddress = response.data.member.DETAILEADDRESS;
-                    console.log(this.member)
+                    console.log(this.member);
+
+                    this.$emit('changeLogged', true);
                 } 
                 else alert("정보를 받아오지 못하였습니다.");
             },
