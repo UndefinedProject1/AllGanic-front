@@ -22,7 +22,7 @@
         </div>
         <div class="mypage">
           <p><a href="/login" v-if="!logged">login</a></p>
-          <p><a href="/mypage" v-if="logged">my page</a></p>
+          <p><a href="/mypage_info" v-if="logged">my page</a></p>
         </div>
       </div>
     </div>
