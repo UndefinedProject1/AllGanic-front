@@ -45,11 +45,25 @@ import $ from 'jquery';
     export default {
         data() {
             return {
+<<<<<<< Updated upstream
                 // document : '',
                 // this : '',
                 // phoneNum :'',
                 // inputPhoneNumber : ''
 
+=======
+            }
+        },
+        mounted() {
+            // $(document).on("keyup", ".phoneNumber", function() { $(this).val( $(this).val().replace(/[^0-9]/g, "")
+            // .replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); });
+        },
+        methods : {
+            
+                // $(document).on("keyup", ".phoneNumber", function() { $(this).val( $(this).val().replace(/[^0-9]/g, "")
+                // .replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); });
+                
+>>>>>>> Stashed changes
                 // const autoHyphen = (target) => {
                 // target.value = target.value
                 // .replace(/[^0-9]/, '')

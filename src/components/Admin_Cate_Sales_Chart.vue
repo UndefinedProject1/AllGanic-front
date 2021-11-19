@@ -10,12 +10,17 @@
 </template>
 
 <script>
+import {getCurrentInstance} from '@vue/runtime-core';
+import axios from 'axios';
+
     export default {
         data(){
             return{
+                token: sessionStorage.getItem("token"),
+                $socket : '',
                 series: [{
-                    name: 'Servings',
-                    data: [44, 55, 41, 67, 22, 43, 21, 33, 45, 31, 87, 65, 35]
+                    name: '판매량',
+                    data: []
                 }],
                 chartOptions: {
                     annotations: {
@@ -62,9 +67,7 @@
                                 fontWeight : 700,
                             }
                         },
-                        categories: ['Apples', 'Oranges', 'Strawberries', 'Pineapples', 'Mangoes', 'Bananas',
-                            'Blackberries', 'Pears', 'Watermelons', 'Cherries', 'Pomegranates', 'Tangerines', 'Papayas'
-                        ],
+                        categories: [0],
                         tickPlacement: 'on',
                         title: {
                             text: '카테고리 현황',
@@ -101,6 +104,32 @@
                         },
                     }
                 },
+            }
+        },
+        async created(){
+            await this.getCateTotalSales();
+            const app = getCurrentInstance();
+            this.$socket = app.appContext.config.globalProperties.$socket;
+            console.log(this.$socket);
+        },
+        mounted() {
+            this.$socket.on("sell", async (recv) => {
+                console.log(recv);
+                await this.getCateTotalSales();
+            })
+        },
+        methods : {
+            async getCateTotalSales(){
+                const url = `REST/api/admin/cate/sell`;
+                const headers = {"token" : this.token};
+                const response = await axios.get(url, {headers});
+                console.log(response);
+                if(response.data.result === 1){
+                    for(var i=0; i<response.data.list.length; i++){
+                        this.chartOptions.xaxis.categories[i] = response.data.list[i].CATEGORYNAME;
+                        this.series[0].data[i] = response.data.list[i].CNT;
+                    }
+                }
             }
         }
     }

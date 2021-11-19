@@ -10,12 +10,16 @@
 </template>
 
 <script>
+import {getCurrentInstance} from '@vue/runtime-core';
+import axios from 'axios';
     export default {
         data(){
             return{
+                token: sessionStorage.getItem("token"),
+                $socket : '',
                 series: [{
-                    name: 'Servings',
-                    data: [44, 55, 41, 67, 22, 43, 21, 33, 45, 31, 87, 65, 35]
+                    name: '판매율',
+                    data: []
                 }],
                 chartOptions: {
                     annotations: {
@@ -63,9 +67,7 @@
                                 
                             }
                         },
-                        categories: ['Apples', 'Oranges', 'Strawberries', 'Pineapples', 'Mangoes', 'Bananas',
-                            'Blackberries', 'Pears', 'Watermelons', 'Cherries', 'Pomegranates', 'Tangerines', 'Papayas'
-                        ],
+                        categories: [0],
                         tickPlacement: 'on',
                         title: {
                             text: '브랜드 현황',
@@ -102,6 +104,32 @@
                         },
                     }
                 },
+            }
+        },
+        async created(){
+            await this.getBrandTotalSales();
+            const app = getCurrentInstance();
+            this.$socket = app.appContext.config.globalProperties.$socket;
+            console.log(this.$socket);
+        },
+        mounted() {
+            this.$socket.on("sell", async (recv) => {
+                console.log(recv);
+                await this.getBrandTotalSales();
+            })
+        },
+        methods : {
+            async getBrandTotalSales(){
+                const url = `REST/api/admin/brand/sell`;
+                const headers = {"token" : this.token};
+                const response = await axios.get(url, {headers});
+                // console.log(response);
+                if(response.data.result === 1){
+                    for(var i=0; i<response.data.list.length; i++){
+                        this.chartOptions.xaxis.categories[i] = response.data.list[i].BRANDNAME;
+                        this.series[0].data[i] = response.data.list[i].CNT;
+                    }
+                }
             }
         }
     }
