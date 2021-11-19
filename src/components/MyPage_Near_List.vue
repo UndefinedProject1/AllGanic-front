@@ -1,12 +1,12 @@
 <template>
         <div class="info_list">
-            <div class="info_title">
+            <!-- <div class="info_title">
                 <p>My Page</p>
-            </div>
+            </div> -->
             <div class="order_list" @click="mypage_orli_btn">
                 <div class="order_list_name">
-                     <p>최근 주문내역</p>
-                    <p @click="moreorderlist">더보기 <img :src="mypage" style="right" class="mypage_plus"/> </p>
+                    <p>최근 주문내역</p>
+                    <p @click="moreorderlist">더보기 <img :src="mypage" style="right" class="mypage_plus"/></p>
                 </div>
                 <div class="or_li_box1" >
                     <div class="insert_date_code">
@@ -126,7 +126,7 @@ import mypage from '@/assets/mypage.png';
                 this.$emit("hadleClickUrl",4);
             },
             morequestion() {
-               this.$emit("hadleClickUrl",5); 
+                this.$emit("hadleClickUrl",5); 
             }
         }
     }
@@ -153,6 +153,7 @@ import mypage from '@/assets/mypage.png';
 .order_list, .qna_list {
     /* border: 1px solid black; */
     color: #715036;
+    height: 68%;
     font-weight: bold;
     display: flex;
     flex-direction: column;
@@ -162,6 +163,7 @@ import mypage from '@/assets/mypage.png';
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 5px;
+    margin-right: 8px;
 }
 .order_list > p {
     /* border: 1px solid black; */
@@ -172,14 +174,14 @@ import mypage from '@/assets/mypage.png';
 .or_li_box1 {
     border: 1px solid black;
     width: 100%;
-    height: 298px;
+    height: 90%;
     margin-bottom: 10px;
     border-radius: 3px;
 }
 .or_qa_box1 {
     border: 1px solid black;
     width: 100%;
-    height: 180px;
+    height: 30%;
     margin-bottom: 10px;
     border-radius: 3px;
 }
@@ -220,5 +222,9 @@ import mypage from '@/assets/mypage.png';
     margin-bottom: 2px;
     margin-top: 10px;
     margin-left: 42px;
+}
+.order_list_name > p:last-child, .order_list_qa > p:last-child {
+    cursor: pointer;
+    opacity: 0.8;
 }
 </style>

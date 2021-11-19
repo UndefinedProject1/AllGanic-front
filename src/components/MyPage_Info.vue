@@ -234,18 +234,20 @@ img {
     float: right;
     font-family: 'Gowun Dodum', sans-serif;
     font-size: 12px;
+    cursor: pointer;
+    opacity: 0.8;
 }
 .info_ad_icon > p {
     width: 80%;
     margin-bottom: 2px;
 }
 .m_address {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-left: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 8px;
 }
 .m_update_postcode {
     display: flex;

@@ -103,7 +103,7 @@ import { ElMessage } from 'element-plus';
 .delete_insert {
     border: 1px solid black;
     width: 100%;
-    height: 545px;
+    height: 94.5%;
     border-radius: 5px;
 }
 .delete_password {

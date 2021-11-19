@@ -34,7 +34,8 @@
             <p>연락처</p>
           </div>
           <div class="u_phone_box">
-            <input type="text" oninput="autoHyphen(this)" maxlength="13"  v-model="member.USERTEL" refs="phone" @keyup="numberHipen">
+            <!-- <input type="text" oninput="autoHyphen(this)" maxlength="13"  v-model="member.USERTEL" refs="phone" @keyup="numberHipen"> -->
+            <input type="text" class="phoneNumber" @keyup="phonehipen"  v-model="member.USERTEL" refs="phone">
             <!-- <input type="number" /> -->
           </div>
           </div>
@@ -103,7 +104,7 @@
             alt="접기 버튼"
           />
         </div>
-        <button type="button" id="handle_memupdate" @click="handle_memupdate">회원정보수정</button>
+        <button type="button" id="handle_memupdate" @click="handle_memupdate">회원정보 수정</button>
       </div>
 
     <!-- modal -->
@@ -178,6 +179,9 @@ import mypage_address from "@/assets/mypage_address.png";
             detailAddress: "",
             member:[],
 
+            document :'',
+            this: '',
+
             centerDialogVisible: false,
         
             chk_pw1 : "",
@@ -186,6 +190,9 @@ import mypage_address from "@/assets/mypage_address.png";
             pw1_btn : "",
             pw2_btn : "",
             pw3_btn : "",
+
+            // document :'',
+            // this : '',
 
             modalcheck: {
                 width: "fit-content",
@@ -205,27 +212,15 @@ import mypage_address from "@/assets/mypage_address.png";
           "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
         );
         document.head.appendChild(daumPostCode);
-
-        
       },
       async created() {
       await this.handleMemberGet();
       },
-      // components: {
-      //   MyPage_Info: MyPage_Info,
-      // },
       methods: {
-      async numberHipen() {
-        // const autoHyphen = (target) => {
-        //   target.value = target.value
-        //     .replace(/[^0-9]/, '')
-        //     .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
-
-        //     console.log(autoHyphen);
-        //   }
-        // $(document).on("keyup", ".phoneNumber", function() { $(this).val( $(this).val().replace(/[^0-9]/g, "")
-        // .replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); });
-      },
+        async phonehipen() {
+            // $(document).on("keyup", ".phoneNumber", function() { $(this).val( $(this).val().replace(/[^0-9]/g, "")
+            //     .replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); });
+        },
 
         async handleMemberGet() {
           const url = `REST/api/member/find`;
@@ -367,7 +362,7 @@ import mypage_address from "@/assets/mypage_address.png";
 .m_update_insert {
   border: 1px solid black;
   width: 100%;
-  height: 545px;
+  height: 94.5%;
   border-radius: 3px;
   display: flex;
   flex-direction: column;
