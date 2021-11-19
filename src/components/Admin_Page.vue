@@ -19,8 +19,8 @@
                 </div>
                 <div class="section">
                     <h2>통계</h2>
-                    <p>미정</p>
-                    <p>미정</p>
+                    <p @click="ChangeMenu(8)">브랜드별 누적 판매율</p>
+                    <p @click="ChangeMenu(9)">카테고리별 누적 판매율</p>
                 </div>
                 <div class="section">
                     <h2>FAQ관리</h2>
@@ -44,11 +44,14 @@ import Admin_Product_List from '@/components/Admin_Product_List.vue';
 import Admin_Category_Insert from '@/components/Admin_Category_Insert.vue';
 import Admin_QA_List from '@/components/Admin_QA_List.vue';
 import Admin_QA_List_Complete from '@/components/Admin_QA_List_Complete.vue';
+import Admin_Brand_Sales_Chart from '@/components/Admin_Brand_Sales_Chart.vue';
+import Admin_Cate_Sales_Chart from '@/components/Admin_Cate_Sales_Chart.vue';
     export default {
         data () {
             return{
                 CurrentPage : 'AdminMainPage',
-                pages : ['AdminMainPage', 'AdminBrandInsert', 'AdminBrandList', 'AdminCategoryInsert', 'AdminProductInsert','AdminProductList', 'Admin_QA_List', 'Admin_QA_List_Complete']
+                pages : ['AdminMainPage', 'AdminBrandInsert', 'AdminBrandList', 'AdminCategoryInsert',
+                        'AdminProductInsert','AdminProductList', 'Admin_QA_List', 'Admin_QA_List_Complete','Admin_Brand_Sales_Chart','Admin_Cate_Sales_Chart']
             }
         },
         components : {
@@ -59,7 +62,9 @@ import Admin_QA_List_Complete from '@/components/Admin_QA_List_Complete.vue';
             'AdminProductList' : Admin_Product_List,
             'AdminCategoryInsert' : Admin_Category_Insert,
             'Admin_QA_List' : Admin_QA_List,
-            'Admin_QA_List_Complete' : Admin_QA_List_Complete
+            'Admin_QA_List_Complete' : Admin_QA_List_Complete,
+            'Admin_Brand_Sales_Chart' : Admin_Brand_Sales_Chart,
+            'Admin_Cate_Sales_Chart' : Admin_Cate_Sales_Chart
         },
         methods : {
             ChangeMenu(val){

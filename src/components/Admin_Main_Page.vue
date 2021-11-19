@@ -1,7 +1,7 @@
 <template>
     <div class="chartWrapper">
-        <PieChart :options="chartOptions" :series="seriesPieChart"></PieChart>
         <LineChart :options="LineChartOptions" :series="seriesLineChart"></LineChart>
+        <PieChart :options="chartOptions" :series="seriesPieChart"></PieChart>
     </div>
 
 </template>
@@ -21,6 +21,7 @@ export default {
             chartOptions: {
                 chart: {
                     type: 'polarArea',
+                    height: 450,
                 },
                 stroke: {
                     colors: ['#fff']
@@ -33,12 +34,12 @@ export default {
 
             // LineChart.vue 자식 컴포넌트에 보내는 데이터
             seriesLineChart: [{
-                name: "Desktops",
+                name: "하루 판매량",
                 data: []
             }],
             LineChartOptions :{
                 chart: {
-                    height: 350,
+                    height: 650,
                     type: 'line',
                     zoom: {
                         enabled: false
@@ -48,7 +49,8 @@ export default {
                     enabled: false
                 },
                 stroke: {
-                    curve: 'straight'
+                    curve: 'smooth',
+                    lineCap : 'round'
                 },
                 grid: {
                     row: {
@@ -58,6 +60,14 @@ export default {
                 },
                 xaxis: {
                     categories: [1],
+                    labels: {
+                        rotate: -45,
+                        style :{
+                            color : '#49654E',
+                            fontFamily : 'Gowun Dodum, sans-serif',
+                            fontWeight : 700
+                        }
+                    },
                 }
                 
             }
@@ -117,12 +127,10 @@ export default {
 .chartWrapper{
     width: 100%;
     height: 100%;
-    border: 1px solid red;
     display: inline-flex;
 }
 .chart1{
     width: 60%;
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
     font-family: 'Gowun Dodum', sans-serif;
