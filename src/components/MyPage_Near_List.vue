@@ -9,7 +9,7 @@
                     <p @click="moreorderlist">더보기 <img :src="mypage" style="right" class="mypage_plus"/></p>
                 </div>
                 <div class="or_li_box1" >
-                    <div class="insert_date_code">
+                    <!-- <div class="insert_date_code">
                         <div class="insert_date">
                             <p style="margin-left:30px; color:#715036; font-weight: bold; margin-bottom:0px;">주문일자</p>
                             <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">2021.11.07</p>
@@ -19,38 +19,49 @@
                             <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">20111114-000856</p>
                         </div>
                     </div>
-                    <hr class="solid" style="border-top-width: 0px;"/>
+                    <hr class="solid" style="border-top-width: 0px;"/> -->
                     <!-- 주문내역 Table -->
                     <div class="orderlist_info_section">
-                        <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 90%; margin-left:55px;" @selection-change="OrderListBtn">
-                                <el-table-column prop="img" label="이미지" align="center" width="110"  style="margin-left:50px;">
-                                    <el-image style= "width: 110px; height: 100px; object-fit:cover;" :src="vegan_cream_img" :fit="fit"></el-image>
-                                </el-table-column>
-                                    <el-table-column label="주문정보" width="400px;" align="center">
-                                        <template #default="scope">
-                                            <div class="product_detail_info" style="width: 100%; text-align:left; padding:5px 10px; margin-left:30px;">
-                                                <span style="font-size:14px; color:#333; font-weight:bold">{{scope.row.brandName}}브랜드명</span>
-                                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}제품명</p>
-                                                <p style="font-size:14px; color:black; margin:0;">{{scope.row.productPrice}}38,000원</p>
-                                                <p style="font-size:14px; color:black; margin:0;">옵션 : {{scope.row.option}}빨,주,노,초,파,남,보</p>        
-                                            </div>
-                                        </template>
-                                    </el-table-column>
-                                <el-table-column label="가격" width="150" align="center">
+                        <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 97%; margin-left:20px;" @selection-change="OrderListBtn">
+                                <el-table-column label="주문일자" width="100" align="center">
                                     <template #default="scope">
-                                        <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}3개</p>
+                                        <p>{{scope.row.ORDERDATE}}</p>
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="배송비" width="150" align="center">
+                                <el-table-column label="주문번호" width="160" align="center">
                                     <template #default="scope">
-                                        <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}3,000원</p>
+                                        <p>{{scope.row.MERCHANT_UID}}</p>
+                                    </template>
+                                </el-table-column>                                                                
+                                <el-table-column prop="img" label="이미지" align="center" width="130">
+                                    <template #default="scope">
+                                        <el-image style= "width: 110px; height: 100px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="주문상태" width="150" align="center">
+                                <el-table-column label="주문정보" width="410px;" align="center">
+                                    <template #default="scope">
+                                        <div class="product_detail_info">
+                                            <p>{{scope.row.BRANDNAME}}</p>
+                                            <p>{{scope.row.PRODUCTNAME}}</p>
+                                            <p>{{scope.row.PRODUCTPRICE}}</p>        
+                                        </div>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="수량" width="80" align="center">
+                                    <template #default="scope">
+                                        <p>{{scope.row.ORDERQUANTITY}}</p>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="배송비" width="190" align="center">
+                                    <template #default="scope">
+                                        <p>[ {{scope.row.BRANDNAME}} ] 정책에 따름</p>
+                                    </template>
+                                </el-table-column>
+                                <!-- <el-table-column label="주문상태" width="150" align="center">
                                     <template #default="scope">
                                         <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}상품 준비중</p>
                                     </template>
-                                </el-table-column>
+                                </el-table-column> -->
                         </el-table>
                     </div>
                 </div>
@@ -110,16 +121,22 @@
 </template>
 
 <script>
+import axios from "axios";
 import mypage_mail from '@/assets/mypage_mail.png';
 import mypage_address from '@/assets/mypage_address.png';
 import mypage from '@/assets/mypage.png';
     export default {
         data() {
             return {
+                token: sessionStorage.getItem("token"),
                 mypage_mail : mypage_mail,
                 mypage_address : mypage_address,
                 mypage : mypage,
+                OrderListData : []
             }
+        },
+        async created(){
+            await this.orderListGet();
         },
         methods : {
             moreorderlist() {
@@ -127,7 +144,21 @@ import mypage from '@/assets/mypage.png';
             },
             morequestion() {
                 this.$emit("hadleClickUrl",5); 
-            }
+            },
+            async orderListGet() {
+                const url = `REST/api/payments/member/list`;
+                const headers = { token: this.token };
+                const response = await axios.get(url, { headers });
+                console.log(response);
+                if(response.data.result === 1) {
+                    this.OrderListData = response.data.list;
+                    console.log(this.OrderListData);
+                }
+                else if(response.data.result === 0) {
+                    alert(response.data.state);
+                }
+                
+            },
         }
     }
 </script>
@@ -226,5 +257,11 @@ import mypage from '@/assets/mypage.png';
 .order_list_name > p:last-child, .order_list_qa > p:last-child {
     cursor: pointer;
     opacity: 0.8;
+}
+.orderlist_info_section table tbody div{
+    width: 100%; text-align:left; padding:5px 10px; margin-left:30px;
+}
+.orderlist_info_section table tbody p{
+    font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;
 }
 </style>

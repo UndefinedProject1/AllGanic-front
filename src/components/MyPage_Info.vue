@@ -34,7 +34,7 @@
 
             <div class="info_menu">
                 <div class="info_mypage_home">
-                    <p @click="hadleClickUrl(0)">[MyPage Home]</p>
+                    <span @click="hadleClickUrl(0)">Main</span>
                 </div>
                 <div class="info_member">
                     <span>Member</span>
@@ -136,7 +136,8 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500&display=swap');
 .info_box {
     border: 1px solid black;
     width: 28%;
@@ -319,22 +320,33 @@ img {
     flex-direction: column;
     align-items: center;
     margin-top: 0;
+    margin-bottom: 20px;
 }
 .info_member > span, .info_order > span, .info_qa > span {
     color: #715036;
-    font-weight: 550;
-    font-size: 20px;
-    margin-bottom: 5px;
-}
-.info_mypage_home > p {
-    color: #715036;
     font-weight: bold;
     font-size: 20px;
-    margin-bottom: 10px;
+    font-family: 'Playfair Display', sans-serif;
 }
-.info_member > p, .info_order > p, .info_qa > p, .info_mypage_home > p {
+.info_mypage_home > span {
+    color: #715036;
+    font-weight: bold;
+    font-size: 23px;
+    font-family: 'Playfair Display', sans-serif;
+}
+.info_mypage_home > span:hover {
+    color: rgb(80, 80, 80);
+    font-weight: bold;
+    font-size: 23.5px;
+    cursor : pointer;
+    opacity: 0.9;
+}
+.info_menu p{
     margin-bottom: 0;
     margin-top: 5px;
+
+}
+.info_menu p:hover{
     cursor: pointer;
     opacity: 0.8;
 }

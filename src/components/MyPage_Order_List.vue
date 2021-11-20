@@ -1,89 +1,109 @@
-+<template>
-            <div class="info_list">
-                <div class="order_list">
-                    <p>주문내역</p>
+<template>
+    <div class="info_list">
+        <div class="order_list">
+            <p>주문내역</p>
+        </div>
+        <div class="insert_list">
+            <!-- <div class="insert_date_code">
+                <div class="insert_date">
+                    <p>주문일자</p>
+                    <p>{{OrderListData.ORDERDATE}}</p>
                 </div>
-                <div class="insert_list">
-                    <div class="insert_date_code">
-                        <div class="insert_date">
-                            <p style="margin-left:30px; color:#715036; font-weight: bold; margin-bottom:0px;">주문일자</p>
-                            <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">2021.11.07</p>
-                        </div>
-                        <div class="insert_ordercode">
-                            <p style="margin-left:40px; color:#715036; font-weight: bold; margin-bottom:0px;">주문번호</p>
-                            <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">20111114-000856</p>
-                        </div>
-                    </div>
-                    <hr class="solid" style="border-top-width: 0px;"/>
-                    <!-- 주문목록 Table -->
-                    <div class="orderlist_info_section">
-                        <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 90%; margin-left:55px;" @selection-change="OrderListBtn">
-                                <el-table-column prop="img" label="이미지" align="center" width="110"  style="margin-left:50px;">
-                                    <el-image style= "width: 110px; height: 100px; object-fit:cover;" :src="vegan_cream_img" :fit="fit"></el-image>
-                                </el-table-column>
-                                    <el-table-column label="주문정보" width="400px;" align="center">
-                                        <template #default="scope">
-                                            <div class="product_detail_info" style="width: 100%; text-align:left; padding:5px 10px; margin-left:30px;">
-                                                <span style="font-size:14px; color:#333; font-weight:bold">{{scope.row.brandName}}브랜드명</span>
-                                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}제품명</p>
-                                                <p style="font-size:14px; color:black; margin:0;">{{scope.row.productPrice}}38,000원</p>
-                                                <p style="font-size:14px; color:black; margin:0;">옵션 : {{scope.row.option}}빨,주,노,초,파,남,보</p>        
-                                            </div>
-                                        </template>
-                                    </el-table-column>
-                                <el-table-column label="가격" width="150" align="center">
-                                    <template #default="scope">
-                                        <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}3개</p>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="배송비" width="150" align="center">
-                                    <template #default="scope">
-                                        <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}3,000원</p>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="주문상태" width="150" align="center">
-                                    <template #default="scope">
-                                        <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}상품 준비중</p>
-                                    </template>
-                                </el-table-column>
-                        </el-table>
-                    </div>
+                <div class="insert_ordercode">
+                    <p>주문번호</p>
+                    <p>{{OrderListData.MERCHANT_UID}}</p>
                 </div>
             </div>
+            <hr class="solid" style="border-top-width: 0px;"/> -->
+            <!-- 주문목록 Table -->
+            <div class="orderlist_info_section">
+                <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 98%; margin-left:10px;" @selection-change="OrderListBtn">
+                    <el-table-column label="주문일자" width="100" align="center">
+                        <template #default="scope">
+                            <p>{{scope.row.ORDERDATE}}</p>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="주문번호" width="160" align="center">
+                        <template #default="scope">
+                            <p>{{scope.row.MERCHANT_UID}}</p>
+                        </template>
+                    </el-table-column>                                                                
+                    <el-table-column prop="img" label="이미지" align="center" width="130">
+                        <template #default="scope">
+                            <el-image style= "width: 110px; height: 100px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="주문정보" width="370px;" align="center">
+                        <template #default="scope">
+                            <div class="product_detail_info">
+                                <p>{{scope.row.BRANDNAME}}</p>
+                                <p>{{scope.row.PRODUCTNAME}}</p>
+                                <p>{{scope.row.PRODUCTPRICE}}</p>        
+                            </div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="수량" width="50" align="center">
+                        <template #default="scope">
+                            <p>{{scope.row.ORDERQUANTITY}}</p>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="배송비" width="180" align="center">
+                        <template #default="scope">
+                            <p>[ {{scope.row.BRANDNAME}} ] 정책에 따름</p>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="기타" width="90" align="center">
+                        <template #default="scope">
+                            <button @click="handleCancelOrder([scope.row.MERCHANT_UID, scope.row.PRODUCTCODE, scope.row.ORDERQUANTITY])">주문취소</button>    
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
 import axios from "axios";
-// import MyPage_Info from '@/components/MyPage_Info.vue';
 import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     export default {
-         data() {
+        data() {
             return {
                 token: sessionStorage.getItem("token"),
                 vegan_cream_img : vegan_cream_img,
                 OrderListData: [],
+                val : []
             }
         },
         async created() {
             await this.orderListGet();
         },
-        // components : {
-        //     MyPage_Info : MyPage_Info,
-        // },
         methods : {
             async orderListGet() {
                 const url = `REST/api/payments/member/list`;
                 const headers = { token: this.token };
                 const response = await axios.get(url, { headers });
                 console.log('=============================');
-                console.log(response);
+                // console.log(response);
                 if(response.data.result === 1) {
-                    alert("주문 내역이 없습니다.");
+                    this.OrderListData = response.data.list;
+                    console.log(this.OrderListData);
                 }
                 else if(response.data.result === 0) {
                     alert(response.data.state);
                 }
                 
+            },
+            async handleCancelOrder(val){
+                const url = `REST/api/payments/cancel`;
+                const body = {
+                    merchant_uid : val[0],
+                    product : val[1],
+                    quantity : val[2]
+                };
+                const headers = {"Content-Type" : "application/json", token: this.token};
+                const response = await axios.post(url, body, {headers});
+                console.log(response);
             }
         }
     }
@@ -102,9 +122,9 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     display: flex;   
 }
 .order_list > p {
-  margin-top: 0px;
-  margin-bottom: 10px;
-  font-size: 20px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-size: 20px;
 }
 .insert_list {
     border: 1px solid black;
@@ -121,9 +141,27 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     margin-top: 10px;
     margin-left: 15px;
 }
+.insert_date p:first-child{
+    margin-left:30px; 
+    color:#715036; 
+    font-weight: bold; 
+    margin-bottom:0px;
+}
+.insert_date p:last-child,
+.insert_ordercode p:last-child {
+    font-weight: bold; 
+    margin-left:10px; 
+    margin-bottom:0px;
+}
 .insert_ordercode { 
     display: flex;
     margin-top: 10px;
+}
+.insert_ordercode p:first-child{
+    margin-left:40px; 
+    color:#715036; 
+    font-weight: bold; 
+    margin-bottom:0px;
 }
 .solid {
     border: 1px solid rgb(228, 227, 227);
@@ -179,5 +217,23 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     width: 100%;
     
 }
-
+.orderlist_info_section table tbody button{
+    border: none;
+    width: 80px;
+    height: 30px;
+    color: white;
+    background-color: #49654E;
+    border-radius: 3px;
+    font-family: 'Gowun Dodum', sans-serif;
+}
+.orderlist_info_section table tbody button:hover{
+    opacity: 0.9;
+    cursor: pointer;
+}
+.orderlist_info_section table tbody div{
+    width: 100%; text-align:left; padding:5px 10px; margin-left:30px;
+}
+.orderlist_info_section table tbody p{
+    font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;
+}
 </style>
