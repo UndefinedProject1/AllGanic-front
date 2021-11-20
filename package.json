@@ -16,10 +16,12 @@
     "jquery": "^3.6.0",
     "socket.io": "^4.3.1",
     "socket.io-client": "^4.3.2",
+    "vee-validate": "^4.5.6",
     "vue": "^3.0.0",
     "vue-router": "^4.0.12",
     "vue-star-rating": "^2.1.0",
-    "vue3-apexcharts": "^1.4.1"
+    "vue3-apexcharts": "^1.4.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

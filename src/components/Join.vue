@@ -9,107 +9,113 @@
         </div>
       </div>
       <div class="divider"></div>
-      <div class="join_form">
-        <div class="join_info">
-          <div class="join_email">
-            <div class="email_info">
-              <div class="email_ad">
-                <img :src="login_email" />
-                <input type="text" placeholder="이메일"  v-model="userid"  refs="email" />
-              </div>
-              <p>@</p>
-              <div class="email_domain_selector">
-                <div class="form-selector">
-                  <input type="text" class="selected" @change="changeDomain" ref="selected_domain" v-model="selected"/>
-                  <img :src="select_arrow_down" id="selectorIcon" @click="openOptions" />
+      <VeeForm v-slot="{ handleSubmit}" :validation-schema="schema" as="div">
+        <form class="join_form" @submit="handleSubmit($event, onSubmit)">
+          <div class="join_info">
+            <div class="join_email">
+              <div class="email_info">
+                <div class="email_ad">
+                  <img :src="login_email" />
+                  <Field type="text" placeholder="이메일" name="userid" v-model="userid"/>
                 </div>
-                <div class="select_options" v-bind:style="selectorStyle" @mouseup="closeOptions">
-                  <input type="radio" id="1" v-model="selected" value="" />
-                  <label for="1">직접입력</label>
-                  <input type="radio" id="2" v-model="selected" value="naver.com" />
-                  <label for="2">naver.com</label>
-                  <input type="radio" id="3" v-model="selected" value="hanmail.net"/>
-                  <label for="3">hanmail.net</label>
-                  <input type="radio" id="4" v-model="selected" value="daum.net" />
-                  <label for="4">daum.net</label>
-                  <input type="radio" id="5" v-model="selected" value="gmail.com"/>
-                  <label for="5">gmail.com</label>
-                  <input type="radio" id="6" v-model="selected" value="nate.com"/>
-                  <label for="6">nate.com</label>
-                  <input type="radio" id="7" v-model="selected" value="yahoo.co.kr"/>
-                  <label for="7">yahoo.co.kr</label>
+                <p>@</p>
+                <div class="email_domain_selector">
+                  <div class="form-selector">
+                    <Field type="text" name="selected" class="selected" @change="changeDomain" v-model="selected"/>
+                    <img :src="select_arrow_down" id="selectorIcon" @click="openOptions" />
+                  </div>
+                  <div class="select_options" v-bind:style="selectorStyle" @mouseup="closeOptions">
+                    <input type="radio" id="1" v-model="selected" value="" />
+                    <label for="1">직접입력</label>
+                    <input type="radio" id="2" v-model="selected" value="naver.com" />
+                    <label for="2">naver.com</label>
+                    <input type="radio" id="3" v-model="selected" value="hanmail.net"/>
+                    <label for="3">hanmail.net</label>
+                    <input type="radio" id="4" v-model="selected" value="daum.net" />
+                    <label for="4">daum.net</label>
+                    <input type="radio" id="5" v-model="selected" value="gmail.com"/>
+                    <label for="5">gmail.com</label>
+                    <input type="radio" id="6" v-model="selected" value="nate.com"/>
+                    <label for="6">nate.com</label>
+                    <input type="radio" id="7" v-model="selected" value="yahoo.co.kr"/>
+                    <label for="7">yahoo.co.kr</label>
+                  </div>
+                </div>
+                <span>*</span>
+              </div>
+              <div class="chk_email"  v-bind:style="checkStyle">
+                <ErrorMessage name="userid"/>
+              </div>
+            </div>
+
+            <div class="join_password">
+              <div class="password_info">
+                <img :src="login_password" />
+                <Field type="password" name="userpw" v-model="userpw" placeholder="비밀번호" />
+                <span>*</span>
+              </div>
+              <div class="chk_password" v-bind:style="checkStyle">
+                <ErrorMessage name="userpw" />
+              </div>
+            </div>
+
+            <div class="join_name">
+              <div class="name_info">
+                <img :src="join_profile" />
+                <Field type="text" placeholder="이름" name="username" v-model="username"/>
+                <span>*</span>
+              </div>
+              <div class="chk_password" v-bind:style="checkStyle">
+                <ErrorMessage name="username" />
+              </div>
+            </div>
+
+            <div class="join_tel">
+              <div class="password_info">
+                <img :src="join_call" />
+                <Field type="text" :placeholder="'000-000-000'" name="usertel" v-model="usertel"/>
+                <span>*</span>
+              </div>
+              <div class="chk_password" v-bind:style="checkStyle">
+                <ErrorMessage name="usertel" />
+              </div>
+            </div>
+
+            <div class="join_address">
+              <div class="address_info1">
+                <div class="address_postcode">
+                  <img :src="join_location" />
+                  <Field type="text" name="postcode" v-model="postcode" readonly value />
+                </div>
+                <p>/</p>
+                <div class="address_main">
+                  <Field type="text" name="roadAddress" v-model="roadAddress" readonly value />
                 </div>
               </div>
-              <span>*</span>
-            </div>
-            <div class="chk_email" v-bind:style="checkStyle">
-              {{ chkemail }}
-            </div>
-          </div>
-
-          <div class="join_password">
-            <div class="password_info">
-              <img :src="login_password" />
-              <input type="password" placeholder="비밀번호" v-model="userpw" ref="pw"/>
-              <span>*</span>
-            </div>
-            <div class="chk_password" v-bind:style="checkStyle">
-              {{ chkpw }}
-            </div>
-          </div>
-
-          <div class="join_name">
-            <div class="name_info">
-              <img :src="join_profile" />
-              <input type="text" placeholder="이름" v-model="username" ref="name"/>
-              <span>*</span>
-            </div>
-            <div class="chk_password" v-bind:style="checkStyle">
-              {{ chkname }}
-            </div>
-          </div>
-
-          <div class="join_tel">
-            <div class="password_info">
-              <img :src="join_call" />
-              <input type="text" placeholder="연락처" v-model="usertel" ref="tel"/>
-              <span>*</span>
-            </div>
-            <div class="chk_password" v-bind:style="checkStyle">
-              {{ chktel }}
-            </div>
-          </div>
-
-          <div class="join_address">
-            <div class="address_info1">
-              <div class="address_postcode">
-                <img :src="join_location" />
-                <input type="text" v-model="postcode" readonly value />
-              </div>
-              <p>/</p>
-              <div class="address_main">
-                <input type="text" v-model="roadAddress" readonly value />
+              <div class="address_info2">
+                <Field type="text" name="detailAddress" v-model="detailAddress" />
+                <button type="button" id="postcode_btn" @click="openDaumPostCode">
+                  우편번호검색
+                </button>
               </div>
             </div>
-            <div class="address_info2">
-              <input type="text" v-model="detailAddress" />
-              <button type="button" id="postcode_btn" @click="openDaumPostCode">
-                우편번호검색
-              </button>
+            <Field type="text" placeholder="이메일" name="MEMBER" v-model="userrole" style="display:none;"/>
+            <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
+                <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" @click="foldDaumPostcode" alt="접기 버튼">
             </div>
           </div>
-          <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
-              <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" @click="foldDaumPostcode" alt="접기 버튼">
-          </div>
-        </div>
-        <button type="button" id="join_btn" @click="handleJoin">JOIN</button>
-      </div>
+          <button id="join_btn">JOIN</button>
+        </form>
+      </VeeForm>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import { Form as VeeForm, Field, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
+import { ElMessage } from 'element-plus';
 import login_email from "@/assets/login_email.png";
 import login_password from "@/assets/login_password.png";
 import join_profile from "@/assets/join_profile.png";
@@ -117,7 +123,35 @@ import join_call from "@/assets/join_call.png";
 import join_location from "@/assets/join_location.png";
 import select_arrow_down from "@/assets/select_arrow_down.png";
 export default {
+  setup() {
+      const successAlertMSG = () => {
+          ElMessage.success('사용 가능한아이디입니다.')
+      }
+      const failAlertMSG = () => {
+          ElMessage.error('이미 사용중인 아이디입니다.')
+      }
+      return{
+          successAlertMSG,
+          failAlertMSG,
+      }
+  },
+  components :{
+    VeeForm,
+    Field,
+    ErrorMessage
+  },
   data() {
+    const schema = yup.object({
+      userid : yup.string()
+              .matches(/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])/i,'이메일은 영문만 가능합니다.')
+              .required('해당 항목은 필수입력사항입니다.'),
+      selected : yup.string().required('이미 사용중인 아이디 입니다.'),
+      userpw : yup.string().required('해당 항목은 필수입력사항입니다.'),
+      usertel : yup.string()
+              .matches('/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/','(대한민국 기준)일반 연락처 형태로 작성해주세요')
+              .required('해당 항목은 필수입력사항입니다.'),
+      username : yup.string().required('해당 항목은 필수입력사항입니다.')
+    });
     return {
       login_email: login_email,
       login_password: login_password,
@@ -126,6 +160,7 @@ export default {
       join_location: join_location,
       select_arrow_down: select_arrow_down,
 
+      schema,
       selected: "",
       userid: "",
       userpw: "",
@@ -136,21 +171,18 @@ export default {
       roadAddress: "",
       detailAddress: "",
 
-      chkemail: "",
-      chkpw: "",
-      chkname: "",
-      chktel: "",
+      showchk: false,
 
       pw: "",
 
       checkStyle: {
-        width: "fit-content",
-        height: "20px",
-        fontFamily: '"Gowun Dodum", serif',
-        fontSize: "13px",
-        marginTop: "10px",
-        marginRight: "15px",
-        color: "black",
+        width: 'fit-content',
+        height: '20px',
+        fontFamily: 'Gowun Dodum, serif',
+        fontSize: '13px',
+        marginTop: '10px',
+        marginRight: '13px',
+        color: '#49654E',
       },
 
       selectorStyle: {
@@ -179,43 +211,24 @@ export default {
     document.head.appendChild(daumPostCode);
   },
   watch: {
-    async selected(val) {
-      const header = { "Content-Type": "application/json" };
+    async selected(val){
       const url = `REST/api/member/checkemail`;
       const body = { useremail: this.userid + "@" + this.selected };
+      const header = { "Content-Type": "application/json" };
       const response = await axios.post(url, body, header);
-      if (val.length >= 1) {
+      if(val.length >= 1){
         if (response.data.result === 1) {
-          this.chkemail = "이미 사용중인 이메일입니다.";
-          this.checkStyle.color = "Red";
-        } else {
-          this.chkemail = "사용 가능한 아이디입니다.";
-          this.checkStyle.color = "Green";
-          this.chkemail = "";
+          this.failAlertMSG();
+        } 
+        else if(response.data.result === 0) {
+          this.successAlertMSG();
+        }
+        else {
+          alert("error");
         }
       }
-    },
-    userpw(val) {
-      if (val.length > 0) {
-        this.chkpw = "사용가능한 암호입니다.";
-        this.checkStyle.color = "Green";
-        this.chkpw = "";
-      }
-    },
-    username(val) {
-      if (val.length > 0) {
-        this.chkname = "";
-      }
-    },
-    usertel(val) {
-      if (val.length > 0) {
-        this.chktel = "";
-      }
-    },
+    }
   },
-  // components: {
-  //   Footer: Footer,
-  // },
   methods: {
     changeDomain() {
       console.log(this.selected);
@@ -275,45 +288,27 @@ export default {
         },
       }).open();
     },
-    async handleJoin() {
-      if (this.userid.length === 0) {
-        this.$refs.email.focus();
-        this.chkemail = "이메일은 입력 필수 항목입니다.";
-        this.checkStyle.color = "Red";
-      } else if (this.userpw.length === 0) {
-        this.$refs.pw.focus();
-        this.chkpw = "암호는 입력 필수 항목입니다.";
-        this.checkStyle.color = "Red";
-      } else if (this.username.length === 0) {
-        this.$refs.name.focus();
-        this.chkname = "이름은 입력 필수 항목입니다.";
-        this.checkStyle.color = "Red";
-      } else if (this.usertel.length === 0) {
-        this.$refs.tel.focus();
-        this.chktel = "연락처는 입력 필수 항목입니다.";
-        this.checkStyle.color = "Red";
-      } else {
-        const header = { "Content-Type": "application/json" };
-        const body = {
-          useremail: this.userid + "@" + this.selected,
-          userpw: this.userpw,
-          username: this.username,
-          userrole: this.userrole,
-          usertel: this.usertel,
-          post: this.postcode,
-          address: this.roadAddress,
-          detaileaddress: this.detailAddress,
-        };
-        console.log(body);
-        const url = `REST/api/member/join`;
-        const response = await axios.post(url, body, header);
-        console.log(response);
-        if (response.data.result === 1) {
-          alert("회원가입성공");
-          this.$router.push({ path: "/" });
-        }
+    async onSubmit({userid, selected, userpw, username, usertel, MEMBER, postcode, roadAddress, detailAddress}) {
+      const url = `REST/api/member/join`;
+      const header = { "Content-Type": "application/json" };
+      const body = {
+        useremail: userid + "@" + selected,
+        userpw: userpw,
+        username: username,
+        userrole: MEMBER,
+        usertel: usertel,
+        post: postcode,
+        address: roadAddress,
+        detaileaddress: detailAddress,
+      };
+      console.log(body);
+      const response = await axios.post(url, body, header);
+      console.log(response);
+      if (response.data.result === 1) {
+        alert("회원가입성공");
+        this.$router.push({ path: "/" });
       }
-    },
+    }
   },
 };
 </script>
