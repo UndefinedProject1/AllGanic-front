@@ -41,7 +41,7 @@
                                 <tbody>
                                     <tr>
                                         <th><span>배송비</span></th>
-                                        <td>해당 브랜드 제품으로만 30000원 이상 구매시 무료배송 ( 미만시 배송비 2500원 발생 )<br>
+                                        <td>해당 브랜드 제품으로만 30000원 이상 구매시 무료배송 ( 미만시 배송비 2500원 )<br>
                                             제주도를 포함한 도서/산간 지역 추가 배송비 없음</td>
                                     </tr>
                                     <tr>
@@ -513,8 +513,8 @@ import Cart_Popup from './Cart_Popup.vue';
 }
 .pd_detail_info .pd_detail_header #brandname{
     color: rgb(153, 153, 153);
-    font-size: 18px;
-    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    /* font-family: 'Playfair Display', serif; */
 }
 .pd_detail_info .pd_detail_header #productname{
     margin: 0px 0px 10px 10px;
@@ -537,14 +537,15 @@ import Cart_Popup from './Cart_Popup.vue';
     text-align: left;
 }
 #saleprice{
-    color: red;
+    color: rgb(201, 31, 31);
+    font-weight:bold;
 }
 .pd_detail_table tbody th{
     padding: 20px 10px;
 }
 .pd_detail_table tbody th span{
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 800;
 }
 .pd_detail_table tbody td {
     font-size: 18px;
@@ -590,7 +591,7 @@ import Cart_Popup from './Cart_Popup.vue';
 }
 .pd_detail_shippingtable tbody td {
     font-size: 13px;
-    padding-left: 10px;
+    padding-left: 8px;
 }
 
 .detail_section2{
@@ -967,5 +968,6 @@ button:hover{
 }
 .productRefundPolicy .policyContent{
     padding-top: 15px;
+    padding-left: 15px;
 }
 </style>

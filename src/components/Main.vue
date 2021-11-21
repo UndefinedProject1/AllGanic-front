@@ -1,7 +1,19 @@
 <template>
     <div class="main_wrapper">
         <section class="firstSection">
-            <p>COMMING SOON</p>
+            <div data-aos="zoom-in" data-aos-duration="500" v-bind:style="zoomout">
+                <div data-aos="zoom-out" data-aos-duration="1000" v-bind:style="zoomout2" v-if="showSlider">
+                    <el-carousel trigger="click" class="slider" height="100%" autoplay="false" interval="5000" style="position:relative;">
+                        <el-carousel-item v-for="item in banners" :key="item" class="slider2">
+                            <img :src="item.img" id="image">
+                            <div style="display:flex; align-items: center; flex-direction: column;">
+                                <h3 style="position:absolute; color:white; font-size:90px; top:30%;">{{item.text}}</h3>
+                            </div>
+                            
+                        </el-carousel-item>
+                    </el-carousel>
+                </div>
+            </div>
         </section>
         <!-- <section class="firstSection">
             <p>COMMING SOON</p>
@@ -67,10 +79,14 @@ import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
 import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
 import boxed_water from '@/assets/boxed_water.jpg';
 import zerowaste_package from '@/assets/zerowaste_package.jpg';
-import face_img from '@/assets/face_img.jpg';
+import natureround from '@/assets/natureround.jpg';
+import main_slider_img_1 from '@/assets/main_slider_img_1.png';
+
+
     export default {
         data(){
             return{
+                showSlider : false,
                 slider_img1 : slider_img1,
                 slider_img2 : slider_img2,
                 vegan_cream_img : vegan_cream_img,
@@ -78,9 +94,57 @@ import face_img from '@/assets/face_img.jpg';
                 vegan_oil_img : vegan_oil_img,
                 boxed_water : boxed_water,
                 zerowaste_package : zerowaste_package,
-                face_img : face_img,
+                natureround : natureround,
+                main_slider_img_1 :main_slider_img_1,
+
+                banners : [
+                    { text : "Welcome", img : main_slider_img_1},
+                    { text : "All Here,", img : natureround},
+                    { text : "All_Ganics", img : zerowaste_package},
+                ],
+
+                zoomout : {
+                    border: '2px solid white',
+                    width : '60%',
+                    height: '48%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                },
+                zoomout2 : {
+                    zIndex : '1',
+                    width : '100%',
+                    height: '100%',
+                    transition: '1.5s',
+                },
+
+                timeoutID : '',
+                timedelay : ''
             }
         },
+        async created(){
+            await this.delayedAlert();
+            await this.delayedShow();
+        },
+        methods:{
+            delayedAlert() {
+                this.timeoutID = window.setTimeout(this.slowAlert, 1500);
+            },
+            slowAlert() {
+                this.showSlider = true;
+                this.zoomout2.transition = "0.8s";
+            },
+            delayedShow(){
+                this.timedelay = window.setTimeout(this.showslider, 3000);
+            },
+            showslider(){
+                this.zoomout2.width = "98%";
+                this.zoomout2.height = "96%";
+                this.zoomout.backgroundColor = "white";
+            }
+
+        },
+
     }
 </script>
 
@@ -94,7 +158,7 @@ import face_img from '@/assets/face_img.jpg';
     /* margin-top: 4.5%; */
 }
 section{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 100vh;
     position: relative;
     width: 100%;
@@ -110,258 +174,43 @@ section{
     background-position-y: 30%;
     justify-content: center;
 }
+/* .zoomout{
+    border: 2px solid white;
+    width : 60%;
+    height: 48%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.zoomout2{
+    width : 100%;
+    height: 100%;
+    transition: width height 3s;
+}
+.zoomout2:hover{
+    width : 98%;
+    height : 97%;
+} */
+.slider{
+    width : 100%;
+    height: 100%;
+}
+.slider #image{
+    width : 100%;
+    object-fit: scale-down;
+}
+.firstSection_img{
+    opacity: 0.88;
+    background-image: url("/src/assets/vegan_cream_img.jpg");
+    background-size: cover;
+    align-items: center;
+    background-position-y: 30%;
+    justify-content: center;
+}
 .firstSection > p{
     font-size: 100px;
     font-weight: bold;
     color: white;
 }
-/* .main_wrapper{
-    border: 1px solid black;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    margin: 0;
-    padding: 0;
-    box-sizing: content-box;
-    justify-content: center;
-    flex-direction: column;
-    background: linear-gradient(#49654E, #49654E 60%, #17341C 60%, #17341C 100%);
-    max-height: 100vh;
-} */
-.main_container{
-    /* border: 1px solid black; */
-    width: 100%;
-    height : 100%;
-    display: inline-flex;
-    margin: 0 auto;
-    padding:0px 50px;
-}
 
-
-/* 왼쪽 이미지 슬라이더 */
-.banner_slider{
-    /* border: 1px solid black; */
-    width: 61%;
-    height: 100%;
-    display : flex;
-    flex-direction: column;
-    padding: 10px 70px;
-    transition: 0.3s;
-}
-#text1{
-    width: fit-content;
-    height: fit-content;
-    color: #CCA53F;
-    font-weight: 800;
-    text-shadow: 1px 1px 2px #CCA53F;
-}
-#textlogo{
-    width: fit-content;
-    height: fit-content;
-    color: #CCA53F;
-    font-weight: 800;
-    position: absolute;
-    right: 7%;
-    text-shadow: 1px 1px 2px #CCA53F;
-}
-.welcome_text{
-    height: 100%;
-    width: 100%;
-    display: inline-flex;
-    position: relative;
-}
-.carousel-enter-from{
-    padding-top: 6px 10px;
-}
-.carousel-enter-to{
-    padding-top: 3px 10px;
-}
-.carousel-enter-active{
-    transition: all 2s ease;
-}
-#carouselExampleInterval {
-    width: 58%;
-    height: 92%;
-    margin: 3px 10px;
-}
-.carousel-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    border-radius: 15px;
-}
-.carousel-item {
-    display: block;
-    height: 100%;
-}
-.slider1 {
-    width: 100% !important;
-    height: 100% !important;
-    background-image: url("/src/assets/zerowaste_package.jpg");
-    background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: cover;
-    opacity: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    padding: 30px;  
-}
-.slider2 {
-    width: 100% !important;
-    height: 100% !important;
-    background-image: url("/src/assets/vegan_cream_img.jpg");
-    background-repeat: no-repeat;
-    background-position: 50% 0%;
-    background-size: cover;
-    opacity: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    padding: 30px;   
-}
-.slider3 {
-    width: 100% !important;
-    height: 100% !important;
-    background-image: url("/src/assets/face_img.jpg");
-    background-repeat: no-repeat;
-    background-position: 50% 0%;
-    background-size: cover;
-    opacity: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    padding: 30px;   
-}
-.slider1 span, .slider2 span, .slider3 span{
-    width: fit-content;
-    height: fit-content;
-    color: white;
-    z-index: 1;
-    font-size: 40px;
-    font-weight: bold;
-    opacity: 0.9;
-    font-family: 'Gowun Batang', serif;
-}
-.slider1 p, .slider2 p, .slider3 p{
-    margin-top: 0;
-    margin-bottom: 1rem;
-    font-size: 18px;
-    color: white;
-    font-family: 'Gowun Batang', serif;
-}
-
-
-
-/* 오른쪽 배너 & BEST */
-.right_float{
-    /* border: 1px solid black; */
-    width: 53%;
-    height: fit-content;
-    display: block;
-    position: absolute;
-    padding: 0px 20px;
-    margin: auto 0;
-    top: 31%;
-    right : 6%;
-}
-.right_float #text{
-    width: fit-content;
-    height: fit-content;
-    color: #CCA53F;
-    font-weight: 800;
-    text-shadow: 1px 1px 2px #CCA53F;
-    float: right;
-    text-align: right;
-    margin-right: 25px;
-    font-size: 2.7rem;
-    line-height: 1.1;
-}
-.right_float #text2{
-    width: fit-content;
-    height: fit-content;
-    color: #CCA53F;
-    font-weight: 800;
-    text-shadow: 1px 1px 2px #CCA53F;
-    margin-left: 25px;
-    font-size: 2.7rem;
-    line-height: 1.1;
-}
-
-
-
-/* 오른쪽 상단, 웰컴배너 */
-.main_banner{
-    /* border: 1px solid black; */
-    width: 100%;
-    height: 45%;
-    margin-top: 5px;
-    margin-bottom: 30px;
-    background-image: url("/src/assets/Welcome_banner_img.jpg");
-    background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: cover;
-    border-radius: 3px;
-    opacity:0.75;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    /* box-shadow : 3px 3px #7150368a; */
-}
-.main_banner > span {
-    /* border: 1px solid black; */
-    font-size: 50px;
-    color: white;
-    font-weight: bold;
-    opacity: 0.9;
-}
-
-
-/* 오른쪽 하단, BEST 상품군 */
-.best_product{
-    /* border: 1px solid black; */
-    width: 100%;
-    height: 188px;
-    margin: 15px 0px;
-    display: inline-flex;
-    justify-content: space-evenly;
-}
-.img1 {
-    width: 30%;
-    height: 100%;
-    background-image: url("/src/assets/perfume_img.png");
-    background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: cover;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-}
-.img2 {
-    width: 30%;
-    height: 100%;
-    background-image: url("/src/assets/vegan_bag.jpg");
-    background-repeat: no-repeat;
-    background-position: 50% 10%;
-    background-size: cover;
-    border-radius: 3px;
-}
-.img3 {
-    width: 30%;
-    height: 100%;
-    background-image: url("/src/assets/vegan_soap_img2.jpg");
-    background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: cover;
-    border-radius: 3px;
-}
-.img1:hover, .img2:hover, .img3:hover {
-    cursor: pointer;
-    opacity: 0.7;
-    box-shadow : 3px 3px #7150368a;
-}
 </style>
