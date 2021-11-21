@@ -362,7 +362,7 @@ import mypage_address from "@/assets/mypage_address.png";
 .m_update_insert {
   border: 1px solid black;
   width: 100%;
-  height: 94.5%;
+  height: 93.5%;
   border-radius: 3px;
   display: flex;
   flex-direction: column;

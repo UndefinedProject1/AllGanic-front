@@ -97,7 +97,7 @@ import axios from "axios";
 .qa_insert {
     border: 1px solid black;
     width: 100%;
-    height: 94.5%;
+    height: 93.5%;
     border-radius: 5px;
 }
 .insert_date {

@@ -32,7 +32,7 @@ import axios from "axios";
 import mypage_pw from '@/assets/mypage_pw.png';
 import { ElMessage } from 'element-plus';
     export default {
-         setup() {
+        setup() {
             const failpwMSG = () => {
                 ElMessage.error('비밀번호를 다시 입력하세요.')
             }
@@ -96,14 +96,14 @@ import { ElMessage } from 'element-plus';
     display: flex;    
 }
 .delete_name > p {
-  margin-top: 0px;
-  margin-bottom: 10px;
-  font-size: 20px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-size: 20px;
 }
 .delete_insert {
     border: 1px solid black;
     width: 100%;
-    height: 94.5%;
+    height: 93.5%;
     border-radius: 5px;
 }
 .delete_password {

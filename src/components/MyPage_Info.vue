@@ -27,6 +27,10 @@
                     <div class="btn_box">
                         <button type="button" @click="hadleClickUrl(1)">기본주소 수정</button>
                     </div>
+                    <!-- <div class="fly">
+                        <button><a href="#">위로</a></button>
+                    </div>
+<div class="con"></div> -->
                 </div>
             </div>
 
@@ -60,6 +64,7 @@
 
 <script>
 import axios from "axios";
+import $ from 'jquery';
 import mypage_mail from '@/assets/mypage_mail.png';
 import mypage_address from '@/assets/mypage_address.png';
 // import MyPage from '@/components/MyPage.vue';
@@ -70,6 +75,7 @@ import MyPage_Order_List from '@/components/MyPage_Order_List.vue';
 import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
 import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
     export default {
+        
         data() {
             return {
                 token: sessionStorage.getItem("token"),
@@ -99,6 +105,25 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
             'MyPageNearList' : MyPage_Near_List,
             
         },
+        async mounted() {
+            console.clear();
+            $(window).scroll(function() {
+                let scrollTop = $(this).scrollTop();
+                console.log(scrollTop)
+                
+                if ( scrollTop < 100 ) {
+                    scrollTop = 100;
+                }
+                else if ( scrollTop > 9600 ) {
+                    scrollTop = 9600;
+                }
+                
+                let duration = 1000;
+                $('.info_box').stop().animate({top:scrollTop}, duration);
+                
+                //console.log(scrollTop);
+            });
+        }, 
         async created() {
             await this.handleMemberGet();
         },
@@ -363,4 +388,5 @@ img {
     font-family: 'Gowun Dodum', sans-serif;
     margin-top: 4.5%;
 }
+
 </style>

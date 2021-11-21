@@ -1,17 +1,51 @@
 <template>
-    <div>
-        <h2>전화번호를 입력해보세요.</h2>
+    <!-- <div> -->
+<div class="fly">
+    <button><a href="#">위로</a></button>
+</div>
+<div class="con"></div>
+    <!-- <div class="box">
+        <p class="sky"></p>
+    </div> -->
+
+        <!-- <h2>전화번호를 입력해보세요.</h2> -->
         <!-- <input type="text" @keyup="phone_format" id="m_id"/> -->
         <!-- <input type="text" @keyup="inputPhoneNumber(this);" maxlength="13" style="text-align:center;"/> -->
         <!-- <input type="text" oninput="autoHyphen(this)" maxlength="13" > -->
-        <input type="text" class="phoneNumber" @keyup="handle">
+        <!-- <input type="text" class="phoneNumber" @keyup="handle"> -->
         <!-- <input type="text" id="phoneNum" maxlength="13"> -->
-    </div>
+    <!-- </div> -->
 </template>
 
 
 <script>
-// import $ from 'jquery';
+import $ from 'jquery';
+
+console.clear();
+$(window).scroll(function() {
+    let scrollTop = $(this).scrollTop();
+    console.log(scrollTop)
+    
+    if ( scrollTop < 100 ) {
+        scrollTop = 100;
+    }
+    else if ( scrollTop > 9600 ) {
+        scrollTop = 9600;
+    }
+    
+    let duration = 1000;
+    $('.fly').stop().animate({top:scrollTop}, duration);
+    
+    //console.log(scrollTop);
+});
+
+    // $(function () {
+    //     $(window).scroll(function () { //브라우저에 스크롤이 발생하는 순간부터
+    //         var curpos = $(window).scrollTop()+40; //스크롤바의 상단 위치값+20 보관
+    //         $(".sky").stop().animate({"top":curpos}); //스카이메뉴의 상단위치값 애니
+    //     });
+    // });
+
             // function inputPhoneNumber(obj) {
 
 
@@ -54,11 +88,16 @@
                 // target.value = target.value
                 // .replace(/[^0-9]/, '')
                 // .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+            
                 // }
+
             }
         },
         methods : {
 
+
+
+            
         // phone_format() { 
         //     var num = $("#m_id").val(); 
         //     var phone_num = num.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3"); 
@@ -142,18 +181,44 @@
             // }
         }
     }
+    
 </script>
 
+
+
 <style scoped>
-input {
-  width: 20rem;
-  height: 3rem;
-  border-radius: 5px;
-  padding-left: 1rem;
-  margin-left: 50px;
+
+#sidebox { background-color:#F0F0F0; position:absolute; width:120px; top:433px; right:420px; padding: 3px 10px }
+
+
+
+body{text-align:center;}
+#wrap{text-align:left;margin:0 auto;width:600px;}
+#slidemenu{background:#12cf3d;position:absolute;width:100px;top:50px;right:10px;}
+
+/* 스크롤 따라오기test */
+body {
+    margin:0;
+    padding:0;
 }
 
-h2 {
-  color: #2a3189;
+.fly {
+    position:absolute;
+    left:50%;
+    width:100px;
+    top:100px;
+    height:500px;
+    margin-left:520px;
+    background-color:red;
 }
+
+div.con {
+    width:1000px;
+    margin: 100px auto;
+    margin-bottom:1000px;
+    height:10000px;
+    background: linear-gradient(to bottom, red, yellow);
+}
+
+
 </style>
