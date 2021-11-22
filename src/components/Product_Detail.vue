@@ -129,7 +129,7 @@
                                     <div id="reviewTitle">
                                         <div id="titleSection">
                                             <StarRating :star-size="15" :rating="review.reviewrating" :read-only="true" :border-width="1" active-color="#E6A23C" :show-rating="false" :rounded-corners="true" id="rating"></StarRating>
-                                            <p>kyori0515</p>
+                                            <p>{{review.member}}</p>
                                         </div>
                                         <p>{{review.reviewdate}}</p>
                                     </div>
@@ -156,9 +156,9 @@
                                         </colgroup>
                                         <tbody>
                                             <tr>
-                                                <th><span class="th_title">아이디</span></th>
+                                                <th><span class="th_title">이메일</span></th>
                                                 <td>
-                                                    <span>kyori0515</span>
+                                                    <span>{{member.USEREMAIL}}</span>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -195,17 +195,26 @@
 
                                 </div>
                                 <div class="faqList" v-for="question in questionList" v-bind:key="question">
-                                    <p>{{question.QUESTIONKIND}}</p>
+                                    <p> [ {{question.QUESTIONKIND}} ] <i class="el-icon-view" :size="50"></i></p>
                                     <div class="faqContnet">
                                         <div class="faqLead">
-                                            <i class="bi bi-eye-fill" style="width:20px; height:20px; margin-right : 10px;"></i>
-                                            <p>{{question.QUESTIONTITLE}}.</p>
-                                            <p>{{question.QUESTIONCONTENT}}.</p>
+                                            <p>제목 : {{question.QUESTIONTITLE}}.</p>
+                                            <p>내용 : {{question.QUESTIONCONTENT}}.</p>
                                         </div>
                                         <div class="faqSecond">
                                             <p>{{question.MEMBER}}</p>
                                             <p>{{question.QUESTIONDATE}}</p>
-                                            <p class="badge bg-dark">답변완료</p>
+                                            <el-popover
+                                                placement="bottom"
+                                                :width="200"
+                                                trigger="hover"
+                                                content="답변 내용은 마이페이지에서 확인하실 수 있습니다."
+                                                style="font-family: 'Gowun Dodum', sans-serif; font-size:12px;"
+                                            >
+                                                <template #reference>
+                                                    <el-button class="badge">{{question.QUESTIONREPLY}}</el-button>
+                                                </template>
+                                            </el-popover>
                                         </div>
                                     </div>
                                 </div>
@@ -236,6 +245,7 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import {getCurrentInstance} from '@vue/runtime-core';
 import default_image from '@/assets/default_image.jpg';
 import { ElMessage } from 'element-plus'
@@ -254,6 +264,7 @@ import Cart_Popup from './Cart_Popup.vue';
                 ElMessage.error('작성실패')
             }
             return{
+                visibile : ref(false),
                 successAlertMSG,
                 addProductAlertMSG,
                 failAlertMSG,
@@ -286,7 +297,8 @@ import Cart_Popup from './Cart_Popup.vue';
                     {value : 3, label : '기타'},
                 ],
                 productPrice : 0,
-                productPriceF : 0
+                productPriceF : 0,
+                member : [],
             }
         },
         components : {
@@ -302,6 +314,9 @@ import Cart_Popup from './Cart_Popup.vue';
         methods : {
             closeDrawer(){
                 this.CartPopup = false;
+            },
+            handleGoCart(){
+                this.$router.push({ path: "/product_cart" });
             },
             handleMainImg(e){
                 if(e.target.files.length > 0) {
@@ -334,28 +349,48 @@ import Cart_Popup from './Cart_Popup.vue';
                 // 상세정보(상세이미지)
                 const url1 = `REST/api/select_subimage?product=${this.pcode}`;
                 const response1 = await axios.get(url1, header);
-                console.log(response1);
+                // console.log(response1);
                 if(response1.data.result === 1){
                     this.subImgCodeList = response1.data.list;
-                    console.log(this.subImgCodeList);
+                    // console.log(this.subImgCodeList);
                 }
 
+                // 리뷰 목록
                 const url2 = `REST/api/review/list/product?code=${this.pcode}`;
                 const response2 = await axios.get(url2, header);
-                console.log(response2);
+                // console.log(response2);
                 if(response2.data.result === 1){
                     this.reviewList = response2.data.list;
-                    console.log(this.reviewList);
+                    // console.log(this.reviewList);
                 }
 
+                // 문의글 목록
                 const url3 = `REST/api/question/product/selectlist?no=${this.pcode}&kind=`;
                 const response3 = await axios.get(url3,header);
                 console.log(response3);
                 if(response3.data.result === 1){
                     this.questionList = response3.data.list;
+
+                    for(var i=0; i<this.questionList.length; i++){
+                        if(this.questionList[i].QUESTIONKIND === 1){
+                            this.questionList[i].QUESTIONKIND = '상품문의';
+                        }
+                        else if(this.questionList[i].QUESTIONKIND === 2){
+                            this.questionList[i].QUESTIONKIND = '배송문의';
+                        }else this.questionList[i].QUESTIONKIND = '기타';
+                    }
+
+                    for(var j=0; j<this.questionList.length; j++){
+                        if(this.questionList[j].QUESTIONREPLY === true){
+                            this.questionList[j].QUESTIONREPLY = '답변완료';
+                        }
+                        else this.questionList[j].QUESTIONREPLY = '미답변';
+                    }
+
                     console.log(this.questionList);
                 }
                 
+
             },
             setReivewRating(reviewRating){
                 return this.reviewRating = reviewRating;
@@ -388,6 +423,7 @@ import Cart_Popup from './Cart_Popup.vue';
                 if(response.data.result === 1) {
                     this.successAlertMSG();
                     this.showFaqWriting = false;
+                    await this.handleDetailContents();
                 }else this.failAlertMSG();
             },
             clickDetail(){
@@ -420,8 +456,16 @@ import Cart_Popup from './Cart_Popup.vue';
             closeWritingReview(){
                 this.showWriting = false;
             },
-            showWritingFaq(){
+            async showWritingFaq(){
                 this.showFaqWriting = true;
+                const url = `REST/api/member/find`;
+                const headers = { "token" : this.gettoken };
+                const response = await axios.get(url, {headers});
+                // console.log(response);
+                if(response.data.result === 1){
+                    this.member = response.data.member;
+                    // console.log(this.member);
+                }
             },
             closeWritingFaq(){
                 this.showFaqWriting = false;
@@ -434,8 +478,9 @@ import Cart_Popup from './Cart_Popup.vue';
 
                 if(response.data.result === 1){
                     this.$socket.emit('addcart', {data : {cartin:1}});
+                    this.$refs.handlePopCart.getCartItem();
                     this.CartPopup = true;
-                    this.addProductAlertMSG();
+                    // this.addProductAlertMSG();
                 }
                 else if(response.data.result === 0){
                     alert(response.data.state);
@@ -443,13 +488,7 @@ import Cart_Popup from './Cart_Popup.vue';
                 else{
                     alert("error");
                 }
-
             },
-            async handleGoCart(){
-                this.$router.push({ path: "/product_cart" });
-            }
-            
-
         }
     }
 </script>
@@ -459,9 +498,9 @@ import Cart_Popup from './Cart_Popup.vue';
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 .pd_detail_wrapper{
     width: 100%;
-    /* height: 100%;
-    overflow-y: scroll; */
+    /* height: 100%; */
     font-family: 'Gowun Dodum', sans-serif;
+    /* overflow-y: scroll; */
     scroll-behavior: smooth;
     margin-top: 4.5%;
 }
@@ -539,13 +578,14 @@ import Cart_Popup from './Cart_Popup.vue';
 #saleprice{
     color: rgb(201, 31, 31);
     font-weight:bold;
+    font-size: 30px;
 }
 .pd_detail_table tbody th{
-    padding: 20px 10px;
+    padding: 20px 5px;
 }
 .pd_detail_table tbody th span{
-    font-size: 20px;
-    font-weight: 800;
+    font-size: 23px;
+    font-weight: bold;
 }
 .pd_detail_table tbody td {
     font-size: 18px;
@@ -842,7 +882,7 @@ input[type="file"]{
     border-radius: 3px;
  }
 .reviewArea, .faqList{
-    width: 96%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #49654E;
@@ -918,7 +958,7 @@ button:hover{
     width: 100%;
 }
 .faqWriting {
-    width: 96%;
+    width: 100%;
     border: 0.5px solid #49654E;
     padding: 30px 40px 0px 0px;
     margin-top: 10px;
@@ -940,6 +980,7 @@ button:hover{
     padding: 10px;
     color: rgba(185, 185, 185, 0.933);
     font-weight: bold;
+    font-size: 13px;
 }
 .faqContnet { 
     display: inline-flex;
@@ -951,10 +992,15 @@ button:hover{
     display : inline-flex;
     width : 100%;
 }
+.faqLead {
+    display: flex;
+    flex-direction: column;
+}
 .faqContnet .faqSecond{
     display: inline-flex;
     width : fit-content;
     text-align: right;
+    align-items: center;
 }
 .faqContnet .faqSecond p{
     margin: 0px 10px;
@@ -965,6 +1011,15 @@ button:hover{
     width : max-content;
     margin-left: 20px;
     height : fit-content
+}
+.faqSecond .badge{
+    background-color: #49654E;
+    /* border: 0.5px solid #49654E; */
+    border-radius: 3px;
+    padding: 5px;
+    color: white;
+    font-family: 'Gowun Dodum', sans-serif;
+    height : 30px;
 }
 .productRefundPolicy .policyContent{
     padding-top: 15px;

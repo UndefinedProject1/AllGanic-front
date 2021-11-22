@@ -259,7 +259,7 @@ import axios from 'axios';
 }
 .wrapper{
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -280,6 +280,7 @@ import axios from 'axios';
   width: 100%;
   background-color: white;
   overflow-y: scroll;
+  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   height: 100vh;
 }

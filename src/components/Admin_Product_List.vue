@@ -83,7 +83,7 @@
                 <div class="right_section">
                     <div class="main_image_container">
                         <img :src = "originProductImg" id="mainImg">
-                        <label for="insertmainImg">이미지 추가</label>
+                        <label for="insertmainImg">이미지 수정</label>
                         <input type="file" @change="handleMainImg($event)" name="파일첨부" id="insertmainImg">
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                     <div class="subimage_container">
                         <div class="subimg1_container" v-for="subimgcode in originProductSubImg" v-bind:key="subimgcode">
                             <img :src="`REST/api/select_subimage/find?no=${subimgcode}`"  id="subimage1">
-                            <label for="insertsubimg1">이미지 추가</label>
+                            <label for="insertsubimg1">이미지 수정</label>
                             <input type="file" @change="handleSubImg($event)" name="파일첨부" id="insertsubimg1">
                         </div>
                     </div>

@@ -17,7 +17,7 @@
                         <div class="cart_productbox3">
                             <div class="cart_price">
                                 <p>{{item.PRODUCTPRICE}} 원</p>
-                                <p>삭제하기</p>
+                                <p @click="deletePopupCartItem(item.CARTITEMCODE)">삭제하기</p>
                             </div>
                         </div>
                     </div>
@@ -45,7 +45,20 @@ import cart_popup_img1 from '@/assets/cart_popup_img1.png';
 import cart_popup_img2 from '@/assets/cart_popup_img2.png';
 import cart_minus from '@/assets/cart_minus.png';
 import cart_plus from '@/assets/cart_plus.png';
+import { ElMessage } from 'element-plus';
     export default {
+        setup(){
+            const successAlertMSG = () => {
+                ElMessage.success('삭제완료')
+            }
+            const failAlertMSG = () => {
+                ElMessage.error('삭제 실패')
+            }
+            return {
+                successAlertMSG,
+                failAlertMSG,
+            }
+        },
         data() {
             return {
                 $socket : '',
@@ -65,7 +78,6 @@ import cart_plus from '@/assets/cart_plus.png';
             }
         },
         async created(){
-            await this.getCartItem();
             const app = getCurrentInstance();
             this.$socket = app.appContext.config.globalProperties.$socket;
             console.log(this.$socket);
@@ -103,7 +115,24 @@ import cart_plus from '@/assets/cart_plus.png';
                     this.totalPrice += this.eachPrice[i];
                     this.totalPriceF = this.totalPrice.toLocaleString();
                 }
+                
+                if(this.itemList.length === 0){
+                    this.totalPriceF = 0;
+                }
             },
+            async deletePopupCartItem(val){
+                const url = `REST/api/cartitem/delete/check?chks=${val}`;
+                const response = await axios.delete(url); 
+                if(response.data.result === 1){
+                    this.successAlertMSG();
+                    await this.getCartItem();
+                    await this.getTotalPirce();
+
+                }else {
+                    this.failAlertMSG();
+                    await this.getCartItem();
+                }
+            }
         }
     }
 </script>
@@ -228,27 +257,28 @@ button{
 }
 /*  */
 .cart_subtotal {
-    border-top: 1.5px solid black;
+    border-top: 2px solid black;
+    /* border-bottom: 1.5px solid red; */
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     display: block;
-    padding-bottom: 45px;
     position: absolute;
     /* bottom: 0; */
     width: 97%;
-    height: 30%;
+    height: 19%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: center;
     background-color: white;
 }
 .subtotal_inner {
     /* border: 1px solid black; */
     display: inline-flex;
     width: 100%;
+    height : 45%;
     justify-content: space-between;
     margin: 0 auto;
-    padding: 0px 10px 0px 20px;
+    padding: 0px 10px 0px 30px;
 }
 .subtotal_inner > p {
     width: fit-content;
