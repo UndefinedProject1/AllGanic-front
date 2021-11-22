@@ -184,7 +184,7 @@ import mypage from '@/assets/mypage.png';
 .order_list, .qna_list {
     /* border: 1px solid black; */
     color: #715036;
-    height: 68%;
+    height: 67%;
     font-weight: bold;
     display: flex;
     flex-direction: column;
@@ -203,14 +203,14 @@ import mypage from '@/assets/mypage.png';
     font-weight: bold;
 }
 .or_li_box1 {
-    border: 1px solid black;
+    border: 3px solid #715036;
     width: 100%;
     height: 90%;
     margin-bottom: 10px;
     border-radius: 3px;
 }
 .or_qa_box1 {
-    border: 1px solid black;
+    border: 3px solid #715036;
     width: 100%;
     height: 30%;
     margin-bottom: 10px;

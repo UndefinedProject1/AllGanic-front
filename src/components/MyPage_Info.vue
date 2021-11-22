@@ -47,7 +47,7 @@
                 </div>
                 <div class="info_order">
                     <span>Order</span>
-                    <p @click="hadleClickUrl(3)">교환내역</p>
+                    <p @click="hadleClickUrl(3)">환불내역</p>
                     <p @click="hadleClickUrl(4)">주문내역</p>
                 </div>
                 <div class="info_qa">
@@ -164,7 +164,7 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500&display=swap');
 .info_box {
-    border: 1px solid black;
+    border: 3px solid #715036;
     width: 28%;
     height: 100%;
     border-radius: 3px;
@@ -235,8 +235,10 @@ img {
     align-items: center;
 }
 .solid {
+    /* border: 2px solid #715036; */
     width : 100%;
-    height: 1px;
+    height: 2px;
+    color: #715036;
 }
 .info_address {
     /* border: 1px solid black; */

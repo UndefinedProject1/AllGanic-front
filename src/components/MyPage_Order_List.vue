@@ -127,7 +127,7 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     font-size: 20px;
 }
 .insert_list {
-    border: 1px solid black;
+    border: 3px solid #715036;
     width: 100%;
     height: 93.5%;
     border-radius: 5px;

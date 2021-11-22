@@ -146,9 +146,11 @@
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="centerDialogVisible = false">Cancel</el-button>
+        <button type="button" id="btn_cancle" @click="centerDialogVisible = false">취소</button>
+        <button type="button" id="btn_update" @click="handlPWUpdate">수정</button>
+        <!-- <el-button @click="centerDialogVisible = false" id="btn_cancle">취소</el-button> -->
         <el-button @click="centerDialogVisible = false" id="btn_close" style="display:none">Close</el-button>
-        <el-button type="primary" @click="handlPWUpdate">Confirm</el-button>
+        <!-- <el-button type="primary" @click="handlPWUpdate" id="btn_update">수정</el-button> -->
       </span>
     </template>
   </el-dialog>
@@ -360,7 +362,7 @@ import mypage_address from "@/assets/mypage_address.png";
   font-size: 20px;
 }
 .m_update_insert {
-  border: 1px solid black;
+  border: 3px solid #715036;
   width: 100%;
   height: 93.5%;
   border-radius: 3px;
@@ -564,6 +566,7 @@ import mypage_address from "@/assets/mypage_address.png";
 }
 .m_update_address > p {
   margin-right: 20px;
+  margin-top: 15px;
 }
 .m_update_postcode {
   display: flex;
@@ -653,6 +656,16 @@ span {
   margin: 2px 5px 2px 0px;
   color: #c30000;
   font-weight: bold;
+}
+#btn_cancle , #btn_update {
+  width: 70px;
+  height: 30px;
+  color:white;
+  font-family: 'Gowun Dodum', sans-serif;
+  background-color: #715036;
+  border-radius: 3px;
+  border: none;
+  margin-right: 20px;
 }
 /* 회원정보수정 버튼 */
 #handle_memupdate {

@@ -101,7 +101,7 @@ import { ElMessage } from 'element-plus';
     font-size: 20px;
 }
 .delete_insert {
-    border: 1px solid black;
+    border: 3px solid #715036;
     width: 100%;
     height: 93.5%;
     border-radius: 5px;
