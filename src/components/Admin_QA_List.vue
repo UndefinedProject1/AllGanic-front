@@ -138,6 +138,7 @@ import axios from 'axios';
                     alert("답글등록완료");
                     // alert버튼 누르면 모달창 사라짐
                     document.getElementById('btn_close').click();
+                    await this.handleGetQList();
                 }
             }
 

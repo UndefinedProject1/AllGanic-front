@@ -6,7 +6,7 @@
         <div class="qa_insert">
             <!-- 문의내역 Table -->
             <div class="insert_prdcode">
-                <el-table :data="QAListData" stripe style="width: 95%; margin-left:25px;" >
+                <el-table :data="QAListData" stripe style="width: 97%; margin-left:25px;" >
                     <el-table-column prop="select" label="문의유형" width="150" align="center">
                         <template #default="scope">
                             <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONKIND}}</p>
@@ -17,18 +17,24 @@
                             <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;" >{{scope.row.QUESTIONTITLE}}</p>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="content" label="내용" width="320" align="center">
+                    <el-table-column prop="content" label="내용" width="290" align="center">
                         <template #default="scope">
                             <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONCONTENT}}</p>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="date" label="날짜" width="250" align="center">
+                    <el-table-column prop="date" label="날짜" width="220" align="center">
                         <template #default="scope">
                             <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONDATE}}</p>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="answer" label="답변상태" width="130" align="center">
+                    <el-table-column prop="answer" label="답변상태" width="185" align="center">
                         <template #default="scope">
+                            <el-button size="small" 
+                                        style="font-size:13px; color:white; margin:10px 10px 5px 0px; 
+                                                font-weight:bold; background-color:#715036; font-family: 'Gowun Dodum', sans-serif;"
+                                        v-show="showEdit">
+                                        수정
+                            </el-button>
                             <el-button size="small" 
                                         style="font-size:13px; color:white; margin:10px 0px 5px 0px; 
                                                 font-weight:bold; background-color:#715036; font-family: 'Gowun Dodum', sans-serif;"
@@ -43,7 +49,7 @@
     </div>
 
     <!-- 문의글 답변 모달창 -->
-    <el-dialog v-model="showModal" title="답글 현황">
+    <el-dialog v-model="showModal" title="문의 답변">
         <div class="questionContents">
             <div class="productInfo">
                 <table class="table">
@@ -69,19 +75,22 @@
                     </tbody>
                 </table>
             </div>
+            <p> 문의 내용 </p>
             <div class="questionContent">
                 {{QList_Modal.questioncontent}}
             </div>
-            <hr/>
+            <hr style="width:98%;"/>
+            <div class="replysection">
+                <p> 문의 답변 </p>
+                <p>{{QAReply.ANSWERDATE}}</p>
+            </div>
             <div class="questionContent">
-                {{QList_Modal.questioncontent}}
+                {{QAReply.ANSWERCONTENT}}
             </div>
         </div>
         <div class="modal-footer">
             <!-- 히든버튼 추가 -->
-            <button type="button" id="btn_close" style="display:none" @click="showModal = false">Close</button>
             <button type="button"  @click="showModal = false" id="closebtn">닫기</button>
-            <button type="button" @click="handleReply(QList_Modal.questioncode)">작성완료</button>
         </div>
     </el-dialog>
 </template>
@@ -99,7 +108,9 @@ import axios from "axios";
                 QList_Modal : [],
                 PList_Modal : [],
                 BList_Modal : [],
-                CList_Modal : []
+                CList_Modal : [],
+                QAReply : '',
+                showEdit : true,
             }
         },
         async created() {
@@ -127,7 +138,9 @@ import axios from "axios";
                         if(this.QAListData[j].QUESTIONREPLY === true){
                             this.QAListData[j].QUESTIONREPLY = '답변완료';
                         }
-                        else this.QAListData[j].QUESTIONREPLY = '미답변';
+                        else if(this.QAListData[j].QUESTIONREPLY === false) {
+                            this.QAListData[j].QUESTIONREPLY = '미답변';  
+                        } 
                     }
                 }
                 else if(response.data.result === 0) {
@@ -151,8 +164,13 @@ import axios from "axios";
 
                 const url2 = `REST/api/member/question/answer?code=${this.QList_Modal.questioncode}`;
                 const headers = {"token" : this.token};
-                const response2 = await axios.get(url2, headers);
+                const response2 = await axios.get(url2, {headers});
                 console.log(response2);
+                if(response2.data.result === 1){
+                    this.QAReply = response2.data.answer;
+                }else if (response2.data.result === 0) {
+                    this.QAReply.ANSWERCONTENT = "해당 문의에 대한 답변이 등록되지 않았습니다."
+                } else alert ("error");
             }
 
         }
@@ -178,7 +196,7 @@ import axios from "axios";
     font-size: 20px;
 }
 .qa_insert {
-    border: 1px solid black;
+    border: 3px solid #715036;
     width: 100%;
     height: 93.5%;
     border-radius: 5px;
@@ -207,12 +225,21 @@ import axios from "axios";
     height: 100%;
     width: 100%;
 }
+.questionContents p{
+    padding-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #49654E;
+}
 .questionContents .productInfo{
     /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding: 10px;
     align-items: center;
+    border-top: 0.5px solid #333;
+    border-bottom: 0.5px solid #333;
 }
 .questionContents .productInfo #productinfo{
     /* border: 1px solid black; */
@@ -244,10 +271,23 @@ import axios from "axios";
     display: flex;
     flex-direction: column;
     border-radius: 3px;
-    margin: 10 auto;
+    margin: 10px 0px;
     width: 97%;
     height: 150px;
     padding : 10px;
+}
+.replysection{
+    width : 98%;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.replysection p:last-child{
+    display: inline-flex;
+    font-size: 14px;
+    font-weight: 200;
+    padding-right: 10px;
+    justify-content: space-between;
 }
 .modal-footer{
     /* border: 1px solid black; */
