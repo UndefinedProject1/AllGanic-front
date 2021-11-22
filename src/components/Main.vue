@@ -20,7 +20,14 @@
                 </div>
             </div>
         </section>
-        <section>
+        <section class="secondSection" ref="sections1">
+            <div data-aos="zoom-in" data-aos-duration="500">
+                <img :src="eco1" id="eco1"/>
+                <img :src="eco5" id="eco5"/>
+            </div>
+            <div class="middle_title">
+                <p>We protect the planet.</p>
+            </div>
 
         </section>
         <section>
@@ -40,6 +47,9 @@ import boxed_water from '@/assets/boxed_water.jpg';
 import zerowaste_package from '@/assets/zerowaste_package.jpg';
 import natureround from '@/assets/natureround.jpg';
 import main_slider_img_1 from '@/assets/main_slider_img_1.png';
+import eco1 from '@/assets/eco1.jpg';
+import eco5 from '@/assets/eco5.jpg';
+
 
 
     export default {
@@ -58,6 +68,9 @@ import main_slider_img_1 from '@/assets/main_slider_img_1.png';
                 zerowaste_package : zerowaste_package,
                 natureround : natureround,
                 main_slider_img_1 :main_slider_img_1,
+
+                eco1 : eco1,
+                eco5 : eco5,
 
                 banners : [
                     { text : "Welcome", img : main_slider_img_1},
@@ -223,5 +236,48 @@ section:last-child{
     font-size: 40px;
     color: black;
 }
+/* section1 */
+/* .imagebox1 {
+    width: 50%;
+    height: 80%;
+    background-color: aqua;
+} */
+.secondSection {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+#eco1 {
+    width: 25%;
+    height: 65%;
+    border: 8px solid rgb(247, 233, 214);
+    position: relative;
+    top : 13%;
+    left: 10%;
+}
+#eco5 {
+    width: 28%;
+    height: 45%;
+    border: 8px solid rgb(241, 223, 197);
+    /* margin-right: 20%; */
+    position: relative;
+    top: 46%;
+    left: -5%;
+}
+.middle_title {
+    border: 1px solid black;
+    display: flex;
+    width: 30%;
+    height: 76%;
+    justify-content: center;
+    margin-top: 6%;
+    margin-left: 5%;
+}
+.middle_title > p {
+    border: 1px solid black;
+    width: fit-content;
+}
+
 
 </style>
