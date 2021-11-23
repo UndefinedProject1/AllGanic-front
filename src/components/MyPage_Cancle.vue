@@ -37,7 +37,7 @@
                         </el-table-column>
                         <el-table-column label="환불완료일자" width="250px;" align="center">
                             <template #default="scope">
-                                <p>{{scope.row.MERCHANT_UID}}</p>
+                                <p>{{scope.row.QUESTIONCODE}}</p>
                             </template>
                         </el-table-column>
                             <!-- <el-table-column label="배송비" width="150" align="center">
@@ -120,22 +120,9 @@ import axios from 'axios';
     margin-top: 10px;
     margin-left: 15px;
 }
-/* .cancle_prdcode {
-    display: flex;
-} */
-/* .solid {
-    border: 1px solid rgb(228, 227, 227);
-    width: 90%;
-    margin-bottom: 2px;
-    margin-top: 10px;
-    margin-left: 42px;
-} */
 .orderlist_info_section {
     width: 100%;
-    
 }
-
-
 .product_detail_info {
     width: 100%; 
     text-align:left; 

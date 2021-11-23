@@ -9,17 +9,6 @@
                     <p @click="moreorderlist">더보기 <img :src="mypage" style="right" class="mypage_plus"/></p>
                 </div>
                 <div class="or_li_box1" >
-                    <!-- <div class="insert_date_code">
-                        <div class="insert_date">
-                            <p style="margin-left:30px; color:#715036; font-weight: bold; margin-bottom:0px;">주문일자</p>
-                            <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">2021.11.07</p>
-                        </div>
-                        <div class="insert_ordercode">
-                            <p style="margin-left:40px; color:#715036; font-weight: bold; margin-bottom:0px;">주문번호</p>
-                            <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">20111114-000856</p>
-                        </div>
-                    </div>
-                    <hr class="solid" style="border-top-width: 0px;"/> -->
                     <!-- 주문내역 Table -->
                     <div class="orderlist_info_section" style="width:100%; height: 93.5%; overflow-x:hidden">
                         <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 97%; margin-left:20px;" @selection-change="OrderListBtn">
@@ -67,50 +56,48 @@
                 </div>
             </div>
             <div class="qna_list">
-                <div class="order_list_qa">
+                <div class="order_list_qa" style="width:100%; height: 93.5%; overflow-x:hidden">
                     <p>최근 문의내역</p>
                     <p @click="morequestion">더보기 <img :src="mypage" style="right" class="mypage_plus"/></p>
                 </div>
+                <div class="order_list_warning">
+                    <p>*문의글 수정 및 삭제는 문의내역에서만 가능합니다.</p>
+                </div>
                 <div class="or_qa_box1">
-                    <div class="insert_date_code">
-                        <div class="insert_date">
-                            <p style="margin-left:30px; color:#715036; font-weight: bold; margin-bottom:0px;">주문일자</p>
-                            <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">2021.11.07</p>
-                        </div>
-                        <div class="insert_ordercode">
-                            <p style="margin-left:40px; color:#715036; font-weight: bold; margin-bottom:0px;">주문번호</p>
-                            <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">20111114-000856</p>
-                        </div>
-                    </div>
                     <hr class="solid" style="border-top-width: 0px;"/>
                     <!-- 문의내역 Table -->
-                    <div class="insert_prdcode">
-                        <el-table :data="QAListData" stripe style="width: 90%; margin-left:50px;" >
-                            <el-table-column prop="select" label="문의유형" width="150" align="center">
+                    <div class="insert_prdcode" style="width:100%; height: 93.5%; overflow-x:hidden">
+                        <el-table :data="QAListData" stripe style="width: 90%; margin-left:55px;" >
+                            <el-table-column prop="select" label="문의유형" width="100" align="center">
                                 <template #default="scope">
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.qaSelect}}배송</p>
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONKIND}}</p>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="title" label="제목" width="200" align="center">
+                            <el-table-column prop="title" label="제목" width="250" align="center">
                                 <template #default="scope">
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.qaTitle}}언제오나요?</p>
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONTITLE}}</p>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="content" label="내용" width="250" align="center">
+                            <el-table-column prop="content" label="내용" width="300" align="center">
                                 <template #default="scope">
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.qaContent}}11일에 주문을 했는데 아직 안왔어요.</p>
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONCONTENT}}</p>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="date" label="날짜" width="180" align="center">
+                            <el-table-column prop="date" label="문의일자" width="150" align="center">
                                 <template #default="scope">
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.qaDate}}2021.11.11</p>
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONDATE}}</p>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="answer" label="답변상태" width="180" align="center">
+                            <el-table-column prop="answer" label="답변상태" width="100" align="center">
+                                <template #default="scope">
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONREPLY}}</p>
+                                </template>
+                            </el-table-column>
+                            <!-- <el-table-column prop="answer" label="기타" width="100" align="center">
                                 <template #default="scope">
                                     <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.qaAction}}답변완료</p>
                                 </template>
-                            </el-table-column>
+                            </el-table-column> -->
                         </el-table>
                     </div>
                 </div>
@@ -132,11 +119,13 @@ import mypage from '@/assets/mypage.png';
                 mypage_mail : mypage_mail,
                 mypage_address : mypage_address,
                 mypage : mypage,
-                OrderListData : []
+                OrderListData : [],
+                QAListData : [],
             }
         },
         async created(){
             await this.orderListGet();
+            await this.qaListGet();
         },
         methods : {
             moreorderlist() {
@@ -155,10 +144,20 @@ import mypage from '@/assets/mypage.png';
                     console.log(this.OrderListData);
                 }
                 else if(response.data.result === 0) {
-                    alert(response.data.state);
+                    // alert(response.data.state);
                 }
-                
             },
+            async qaListGet() {
+                const url = `REST/api/question/member/selectlist`;
+                const headers = {"Content-Type" : "application/json", "token" : this.token};
+                const response = await axios.get(url, {headers});
+                console.log("======================================");
+                console.log(response);
+                if(response.data.result ===1) {
+                    this.QAListData = response.data.list;
+                }
+
+            }
         }
     }
 </script>
@@ -210,6 +209,13 @@ import mypage from '@/assets/mypage.png';
     color: #715036;
     font-weight: bold;
 }
+.order_list_warning > p {
+    width: fit-content;
+    margin: 0 10px 5px 0px;
+    font-size: 13px;
+    color: rgb(201, 31, 31);
+    text-align: right;
+}
 .or_li_box1 {
     border: 3px solid #715036;
     width: 100%;
@@ -220,7 +226,7 @@ import mypage from '@/assets/mypage.png';
 .or_qa_box1 {
     border: 3px solid #715036;
     width: 100%;
-    height: 30%;
+    height: 10%;
     margin-bottom: 10px;
     border-radius: 3px;
 }
