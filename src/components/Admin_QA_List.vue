@@ -25,6 +25,7 @@
                     </el-table-column>
                 </el-table>
             </div>
+            <el-pagination layout="prev, pager, next" :page-count="pages" @current-change="handlePageChange" class="pagination"></el-pagination>
         </div>
     </div>
 
@@ -92,22 +93,29 @@ import axios from 'axios';
                     {value : 2, label : '배송문의'},
                     {value : 3, label : '기타'},
                 ],
+                pages : 0,
+                page : 1
             }
         },
         async created(){
             await this.handleGetQList();
         },
         methods : {
+            async handlePageChange(val){
+                this.page = val;
+                await this.handleGetQList();
+            },
             async selectCate1(){
                 await this.handleGetQList();
             },
             async handleGetQList(){
                 const url = `REST/api/question/all/selectlist?reply=false&kind=${this.selected}`;
                 const response = await axios.get(url);
-                // console.log(response);
+                console.log(response);
                 if(response.data.result === 1){
                     this.QList = response.data.list;
-                    console.log(this.QList);
+                    this.pages = response.data.count;
+                    // console.log(this.response);
                 }
             },
             async handleEdit(val){
@@ -133,11 +141,12 @@ import axios from 'axios';
                 }
 
                 const response = await axios.post(url, body, {headers});
-                console.log(response);
+                // console.log(response);
                 if(response.data.result === 1){
                     alert("답글등록완료");
                     // alert버튼 누르면 모달창 사라짐
                     document.getElementById('btn_close').click();
+                    this.$emit('input', this.pages)
                     await this.handleGetQList();
                 }
             }
@@ -216,6 +225,11 @@ import axios from 'axios';
 .qa_list_table table tbody button:hover{
     opacity: 0.9;
     cursor: pointer;
+}
+.pagination{
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 5%;
 }
 
 /* 모달 */

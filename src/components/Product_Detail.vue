@@ -128,17 +128,17 @@
                                 <div class="reviewArea"  v-for="review in reviewList" v-bind:key="review">
                                     <div id="reviewTitle">
                                         <div id="titleSection">
-                                            <StarRating :star-size="15" :rating="review.reviewrating" :read-only="true" :border-width="1" active-color="#E6A23C" :show-rating="false" :rounded-corners="true" id="rating"></StarRating>
-                                            <p>{{review.member}}</p>
+                                            <StarRating :star-size="15" :rating="review.REVIEWRATING" :read-only="true" :border-width="1" active-color="#E6A23C" :show-rating="false" :rounded-corners="true" id="rating"></StarRating>
                                         </div>
-                                        <p>{{review.reviewdate}}</p>
+                                        <p>{{review.REVIEWDATE}}</p>
                                     </div>
                                     <div id="reviewContent">
-                                        <img :src="`REST/api/review_image?no=${review.reviewcode}`">
-                                        <p>{{review.reviewcontent}}</p>
+                                        <img :src="`REST/api/review_image?no=${review.REVIEWCODE}`">
+                                        <p>{{review.REVIEWCONTENT}}</p>
                                     </div>
                                 </div>
                             </div>
+                            <el-pagination layout="prev, pager, next" :page-count="pages" @current-change="handlePageChange" class="pagination"></el-pagination>
                         </div>
                     </div>
                     <div class="productFaq"><input type="text" ref="callProductFaq">
@@ -299,6 +299,8 @@ import Cart_Popup from './Cart_Popup.vue';
                 productPrice : 0,
                 productPriceF : 0,
                 member : [],
+                pages : 0,
+                page : 1
             }
         },
         components : {
@@ -312,6 +314,10 @@ import Cart_Popup from './Cart_Popup.vue';
             console.log(this.$socket);
         },
         methods : {
+            async handlePageChange(val){
+                this.page = val;
+                await this.handleDetailContents();
+            },
             closeDrawer(){
                 this.CartPopup = false;
             },
@@ -356,18 +362,19 @@ import Cart_Popup from './Cart_Popup.vue';
                 }
 
                 // 리뷰 목록
-                const url2 = `REST/api/review/list/product?code=${this.pcode}`;
+                const url2 = `REST/api/review/list/product?code=${this.pcode}&page=${this.page}`;
                 const response2 = await axios.get(url2, header);
-                // console.log(response2);
+                console.log(response2);
                 if(response2.data.result === 1){
                     this.reviewList = response2.data.list;
-                    // console.log(this.reviewList);
+                    this.pages = response2.data.count;
+                    console.log(this.pages);
                 }
 
                 // 문의글 목록
                 const url3 = `REST/api/question/product/selectlist?no=${this.pcode}&kind=`;
                 const response3 = await axios.get(url3,header);
-                console.log(response3);
+                // console.log(response3);
                 if(response3.data.result === 1){
                     this.questionList = response3.data.list;
 
@@ -387,7 +394,7 @@ import Cart_Popup from './Cart_Popup.vue';
                         else this.questionList[j].QUESTIONREPLY = '미답변';
                     }
 
-                    console.log(this.questionList);
+                    // console.log(this.questionList);
                 }
                 
 
@@ -929,6 +936,11 @@ input[type="file"]{
 }
 .reviewTable .reviewArea #reviewContent p{
     margin : 0px 0px 0px 20px;
+}
+.pagination{
+    width : fit-content;
+    margin: 3% auto;
+
 }
 input[type="text"] {
     border: none;

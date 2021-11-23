@@ -20,7 +20,7 @@
                     <el-table-column label="작성일" prop="QUESTIONDATE" />
                 </el-table>
             </div>
-
+            <el-pagination layout="prev, pager, next" :page-count="pages" @current-change="handlePageChange" class="pagination"></el-pagination>
         </div>
     </div>
 </template>
@@ -38,11 +38,17 @@ import axios from "axios";
                     {value : 2, label : '배송문의'},
                     {value : 3, label : '기타'},
                 ],
+                pages : 0,
+                page : 1
             }
         },
         async created(){
             await this.handleQCList();
         },
+        async handlePageChange(val){
+                this.page = val;
+                await this.handleQCList();
+            },
         methods : {
             async selectCate1(){
                 await this.handleQCList();
@@ -53,6 +59,7 @@ import axios from "axios";
                 // console.log(response);
                 if(response.data.result === 1){
                     this.QCList = response.data.list;
+                    this.pages = response.data.count;
                     console.log(this.QList);
                 }
             }
@@ -120,5 +127,10 @@ import axios from "axios";
 .qa_list_table table th,
 .qa_list_table table tbody td{
     text-align: center;
+}
+.pagination{
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 5%;
 }
 </style>

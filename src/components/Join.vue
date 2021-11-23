@@ -146,7 +146,10 @@ export default {
               .matches(/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])/i,'이메일은 영문만 가능합니다.')
               .required('해당 항목은 필수입력사항입니다.'),
       selected : yup.string().required('이미 사용중인 아이디 입니다.'),
-      userpw : yup.string().required('해당 항목은 필수입력사항입니다.'),
+      userpw : yup.string()
+              .matches(/[~!@#$%^&*_?]/,'특수문자 ~, !, @, #, $, %, ^, &, *, _, ? 중 하나는 포함되어야합니다. ')
+              .min(6, '비밀번호는 최소 6자리 이상이어야합니다.')
+              .required('해당 항목은 필수입력사항입니다.'),
       usertel : yup.string()
               .matches('/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/','(대한민국 기준)일반 연락처 형태로 작성해주세요')
               .required('해당 항목은 필수입력사항입니다.'),

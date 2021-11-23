@@ -2,6 +2,7 @@
     <div class="info_list">
         <div class="qa_title">
             <p>문의내역</p>
+            <p>*본 문의글에 대한 수정 및 삭제는 문의 답변이 이루어지기 전에만 가능합니다.</p>
         </div>
         <div class="qa_insert">
             <!-- 문의내역 Table -->
@@ -9,37 +10,41 @@
                 <el-table :data="QAListData" stripe style="width: 97%; margin-left:25px;" >
                     <el-table-column prop="select" label="문의유형" width="150" align="center">
                         <template #default="scope">
-                            <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONKIND}}</p>
+                            <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold;">{{scope.row.QUESTIONKIND}}</p>
                         </template>
                     </el-table-column>
                     <el-table-column prop="title" label="제목" width="200" align="center">
                         <template #default="scope">
-                            <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;" >{{scope.row.QUESTIONTITLE}}</p>
+                            <el-button type="text" @click="showQaReplay(scope.row.QUESTIONCODE)" 
+                                    style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; font-family: 'Gowun Dodum', sans-serif;
+                                            text-decoration-line: underline; cursor:pointer;" >
+                                    {{scope.row.QUESTIONTITLE}}
+                            </el-button>
                         </template>
                     </el-table-column>
                     <el-table-column prop="content" label="내용" width="290" align="center">
                         <template #default="scope">
-                            <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONCONTENT}}</p>
+                            <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold;">{{scope.row.QUESTIONCONTENT}}</p>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="date" label="날짜" width="220" align="center">
+                    <el-table-column prop="date" label="문의 일자" width="190" align="center">
                         <template #default="scope">
-                            <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONDATE}}</p>
+                            <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold;">{{scope.row.QUESTIONDATE}}</p>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="answer" label="답변상태" width="185" align="center">
+                    <el-table-column prop="answer" label="답변상태" width="150" align="center">
                         <template #default="scope">
-                            <el-button size="small" 
-                                        style="font-size:13px; color:white; margin:10px 10px 5px 0px; 
-                                                font-weight:bold; background-color:#715036; font-family: 'Gowun Dodum', sans-serif;"
-                                        v-show="showEdit">
-                                        수정
-                            </el-button>
-                            <el-button size="small" 
-                                        style="font-size:13px; color:white; margin:10px 0px 5px 0px; 
-                                                font-weight:bold; background-color:#715036; font-family: 'Gowun Dodum', sans-serif;"
-                                        @click="showQaReplay(scope.row.QUESTIONCODE)">
-                                        {{scope.row.QUESTIONREPLY}}
+                            <p style="font-size:13px; color:#715036; margin:10px 0px 5px 0px; font-weight:bold; font-family: 'Gowun Dodum', sans-serif;">
+                                {{scope.row.QUESTIONREPLY}}
+                            </p>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="title" label="기타" width="150" align="center">
+                        <template #default="scope">
+                            <el-button type="text" @click="showQaReplay(scope.row.QUESTIONCODE)" 
+                                    style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; font-family: 'Gowun Dodum', sans-serif;
+                                            text-decoration-line: underline; cursor:pointer;" >
+                                    {{showEdit}}
                             </el-button>
                         </template>
                     </el-table-column>
@@ -82,10 +87,10 @@
             <hr style="width:98%;"/>
             <div class="replysection">
                 <p> 문의 답변 </p>
-                <p>{{QAReply.ANSWERDATE}}</p>
+                <p>{{QAregdate}}</p>
             </div>
             <div class="questionContent">
-                {{QAReply.ANSWERCONTENT}}
+                {{QAanswer}}
             </div>
         </div>
         <div class="modal-footer">
@@ -110,7 +115,9 @@ import axios from "axios";
                 BList_Modal : [],
                 CList_Modal : [],
                 QAReply : '',
-                showEdit : true,
+                showEdit : '',
+                QAanswer : '',
+                QAregdate : '',
             }
         },
         async created() {
@@ -137,11 +144,17 @@ import axios from "axios";
                     for(var j=0; j<this.QAListData.length; j++){
                         if(this.QAListData[j].QUESTIONREPLY === true){
                             this.QAListData[j].QUESTIONREPLY = '답변완료';
+                            this.showEdit = '';
                         }
-                        else if(this.QAListData[j].QUESTIONREPLY === false) {
-                            this.QAListData[j].QUESTIONREPLY = '미답변';  
-                        } 
+                        else {
+                            this.QAListData[j].QUESTIONREPLY = '미답변';
+                            this.showEdit = '수정하기';
+                        }
+                        
                     }
+
+                    console.log(this.QAListData);
+
                 }
                 else if(response.data.result === 0) {
                     alert("데이터가 존재하지 않습니다.");
@@ -165,12 +178,16 @@ import axios from "axios";
                 const url2 = `REST/api/member/question/answer?code=${this.QList_Modal.questioncode}`;
                 const headers = {"token" : this.token};
                 const response2 = await axios.get(url2, {headers});
+                console.log("===================");
                 console.log(response2);
-                if(response2.data.result === 1){
+                if(response2.data.answer !== null){
                     this.QAReply = response2.data.answer;
-                }else if (response2.data.result === 0) {
-                    this.QAReply.ANSWERCONTENT = "해당 문의에 대한 답변이 등록되지 않았습니다."
-                } else alert ("error");
+                    this.QAanswer = response2.data.answer.ANSWERCONTENT;
+                    this.QAregdate = response2.data.answer.ANSWERDATE;
+                }else if(response2.data.answer === null){
+                    this.QAanswer = "해당문의에 대한 답변이 등록되지 않았습니다."
+                    this.QAregdate = " ";
+                }
             }
 
         }
@@ -188,12 +205,22 @@ import axios from "axios";
 .qa_title {
     color: #715036;
     font-weight: bold;
-    display: flex;   
+    display: flex;
+    /* border: 1px solid black; */
+    justify-content: space-between;
+    align-items: flex-end;
 }
-.qa_title > p {
+.qa_title p:first-child {
     margin-top: 0px;
     margin-bottom: 10px;
     font-size: 20px;
+    width: fit-content;
+}
+.qa_title p:last-child{
+    width: fit-content;
+    margin: 0 10px 5px 0px;
+    font-size: 13px;
+    color: rgb(201, 31, 31);
 }
 .qa_insert {
     border: 3px solid #715036;
@@ -319,6 +346,7 @@ import axios from "axios";
 .modal-footer button:hover{
     opacity: 0.8;
     cursor: pointer;
+
 }
 
 </style>

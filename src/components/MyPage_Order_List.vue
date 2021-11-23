@@ -65,12 +65,10 @@
 
 <script>
 import axios from "axios";
-import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     export default {
         data() {
             return {
                 token: sessionStorage.getItem("token"),
-                vegan_cream_img : vegan_cream_img,
                 OrderListData: [],
                 val : []
             }

@@ -24,18 +24,21 @@
                 </div>
                 <div class="section">
                     <h2>FAQ관리</h2>
-                    <p @click="ChangeMenu(6)">문의글 목록</p>
+                    <el-badge :value="value" type="warning" class="badgeClass">
+                        <p @click="ChangeMenu(6)">문의글 목록</p>
+                    </el-badge>
                     <p @click="ChangeMenu(7)">문의글(답변완료)</p>
                 </div>
             </div>
         </div>
         <div class="admin_content" >
-            <component v-bind:is="CurrentPage"></component>
+            <component v-bind:is="CurrentPage" @input="onChangeNumber"></component>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
 import Admin_Product_Insert from '@/components/Admin_Product_Insert.vue';
 import Admin_Brand_List from '@/components/Admin_Brand_List.vue';
 import Admin_Main_Page from '@/components/Admin_Main_Page.vue';
@@ -51,7 +54,8 @@ import Admin_Cate_Sales_Chart from '@/components/Admin_Cate_Sales_Chart.vue';
             return{
                 CurrentPage : 'AdminMainPage',
                 pages : ['AdminMainPage', 'AdminBrandInsert', 'AdminBrandList', 'AdminCategoryInsert',
-                        'AdminProductInsert','AdminProductList', 'Admin_QA_List', 'Admin_QA_List_Complete','Admin_Brand_Sales_Chart','Admin_Cate_Sales_Chart']
+                        'AdminProductInsert','AdminProductList', 'Admin_QA_List', 'Admin_QA_List_Complete','Admin_Brand_Sales_Chart','Admin_Cate_Sales_Chart'],
+                value : 0
             }
         },
         components : {
@@ -66,9 +70,24 @@ import Admin_Cate_Sales_Chart from '@/components/Admin_Cate_Sales_Chart.vue';
             'Admin_Brand_Sales_Chart' : Admin_Brand_Sales_Chart,
             'Admin_Cate_Sales_Chart' : Admin_Cate_Sales_Chart
         },
+        async mounted(){
+            await this.getQAlist();
+        },
         methods : {
+            onChangeNumber(val){
+                this.value = val;
+            },
             ChangeMenu(val){
                 this.CurrentPage = this.pages[val];
+            },
+            async getQAlist(){
+                const url = `REST/api/question/all/selectlist?reply=false&kind=`;
+                const response = await axios.get(url);
+                // console.log(response);
+                if(response.data.result === 1){
+                    this.value = response.data.count;
+                    console.log(this.value);
+                }
             }
         }
     }
@@ -143,6 +162,9 @@ import Admin_Cate_Sales_Chart from '@/components/Admin_Cate_Sales_Chart.vue';
     flex-direction: column;
     align-items: center;
     margin : 0px 20px 0px 20px;
+}
+.badgeClass{
+    margin: 10px 0px 0px 5px;
 }
 .sidemenu_container h2{
     font-size: 20px;

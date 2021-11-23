@@ -27,7 +27,9 @@
                         </li>
                     </ul>
                 </div>
+                <el-pagination layout="prev, pager, next" :total="pages" @current-change="handlePageChange" class="pagination"></el-pagination>
             </div>
+            
         </div>
     </div>
 </template>
@@ -45,6 +47,8 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 category_codeq : this.$route.query.code,
                 catelist : [],
                 productlist : [],
+                pages : 0,
+                page : 1
             }
         },
         async created(){
@@ -71,12 +75,14 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                     // console.log(this.catelist);
                 }
 
-                const url1 = `REST/api/select_cproduct?code=${this.category_codeP}`;
-                const response1 = await axios.get(url1, header)
-                if(response1.data.result === 1){
+                const url1 = `REST/api/select_cproduct3?page=${this.page}&code=${this.category_codeP}`;
+                const response1 = await axios.get(url1, header);
+                console.log(response1);
+                if(response1.data.result == 1){
                     this.productlist = response1.data.list;
-                    // console.log(this.productlist);
+                    this.pages = response1.data.count;
                 }
+
             },
             async handleContents(){
                 // console.log(this.$route.params);
@@ -90,11 +96,13 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                     // console.log(this.catelist);
                 }
 
-                const url1 = `REST/api/select_cproduct?code=${this.category_codeq}`;
-                const response1 = await axios.get(url1, header)
-                if(response1.data.result === 1){
+                const url1 = `REST/api/select_cproduct3?page=${this.page}&code=${this.category_codeq}`;
+                const response1 = await axios.get(url1, header);
+                console.log(response1);
+                if(response1.data.result == 1){
                     this.productlist = response1.data.list;
-                    // console.log(this.productlist);
+                    this.pages = response1.data.count;
+                    // this.pages = Number(response2.data.list);
                 }
             },
             async goCate(catecode){
@@ -105,7 +113,11 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                 if(response.data.result === 1){
                     this.productlist = response.data.list;
                 }
-            }   
+            },
+            async handlePageChange(val){
+                this.page = val;
+                await this.changeContents();
+            },
         }
     }
 </script>
@@ -234,5 +246,12 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
     height : 15px;
     background-size: cover;
     right: 0;
+}
+
+.pagination{
+    /* border: 1px solid black; */
+    width : 120px;
+    height : 40px;
+    margin: 0 auto;
 }
 </style>

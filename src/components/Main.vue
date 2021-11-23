@@ -1,44 +1,36 @@
 <template>
-    <ul class="navigation" ref="navigation">
-        <li class="selected"></li>
-        <li></li>
-        <li></li>
-        <!-- <li></li> -->
-    </ul>
     <div class="main_wrapper">
-        <section class="firstSection" ref="sections">
-            <div data-aos="zoom-in" data-aos-duration="500" v-bind:style="zoomout">
-                <div data-aos="zoom-out" data-aos-duration="1000" v-bind:style="zoomout2" v-if="showSlider">
-                    <el-carousel trigger="click" class="slider" height="100%" autoplay="false" interval="5000" style="position:relative;">
-                        <el-carousel-item v-for="item in banners" :key="item" class="slider2">
-                            <img :src="item.img" id="image">
-                            <div style="display:flex; align-items: center; flex-direction: column;">
-                                <h3 style="position:absolute; color:white; font-size:90px; top:30%;">{{item.text}}</h3>
-                            </div>
-                        </el-carousel-item>
-                    </el-carousel>
-                </div>
+        <div class="intro_screen">
+            <div data-aos="fade-right"
+                data-aos-duration="1000"
+                data-aos-easing="ease-in-sine" class="base_layer2">
+                <h1>Welcome,</h1>
+                <h2>All Here!</h2>
             </div>
-        </section>
-        <section class="secondSection" ref="sections1">
-            <div data-aos="zoom-in" data-aos-duration="500">
-                <img :src="eco1" id="eco1"/>
-                <img :src="eco5" id="eco5"/>
-            </div>
-            <div class="middle_title">
-                <p>We protect the planet.</p>
-            </div>
+        </div>
 
-        </section>
-        <section>
-            
-        </section>
+        <div class="secondScreen">
+
+
+        </div>
+
+        <div class="thirdScreen">
+
+
+        </div>
+        
+
+
+
+        <div class="outro_screen">
+            Outro Page
+        </div>
+
     </div>
 
 </template>
 
 <script>
-import slider_img1 from '@/assets/slider_img1.png';
 import slider_img2 from '@/assets/slider_img2.png';
 import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 import vegan_soap_img2 from '@/assets/vegan_soap_img2.jpg';
@@ -55,11 +47,7 @@ import eco5 from '@/assets/eco5.jpg';
     export default {
         data(){
             return{
-                scrollTop : 0,
-                windowHeight : window.innerHeight,
-                showSlider : false,
 
-                slider_img1 : slider_img1,
                 slider_img2 : slider_img2,
                 vegan_cream_img : vegan_cream_img,
                 vegan_soap_img2 : vegan_soap_img2,
@@ -71,93 +59,9 @@ import eco5 from '@/assets/eco5.jpg';
 
                 eco1 : eco1,
                 eco5 : eco5,
-
-                banners : [
-                    { text : "Welcome", img : main_slider_img_1},
-                    { text : "All Here,", img : natureround},
-                    { text : "All_Ganics", img : zerowaste_package},
-                ],
-
-                zoomout : {
-                    border: '2px solid white',
-                    width : '60%',
-                    height: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                },
-                zoomout2 : {
-                    zIndex : '1',
-                    width : '100%',
-                    height: '100%',
-                    transition: '1.5s',
-                },
-
-                timeoutID : '',
-                timedelay : ''
             }
         },
-        async created(){
-            await this.delayedAlert();
-            await this.delayedShow();
-            window.addEventListener('scroll', this.NavScroll);
-        },
-        async mounted(){
-
-            
-
-
-            // this.$refs.navigation.querySelectorAll('li').forEach(function(item, i){
-            //     item.addEventListener('click', function(){
-            //         this.resetSelection;
-            //         window.scrollTo({
-            //             top : i * this.windowHeight,
-            //             behavior : 'smooth'
-            //         });
-            //     });
-            // });
-        },
         methods:{
-            delayedAlert() {
-                this.timeoutID = window.setTimeout(this.slowAlert, 1500);
-            },
-            slowAlert() {
-                this.showSlider = true;
-                this.zoomout2.transition = "0.8s";
-            },
-            delayedShow(){
-                this.timedelay = window.setTimeout(this.showslider, 3000);
-            },
-            showslider(){
-                this.zoomout2.width = "99%";
-                this.zoomout2.height = "97%";
-                this.zoomout.backgroundColor = "white";
-            },
-            resetSelection(){
-                for(var i=0; i<this.$refs.navigation.children.length; i++){
-                    this.$refs.navigation.children[i].classList.remove('selected');
-                }
-            },
-            NavScroll(){
-                this.$refs.sections.forEach(function(section, i){
-                    console.log(i);
-                    this.scrollTop = window.scrollY;
-                    if(section.offsetTop < scrollTo + this.windowHeight/2 && this.scrollTop < section.offsetTop + this.windowHeight/2) {
-                        this.resetSelection();
-                        this.$refs.navigation.children[i].classList.add('selected');
-                    }
-                });
-            },
-            // NavClick(){
-            //     this.navigation.querySelectorAll('li').forEach(function(item, i){
-            //         item.addEventListener
-            //         this.resetSelection();
-            //         window.scrollTo({
-            //             top : i * windowHeight,
-            //             behavior : 'smooth'
-            //         })
-            //     })
-            // }
         },
     }
 </script>
@@ -165,118 +69,50 @@ import eco5 from '@/assets/eco5.jpg';
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Playfair+Display:wght@400;500;700;800&display=swap');
-.navigation{
+*{
     margin: 0;
     padding: 0;
-    position: fixed;
-    right: 2.5%;
-    list-style :none;
-    top: 40%;
-    z-index :10;
 }
-.navigation li{
-    width: 15px;
-    height: 15px;
-    background: #eeeeee;
-    /* border: 1px solid #333; */
-    border-radius: 50%;
-    margin-top: 20px;
-    transition: all 0.3s;
+
+body{
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 4em;
+    color: white;
 }
-.navigation li:hover, .navigation li.selected{
-    transform: scale(1.5);
-    cursor: pointer;
-}
+
 .main_wrapper{
-    /* scroll-snap-type: y mandatory;
-    overflow-y: scroll; */
     scroll-behavior: smooth;
-    height: 100%;
-}
-section{
-    width: 100%;
-    height: 100%;
-    scroll-snap-align: start;
-}
-section:first-child{
-    opacity: 0.88;
-    position: relative;
-    width: 100%;
-    height: 100%;
+    height: 100vh;
+    /* width : 100%; */
+    overflow-x: hidden;
+    perspective: 300px;
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 4em;
+    color: white;
     background-image: url("/src/assets/vegan_cream_img.jpg");
     background-size: cover;
-    align-items: center;
-    background-position-y: 30%;
+    background-position: 50%;
+    /* background-repeat: no-repeat; */
+    background-attachment:local;
+}
+.intro_screen, .secondScreen, .thirdScreen, .outro_screen {
+    border: 2px solid white;
+    height: 100vh;
+    width : 100%;
+}
+.intro_screen{
+    background-attachment:fixed;
     justify-content: center;
     display: flex;
     overflow-x: hidden;
     flex-direction: column;
-}
-section:nth-child(2){
-    background-color: #eee;
-}
-section:last-child{
-    background-color: #333;
-}
-.slider{
-    width : 100%;
-    height: 100%;
-}
-.slider #image{
-    width : 100%;
-    object-fit: scale-down;
-}
-.secondBox {
-    border: 2px solid black;
-    width : 50%;
-    height : 700px;
-}
-.secondBox p {
-    font-weight: bold;
-    font-size: 40px;
-    color: black;
-}
-/* section1 */
-/* .imagebox1 {
-    width: 50%;
-    height: 80%;
-    background-color: aqua;
-} */
-.secondSection {
+    height: 100vh;
     width: 100%;
-    height: 100%;
-    display: flex;
 }
-
-#eco1 {
-    width: 25%;
-    height: 65%;
-    border: 8px solid rgb(247, 233, 214);
-    position: relative;
-    top : 13%;
-    left: 10%;
-}
-#eco5 {
-    width: 28%;
-    height: 45%;
-    border: 8px solid rgb(241, 223, 197);
-    /* margin-right: 20%; */
-    position: relative;
-    top: 46%;
-    left: -5%;
-}
-.middle_title {
-    border: 1px solid black;
-    display: flex;
-    width: 30%;
-    height: 76%;
-    justify-content: center;
-    margin-top: 6%;
-    margin-left: 5%;
-}
-.middle_title > p {
-    border: 1px solid black;
-    width: fit-content;
+.outro_screen{
+    height: 100vh;
+    background-color: #333;
+    z-index: 0;
 }
 
 
