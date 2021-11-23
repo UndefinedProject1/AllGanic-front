@@ -27,10 +27,6 @@
                     <div class="btn_box">
                         <button type="button" @click="hadleClickUrl(1)">기본주소 수정</button>
                     </div>
-                    <!-- <div class="fly">
-                        <button><a href="#">위로</a></button>
-                    </div>
-<div class="con"></div> -->
                 </div>
             </div>
 
@@ -74,6 +70,24 @@ import MyPage_Cancle from '@/components/MyPage_Cancle.vue';
 import MyPage_Order_List from '@/components/MyPage_Order_List.vue';
 import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
 import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
+
+            console.clear();
+            $(window).scroll(function() {
+                let scrollTop = $(this).scrollTop();
+                console.log(scrollTop)
+                
+                if ( scrollTop < 100 ) {
+                    scrollTop = 100;
+                }
+                else if ( scrollTop > 9600 ) {
+                    scrollTop = 9600;
+                }
+                
+                let duration = 1000;
+                $('.info_box').stop().animate({top:scrollTop}, duration);
+                
+                //console.log(scrollTop);
+            });
     export default {
         
         data() {
@@ -106,23 +120,23 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
             
         },
         async mounted() {
-            console.clear();
-            $(window).scroll(function() {
-                let scrollTop = $(this).scrollTop();
-                console.log(scrollTop)
+            // console.clear();
+            // $(window).scroll(function() {
+            //     let scrollTop = $(this).scrollTop();
+            //     console.log(scrollTop)
                 
-                if ( scrollTop < 100 ) {
-                    scrollTop = 100;
-                }
-                else if ( scrollTop > 9600 ) {
-                    scrollTop = 9600;
-                }
+            //     if ( scrollTop < 100 ) {
+            //         scrollTop = 100;
+            //     }
+            //     else if ( scrollTop > 9600 ) {
+            //         scrollTop = 9600;
+            //     }
                 
-                let duration = 1000;
-                $('.info_box').stop().animate({top:scrollTop}, duration);
+            //     let duration = 1000;
+            //     $('.info_box').stop().animate({top:scrollTop}, duration);
                 
-                //console.log(scrollTop);
-            });
+            //     //console.log(scrollTop);
+            // });
         }, 
         async created() {
             await this.handleMemberGet();
@@ -165,6 +179,7 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500&display=swap');
 .info_box {
     border: 3px solid #715036;
+    /* position: absolute; */
     width: 28%;
     height: 100%;
     border-radius: 3px;

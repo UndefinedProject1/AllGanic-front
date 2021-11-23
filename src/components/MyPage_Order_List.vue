@@ -16,7 +16,7 @@
             </div>
             <hr class="solid" style="border-top-width: 0px;"/> -->
             <!-- 주문목록 Table -->
-            <div class="orderlist_info_section">
+            <div class="orderlist_info_section" style="width:100%; height: 93.5%; overflow-x:hidden">
                 <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 98%; margin-left:10px;" @selection-change="OrderListBtn">
                     <el-table-column label="주문일자" width="100" align="center">
                         <template #default="scope">
@@ -129,7 +129,7 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 .insert_list {
     border: 3px solid #715036;
     width: 100%;
-    height: 93.5%;
+    height: 60%;
     border-radius: 5px;
 }
 .insert_date_code {
@@ -215,7 +215,6 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 .orderlist_info_section {
     font-family: 'Gowun Dodum', sans-serif;
     width: 100%;
-    
 }
 .orderlist_info_section table tbody button{
     border: none;

@@ -257,9 +257,10 @@ import default_image from '@/assets/default_image.jpg';
     margin : 0 0px 0px 20px;
 }
 .api_divider{
-    border : 0.3px solid black;
+    border: 0.3px solid black;
     height: 0px;
-    width : 100%;
+    width: 100%;
+    margin-top: -3px;
 }
 
 tbody{
@@ -305,6 +306,7 @@ th{
     font-weight: 700;
     font-size : 17px;
     letter-spacing: 0.25px;
+    margin-bottom: 5px;
 }
 
 .td_area{

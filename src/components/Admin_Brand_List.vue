@@ -149,6 +149,7 @@ tbody td {
     color: white; 
     background-color: #49654E; 
     border:none;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 #brand_deleteBtn:hover{
     cursor: pointer;

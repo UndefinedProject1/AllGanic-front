@@ -21,7 +21,7 @@
                     </div>
                     <hr class="solid" style="border-top-width: 0px;"/> -->
                     <!-- 주문내역 Table -->
-                    <div class="orderlist_info_section">
+                    <div class="orderlist_info_section" style="width:100%; height: 93.5%; overflow-x:hidden">
                         <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 97%; margin-left:20px;" @selection-change="OrderListBtn">
                                 <el-table-column label="주문일자" width="100" align="center">
                                     <template #default="scope">
@@ -168,7 +168,7 @@ import mypage from '@/assets/mypage.png';
 .info_list {
     /* border: 1px solid black; */
     width: 98.5%;
-    height: 100%;
+    height: 50%;
     margin-left: 30px;
 }
 .info_title {
@@ -181,10 +181,18 @@ import mypage from '@/assets/mypage.png';
     margin-bottom: 10px;
     font-size: 20px;
 }
-.order_list, .qna_list {
+.order_list {
     /* border: 1px solid black; */
     color: #715036;
-    height: 67%;
+    height: 80%;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+}
+.qna_list {
+    /* border: 1px solid black; */
+    color: #715036;
+    height: 50%;
     font-weight: bold;
     display: flex;
     flex-direction: column;

@@ -1,99 +1,91 @@
 <template>
-            <div class="cancle_list">
-                <div class="cancle_name">
-                    <p>교환 내역</p>
-                </div>
-                <div class="cancle_insert">
-                        <div class="cancle_date">
-                            <p style="margin-left:30px; color:#715036; font-weight: bold; margin-bottom:0px;">주문일자</p>
-                            <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">2021.11.11</p>
-                            <div class="cancle_prdcode">
-                                <p style="margin-left:40px; color:#715036; font-weight: bold; margin-bottom:0px;">주문번호</p>
-                                <p style="font-weight: bold; margin-left:10px; margin-bottom:0px;">ORD20211019-tue10</p>
-                            </div>
-                        </div>
-                        <hr class="solid" style="border-top-width: 0px;"/>
-                        <!-- Cancle Table -->
-                        <div class="orderlist_info_section">
-                            <el-table ref="multipleTable" :data="CancleData"  stripe style="width: 90%; margin-left:55px;" @selection-change="OrderListBtn">
-                                    <el-table-column prop="img" label="이미지" align="center" width="110"  style="margin-left:50px;">
-                                        <el-image style= "width: 110px; height: 100px; object-fit:cover;" :src="vegan_cream_img" :fit="fit"></el-image>
-                                    </el-table-column>
-                                        <el-table-column label="주문정보" width="500px;" align="center">
-                                            <template #default="scope">
-                                                <div class="product_detail_info" style="width: 100%; text-align:left; padding:5px 10px; margin-left:30px;">
-                                                    <span style="font-size:14px; color:#333; font-weight:bold">{{scope.row.brandName}}브랜드명</span>
-                                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}제품명</p>
-                                                    <p style="font-size:14px; color:black; margin:0;">{{scope.row.productPrice}}38,000원</p>
-                                                    <p style="font-size:14px; color:black; margin:0;">옵션 : {{scope.row.option}}빨,주,노,초,파,남,보</p>        
-                                                </div>
-                                            </template>
-                                        </el-table-column>
-                                    <el-table-column label="가격" width="160" align="center">
-                                        <template #default="scope">
-                                            <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}3개</p>
-                                        </template>
-                                    </el-table-column>
-                                    <!-- <el-table-column label="배송비" width="150" align="center">
-                                        <template #default="scope">
-                                            <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}3,000원</p>
-                                        </template>
-                                    </el-table-column> -->
-                                    <el-table-column label="교환정보" width="160" align="center">
-                                        <template #default="scope">
-                                            <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}상품 준비중</p>
-                                        </template>
-                                    </el-table-column>
-                            </el-table>
-                        </div>
-                        <!-- <div class="orderlist_info_section" >
-                        <el-table ref="multipleTable" :data="CancleData"  stripe style="width: 90%;" >
-                                <el-table-column prop="img" label="이미지" align="center" width="110"  >
-                                    <el-image style= "width: 110px; height: 100px; object-fit:cover;" :src="vegan_cream_img" :fit="fit"></el-image>
-                                </el-table-column>
-                                    <el-table-column label="주문정보" width="500px;" align="center">
-                                        <template #default="scope">
-                                            <div class="product_detail_info" style="width: 60%; text-align:left; padding:5px 10px; margin-left:30px;">
-                                                <span style="font-size:14px; color:#333; font-weight:bold">{{scope.row.cancleName}}브랜드명</span>
-                                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.canclePdName}}제품명</p>
-                                                <p style="font-size:14px; color:black; margin:0;">옵션 : {{scope.row.calcelOption}}빨,주,노,초,파,남,보</p>        
-                                            </div>
-                                        </template>
-                                    </el-table-column>
-                                <el-table-column label="가격" width="150" align="center">
-                                    <template #default="scope">
-                                        <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}3개</p>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="취소/반품/교환" width="150" align="center">
-                                    <template #default="scope">
-                                        <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}취소</p>
-                                    </template>
-                                </el-table-column>
-                        </el-table>
-                    </div> -->
-                </div>
+    <div class="cancle_list">
+        <div class="cancle_name">
+            <p>환불 내역</p>
+        </div>
+        <div class="cancle_insert">
+            <div class="orderlist_info_section" style="width:100%; height: 93.5%; overflow-x:hidden">
+                <el-table ref="multipleTable" :data="CancleData"  stripe style="width: 98%; margin-left:22px;" @selection-change="OrderListBtn">
+                        <el-table-column label="환불일자" width="200px;" align="center">
+                            <template #default="scope">
+                                <p>{{scope.row.CANCELDATE}}</p>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="img" label="이미지" align="center" width="150"  style="margin-left:50px;">
+                            <template #default="scope">
+                                <el-image style= "width: 110px; height: 100px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
+                            </template>
+                            <!-- <el-image style= "width: 90px; height: 90px; object-fit:cover;" :src="vegan_cream_img" :fit="fit"></el-image> -->
+                        </el-table-column>
+                        <el-table-column label="주문정보" width="300px;" align="center">
+                            <template #default="scope">
+                                <div class="product_detail_info" style="width: 100%; text-align:left; padding:5px 10px; margin-left:30px;">
+                                    <p>{{scope.row.BRANDNAME}}</p>
+                                    <p>{{scope.row.PRODUCTNAME}}</p>
+                                    <p>{{scope.row.PRODUCTPRICE}}</p>
+                                    <!-- <span style="font-size:14px; color:#333; font-weight:bold">{{scope.row.brandName}}브랜드명</span>
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}제품명</p>
+                                    <p style="font-size:14px; color:black; margin:0;">{{scope.row.productPrice}}38,000원</p>
+                                    <p style="font-size:14px; color:black; margin:0;">옵션 : {{scope.row.option}}빨,주,노,초,파,남,보</p>         -->
+                                </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="수량" width="150" align="center">
+                            <template #default="scope">
+                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.CANCELQUANTITY}}</p>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="환불완료일자" width="250px;" align="center">
+                            <template #default="scope">
+                                <p>{{scope.row.MERCHANT_UID}}</p>
+                            </template>
+                        </el-table-column>
+                            <!-- <el-table-column label="배송비" width="150" align="center">
+                                <template #default="scope">
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}3,000원</p>
+                                </template>
+                            </el-table-column> -->
+                            <!-- <el-table-column label="교환정보" width="150" align="center">
+                                <template #default="scope">
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}상품 준비중</p>
+                                </template>
+                            </el-table-column> -->
+                    </el-table>
             </div>
+        </div>
+    </div>
 </template>
 
 <script>
 // import MyPage_Info from '@/components/MyPage_Info.vue';
 import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
+import axios from 'axios';
     export default {
         data() {
             return {
+                token: sessionStorage.getItem("token"),
                 vegan_cream_img : vegan_cream_img,
-                CancleData : [
-                    {
-
-                    }
-                ]
+                CancleData : [],
             }
         },
-        // components : {
-        //     MyPage_Info : MyPage_Info,
-        // },
-            methods : {
+        async created() {
+            await this.cancleListGet();
+        },
+        methods : {
+            async cancleListGet() {
+                const url = `REST/api/cancel/member/list`;
+                const headers = {token : this.token};
+                const response = await axios.get(url, {headers});
+                console.log('=============================');
+                console.log(response);
+                if(response.data.result === 1) {
+                    this.CancleData = response.data.list;
+                    console.log(this.CancleData);
+                }
+                else if(response.data.result === 0) {
+                    alert(response.data.state);
+                }
+            }
         }
     }
 </script>
@@ -103,7 +95,7 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 .cancle_list {
     /* border: 1px solid black; */
     width: 98.5%;
-    height: 100%;
+    height: 90%;
     margin-left: 30px;
 }
 .cancle_name {
@@ -120,6 +112,7 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     border: 3px solid #715036;
     width: 100%;
     height: 93.5%;
+    /* float: right; */
     border-radius: 5px;
 }
 .cancle_date {
@@ -127,17 +120,26 @@ import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
     margin-top: 10px;
     margin-left: 15px;
 }
-.cancle_prdcode {
+/* .cancle_prdcode {
     display: flex;
-}
-.solid {
+} */
+/* .solid {
     border: 1px solid rgb(228, 227, 227);
     width: 90%;
     margin-bottom: 2px;
     margin-top: 10px;
     margin-left: 42px;
-}
+} */
 .orderlist_info_section {
     width: 100%;
+    
+}
+
+
+.product_detail_info {
+    width: 100%; 
+    text-align:left; 
+    padding:5px 10px; 
+    margin-left:30px;
 }
 </style>

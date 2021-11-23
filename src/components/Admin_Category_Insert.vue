@@ -197,9 +197,9 @@ import axios from 'axios';
     margin : 0 0px 0px 20px;
 }
 .aci_divider{
-    border : 0.3px solid black;
+    border: 0.3px solid black;
     height: 0px;
-    width : 100%;
+    width: 100%;
 }
 .aci_content{
     padding: 50px;
@@ -285,6 +285,8 @@ button {
     border-radius: 5px;
     color: white;
     font-size : 14px;
+    font-family: 'Gowun Dodum', sans-serif;
+    border: none;
 }
 Button:hover{
     opacity: 0.9;

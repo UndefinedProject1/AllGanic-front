@@ -8,11 +8,11 @@
         <div class="solid"></div>
         <div class="admin_bri_content">
             <div class="admin_name">
-                <P>브랜드명</P>
+                <p>브랜드명</p>
                 <el-input v-model="brandname" placeholder="제품명 입력" class="form-control" clearable style="font-family: 'Gowun Dodum', sans-serif;"/>
             </div>
             <div class="admin_put_img">
-                <P>이미지</P>
+                <p>이미지</p>
                 <div class="insertBrandImg">
                     <img :src="uploadImageFile" class="popupImageItem" />
                     <label for="insertImg">이미지추가</label>
@@ -20,8 +20,8 @@
                 </div>
             </div>
             <div class="admin_history">
-                <P>브랜드 설명</P>
-                  <el-input v-model="textarea" :rows="3" type="textarea" placeholder="브랜드 설명 입력"  class="form-control"/>
+                <p>브랜드 설명</p>
+                <el-input v-model="textarea" :rows="3" type="textarea" placeholder="브랜드 설명 입력"  class="form-control"/>
             </div>
             <div class="ad_bri_btn">
                 <button type="button" id="ad_btn_insert" @click="handleAdmin" >등록하기</button>
@@ -143,7 +143,7 @@ import default_image from '@/assets/default_image.jpg';
 .admin_name p {
     /* border: 1px solid black; */
     margin-right: 15px;
-    margin-top: 13px;
+    margin-top: 7px;
     width : 60px
 }
 .form-control {
@@ -169,7 +169,7 @@ import default_image from '@/assets/default_image.jpg';
     font-family: 'Gowun Dodum', sans-serif;
     width: fit-content;
     height: fit-content;
-    margin-top: 18px;
+    margin-top: 20px;
 }
 .admin_put_img {
     /* border: 1px solid black; */
@@ -228,5 +228,6 @@ input[type="file"]{
     font-weight: bold;
     background-color: #49654E;
     margin-top: 30px;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 </style>
