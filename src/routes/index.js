@@ -21,6 +21,7 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
 import MyPage_Info from '@/components/MyPage_Info.vue';
 import test from '@/components/test.vue';
 import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
+import ForgotPassword from '@/components/ForgotPassword.vue';
 
 
 const routes = [
@@ -44,6 +45,7 @@ const routes = [
     {path : '/mypage_info' , name :'mypage_info', component : MyPage_Info},
     {path : '/test' , name :'test', component : test},
     {path : '/admin_handle_member' , name :'admin_handle_member', component : Admin_Handle_Member},
+    {path : '/forgotpassword' , name :'forgotpassword', component : ForgotPassword},
 ];
 
 const router = createRouter({

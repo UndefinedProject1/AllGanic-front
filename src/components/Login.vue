@@ -22,10 +22,13 @@
                         </div>
                     </div>
                     <div class="login_nav">
-                        <el-breadcrumb separator="/">
+                        <span onclick="location.href='http://127.0.0.1:9090/join'">회원가입</span>
+                        <el-divider direction="vertical"></el-divider>
+                        <span onclick="location.href='http://127.0.0.1:9090/forgotpassword'">비밀번호찾기</span>
+                        <!-- <el-breadcrumb separator="/">
                             <el-breadcrumb-item :to="{ path: '/join' }">회원가입</el-breadcrumb-item>
-                            <el-breadcrumb-item :to="{ path: '/forgotpassword' }">비밀번호찾기</el-breadcrumb-item>
-                        </el-breadcrumb>
+                            <el-breadcrumb-item :to="{ path: 'forgotpassword' }" id="nav_password">비밀번호찾기</el-breadcrumb-item>
+                        </el-breadcrumb> -->
                     </div>
                     <button type="button" id="login_btn" @click="handleLogin" >로그인</button>
                 </div>
@@ -231,8 +234,12 @@ body {
     margin: 0%;
     font-family: 'Gowun Dodum', sans-serif;
 }
-.login_nav:ho {
+.login_nav {
     margin : 10px;
+    font-size: 13px;
+}
+.login_nav:hover {
+    cursor: pointer;
 }
 .breadcrumb {
     /* border: 1px solid black; */
@@ -241,7 +248,7 @@ body {
     font-size: 15px;
     padding-top: 5px;
 }
-.breadcrumb-item > a {
+.breadcrumb-item  {
     font-family: 'Gowun Dodum', sans-serif;
     color: black;
     text-decoration-line: none;
@@ -267,19 +274,18 @@ body {
 }
 #login_btn{
     /* border: 1px solid black; */
-    width: 20%;
-    height: 45px;
+    width: 25%;
+    height: 35px;
+    margin: 70px;
     border: none;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 15px;
     background-color: #715036;
     color: white;
     border-radius: 4px;
-    font-family: 'Playfair Display', serif;
-    margin: 30px;
+    font-family: 'Gowun Dodum', sans-serif;   
 }
 #login_btn:hover{
     cursor: pointer;
     opacity: 0.8;
 }
-</style>
+</style>}

@@ -16,7 +16,7 @@
                     <div class="email">
                         <div class="email_input">
                             <i class="el-icon-message" :size="50"></i> 
-                            <input type="text" placeholder="이메일" id="id" v-model="userid">
+                            <input type="text" placeholder="이메일" id="id" v-model="useremail">
                         </div>
                     </div>
                     <p>* 임시비밀번호는 발급 후 '마이페이지'에서 변경하실 수 있습니다.</p>
@@ -28,15 +28,40 @@
 </template>
 
 <script>
-
+import axios from 'axios';
+//import { ElMessage } from 'element-plus'
     export default {
+        // setup() {
+        //     const sendtoPW = () => {
+        //         ElMessage.success('이메일 전송')
+        //     }
+        //     return {
+        //         sendtoPW
+        //     }
+        // },
         data() {
             return {
-
+                username : '',
+                useremail : '',
             }
         },
         methods : {
+            async handleForgotpassword() {
+                const url = `REST/api/check/findPw/sendEmail`;
+                const headers = {"Content-Type" : "application/json"};
+                const body = {
+                    username : this.username,
+                    useremail : this.useremail
+                }
+                console.log(body);
+                const response = await axios.post(url, body, headers);
+                console.log(response);
+                
+                //this.sendtoPW();
 
+                // if(response)
+                
+            }
         }
     }
 </script>
@@ -68,26 +93,12 @@ input:focus{
     justify-content: center;
     align-items: center;
 }
-body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    font-family: 'Gowun Dodum', sans-serif;
-}
 .forgotpassword_insert {
     /* border: 1px solid black; */
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-.forgotpassword > p:first-child {
-    width: fit-content;
-    text-align: center;
-    font-size: 30px;
-    font-family: 'Gowun Dodum', sans-serif;
-    font-weight: bold;
-    margin-bottom: 15px;
 }
 .forgotpassword {
     /* border: 1px solid black; */
@@ -96,7 +107,7 @@ body {
     flex-direction: column;
     align-items: center;
 }
-.forgotpassword > p {
+.forgotpassword p {
     width: fit-content;
     text-align: center;
     font-size: 30px;
@@ -162,11 +173,6 @@ body {
     display: flex;
     align-items: center;  
 }
-/* .email_input > img {
-    width: 25px;
-    height: 25px;
-    padding-right: 5px;    
-} */
 .name p, .email p {
     width: fit-content;
     padding-top: 10px ;
@@ -192,10 +198,9 @@ body {
     /* border: 1px solid black; */
     width: 35%;
     height: 35px;
-    margin: 70px;
+    margin: 80px;
     border: none;
     font-size: 15px;
-    /* font-weight: bold; */
     background-color: #715036;
     color: white;
     border-radius: 4px;
