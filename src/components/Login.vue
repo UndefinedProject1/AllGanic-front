@@ -24,7 +24,7 @@
                     <div class="login_nav">
                         <el-breadcrumb separator="/">
                             <el-breadcrumb-item :to="{ path: '/join' }">회원가입</el-breadcrumb-item>
-                            <el-breadcrumb-item :to="{ path: '/mypage_member_update' }">비밀번호찾기</el-breadcrumb-item>
+                            <el-breadcrumb-item :to="{ path: '/forgotpassword' }">비밀번호찾기</el-breadcrumb-item>
                         </el-breadcrumb>
                     </div>
                     <button type="button" id="login_btn" @click="handleLogin" >Login</button>
