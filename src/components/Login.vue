@@ -27,12 +27,11 @@
                             <el-breadcrumb-item :to="{ path: '/forgotpassword' }">비밀번호찾기</el-breadcrumb-item>
                         </el-breadcrumb>
                     </div>
-                    <button type="button" id="login_btn" @click="handleLogin" >Login</button>
+                    <button type="button" id="login_btn" @click="handleLogin" >로그인</button>
                 </div>
             </div>
         </div>
     </div>
-    
 </template>
 
 <script>
@@ -232,7 +231,7 @@ body {
     margin: 0%;
     font-family: 'Gowun Dodum', sans-serif;
 }
-.login_nav {
+.login_nav:ho {
     margin : 10px;
 }
 .breadcrumb {
