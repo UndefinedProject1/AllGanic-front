@@ -1,10 +1,13 @@
 <template>
     <div class="chart_wrapper">
-        <div class="chart_container">
-            <p>브랜드별 누적판매율</p>
-            <div id="chart">
-                <apexchart type="bar" height="530" :options="chartOptions" :series="series"></apexchart>
-            </div>
+        <div class="chart_header">
+            <p>통계</p>
+            <span> > </span>
+            <p id="chosen">브랜드별 누적판매율</p>
+        </div>
+        <div class="chart_divider"></div>
+        <div id="chart">
+            <apexchart type="bar" height="530" :options="chartOptions" :series="series"></apexchart>
         </div>
     </div>
 </template>
@@ -139,25 +142,43 @@ import axios from 'axios';
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500&display=swap');
 .chart_wrapper{
-    width: 100%;
-    display: flex;
-    padding: 30px;
-}
-.chart_container{
-    /* border: 1px solid black; */
-    width: 98%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-}
-.chart_container > p{
-    /* border: 1px solid black; */
-    width: fit-content;
+    overflow-x: hidden;
     font-family: 'Gowun Dodum', sans-serif;
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0px 0px 20px 20px;
+}
+.chart_header {
+    height : 14%;
+    width : 100%;
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+}
+.chart_header p, span {
+    width : fit-content;
+    margin : 0 0px 0px 40px;
+    color : rgba(29, 29, 29, 0.795);
+    font-size: 20px;
+    font-family: 'Gowun Dodum', sans-serif;
+    font-weight : 400;
+}
+.chart_header > span {
+    margin-left : 20px;
+}
+#chosen {
+    font-family: 'Gowun Dodum', sans-serif;
+    font-weight: 700;
+    color: black;
+    margin : 0 0px 0px 20px;
+}
+.chart_divider{
+    border: 0.3px solid black;
+    height: 0px;
+    width: 100%;
 }
 #chart{
     width : 100%;
+    padding: 30px;
 }
 </style>

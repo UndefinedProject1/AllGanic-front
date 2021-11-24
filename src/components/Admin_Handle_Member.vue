@@ -129,14 +129,15 @@
 .handleMember_box > h2 {
     /* border: 1px solid black; */
     width : fit-content;
-    margin: 0px 0px 10px 10px;
+    margin: 20px 0px 20px 10px;
 }
 .memberList_box {
     position: relative;
-    border: 1px solid black;
+    border: 0.3px solid #333333;
     width: 100%;
     height: fit-content;
     border-radius: 2px;
+    padding: 10px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 .memberList_table table th,
