@@ -15,7 +15,7 @@
                     </el-table-column>
                     <el-table-column prop="title" label="제목" width="200" align="center">
                         <template #default="scope">
-                            <el-button type="text" @click="showQaReplay(scope.row.QUESTIONCODE)" 
+                            <el-button type="text" @click="showQaReplay(scope.row.QUESTIONCODE, scope.row.QUESTIONREPLY)" 
                                     style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; font-family: 'Gowun Dodum', sans-serif;
                                             text-decoration-line: underline; cursor:pointer;" >
                                     {{scope.row.QUESTIONTITLE}}
@@ -52,8 +52,8 @@
         </div>
     </div>
 
-    <!-- 문의글 답변 모달창 -->
-    <el-dialog v-model="showModal" title="문의 답변">
+    <!-- 문의글 답변 모달창(수정버튼 x) -->
+    <el-dialog v-model="showModalANS" title="문의 답변확인 (수정 불가)">
         <div class="questionContents">
             <div class="productInfo">
                 <table class="table">
@@ -80,10 +80,16 @@
                 </table>
             </div>
             <p> 문의 내용 </p>
-            <div class="questionContent">
-                {{QList_Modal.questioncontent}}
+            <div class="question_box">
+                <div class="questionbox_title">
+                    <p class="form-control" style="font-family: 'Gowun Dodum', sans-serif;">{{ QList_Modal.questiontitle }}</p>
+                    <p class="form-select">[ {{QList_Modal.questionkind}} ]</p>
+                </div>
+                <div class="questionContent">
+                    {{QList_Modal.questioncontent}}
+                </div> 
             </div>
-            <hr style="width:98%;"/>
+            <hr style="width:100%;"/>
             <div class="replysection">
                 <p> 문의 답변 </p>
                 <p>{{QAregdate}}</p>
@@ -94,7 +100,61 @@
         </div>
         <div class="modal-footer">
             <!-- 히든버튼 추가 -->
-            <button type="button"  @click="showModal = false" id="closebtn">닫기</button>
+            <button type="button"  @click="showModalANS = false" id="closebtn">닫기</button>
+        </div>
+    </el-dialog>
+
+    <!-- 문의글 답변 모달창(수정버튼 o) -> 수정시 문의제목, 내용, 문의종류 필요 -->
+    <el-dialog v-model="showModalNoANS" title="문의글(수정 가능)">
+        <div class="questionContents">
+            <div class="productInfo">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">브랜드정보</th>
+                            <th scope="col">물품이름</th>
+                            <th scope="col">물품코드</th>
+                            <th scope="col">카테고리분류</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{BList_Modal.brandname}}</td>
+                            <td>
+                                <router-link :to="`/product_detail?code=${PList_Modal.productcode}`" id="pd_name">
+                                    {{PList_Modal.productname}}
+                                </router-link>
+                            </td>
+                            <td>{{PList_Modal.productcode}}</td>
+                            <td>{{CList_Modal.categoryname}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p> 문의 내용 </p>
+            <div class="question_box">
+                <div class="questionbox_title">
+                    <el-input v-model="QList_Modal.questiontitle" class="form-control" clearable style="font-family: 'Gowun Dodum', sans-serif;"/>
+                    <el-select v-model="QList_Modal.questionkind" placeholder="Select" class="form-select">
+                        <el-option v-for="select in firstQCateList"  :key="select.value" :label="select.label" :value="select.value"></el-option>
+                    </el-select>
+                </div>
+                <textarea name="content" class="questionContent" row="30" v-model="QList_Modal.questioncontent" style="font-family: 'Gowun Dodum', sans-serif;"></textarea>
+            </div>
+            <hr style="width:100%;"/>
+            <div class="replysection">
+                <p> 문의 답변 </p>
+                <p>{{QAregdate}}</p>
+            </div>
+            <div class="questionContent">
+                {{QAanswer}}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <!-- 히든버튼 추가 -->
+            <button type="button" @click="centerDialogVisible = false" id="btn_close" style="display:none">Close</button>
+            <button type="button"  @click="showModalNoANS = false" id="closebtn">닫기</button>
+            <button type="button"  @click="handleQaUpdate(QList_Modal.questioncode)" id="updatebtn">수정</button>
         </div>
     </el-dialog>
 </template>
@@ -149,7 +209,8 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 token : sessionStorage.getItem("token"),
                 member : [],
                 QAListData : [],
-                showModal : false,
+                showModalANS : false,
+                showModalNoANS : false,
                 QList_Modal : [],
                 PList_Modal : [],
                 BList_Modal : [],
@@ -158,6 +219,13 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 showEdit : '',
                 QAanswer : '',
                 QAregdate : '',
+                firstQCateList : [
+                    {value : 1, label : '상품문의'},
+                    {value : 2, label : '배송문의'},
+                    {value : 3, label : '기타'},
+                ],
+                selected : '',
+                centerDialogVisible: false,
             }
         },
         async created() {
@@ -168,7 +236,7 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 const url = `REST/api/question/member/selectlist`;
                 const headers = {"Content-Type" : "application/json", "token" : this.token};
                 const response = await axios.get(url, {headers});
-                console.log(response);
+                // console.log(response);
                 if(response.data.result === 1) {
                     this.QAListData = response.data.list;
 
@@ -189,47 +257,76 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                             this.QAListData[j].QUESTIONREPLY = '미답변';
                         }
                     }
-
-                    console.log(this.QAListData);
+                    // console.log(this.QAListData);
 
                 }
                 else if(response.data.result === 0) {
                     alert("데이터가 존재하지 않습니다.");
                 }
             },
-            async showQaReplay(val){
-                this.showModal = true;
-                const url = `REST/api/question/select?no=` + val;
-                const response = await axios.get(url);
-                // console.log(response);
-                if(response.data.result === 1){
-                    this.QList_Modal = response.data.question;
-                    // console.log(this.QList_Modal);
-                    this.PList_Modal = response.data.question.product;
-                    // console.log(this.PList_Modal);
-                    this.BList_Modal = response.data.question.product.brand;
-                    // console.log(this.BList_Modal);
-                    this.CList_Modal = response.data.question.product.category;
-                }
+            async showQaReplay(val, boolean){
+                if(boolean === '답변완료'){
+                    this.showModalANS = true;
 
-                const url2 = `REST/api/member/question/answer?code=${this.QList_Modal.questioncode}`;
-                const headers = {"token" : this.token};
-                const response2 = await axios.get(url2, {headers});
-                console.log("===================");
-                console.log(response2);
-                if(response2.data.answer !== null){
-                    this.QAReply = response2.data.answer;
-                    this.QAanswer = response2.data.answer.ANSWERCONTENT;
-                    this.QAregdate = response2.data.answer.ANSWERDATE;
-                }else if(response2.data.answer === null){
-                    this.QAanswer = "해당문의에 대한 답변이 등록되지 않았습니다."
-                    this.QAregdate = " ";
+                    const url = `REST/api/question/select?no=` + val;
+                    const response = await axios.get(url);
+                    // console.log(response);
+                    if(response.data.result === 1){
+                        this.QList_Modal = response.data.question;
+                        // console.log(this.QList_Modal);
+                        if(this.QList_Modal.questionkind === 1){
+                            this.QList_Modal.questionkind = '상품문의';
+                        }
+                        else if(this.QList_Modal.questionkind === 2){
+                            this.QList_Modal.questionkind = '배송문의';
+                        }else this.QList_Modal.questionkind = '기타';
+
+                        this.PList_Modal = response.data.question.product;
+                        // console.log(this.PList_Modal);
+                        this.BList_Modal = response.data.question.product.brand;
+                        // console.log(this.BList_Modal);
+                        this.CList_Modal = response.data.question.product.category;
+                    }
+
+                    const url2 = `REST/api/member/question/answer?code=${val}`;
+                    const headers = {"token" : this.token};
+                    const response2 = await axios.get(url2, {headers});
+                    // console.log(response2);
+                    if(response2.data.answer !== null){
+                        this.QAReply = response2.data.answer;
+                        this.QAanswer = response2.data.answer.ANSWERCONTENT;
+                        this.QAregdate = response2.data.answer.ANSWERDATE;
+                    }
+                }
+                else if(boolean === '미답변'){
+                    this.showModalNoANS = true;
+
+                    const url = `REST/api/question/select?no=` + val;
+                    const response = await axios.get(url);
+                    // console.log(response);
+                    if(response.data.result === 1){
+                        this.QList_Modal = response.data.question;
+                        console.log(this.QList_Modal);
+                        this.PList_Modal = response.data.question.product;
+                        // console.log(this.PList_Modal);
+                        this.BList_Modal = response.data.question.product.brand;
+                        // console.log(this.BList_Modal);
+                        this.CList_Modal = response.data.question.product.category;
+                    }
+
+                    const url2 = `REST/api/member/question/answer?code=${val}`;
+                    const headers = {"token" : this.token};
+                    const response2 = await axios.get(url2, {headers});
+                    if(response2.data.answer === null){
+                        this.QAanswer = "해당문의에 대한 답변이 등록되지 않았습니다."
+                        this.QAregdate = " ";
+                    }
                 }
             },
             async handleDelete(val){
                 const url = `REST/api/question/delete?no=${val}`;
                 const response = await axios.delete(url);
-                console.log(response);
+                // console.log(response);
                 if(response.data === 1){
                     this.deleteConfirm();
                     await this.handleQaListGet()
@@ -239,6 +336,20 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 }
                 else {
                     alert("error");
+                }
+            },
+            async handleQaUpdate(val){
+                const url = `REST/api/question/update?no=${val}`;
+                const headers = {"Content-Type" : "application/json", "token" : this.token};
+                const body = {
+                    questionkind : this.QList_Modal.questionkind,
+                    questiontitle : this.QList_Modal.questiontitle, 
+                    questioncontent : this.QList_Modal.questioncontent
+                }
+                const response = await axios.put(url, body, {headers});
+                if(response.data.result === 1){
+                    alert("수정 성공");
+                    await this.handleQaListGet();
                 }
             }
 
@@ -305,7 +416,7 @@ import { ElMessageBox, ElMessage } from 'element-plus'
     width: 100%;
 }
 .questionContents p{
-    padding-top: 10px;
+    padding: 10px;
     font-size: 20px;
     font-weight: bold;
     color: #49654E;
@@ -341,6 +452,23 @@ import { ElMessageBox, ElMessage } from 'element-plus'
 .productInfo table tbody td{
     text-align: center;
 }
+.productInfo table th:first-child{
+    /* border: 1px solid black; */
+    width : 18%;
+}
+.productInfo table th:nth-child(2){
+    /* border: 1px solid black; */
+    width : 55%;
+}
+.productInfo table th:nth-child(3){
+    /* border: 1px solid black; */
+    width : 10%;
+}
+.productInfo table th:last-child{
+    /* border: 1px solid black; */
+    width : 15%;
+}
+
 .productInfo table tbody img{
     width: 60px;
     height: 60px;
@@ -350,10 +478,47 @@ import { ElMessageBox, ElMessage } from 'element-plus'
     display: flex;
     flex-direction: column;
     border-radius: 3px;
-    margin: 10px 0px;
-    width: 97%;
+    width: 100%;
     height: 150px;
     padding : 10px;
+}
+.question_box{
+    width : 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.question_box .questionbox_title{
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 20%;
+    display: inline-flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+.question_box .questionbox_title .form-control{
+    /* border: 1px solid black; */
+    width: 68%;
+    height: 100%;
+}
+.question_box .questionbox_title .form-select{
+    /* border: 1px solid black; */
+    width: 30%;
+    height: 100%;
+}
+.questionbox_title p:first-child {
+    border: 1px solid rgb(180, 180, 180);
+    font-size: 15px;
+    color: black;
+    font-weight: 100;
+    border-radius: 3px;
+}
+.questionbox_title p:last-child {
+    border: 1px solid rgb(180, 180, 180);
+    font-size: 15px;
+    color: black;
+    text-align: center;
+    border-radius: 3px;
 }
 .replysection{
     width : 98%;
@@ -384,6 +549,16 @@ import { ElMessageBox, ElMessage } from 'element-plus'
     margin: 0px 10px 0px 0px;
     color: white;
     font-family: 'Gowun Dodum', sans-serif;
+}
+#updatebtn{
+    border: none;
+    border-radius: 3px;
+    background-color: #49654E;
+    width: 100px;
+    height: 40px;
+    margin: 0px 10px 0px 0px;
+    color: white;
+    font-family: 'Gowun Dodum', sans-serif;  
 }
 #closebtn {
     background-color: white;

@@ -14,10 +14,10 @@
             </div>
             <div class="qa_list_table">
                 <el-table :data="QCList">
-                    <el-table-column label="문의번호" prop="QUESTIONCODE" />
-                    <el-table-column label="문의제목" prop="QUESTIONTITLE" />
-                    <el-table-column label="물품정보" prop="PRODUCTCODE" />
-                    <el-table-column label="작성일" prop="QUESTIONDATE" />
+                    <el-table-column label="문의번호" align="center" prop="QUESTIONCODE" />
+                    <el-table-column label="문의제목" align="center" prop="QUESTIONTITLE" />
+                    <el-table-column label="물품정보" align="center" prop="PRODUCTCODE" />
+                    <el-table-column label="작성일" align="center" prop="QUESTIONDATE" />
                 </el-table>
             </div>
             <el-pagination layout="prev, pager, next" :page-count="pages" @current-change="handlePageChange" class="pagination"></el-pagination>
@@ -107,7 +107,7 @@ import axios from "axios";
 }
 .qa_list_Ccontent{
     height : 80%;
-    width : 1100px;
+    width : 90%;
     display : flex;
     flex-direction: column;
     padding : 50px;

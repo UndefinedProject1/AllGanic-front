@@ -171,10 +171,10 @@
                                                             </el-select>
                                                         </div>
                                                         <div class="form-floating" style="height:30px;">
-                                                            <el-input v-model="questionTitle" placeholder="리뷰제목 입력" class="form-control" clearable style="font-family: 'Gowun Dodum', sans-serif;"/>
+                                                            <el-input v-model="questionTitle" placeholder="문의제목 입력" class="form-control" clearable style="font-family: 'Gowun Dodum', sans-serif;"/>
                                                         </div>   
                                                         <div class="form-floating">
-                                                            <textarea name="content" row="30" v-model="questionContent" placeholder="문의내용은 300자 이하로 적어주세요" id="floatingTextarea2"></textarea>
+                                                            <textarea name="content" row="30" v-model="questionContent" placeholder="문의내용은 300자 이하로 적어주세요" id="floatingTextarea2" style="font-family: 'Gowun Dodum', sans-serif;"></textarea>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -192,7 +192,6 @@
                                         <button id="writingReviewBtnClose" @click="closeWritingFaq">닫기</button>
                                         <button id="writingReviewBtn" @click="writeQuestion">작성완료</button>
                                     </div>
-
                                 </div>
                                 <div class="faqList" v-for="question in questionList" v-bind:key="question">
                                     <p> [ {{question.QUESTIONKIND}} ] <i class="el-icon-view" :size="50"></i></p>

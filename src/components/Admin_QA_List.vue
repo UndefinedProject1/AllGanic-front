@@ -14,10 +14,10 @@
             </div>
             <div class="qa_list_table">
                 <el-table :data="QList">
-                    <el-table-column label="문의번호" prop="QUESTIONCODE" />
-                    <el-table-column label="문의제목" prop="QUESTIONTITLE" />
-                    <el-table-column label="물품정보" prop="PRODUCTCODE" />
-                    <el-table-column label="작성일" prop="QUESTIONDATE" />
+                    <el-table-column label="문의번호" align="center" prop="QUESTIONCODE" />
+                    <el-table-column label="문의제목" align="center" prop="QUESTIONTITLE" />
+                    <el-table-column label="물품정보" align="center" prop="PRODUCTCODE" />
+                    <el-table-column label="작성일" align="center" prop="QUESTIONDATE" />
                     <el-table-column align="right">
                         <template #default="scope">
                             <el-button size="mini" @click="handleEdit(scope.row.QUESTIONCODE)">답글달기</el-button>
@@ -55,12 +55,20 @@
                     </tbody>
                 </table>
             </div>
-            <div class="questionContent">
-                {{QList_Modal.questioncontent}}
+            <p> 문의 내용 </p>
+            <div class="question_box">
+                <div class="questionbox_title">
+                    <p class="form-control" style="font-family: 'Gowun Dodum', sans-serif;">{{ QList_Modal.questiontitle }}</p>
+                    <p class="form-select">[ {{QList_Modal.questionkind}} ]</p>
+                </div>
+                <div class="questionContent">
+                    {{QList_Modal.questioncontent}}
+                </div> 
             </div>
-            <hr/>
-            <div class="modalReply">
-                <el-input v-model="replyContent" :rows="6" type="textarea" placeholder="답글 작성란"  class="form-control"/>
+            <hr style="width:100%;"/>
+            <div class="replysection">
+                <p> 문의 답변 </p>
+                <textarea name="content" v-model="replyContent" row="30" placeholder="답글 작성란" style="font-family: 'Gowun Dodum', sans-serif;"  class="form-control"></textarea>
             </div>
         </div>
         <div class="modal-footer">
@@ -206,7 +214,7 @@ import axios from 'axios';
 .qa_list_content {
     /* border : 1px solid black; */
     height : 80%;
-    width : 1100px;
+    width : 90%;
     display : flex;
     flex-direction: column;
     padding : 50px;
@@ -250,12 +258,21 @@ import axios from 'axios';
     height: 100%;
     width: 100%;
 }
+.questionContents p{
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #49654E;
+}
 .questionContents .productInfo{
     /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding: 10px;
     align-items: center;
+    border-top: 0.5px solid #333;
+    border-bottom: 0.5px solid #333;
 }
 .questionContents .productInfo #productinfo{
     /* border: 1px solid black; */
@@ -278,6 +295,23 @@ import axios from 'axios';
 .productInfo table tbody td{
     text-align: center;
 }
+.productInfo table th:first-child{
+    /* border: 1px solid black; */
+    width : 18%;
+}
+.productInfo table th:nth-child(2){
+    /* border: 1px solid black; */
+    width : 55%;
+}
+.productInfo table th:nth-child(3){
+    /* border: 1px solid black; */
+    width : 10%;
+}
+.productInfo table th:last-child{
+    /* border: 1px solid black; */
+    width : 15%;
+}
+
 .productInfo table tbody img{
     width: 60px;
     height: 60px;
@@ -287,8 +321,63 @@ import axios from 'axios';
     display: flex;
     flex-direction: column;
     border-radius: 3px;
-    margin: 10 auto;
-    width: 97%;
+    width: 100%;
+    height: 150px;
+    padding : 10px;
+}
+.question_box{
+    width : 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.question_box .questionbox_title{
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 20%;
+    display: inline-flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+.question_box .questionbox_title .form-control{
+    /* border: 1px solid black; */
+    width: 68%;
+    height: 100%;
+}
+.question_box .questionbox_title .form-select{
+    /* border: 1px solid black; */
+    width: 30%;
+    height: 100%;
+}
+.questionbox_title p:first-child {
+    border: 1px solid rgb(180, 180, 180);
+    font-size: 15px;
+    color: black;
+    font-weight: 100;
+    border-radius: 3px;
+}
+.questionbox_title p:last-child {
+    border: 1px solid rgb(180, 180, 180);
+    font-size: 15px;
+    color: black;
+    text-align: center;
+    border-radius: 3px;
+}
+.replysection{
+    width : 98%;
+    display: flex;
+    flex-direction: column;
+}
+.replysection p{
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #49654E;
+}
+.replysection .form-control{
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 3px;
+    width: 100%;
     height: 150px;
     padding : 10px;
 }
@@ -309,6 +398,16 @@ import axios from 'axios';
     color: white;
     font-family: 'Gowun Dodum', sans-serif;
 }
+#updatebtn{
+    border: none;
+    border-radius: 3px;
+    background-color: #49654E;
+    width: 100px;
+    height: 40px;
+    margin: 0px 10px 0px 0px;
+    color: white;
+    font-family: 'Gowun Dodum', sans-serif;  
+}
 #closebtn {
     background-color: white;
     width: 100px;
@@ -322,6 +421,7 @@ import axios from 'axios';
 .modal-footer button:hover{
     opacity: 0.8;
     cursor: pointer;
+
 }
 
 </style>
