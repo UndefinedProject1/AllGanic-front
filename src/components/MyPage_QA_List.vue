@@ -2,7 +2,7 @@
     <div class="info_list">
         <div class="qa_title">
             <p>문의내역</p>
-            <p>*본 문의글에 대한 수정 및 삭제는 문의 답변이 이루어지기 전에만 가능합니다.</p>
+            <p>*본 문의글에 대한 수정은 문의 답변이 이루어지기 전에만 가능합니다.</p>
         </div>
         <div class="qa_insert">
             <!-- 문의내역 Table -->
@@ -41,10 +41,9 @@
                     </el-table-column>
                     <el-table-column prop="title" label="기타" width="150" align="center">
                         <template #default="scope">
-                            <el-button type="text" @click="showQaReplay(scope.row.QUESTIONCODE)" 
-                                    style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; font-family: 'Gowun Dodum', sans-serif;
-                                            text-decoration-line: underline; cursor:pointer;" >
-                                    {{showEdit}}
+                            <el-button  @click="handleDelete(scope.row.QUESTIONCODE)" 
+                                    style="font-size:13.5px; color:white; margin:10px 0px 5px 0px; background-color:#715036; font-weight:bold; font-family: 'Gowun Dodum', sans-serif;" >
+                                    삭제
                             </el-button>
                         </template>
                     </el-table-column>
@@ -102,8 +101,49 @@
 
 <script>
 import axios from "axios";
+import { ElMessageBox, ElMessage } from 'element-plus'
 // import MyPage_Info from '@/components/MyPage_Info.vue';
     export default {
+        setup(){
+            const deleteConfirm = () => {
+                ElMessageBox.confirm(
+                    '삭제하시겠습니까?',
+                    'Warning',
+                    {
+                    confirmButtonText: '삭제',
+                    cancelButtonText: '취소',
+                    type: 'warning',
+                    }
+                )
+                .then(() => {
+                    ElMessage({
+                        type: 'success',
+                        message: '해당 제품이 삭제되었습니다.',
+                    })
+                })
+                .catch(() => {
+                    ElMessage({
+                        type: 'info',
+                        message: '삭제 취소',
+                    })
+                })
+            }
+            const failAlertMSG = () => {
+                ElMessage.error('삭제 실패')
+            }
+            const infoAlertMSG = () => {
+                ElMessage.message('장바구니가 비어있습니다.')
+            }
+            const warningAlertMSG = () => {
+                ElMessage.error('주문하실 제품들을 체크해주세요.')
+            }
+            return {
+                deleteConfirm,
+                failAlertMSG,
+                infoAlertMSG,
+                warningAlertMSG
+            }
+        },
         data() {
             return {
                 token : sessionStorage.getItem("token"),
@@ -144,11 +184,9 @@ import axios from "axios";
                     for(var j=0; j<this.QAListData.length; j++){
                         if(this.QAListData[j].QUESTIONREPLY === true){
                             this.QAListData[j].QUESTIONREPLY = '답변완료';
-                            this.showEdit = '';
                         }
                         else {
                             this.QAListData[j].QUESTIONREPLY = '미답변';
-                            this.showEdit = '수정하기';
                         }
                         
                     }
@@ -187,6 +225,21 @@ import axios from "axios";
                 }else if(response2.data.answer === null){
                     this.QAanswer = "해당문의에 대한 답변이 등록되지 않았습니다."
                     this.QAregdate = " ";
+                }
+            },
+            async handleDelete(val){
+                const url = `REST/api/question/delete?no=${val}`;
+                const response = await axios.delete(url);
+                console.log(response);
+                if(response.data === 1){
+                    this.deleteConfirm();
+                    await this.handleQaListGet()
+                }
+                else if(response.data === 0){
+                    alert("문의코드가 넘어오지 않음");
+                }
+                else {
+                    alert("error");
                 }
             }
 

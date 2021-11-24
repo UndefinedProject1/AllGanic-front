@@ -32,12 +32,13 @@
             </div>
         </div>
         <div class="admin_content" >
-            <component v-bind:is="CurrentPage" @input="onChangeNumber"></component>
+            <component v-bind:is="CurrentPage"></component>
         </div>
     </div>
 </template>
 
 <script>
+import {getCurrentInstance} from '@vue/runtime-core';
 import axios from 'axios';
 import Admin_Product_Insert from '@/components/Admin_Product_Insert.vue';
 import Admin_Brand_List from '@/components/Admin_Brand_List.vue';
@@ -55,7 +56,8 @@ import Admin_Cate_Sales_Chart from '@/components/Admin_Cate_Sales_Chart.vue';
                 CurrentPage : 'AdminMainPage',
                 pages : ['AdminMainPage', 'AdminBrandInsert', 'AdminBrandList', 'AdminCategoryInsert',
                         'AdminProductInsert','AdminProductList', 'Admin_QA_List', 'Admin_QA_List_Complete','Admin_Brand_Sales_Chart','Admin_Cate_Sales_Chart'],
-                value : 0
+                value : 0,
+                $socket : '',
             }
         },
         components : {
@@ -70,13 +72,19 @@ import Admin_Cate_Sales_Chart from '@/components/Admin_Cate_Sales_Chart.vue';
             'Admin_Brand_Sales_Chart' : Admin_Brand_Sales_Chart,
             'Admin_Cate_Sales_Chart' : Admin_Cate_Sales_Chart
         },
-        async mounted(){
+        async created(){
             await this.getQAlist();
+            const app = getCurrentInstance();
+            this.$socket = app.appContext.config.globalProperties.$socket;
+        },
+        mounted() {
+            this.$socket.on("QuestionIn", async (recv) => {
+                console.log(recv);
+                await this.getQAlist();
+                await this.onChangeNumber();
+            })
         },
         methods : {
-            onChangeNumber(val){
-                this.value = val;
-            },
             ChangeMenu(val){
                 this.CurrentPage = this.pages[val];
             },

@@ -82,7 +82,7 @@ export default {
         await this.getBrandPercentage();
         const app = getCurrentInstance();
         this.$socket = app.appContext.config.globalProperties.$socket;
-        console.log(this.$socket);
+        // console.log(this.$socket);
     },
     mounted() {
         this.$socket.on("sell", async (recv) => {

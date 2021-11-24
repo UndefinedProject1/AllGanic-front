@@ -172,7 +172,7 @@
                                                         </div>
                                                         <div class="form-floating" style="height:30px;">
                                                             <el-input v-model="questionTitle" placeholder="리뷰제목 입력" class="form-control" clearable style="font-family: 'Gowun Dodum', sans-serif;"/>
-                                                        </div>
+                                                        </div>   
                                                         <div class="form-floating">
                                                             <textarea name="content" row="30" v-model="questionContent" placeholder="문의내용은 300자 이하로 적어주세요" id="floatingTextarea2"></textarea>
                                                         </div>
@@ -428,6 +428,7 @@ import Cart_Popup from './Cart_Popup.vue';
 
                 const response = await axios.post(url, body, {headers});
                 if(response.data.result === 1) {
+                    this.$socket.emit('QuestionIn', {data : {QuestionIn:1}});
                     this.successAlertMSG();
                     this.showFaqWriting = false;
                     await this.handleDetailContents();

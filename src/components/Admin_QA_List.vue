@@ -75,6 +75,7 @@
 </template>
 
 <script>
+import {getCurrentInstance} from '@vue/runtime-core';
 import axios from 'axios';
     export default {
         data(){
@@ -94,11 +95,20 @@ import axios from 'axios';
                     {value : 3, label : '기타'},
                 ],
                 pages : 0,
-                page : 1
+                page : 1,
+                $socket : '',
             }
         },
         async created(){
             await this.handleGetQList();
+            const app = getCurrentInstance();
+            this.$socket = app.appContext.config.globalProperties.$socket;
+        },
+        mounted() {
+            this.$socket.on("QuestionIn", async (recv) => {
+                console.log(recv);
+                await this.handleGetQList();
+            })
         },
         methods : {
             async handlePageChange(val){
