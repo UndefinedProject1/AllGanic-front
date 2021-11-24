@@ -1,8 +1,5 @@
 <template>
         <div class="info_list">
-            <!-- <div class="info_title">
-                <p>My Page</p>
-            </div> -->
             <div class="order_list" @click="mypage_orli_btn">
                 <div class="order_list_name">
                     <p>최근 주문내역</p>
@@ -10,96 +7,91 @@
                 </div>
                 <div class="or_li_box1" >
                     <!-- 주문내역 Table -->
-                    <div class="orderlist_info_section" style="width:100%; height: 93.5%; overflow-x:hidden">
-                        <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 97%; margin-left:20px;" @selection-change="OrderListBtn">
-                                <el-table-column label="주문일자" width="100" align="center">
-                                    <template #default="scope">
-                                        <p>{{scope.row.ORDERDATE}}</p>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="주문번호" width="160" align="center">
-                                    <template #default="scope">
-                                        <p>{{scope.row.MERCHANT_UID}}</p>
-                                    </template>
-                                </el-table-column>                                                                
-                                <el-table-column prop="img" label="이미지" align="center" width="130">
-                                    <template #default="scope">
-                                        <el-image style= "width: 110px; height: 100px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="주문정보" width="410px;" align="center">
-                                    <template #default="scope">
-                                        <div class="product_detail_info">
-                                            <p>{{scope.row.BRANDNAME}}</p>
-                                            <p>{{scope.row.PRODUCTNAME}}</p>
-                                            <p>{{scope.row.PRODUCTPRICE}}</p>        
-                                        </div>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="수량" width="80" align="center">
-                                    <template #default="scope">
-                                        <p>{{scope.row.ORDERQUANTITY}}</p>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="배송비" width="190" align="center">
-                                    <template #default="scope">
-                                        <p>[ {{scope.row.BRANDNAME}} ] 정책에 따름</p>
-                                    </template>
-                                </el-table-column>
-                                <!-- <el-table-column label="주문상태" width="150" align="center">
-                                    <template #default="scope">
-                                        <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}상품 준비중</p>
-                                    </template>
-                                </el-table-column> -->
-                        </el-table>
-                    </div>
+                    <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 97%; margin-left:20px;" @selection-change="OrderListBtn">
+                            <el-table-column label="주문일자" width="100" align="center">
+                                <template #default="scope">
+                                    <p>{{scope.row.ORDERDATE}}</p>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="주문번호" width="160" align="center">
+                                <template #default="scope">
+                                    <p>{{scope.row.MERCHANT_UID}}</p>
+                                </template>
+                            </el-table-column>                                                                
+                            <el-table-column prop="img" label="이미지" align="center" width="130">
+                                <template #default="scope">
+                                    <el-image style= "width: 110px; height: 100px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="주문정보" width="410px;" align="center">
+                                <template #default="scope">
+                                    <div class="product_detail_info">
+                                        <p>{{scope.row.BRANDNAME}}</p>
+                                        <p>{{scope.row.PRODUCTNAME}}</p>
+                                        <p>{{scope.row.PRODUCTPRICE}}</p>        
+                                    </div>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="수량" width="80" align="center">
+                                <template #default="scope">
+                                    <p>{{scope.row.ORDERQUANTITY}}</p>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="배송비" width="190" align="center">
+                                <template #default="scope">
+                                    <p>[ {{scope.row.BRANDNAME}} ] 정책에 따름</p>
+                                </template>
+                            </el-table-column>
+                            <!-- <el-table-column label="주문상태" width="150" align="center">
+                                <template #default="scope">
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}상품 준비중</p>
+                                </template>
+                            </el-table-column> -->
+                    </el-table>
                 </div>
             </div>
             <div class="qna_list">
-                <div class="order_list_qa" style="width:100%; height: 93.5%; overflow-x:hidden">
-                    <p>최근 문의내역</p>
+                <div class="order_list_qa">
+                    <div class="order_list_warning">
+                        <p>최근 문의내역</p>
+                        <p>*문의글 수정 및 삭제는 문의내역에서만 가능합니다.</p>
+                    </div>
                     <p @click="morequestion">더보기 <img :src="mypage" style="right" class="mypage_plus"/></p>
                 </div>
-                <div class="order_list_warning">
-                    <p>*문의글 수정 및 삭제는 문의내역에서만 가능합니다.</p>
-                </div>
                 <div class="or_qa_box1">
-                    <hr class="solid" style="border-top-width: 0px;"/>
                     <!-- 문의내역 Table -->
-                    <div class="insert_prdcode" style="width:100%; height: 93.5%; overflow-x:hidden">
-                        <el-table :data="QAListData" stripe style="width: 90%; margin-left:55px;" >
-                            <el-table-column prop="select" label="문의유형" width="100" align="center">
-                                <template #default="scope">
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONKIND}}</p>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="title" label="제목" width="250" align="center">
-                                <template #default="scope">
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONTITLE}}</p>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="content" label="내용" width="300" align="center">
-                                <template #default="scope">
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONCONTENT}}</p>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="date" label="문의일자" width="150" align="center">
-                                <template #default="scope">
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONDATE}}</p>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="answer" label="답변상태" width="100" align="center">
-                                <template #default="scope">
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONREPLY}}</p>
-                                </template>
-                            </el-table-column>
-                            <!-- <el-table-column prop="answer" label="기타" width="100" align="center">
-                                <template #default="scope">
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.qaAction}}답변완료</p>
-                                </template>
-                            </el-table-column> -->
-                        </el-table>
-                    </div>
+                    <el-table :data="QAListData" stripe style="width: 97%; margin-left:20px;" >
+                        <el-table-column prop="select" label="문의유형" width="100" align="center">
+                            <template #default="scope">
+                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONKIND}}</p>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="title" label="제목" width="300" align="center">
+                            <template #default="scope">
+                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONTITLE}}</p>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="content" label="내용" width="320" align="center">
+                            <template #default="scope">
+                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONCONTENT}}</p>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="date" label="문의일자" width="250" align="center">
+                            <template #default="scope">
+                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONDATE}}</p>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="answer" label="답변상태" width="100" align="center">
+                            <template #default="scope">
+                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONREPLY}}</p>
+                            </template>
+                        </el-table-column>
+                        <!-- <el-table-column prop="answer" label="기타" width="100" align="center">
+                            <template #default="scope">
+                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.qaAction}}답변완료</p>
+                            </template>
+                        </el-table-column> -->
+                    </el-table>
                 </div>
             </div>
         </div>
@@ -155,6 +147,24 @@ import mypage from '@/assets/mypage.png';
                 console.log(response);
                 if(response.data.result ===1) {
                     this.QAListData = response.data.list;
+
+                    for(var i=0; i<this.QAListData.length; i++){
+                        if(this.QAListData[i].QUESTIONKIND === 1){
+                            this.QAListData[i].QUESTIONKIND = '상품문의';
+                        }
+                        else if(this.QAListData[i].QUESTIONKIND === 2){
+                            this.QAListData[i].QUESTIONKIND = '배송문의';
+                        }else this.QAListData[i].QUESTIONKIND = '기타';
+                    }
+
+                    for(var j=0; j<this.QAListData.length; j++){
+                        if(this.QAListData[j].QUESTIONREPLY === true){
+                            this.QAListData[j].QUESTIONREPLY = '답변완료';
+                        }
+                        else {
+                            this.QAListData[j].QUESTIONREPLY = '미답변';
+                        }
+                    }
                 }
 
             }
@@ -167,7 +177,7 @@ import mypage from '@/assets/mypage.png';
 .info_list {
     /* border: 1px solid black; */
     width: 98.5%;
-    height: 50%;
+    height: 100%;
     margin-left: 30px;
 }
 .info_title {
@@ -183,7 +193,7 @@ import mypage from '@/assets/mypage.png';
 .order_list {
     /* border: 1px solid black; */
     color: #715036;
-    height: 80%;
+    height: 50%;
     font-weight: bold;
     display: flex;
     flex-direction: column;
@@ -192,6 +202,7 @@ import mypage from '@/assets/mypage.png';
     /* border: 1px solid black; */
     color: #715036;
     height: 50%;
+    margin-top: 10px;
     font-weight: bold;
     display: flex;
     flex-direction: column;
@@ -202,16 +213,22 @@ import mypage from '@/assets/mypage.png';
     justify-content: space-between;
     margin-bottom: 5px;
     margin-right: 8px;
+    width:100%;
 }
-.order_list > p {
-    /* border: 1px solid black; */
+.order_list_warning{
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+}
+.order_list_warning p:first-child {
     margin-top: 0px;
     color: #715036;
     font-weight: bold;
-}
-.order_list_warning > p {
     width: fit-content;
-    margin: 0 10px 5px 0px;
+}
+.order_list_warning p:last-child {
+    width: fit-content;
+    margin: 0px 0px 0px 5px;
     font-size: 13px;
     color: rgb(201, 31, 31);
     text-align: right;
@@ -226,16 +243,9 @@ import mypage from '@/assets/mypage.png';
 .or_qa_box1 {
     border: 3px solid #715036;
     width: 100%;
-    height: 10%;
+    height: 90%;
     margin-bottom: 10px;
     border-radius: 3px;
-}
-.qna_list {
-    /* border: 1px solid black; */
-    width: 100%;
-    height: fit-content;
-    display: flex;
-    justify-content: space-between;
 }
 .qna_list > p {
     /* border: 1px solid black; */
@@ -252,30 +262,17 @@ import mypage from '@/assets/mypage.png';
     width: 10px;
     height: 14px;
 }
+
 /* or_li_box 테이블 */
-.insert_date_code {
-    display: flex;
-}
-.insert_date, .insert_ordercode {
-    display: flex;
-    margin-top: 10px;
-    margin-left: 12px;
-}
-.solid {
-    border: 1px solid rgb(228, 227, 227);
-    width: 90%;
-    margin-bottom: 2px;
-    margin-top: 10px;
-    margin-left: 42px;
-}
 .order_list_name > p:last-child, .order_list_qa > p:last-child {
     cursor: pointer;
     opacity: 0.8;
+    margin-right: 15px;
 }
-.orderlist_info_section table tbody div{
+.or_li_box1 table tbody div{
     width: 100%; text-align:left; padding:5px 10px; margin-left:30px;
 }
-.orderlist_info_section table tbody p{
+.or_li_box1 table tbody p{
     font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;
 }
 </style>

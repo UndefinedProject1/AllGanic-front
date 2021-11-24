@@ -4,155 +4,155 @@
         <p>회원정보 변경</p>
       </div>
       <div class="m_update_insert">
-        <div class="m_update_mail">
-          <img :src="mypage_mail" />
-          <p>이메일</p>
-          <input type="text" v-model="member.USEREMAIL" readonly value />
+        <div class="m_update_box">
+          <div class="m_update_mail">
+            <i class="el-icon-message" :size="50"></i>
+            <p>이메일</p>
+            <input type="text" v-model="member.USEREMAIL" readonly value />
           </div>
-        <div class="m_password">
-          <div class="m_update_pw">
-            <img :src="mypage_pw" />
-            <p>비밀번호</p>
+          <div class="m_password">
+            <div class="m_update_pw">
+              <i class="el-icon-lock" :size="50"></i>
+              <p>비밀번호</p>
+            </div>
+            <div class="u_pw_box">
+              <input type="password" v-model="u_password_text" refs="password" />
+              <button type="password" @click="centerDialogVisible = true">비밀번호변경</button>
+            </div>
           </div>
-          <div class="u_pw_box">
-            <input type="password" v-model="u_password_text" refs="password" />
-            <button type="password" @click="centerDialogVisible = true">비밀번호변경</button>
+          <div class="m_name">
+            <div class="m_update_name">
+              <i class="el-icon-user" :size="50"></i>
+              <p>이름</p>
+            </div>
+            <div class="u_name_box">
+              <input type="text" v-model="member.USERNAME" refs="name" />
+            </div>
           </div>
-        </div>
-        <div class="m_name">
-          <div class="m_update_name">
-            <img :src="mypage_profile" />
-            <p>이름</p>
+          <div class="m_phone">
+            <div class="m_update_phone">
+              <i class="el-icon-phone" :size="50"></i>
+              <p>연락처</p>
+            </div>
+            <div class="u_phone_box">
+              <!-- <input type="text" oninput="autoHyphen(this)" maxlength="13"  v-model="member.USERTEL" refs="phone" @keyup="numberHipen"> -->
+              <input type="text" class="phoneNumber" @keyup="phonehipen"  v-model="member.USERTEL" refs="phone">
+              <!-- <input type="number" /> -->
+            </div>
+            </div>
+          <div class="m_address">
+            <div class="m_update_address">
+              <i class="el-icon-location" :size="50"></i>
+              <p>주소</p>
+            </div>
+            <div class="m_update_postcode">
+              <input type="text" v-model="postcode" readonly value style="width:100px;" />
+              <p style="margin-top:9px;">/</p>
+              <input type="text" v-model="roadAddress" readonly value style="margin-left: 5px;" />
+            </div>
           </div>
-          <div class="u_name_box">
-            <input type="text" v-model="member.USERNAME" refs="name" />
+          <div class="u_address_box">
+            <input type="text" v-model="detailAddress" />
+            <button type="button" id="postcode_btn" @click="openDaumPostCode">우편번호검색</button>
           </div>
-        </div>
-        <div class="m_phone">
-          <div class="m_update_phone">
-            <img :src="mypage_phone" />
-            <p>연락처</p>
-          </div>
-          <div class="u_phone_box">
-            <!-- <input type="text" oninput="autoHyphen(this)" maxlength="13"  v-model="member.USERTEL" refs="phone" @keyup="numberHipen"> -->
-            <input type="text" class="phoneNumber" @keyup="phonehipen"  v-model="member.USERTEL" refs="phone">
-            <!-- <input type="number" /> -->
-          </div>
-          </div>
-        <div class="m_address">
-          <div class="m_update_address">
-            <img :src="mypage_address" />
-            <p>주소</p>
-          </div>
-          <div class="m_update_postcode">
-            <input type="text" v-model="postcode" readonly value style="width:100px;" />
-            <p style="margin-top:9px;">/</p>
-            <input type="text" v-model="roadAddress" readonly value style="margin-left: 5px;" />
-          </div>
-        </div>
-        <div class="u_address_box">
-          <input type="text" v-model="detailAddress" />
-          <button type="button" id="postcode_btn" @click="openDaumPostCode">우편번호검색</button>
-        </div>
-        <div
-          id="wrap"
-          style="
-            display: none;
-            border: 1px solid;
-            width: 500px;
-            height: 300px;
-            margin: 5px 0;
-            position: relative;
-          "
-        >
-          <img
-            src="//t1.daumcdn.net/postcode/resource/images/close.png"
-            id="btnFoldWrap"
+          <div
+            id="wrap"
             style="
-              cursor: pointer;
-              position: absolute;
-              right: 0px;
-              top: -1px;
-              z-index: 1;
+              display: none;
+              border: 1px solid;
+              width: 500px;
+              height: 300px;
+              margin: 5px 0;
+              position: relative;
             "
-            @click="foldDaumPostcode"
-            alt="접기 버튼"
-          />
-        </div>
-        <div
-          id="wrap"
-          style="
-            display: none;
-            border: 1px solid;
-            width: 500px;
-            height: 300px;
-            margin: 5px 0;
-            position: relative;
-          "
-        >
-          <img
-            src="//t1.daumcdn.net/postcode/resource/images/close.png"
-            id="btnFoldWrap"
+          >
+            <img
+              src="//t1.daumcdn.net/postcode/resource/images/close.png"
+              id="btnFoldWrap"
+              style="
+                cursor: pointer;
+                position: absolute;
+                right: 0px;
+                top: -1px;
+                z-index: 1;
+              "
+              @click="foldDaumPostcode"
+              alt="접기 버튼"
+            />
+          </div>
+          <div
+            id="wrap"
             style="
-              cursor: pointer;
-              position: absolute;
-              right: 0px;
-              top: -1px;
-              z-index: 1;
+              display: none;
+              border: 1px solid;
+              width: 500px;
+              height: 300px;
+              margin: 5px 0;
+              position: relative;
             "
-            @click="foldDaumPostcode"
-            alt="접기 버튼"
-          />
+          >
+            <img
+              src="//t1.daumcdn.net/postcode/resource/images/close.png"
+              id="btnFoldWrap"
+              style="
+                cursor: pointer;
+                position: absolute;
+                right: 0px;
+                top: -1px;
+                z-index: 1;
+              "
+              @click="foldDaumPostcode"
+              alt="접기 버튼"
+            />
+          </div>
+          <button type="button" id="handle_memupdate" @click="handle_memupdate">회원정보 수정</button>
         </div>
-        <button type="button" id="handle_memupdate" @click="handle_memupdate">회원정보 수정</button>
       </div>
 
     <!-- modal -->
-    <el-dialog 
-    v-model="centerDialogVisible"
-    title="비밀번호 변경"
-    width="30%">
-    <div class="update_modal_pw_box">
-      <div class="update_modal_pw_oldpw">
-        <p>기존 비밀번호</p>
-        <span>*</span>
-      </div>
-      <div class="updatemodal_input_pw_oldpw">
-        <input type="password" ref="pw1" v-model="pw1_btn"/>
-      </div>
-        <div class="modal_password1" v-bind:style="modalcheck">
-            {{ chk_pw1 }}
+  <el-dialog v-model="centerDialogVisible" title="비밀번호 변경" width="30%">
+    <VeeForm v-slot="{ handleSubmit}" :validation-schema="schema" as="div">
+      <form @submit="handleSubmit($event, onSubmit)">
+        <div class="update_modal_pw_box">
+          <div class="update_modal_pw_oldpw">
+            <p>기존 비밀번호</p>
+            <span>*</span>
+          </div>
+          <div class="updatemodal_input_pw_oldpw">
+            <Field type="password" name="pw1_btn" v-model="pw1_btn"/>
+          </div>
+            <div class="modal_password1">
+              <ErrorMessage name="pw1_btn"/>
+            </div>
+          <div class="update_modal_pw_newpw">
+            <p>새 비밀번호</p>
+            <span>*</span>
+          </div>
+          <div class="updatemodal_input_pw_newpw">
+            <Field type="password" name="pw2_btn" v-model="pw2_btn" ref="pw2_btn" />
+          </div>
+          <div class="modal_password1">
+              <ErrorMessage name="pw2_btn"/>
+            </div>
+          <div class="update_modal_pw_newpw_check">
+            <p>새 비밀번호 확인</p>
+            <span>*</span>
+          </div>
+          <div class="updatemodal_input_pw_newpwchk">
+            <input type="password" name="pw3_btn" v-model="pw3_btn"/>
+          </div>
+          <div class="modal_password1">
+            <ErrorMessage name="pw3_btn"/>
+          </div>
+          <span class="dialog-footer">
+            <button type="button" id="btn_cancle" @click="centerDialogVisible = false">취소</button>
+            <button type="button" id="btn_update">수정</button>
+            <el-button @click="centerDialogVisible = false" id="btn_close" style="display:none">Close</el-button>
+          </span>
         </div>
-      <div class="update_modal_pw_newpw">
-        <p>새 비밀번호</p>
-        <span>*</span>
-      </div>
-      <div class="updatemodal_input_pw_newpw">
-        <input type="password" ref="pw2" v-model="pw2_btn" />
-      </div>
-      <div class="modal_password1" v-bind:style="modalcheck">
-            {{ chk_pw2 }}
-        </div>
-      <div class="update_modal_pw_newpw_check">
-        <p>새 비밀번호 확인</p>
-        <span>*</span>
-      </div>
-      <div class="updatemodal_input_pw_newpwchk">
-        <input type="password" ref="pw3" v-model="pw3_btn"/>
-      </div>
-      <div class="modal_password1" v-bind:style="modalcheck">
-            {{ chk_pw3 }}
-        </div>
-    </div>
-    <template #footer>
-      <span class="dialog-footer">
-        <button type="button" id="btn_cancle" @click="centerDialogVisible = false">취소</button>
-        <button type="button" id="btn_update" @click="handlPWUpdate">수정</button>
-        <!-- <el-button @click="centerDialogVisible = false" id="btn_cancle">취소</el-button> -->
-        <el-button @click="centerDialogVisible = false" id="btn_close" style="display:none">Close</el-button>
-        <!-- <el-button type="primary" @click="handlPWUpdate" id="btn_update">수정</el-button> -->
-      </span>
-    </template>
+      </form>
+    </VeeForm>
+
   </el-dialog>
   </div>
 </template>
@@ -160,51 +160,49 @@
 
 <script>
 import axios from "axios";
-//import MyPage_Info from "@/components/MyPage_Info.vue";
+import { Form as VeeForm, Field, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
 import mypage_mail from "@/assets/mypage_mail.png";
 import mypage_pw from "@/assets/mypage_pw.png";
 import mypage_profile from "@/assets/mypage_profile.png";
 import mypage_phone from "@/assets/mypage_phone.png";
 import mypage_address from "@/assets/mypage_address.png";
   export default {
+      components :{
+        VeeForm,
+        Field,
+        ErrorMessage
+      },
       data() {
+        const schema = yup.object({
+          pw1_btn : yup.string().required('해당 항목은 필수입력사항입니다.'),
+          pw2_btn : yup.string()
+                  .matches(/[~!@#$%^&*_?]/,'특수문자 ~, !, @, #, $, %, ^, &, *, _, ? 중 하나는 포함되어야합니다. ')
+                  .min(6, '비밀번호는 최소 6자리 이상이어야합니다.')
+                  .required('해당 항목은 필수입력사항입니다.'),
+          pw3_btn : yup.string()
+                  .oneOf([yup.ref("pw2_btn")], "새 비밀번호와 일치해야합니다.")
+        });
         return {
-            token: sessionStorage.getItem("token"),
-            mypage_mail: mypage_mail,
-            mypage_pw: mypage_pw,
-            mypage_profile: mypage_profile,
-            mypage_phone: mypage_phone,
-            mypage_address: mypage_address,
-            
-            postcode: "",
-            roadAddress: "",
-            detailAddress: "",
-            member:[],
+          token: sessionStorage.getItem("token"),
+          schema,
+          mypage_mail: mypage_mail,
+          mypage_pw: mypage_pw,
+          mypage_profile: mypage_profile,
+          mypage_phone: mypage_phone,
+          mypage_address: mypage_address,
+          
+          postcode: "",
+          roadAddress: "",
+          detailAddress: "",
+          member:[],
 
-            document :'',
-            this: '',
+          centerDialogVisible: false,
 
-            centerDialogVisible: false,
-        
-            chk_pw1 : "",
-            chk_pw2 : "",
-            chk_pw3 : "",
-            pw1_btn : "",
-            pw2_btn : "",
-            pw3_btn : "",
+          pw1_btn : "",
+          pw2_btn : "",
+          pw3_btn : "",
 
-            // document :'',
-            // this : '',
-
-            modalcheck: {
-                width: "fit-content",
-                height: "20px",
-                fontFamily: '"Gowun Dodum", serif',
-                fontSize: "13px",
-                marginTop: "10px",
-                marginRight: "15px",
-                color: "black",
-            },
         };
       },
       mounted() {
@@ -219,11 +217,6 @@ import mypage_address from "@/assets/mypage_address.png";
       await this.handleMemberGet();
       },
       methods: {
-        async phonehipen() {
-            // $(document).on("keyup", ".phoneNumber", function() { $(this).val( $(this).val().replace(/[^0-9]/g, "")
-            //     .replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); });
-        },
-
         async handleMemberGet() {
           const url = `REST/api/member/find`;
           const headers = { token: this.token };
@@ -289,26 +282,11 @@ import mypage_address from "@/assets/mypage_address.png";
           }).
           open();
         },
-        async handlPWUpdate() {
-            if(this.pw1_btn.length === 0) {
-                this.chk_pw1 = "기존 비밀번호는 필수항목 입니다.";
-                this.modalcheck.color = "Red";
-                return this.$refs.pw1.focus();
-            }
-            else if(this.pw2_btn.length === 0) {
-                this.chk_pw2 = "새 비밀번호는 필수 항목입니다.";
-                this.modalcheck.color = "Red";
-                return this.$refs.pw2.focus();
-            }
-            else if(this.pw2_btn !== this.pw3_btn) {
-                this.chk_pw3 = "새 비밀번호와 일치해야 합니다.";
-                this.modalcheck.color = "Red";
-                return this.$refs.pw3.focus();
-            }
+        async onSubmit({pw1_btn, pw2_btn}) {
             const headers = {"token" : this.token};
             const body = {
-                userpw : this.pw1_btn,
-                usernewpw : this.pw2_btn
+                userpw : pw1_btn,
+                usernewpw : pw2_btn
             };
             console.log(body);
             const url = `REST/api/member/passwd`;
@@ -346,6 +324,12 @@ import mypage_address from "@/assets/mypage_address.png";
 </script>
 
 <style scoped>
+input {
+  padding-left: 5px;
+  outline: none;
+  font-size: 1rem;
+  color: #333;
+}
 .info_list {
   width: 98.5%;
   height: 100%;
@@ -371,120 +355,214 @@ import mypage_address from "@/assets/mypage_address.png";
   justify-content: center;
   align-items: center;
 }
+.m_update_box{
+  /* border: 1px solid black; */
+  width: 70%;
+  height : 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* 이메일 부분 */
 .m_update_mail {
   /* border: 1px solid black; */
   width: 100%;
-  display: flex;
-  justify-content: center;
+  display: inline-flex;
   margin-bottom: 10px;
   font-family: 'Gowun Dodum', sans-serif;
+  align-items: center;
   /* margin-top: 30px; */
 }
 .m_update_mail > p {
+  /* border: 1px solid black; */
   width: fit-content;
-  margin-right: 45px;
-  margin-bottom: 5px;
-  margin-top: 3px;
+  font-weight: bold;
+  margin: 3px 40px 5px 10px;
 }
+.m_update_mail > input {
+  border: none;
+  font-size: 1rem;
+  margin-right: 5px;
+  margin-left: 15px;
+  height: 100%;
+  width: 47%;
+  font-weight: bold;
+  color: #333;
+}
+
+
+/* 비밀번호 부분 */
 .m_password {
+  /* border: 1px solid black; */
   width: 100%;
   display: inline-flex;
   align-items: flex-end;
-  justify-content: center;
   margin-top: 10px;
 }
 .m_update_pw {
   /* border: 1px solid black; */
   display: flex;
-  width: fit-content;
+  width: 15%;
+  font-weight: bold;
+  align-items: center;
 }
 .m_update_pw > p {
+  /* border: 1px solid black; */
   width: fit-content;
-  margin-left: 10px;
-  margin-bottom: 5px;
-  margin-top: 3px;
+  font-weight: bold;
+  margin: 3px 10px 5px 10px;
 }
-.u_phone_box {
-  border-bottom: 2px solid black;
-  width: 50%;
-  margin-right: 15px;
-}
-.u_phone_box > input {
-  border: none;
-  width: 250px;
-  height: 30px;
-  font-family: 'Gowun Dodum', sans-serif;
-}
-.u_name_box {
-  border-bottom: 2px solid black;
-  width: 50%;
-  margin-right: 7px;
-}
-.u_name_box > input {
-  border: none;
-  width: 432px;
-  height: 30px;
-  font-family: 'Gowun Dodum', sans-serif;
-}
+
+/* 비밀번호변경  버튼 */
 .u_pw_box {
   display: flex;
   border-bottom: 2px solid black;
-  width: 50%;
-  margin-left: 37px;
+  width : 80%;
 }
 .u_pw_box > input {
   border: none;
-  width: 432px;
+  width: 80%;
   height: 30px;
 }
-.m_update_mail > input {
+.u_pw_box > button {
+  width: 20%;
+  background-color: #715036;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  margin-bottom: 2px;
+  font-family: 'Gowun Dodum', sans-serif;
+}
+
+
+/* 이름 부분 */
+.m_name {
+  /* border: 1px solid black; */
+  width: 100%;
+  display: flex;
+  margin-top: 30px;
+}
+.m_update_name {
+  /* border: 1px solid black; */
+  display: inline-flex;
+  align-items: center;
+  width : 15%;
+}
+.m_update_name > p {
+  /* border: 1px solid black; */
+  width: fit-content;
+  font-weight: bold;
+  margin: 3px 10px 5px 10px;
+}
+.u_name_box {
+  border-bottom: 2px solid black;
+  width : 80%;
+}
+.u_name_box > input {
+  border: none;
+  width: 100%;
+  height: 30px;
+  font-family: 'Gowun Dodum', sans-serif;
+}
+
+
+/* 전화번호 부분 */
+.m_phone {
+  /* border: 1px solid black; */
+  width: 100%;
+  display: inline-flex;
+  margin-top: 30px;
+  font-family: 'Gowun Dodum', sans-serif;
+}
+.m_update_phone {
+  /* border: 1px solid black; */
+  display: inline-flex;
+  align-items: center;
+  width : 15%;
+}
+.m_update_phone > p {
+  /* border: 1px solid black; */
+  width: fit-content;
+  font-weight: bold;
+  margin: 3px 10px 5px 10px;
+}
+.u_phone_box {
+  border-bottom: 2px solid black;
+  margin-right: 15px;
+  width : 80%;
+}
+.u_phone_box > input {
+  border: none;
+  width: 100%;
+  height: 30px;
+  font-family: 'Gowun Dodum', sans-serif;
+}
+
+
+/* 주소부분 */
+.m_address {
+  /* border: 1px solid black; */
+  width: 100%;
+  display: flex;
+  margin: 30px 0px 10px 0px;
+  align-items: flex-end;
+}
+.m_update_address {
+  /* border: 1px solid black; */
+  display: flex;
+  width: 15%;
+  font-family: 'Gowun Dodum', sans-serif;
+  align-items: center;
+}
+.m_update_address > p {
+  /* border: 1px solid black; */
+  width: fit-content;
+  font-weight: bold;
+  margin: 3px 10px 5px 10px;
+}
+.m_update_postcode {
+  display: flex;
+  border-bottom: 2px solid black;
+  height: 35px;
+  width: 80%;
+  margin-top: 10px;
+  font-family: 'Gowun Dodum', sans-serif;
+}
+.m_update_postcode > input:first-child {
+  /* border: 1px solid black; */
   border: none;
   margin-right: 5px;
-  margin-left: 15px;
+  width: 60%;
   height: 100%;
-  width: 47%;
-  background-color: #fbfdff0f;
+  font-family: 'Gowun Dodum', sans-serif;
 }
-.m_update_mail > img {
+.m_update_postcode > input:last-child {
   /* border: 1px solid black; */
-  width: 15px;
-  height: 15px;
+  border: none;
   margin-right: 5px;
-  margin-bottom: 5px;
-  margin-top: 8px;
+  width: 80%;
+  height: 100%;
+  font-family: 'Gowun Dodum', sans-serif;
 }
-.m_update_pw > img {
-  width: 15px;
-  height: 15px;
-  /* margin-right: 5px; */
-  margin-bottom: 5px;
-  margin-top: 8px;
+.u_address_box {
+  /* border: 1px solid black; */
+  border-bottom: 2px solid black;
+  display: inline-flex;
+  margin-left: 10%;
+  width: 80%;
+  font-family: 'Gowun Dodum', sans-serif;
 }
-.m_update_name > img {
-  width: 15px;
-  height: 15px;
-  margin-right: 5px;
-  margin-left: 35px;
-  margin-bottom: 5px;
-  margin-top: 8px;
+.u_address_box > input {
+  /* border: 1px solid black; */
+  border: none;
+  background-color: #fbfdff0f;
+  width: 83%;
+  font-family: 'Gowun Dodum', sans-serif;
 }
-.m_update_phone > img {
-  width: 15px;
-  height: 15px;
-  margin-right: 5px;
-  margin-left: 33px;
-  margin-bottom: 5px;
-  margin-top: 8px;
-}
-.m_update_address > img {
-  width: 15px;
-  height: 15px;
-  margin-right: 5px;
-  margin-left: 15px;
-  margin-bottom: 5px;
-  margin-top: 20px;
-}
-/* 비밀번호변경  버튼 */
 .u_address_box > button {
   background-color: #715036;
   color: white;
@@ -492,117 +570,14 @@ import mypage_address from "@/assets/mypage_address.png";
   border-radius: 5px;
   font-size: 15px;
   margin-bottom: 2px;
+  width: 20%;
   font-family: 'Gowun Dodum', sans-serif;
 }
-.u_pw_box > button {
-  width: 110px;
-  background-color: #715036;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 15px;
-  margin-bottom: 2px;
-  font-family: 'Gowun Dodum', sans-serif;
+.u_address_box > button:hover {
+  cursor: pointer;
+  opacity: 0.8;
 }
-.m_name {
-  width: 100%;
-  display: flex;
-  margin-top: 30px;
-  justify-content: center;
-}
-.m_update_name {
-  display: flex;
-}
-.m_update_name > p {
-  width: fit-content;
-  margin-right: 52px;
-  margin-bottom: 5px;
-  margin-top: 3px;
-}
-.m_update_pw > p {
-  width: fit-content;
-  margin-right: 8px;
-  margin-bottom: 5px;
-  margin-top: 3px;
-}
-.m_update_mail > p {
-  width: fit-content;
-  margin-right: 35px;
-  margin-bottom: 5px;
-  margin-top: 3px;
-}
-.m_update_phone > p {
-  width: fit-content;
-  margin-right: 52px;
-  margin-bottom: 5px;
-  margin-top: 3px;
-  font-family: 'Gowun Dodum', sans-serif;
-}
-.m_phone {
-  width: 100%;
-  display: flex;
-  margin-top: 30px;
-  justify-content: center;
-  font-family: 'Gowun Dodum', sans-serif;
-}
-.m_update_phone {
-  /* border: 1px solid black; */
-  display: flex;
-}
-.m_address {
-  /* border: 1px solid black; */
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.m_update_address {
-  /* border: 1px solid black; */
-  display: flex;
-  height: 30px;
-  margin-left: 10px;
-  margin-top: 35px;
-  font-family: 'Gowun Dodum', sans-serif;
-}
-.m_update_address > p {
-  margin-right: 20px;
-  margin-top: 15px;
-}
-.m_update_postcode {
-  display: flex;
-  border-bottom: 2px solid black;
-  width: 50%;
-  margin-left: 40px;
-  height: 35px;
-  margin-top: 30px;
-  font-family: 'Gowun Dodum', sans-serif;
-}
-.m_update_postcode > input {
-  /* border: 1px solid black; */
-  border: none;
-  margin-right: 5px;
-  width: 400px;
-  height: 25px;
-  margin-top: 8px;
-  background-color: #fbfdff0f;
-  font-family: 'Gowun Dodum', sans-serif;
-  height: 30px;
-}
-.u_address_box {
-  /* border: 1px solid black; */
-  display: flex;
-  border-bottom: 2px solid black;
-  margin-left: 135px;
-  margin-top: 20px;
-  width: 50%;
-  font-family: 'Gowun Dodum', sans-serif;
-}
-.u_address_box > input {
-  border: none;
-  background-color: #fbfdff0f;
-  width: 432px;
-  font-family: 'Gowun Dodum', sans-serif;
-}
+
 /* 우편번호검색 버튼 */
 #postcode_btn {
   width: 110px;
@@ -614,6 +589,20 @@ import mypage_address from "@/assets/mypage_address.png";
   font-size: 15px;
   font-family: 'Gowun Dodum', sans-serif;
 }
+/* 회원정보수정 버튼 */
+#handle_memupdate {
+  width: 20%;
+  height: 35px;
+  margin-top: 45px;
+  background-color: #715036;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: 'Gowun Dodum', sans-serif;
+}
+
+
 /* Modal */
 .modal-body {
   font-family: "Gowun Dodum", sans-serif;
@@ -637,16 +626,14 @@ import mypage_address from "@/assets/mypage_address.png";
   margin-top: 30px;
   margin-bottom: 0px;
 }
-.updatemodal_input_pw_oldpw > input,
-.updatemodal_input_pw_newpw > input,
-.updatemodal_input_pw_newpwchk > input {
+.update_modal_pw_box input[type="password"]{
   border: none;
   border-bottom: 2px solid black;
   width: 250px;
+  height : 30px;
+  outline: none;
 }
-.update_modal_pw_oldpw > p,
-.update_modal_pw_newpw > p,
-.update_modal_pw_newpw_check > p {
+.update_modal_pw_box p{
   margin-bottom: 0px;
 }
 span {
@@ -657,7 +644,7 @@ span {
   color: #c30000;
   font-weight: bold;
 }
-#btn_cancle , #btn_update {
+#btn_cancle {
   width: 70px;
   height: 30px;
   color:white;
@@ -667,23 +654,25 @@ span {
   border: none;
   margin-right: 20px;
 }
-/* 회원정보수정 버튼 */
-#handle_memupdate {
-  width: 110px;
-  height: 35px;
-  margin-top: 42px;
-  background-color: #715036;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 15px;
+#btn_update {
+  width: 70px;
+  height: 30px;
+  color:white;
   font-family: 'Gowun Dodum', sans-serif;
+  background-color: #715036;
+  border-radius: 3px;
+  border: none;
+}
+.dialog-footer{
+  /* border: 1px solid black; */
+  padding: 20px;
+  margin-top: 20px;
+  width: 80%;
+  display: inline-flex;
+  justify-content: flex-end;
 }
 /* 주소 */
-#postcode_btn:hover {
-  cursor: pointer;
-  opacity: 0.8;
-}
+
 input[type="text"] {
   font-family: 'Gowun Dodum', sans-serif;
 }

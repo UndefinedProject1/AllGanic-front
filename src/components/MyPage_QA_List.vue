@@ -188,7 +188,6 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                         else {
                             this.QAListData[j].QUESTIONREPLY = '미답변';
                         }
-                        
                     }
 
                     console.log(this.QAListData);
