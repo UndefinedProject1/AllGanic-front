@@ -29,6 +29,9 @@
                     </el-badge>
                     <p @click="ChangeMenu(7)">문의글(답변완료)</p>
                 </div>
+                <div class="section">
+                    <h2 @click="ChangeMenu(10)" id="handleMember">회원관리</h2>
+                </div>
             </div>
         </div>
         <div class="admin_content" >
@@ -50,12 +53,14 @@ import Admin_QA_List from '@/components/Admin_QA_List.vue';
 import Admin_QA_List_Complete from '@/components/Admin_QA_List_Complete.vue';
 import Admin_Brand_Sales_Chart from '@/components/Admin_Brand_Sales_Chart.vue';
 import Admin_Cate_Sales_Chart from '@/components/Admin_Cate_Sales_Chart.vue';
+import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
     export default {
         data () {
             return{
                 CurrentPage : 'AdminMainPage',
                 pages : ['AdminMainPage', 'AdminBrandInsert', 'AdminBrandList', 'AdminCategoryInsert',
-                        'AdminProductInsert','AdminProductList', 'Admin_QA_List', 'Admin_QA_List_Complete','Admin_Brand_Sales_Chart','Admin_Cate_Sales_Chart'],
+                        'AdminProductInsert','AdminProductList', 'Admin_QA_List', 'Admin_QA_List_Complete',
+                        'Admin_Brand_Sales_Chart','Admin_Cate_Sales_Chart', 'Admin_Handle_Member'],
                 value : 0,
                 $socket : '',
             }
@@ -70,7 +75,8 @@ import Admin_Cate_Sales_Chart from '@/components/Admin_Cate_Sales_Chart.vue';
             'Admin_QA_List' : Admin_QA_List,
             'Admin_QA_List_Complete' : Admin_QA_List_Complete,
             'Admin_Brand_Sales_Chart' : Admin_Brand_Sales_Chart,
-            'Admin_Cate_Sales_Chart' : Admin_Cate_Sales_Chart
+            'Admin_Cate_Sales_Chart' : Admin_Cate_Sales_Chart,
+            'Admin_Handle_Member' : Admin_Handle_Member
         },
         async created(){
             await this.getQAlist();
@@ -189,7 +195,8 @@ import Admin_Cate_Sales_Chart from '@/components/Admin_Cate_Sales_Chart.vue';
     font-family: 'Exo', sans-serif;
     margin : 5px;
 }
-.sidemenu_container p:hover{
+.sidemenu_container p:hover,
+#handleMember:hover{
     cursor: pointer;
     color: antiquewhite;
 }

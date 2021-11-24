@@ -19,8 +19,8 @@ import MyPage_Cancle from '@/components/MyPage_Cancle.vue';
 import Brand_Product_Table from '@/components/Brand_Product_Table.vue';
 import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
 import MyPage_Info from '@/components/MyPage_Info.vue';
-import ForgotPassword from '@/components/ForgotPassword.vue';
 import test from '@/components/test.vue';
+import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
 
 
 const routes = [
@@ -42,9 +42,8 @@ const routes = [
     {path : '/brand_product_table' , name :'brand_product_table', component : Brand_Product_Table},
     {path : '/mypage_near_list' , name :'mypage_near_list', component : MyPage_Near_List},
     {path : '/mypage_info' , name :'mypage_info', component : MyPage_Info},
-    {path : '/forgotpassword' , name :'forgotpassword', component : ForgotPassword},
     {path : '/test' , name :'test', component : test},
-
+    {path : '/admin_handle_member' , name :'admin_handle_member', component : Admin_Handle_Member},
 ];
 
 const router = createRouter({

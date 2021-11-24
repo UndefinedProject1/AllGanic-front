@@ -146,9 +146,9 @@
       <div class="nav_section">
         <p>(ㅍ)</p>
         <div class="snav_section">
-          <router-link :to="{ name: 'brand_product_table', params: { code: '20' }, query: {code : '20'} } ">프로쉬</router-link>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '21' }, query: {code : '21'} } ">프로쉬</router-link>
           <em> / </em>
-          <router-link :to="{ name: 'brand_product_table', params: { code: '21' }, query: {code : '21'} } ">프로젝트1907</router-link>
+          <router-link :to="{ name: 'brand_product_table', params: { code: '20' }, query: {code : '20'} } ">프로젝트1907</router-link>
           <em> / </em>
           <router-link :to="{ name: 'brand_product_table', params: { code: '22' }, query: {code : '22'} } ">플리츠마마</router-link>
         </div> 
