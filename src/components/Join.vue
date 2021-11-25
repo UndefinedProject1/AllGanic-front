@@ -104,7 +104,7 @@
                 <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" @click="foldDaumPostcode" alt="접기 버튼">
             </div>
           </div>
-          <button id="join_btn">JOIN</button>
+          <button id="join_btn">회원가입</button>
         </form>
       </VeeForm>
     </div>
@@ -594,14 +594,14 @@ input[type="radio"] {
 }
 #postcode_btn {
   width: 110px;
-  height: 40px;
+  height: 30px;
   border: none;
   border-radius: 4px;
   color: white;
-  font-weight: bold;
   background-color: #715036;
   margin-bottom: 5px;
-  font-size: 15px;
+  font-size: 13px;
+  font-family: "Gowun Dodum", sans-serif;
 }
 #postcode_btn:hover {
   cursor: pointer;
@@ -612,15 +612,14 @@ input[type="radio"] {
 #join_btn {
   /* border: 1px solid black; */
   width: 15%;
-  height: 60px;
+  height: 35px;
   margin: 100px;
   border: none;
-  font-size: 25px;
-  font-weight: bold;
+  font-size: 15px;
   background-color: #715036;
   color: white;
   border-radius: 4px;
-  font-family: "Playfair Display", serif;
+  font-family: "Gowun Dodum", sans-serif;
 }
 #join_btn:hover {
   cursor: pointer;

@@ -343,7 +343,7 @@ th{
     color : white;
     /* font-family: 'Exo', sans-serif; */
     font-weight: 700;    
- }
+}
 
 
 
@@ -375,7 +375,7 @@ th{
     position: relative;
     /* border : 1px solid black; */
 }
- .content_area .form-control2{
+.content_area .form-control2{
     width: 80%;
 }
 #floatingTextarea2{
@@ -439,10 +439,12 @@ button {
     background-color: #49654E;
     margin : 90px auto;
     border-radius: 5px;
+    border: none;
     color: white;
     /* font-family: 'Exo', sans-serif; */
-    font-weight: 700;
+    font-weight: 500;
     font-size : 18px;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 button:hover {
     opacity: 0.9;

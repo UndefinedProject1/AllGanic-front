@@ -425,6 +425,8 @@ Button{
     color: white;
     margin-right: 5px;
     border-radius: 5px;
+    border: none;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 Button:hover{
     opacity: 0.9;
@@ -498,7 +500,7 @@ td {
     color : white;
     /* font-family: 'Exo', sans-serif; */
     font-weight: 700;    
- }
+}
 
 
 

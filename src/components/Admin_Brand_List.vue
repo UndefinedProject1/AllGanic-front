@@ -144,7 +144,7 @@ tbody td {
 #brand_deleteBtn{
     margin: 20px 0; 
     width: 60px; 
-    height: 40px;
+    height: 34px;
     border-radius: 7px;
     color: white; 
     background-color: #49654E; 
