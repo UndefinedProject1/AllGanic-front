@@ -31,6 +31,11 @@
                         </el-breadcrumb> -->
                     </div>
                     <button type="button" id="login_btn" @click="handleLogin" >로그인</button>
+                    <img
+                        class="kakao_btn"
+                        src="@/assets/kakao_login_medium_narrow.png"
+                        @click="loginWithKakao"
+                    />
                 </div>
             </div>
         </div>
@@ -70,6 +75,13 @@ import { ElMessage } from 'element-plus'
             }
         },
         methods :{
+            loginWithKakao() {
+                const params = {
+                    redirectUri: "http://localhost:9090",
+                };
+                window.Kakao.Auth.authorize(params);
+                console.log(params);
+            },
             async handleLogin(){
                 const header = {"Content-Type" : "application/json"};
                 const body = {

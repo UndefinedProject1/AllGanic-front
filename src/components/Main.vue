@@ -13,7 +13,7 @@
         <div class="secondScreen">
             <div class="secondImgBox">
                 <!-- <div class="img1"></div> -->
-                <div class="img2"></div>
+                <!-- <div class="img2"></div> -->
             </div>
             <div class="secondTextBox">
                 <div class="SecondTextContainer">
@@ -111,7 +111,7 @@ body{
     background-attachment:local;
 }
 .intro_screen, .secondScreen, .thirdScreen, .outro_screen {
-    border: 2px solid white;
+    /* border: 2px solid white; */
     height: 100vh;
     width : 100%;
 }
@@ -168,7 +168,7 @@ body{
 .img2{
     width: 90%;
     height: 90%;
-    background-image: url("/src/assets/zerowaste_package2.jpg");
+    background-image: url("/src/assets/straw.jpg");
     background-size: cover;
     background-position: 50%;
     border-radius: 5px;
