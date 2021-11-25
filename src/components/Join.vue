@@ -104,7 +104,7 @@
                 <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" @click="foldDaumPostcode" alt="접기 버튼">
             </div>
           </div>
-          <button id="join_btn">회원가입</button>
+          <button id="join_btn">JOIN</button>
         </form>
       </VeeForm>
     </div>
@@ -141,15 +141,20 @@ export default {
     ErrorMessage
   },
   data() {
-    const schema = yup.object({
+    // const validationPW = (string) => /(\\w)\\1\\1/.test(string);
+    const schema = yup.object().shape({
       userid : yup.string()
               .matches(/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])/i,'이메일은 영문만 가능합니다.')
               .required('해당 항목은 필수입력사항입니다.'),
       selected : yup.string().required('이미 사용중인 아이디 입니다.'),
       userpw : yup.string()
               .matches(/[~!@#$%^&*_?]/,'특수문자 ~, !, @, #, $, %, ^, &, *, _, ? 중 하나는 포함되어야합니다. ')
-              .min(6, '비밀번호는 최소 6자리 이상이어야합니다.')
-              .required('해당 항목은 필수입력사항입니다.'),
+              .min(6, '비밀번호는 최소 6자리 이상이어야합니다.'),
+              // .test(
+              //   '연속되는 숫자는 불가',
+              //   '연속되는 숫자는 불가',
+              //   (value) => !validationPW(value)
+              // ),
       usertel : yup.string()
               .matches(/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/,'(대한민국 기준)일반 연락처 형태로 작성해주세요')
               .required('해당 항목은 필수입력사항입니다.'),
@@ -594,14 +599,14 @@ input[type="radio"] {
 }
 #postcode_btn {
   width: 110px;
-  height: 30px;
+  height: 40px;
   border: none;
   border-radius: 4px;
   color: white;
+  font-weight: bold;
   background-color: #715036;
   margin-bottom: 5px;
-  font-size: 13px;
-  font-family: "Gowun Dodum", sans-serif;
+  font-size: 15px;
 }
 #postcode_btn:hover {
   cursor: pointer;
@@ -612,14 +617,15 @@ input[type="radio"] {
 #join_btn {
   /* border: 1px solid black; */
   width: 15%;
-  height: 35px;
+  height: 60px;
   margin: 100px;
   border: none;
-  font-size: 15px;
+  font-size: 25px;
+  font-weight: bold;
   background-color: #715036;
   color: white;
   border-radius: 4px;
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: "Playfair Display", serif;
 }
 #join_btn:hover {
   cursor: pointer;

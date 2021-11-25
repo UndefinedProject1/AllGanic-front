@@ -59,11 +59,9 @@
             <div class="question_box">
                 <div class="questionbox_title">
                     <p class="form-control" style="font-family: 'Gowun Dodum', sans-serif;">{{ QList_Modal.questiontitle }}</p>
-                    <p class="form-select">[ {{QList_Modal.questionkind}} ]</p>
+                    <p class="form-select">{{QList_Modal.questionkind}}</p>
                 </div>
-                <div class="questionContent">
-                    {{QList_Modal.questioncontent}}
-                </div> 
+                <div class="questionContent" v-html="questioncontent"></div> 
             </div>
             <hr style="width:100%;"/>
             <div class="replysection">
@@ -112,12 +110,18 @@ import axios from 'axios';
             const app = getCurrentInstance();
             this.$socket = app.appContext.config.globalProperties.$socket;
         },
+        computed: { 
+            questioncontent() { 
+                return this.QList_Modal.questioncontent.split('\n').join('<br>');
+            }
+        },
         mounted() {
             this.$socket.on("QuestionIn", async (recv) => {
                 console.log(recv);
                 await this.handleGetQList();
             })
         },
+
         methods : {
             async handlePageChange(val){
                 this.page = val;
@@ -127,7 +131,7 @@ import axios from 'axios';
                 await this.handleGetQList();
             },
             async handleGetQList(){
-                const url = `REST/api/question/all/selectlist?reply=false&kind=${this.selected}`;
+                const url = `REST/api/question/all/selectlist?reply=false&kind=${this.selected}&page=${this.page}`;
                 const response = await axios.get(url);
                 console.log(response);
                 if(response.data.result === 1){
@@ -144,6 +148,14 @@ import axios from 'axios';
                 if(response.data.result === 1){
                     this.QList_Modal = response.data.question;
                     // console.log(this.QList_Modal);
+
+                    if(this.QList_Modal.questionkind === 1){
+                        this.QList_Modal.questionkind = '상품문의';
+                    }
+                    else if(this.QList_Modal.questionkind === 2){
+                        this.QList_Modal.questionkind = '배송문의';
+                    }else this.QList_Modal.questionkind = '기타';
+
                     this.PList_Modal = response.data.question.product;
                     // console.log(this.PList_Modal);
                     this.BList_Modal = response.data.question.product.brand;
@@ -214,7 +226,7 @@ import axios from 'axios';
 .qa_list_content {
     /* border : 1px solid black; */
     height : 80%;
-    width : 90%;
+    width : 100%;
     display : flex;
     flex-direction: column;
     padding : 50px;
@@ -322,6 +334,7 @@ import axios from 'axios';
     flex-direction: column;
     border-radius: 3px;
     width: 100%;
+    overflow-y : scroll;
     height: 150px;
     padding : 10px;
 }

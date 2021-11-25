@@ -139,16 +139,14 @@
                         <el-option v-for="select in firstQCateList"  :key="select.value" :label="select.label" :value="select.value"></el-option>
                     </el-select>
                 </div>
-                <textarea name="content" class="questionContent" row="30" v-model="QList_Modal.questioncontent" style="font-family: 'Gowun Dodum', sans-serif;"></textarea>
+                <textarea name="content" class="questionContent" row="30" v-model="QList_Modal.questioncontent" v-html="questioncontent" style="font-family: 'Gowun Dodum', sans-serif;"></textarea>
             </div>
             <hr style="width:100%;"/>
             <div class="replysection">
                 <p> 문의 답변 </p>
                 <p>{{QAregdate}}</p>
             </div>
-            <div class="questionContent">
-                {{QAanswer}}
-            </div>
+            <div class="questionContent" v-html="QAnswer"></div>
         </div>
         <div class="modal-footer">
             <!-- 히든버튼 추가 -->
@@ -230,6 +228,14 @@ import { ElMessageBox, ElMessage } from 'element-plus'
         },
         async created() {
             await this.handleQaListGet();
+        },
+        computed: { 
+            questioncontent() { 
+                return this.QList_Modal.questioncontent.split('\n').join('<br>');
+            },
+            QAnswer(){
+                return this.QAnswer.split('\n').join('<br>');
+            }
         },
         methods : {
             async handleQaListGet() {

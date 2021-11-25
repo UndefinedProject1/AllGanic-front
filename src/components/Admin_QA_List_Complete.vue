@@ -107,7 +107,7 @@ import axios from "axios";
 }
 .qa_list_Ccontent{
     height : 80%;
-    width : 90%;
+    width : 100%;
     display : flex;
     flex-direction: column;
     padding : 50px;

@@ -105,7 +105,7 @@
                                                         <div class="form-floating">
                                                             <StarRating :star-size="15" @update:rating ="setReivewRating" :read-only="false" :border-width="1" 
                                                                 active-color="#E6A23C" :show-rating="true" :rounded-corners="true" id="rating"></StarRating>
-                                                            <textarea name="content" row="30" v-model="reviewContent" placeholder="리뷰는 300자 이하로 적어주세요"></textarea>
+                                                            <textarea name="content" row="30" v-model="reviewContent" placeholder="리뷰는 300자 이하로 적어주세요" id="floatingTextarea2"></textarea>
                                                         </div>
                                                         
                                                     </div>
@@ -129,6 +129,7 @@
                                     <div id="reviewTitle">
                                         <div id="titleSection">
                                             <StarRating :star-size="15" :rating="review.REVIEWRATING" :read-only="true" :border-width="1" active-color="#E6A23C" :show-rating="false" :rounded-corners="true" id="rating"></StarRating>
+                                            <p>{{review.USEREMAIL}}</p>
                                         </div>
                                         <p>{{review.REVIEWDATE}}</p>
                                     </div>
@@ -198,7 +199,7 @@
                                     <div class="faqContnet">
                                         <div class="faqLead">
                                             <p>제목 : {{question.QUESTIONTITLE}}.</p>
-                                            <p>내용 : {{question.QUESTIONCONTENT}}.</p>
+                                            <!-- <p>내용 : {{question.QUESTIONCONTENT}}.</p> -->
                                         </div>
                                         <div class="faqSecond">
                                             <p>{{question.MEMBER}}</p>
@@ -785,7 +786,7 @@ table th span{
 #floatingTextarea2{
     border: 0.5px solid #b6b6b6;
     margin-top: 10px;
-    width: 97%;
+    width: 100%;
     border-radius: 3px;
     height: 140px;
 }
