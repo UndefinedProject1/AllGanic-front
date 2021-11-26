@@ -6,8 +6,12 @@
                 data-aos-easing="ease-in-sine" class="section1">
                 <h1>Welcome,</h1>
                 <h2>All Here!</h2>
+                <div class="line-1"></div>
             </div>
-            <div data-aos="fade-left" data-aos-duration="500" data-aos-easing="ease-in-sine" class="section2"><h2>All_Ganics.</h2></div>
+            <div data-aos="fade-left" data-aos-duration="500" data-aos-easing="ease-in-sine" class="section2">
+                <h2>All_Ganics.</h2>
+                <div class="line-2"></div>
+            </div>
         </div>
 
         <div class="secondScreen">
@@ -111,33 +115,116 @@ body{
     background-attachment:local;
 }
 .intro_screen, .secondScreen, .thirdScreen, .outro_screen {
-    /* border: 2px solid white; */
+    border: 2px solid white;
     height: 100vh;
     width : 100%;
 }
 .intro_screen{
+        /* border: 1px solid white; */
     background-attachment:fixed;
     display: flex;
     overflow-x: hidden;
     flex-direction: row;
     height: 100vh;
     width: 100%;
+    overflow-y: hidden;
     align-items: center;
     position: relative;
 }
 .section1{
+    width: 50%;
+    border: 1px solid white;
     margin-left: 10%;
     display: flex;
     margin-top: 4.5%;
     height: fit-content;
     flex-direction: column;
 }
+.line-1:before{
+    content : '';
+    position: fixed;
+    top : 0;
+    left : 0;
+    right : 0;
+    bottom : 0;
+    z-index: 1;
+}
+.line-1:after{
+    content : '';
+    position: absolute;
+    display: block;
+    z-index: 2;
+    right: auto;
+    left: 35%;
+    bottom: 27%;
+    height: 15px;
+    border-radius: 15%;
+    background-color: white;
+    width: 13.5%;
+    transform-origin: left;
+    transform: rotate(90deg);
+    animation: animateV 6s forwards alternate;
+}
 .section2{
+    border: 1px solid white;
     height: fit-content;
     margin-top: 15%;
     position: absolute;
-    right: 29%;
+    display: flex;
+    align-items: baseline;
+    width: 60%;
+    right: 3%;
     color: rgb(228, 167, 0);
+}
+.line-2:before{
+    content : '';
+    position: fixed;
+    top : 0;
+    left : 0;
+    right : 0;
+    bottom : 0;
+    z-index: 1;
+}
+.line-2:after{
+    content : '';
+    position: absolute;
+    display: block;
+    z-index: 2;
+    right: 1%;
+    bottom: 18%;
+    height: 15px;
+    border-radius: 15%;
+    background-color: rgb(228, 167, 0);
+    width: 44%;
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: animate 6s forwards alternate;
+}
+@keyframes animate {
+    0%{
+        transform: translateX(0) scaleX(0);
+        transform-origin: left;
+        left: auto;
+        right: 1%;
+    }
+    45%{
+        transform: translateX(0) scaleX(1);
+        transform-origin: left;
+        left: auto;
+        right: 1%;
+    }
+    50%{
+        transform: translateX(0) scaleX(1);
+        transform-origin: right;
+        left: auto;
+        right: 1%;
+    }
+    100%{
+        transform: translateX(0) scaleX(1);
+        transform-origin: right;
+        left: auto;
+        right: 1%;
+    }
 }
 
 /* 두번째 섹션 */
@@ -145,6 +232,7 @@ body{
     position: relative;
     display: inline-flex;
     width: 100%;
+    height: 100vh;
     align-items: center;
     justify-content: center;
 }

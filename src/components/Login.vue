@@ -77,10 +77,9 @@ import { ElMessage } from 'element-plus'
         methods :{
             loginWithKakao() {
                 const params = {
-                    redirectUri: "http://localhost:9090",
+                    redirectUri: "http://localhost:9090/login_callback",
                 };
                 window.Kakao.Auth.authorize(params);
-                console.log(params);
             },
             async handleLogin(){
                 const header = {"Content-Type" : "application/json"};
@@ -88,7 +87,7 @@ import { ElMessage } from 'element-plus'
                     useremail : this.userid,
                     userpw : this.userpw
                 }
-                console.log(body);
+                // console.log(body);
                 const url =  `REST/api/member/login`;
                 const response = await axios.post(url, body, header);
                 console.log(response);
