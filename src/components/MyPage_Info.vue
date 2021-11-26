@@ -71,23 +71,23 @@ import MyPage_Order_List from '@/components/MyPage_Order_List.vue';
 import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
 import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
 
-            console.clear();
-            $(window).scroll(function() {
-                let scrollTop = $(this).scrollTop();
-                console.log(scrollTop)
+            // console.clear();
+            // $(window).scroll(function() {
+            //     let scrollTop = $(this).scrollTop();
+            //     console.log(scrollTop)
                 
-                if ( scrollTop < 100 ) {
-                    scrollTop = 100;
-                }
-                else if ( scrollTop > 9600 ) {
-                    scrollTop = 9600;
-                }
+            //     if ( scrollTop < 100 ) {
+            //         scrollTop = 100;
+            //     }
+            //     else if ( scrollTop > 9600 ) {
+            //         scrollTop = 9600;
+            //     }
                 
-                let duration = 1000;
-                $('.info_box').stop().animate({top:scrollTop}, duration);
+            //     let duration = 1000;
+            //     $('.info_box').stop().animate({top:scrollTop}, duration);
                 
-                //console.log(scrollTop);
-            });
+            //     //console.log(scrollTop);
+            // });
     export default {
         
         data() {

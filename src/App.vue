@@ -21,8 +21,31 @@
           <p @click="goCart">cart</p>
         </div>
         <div class="mypage">
-          <p><a href="/login" v-if="!logged">login</a></p>
-          <p><a href="/mypage_info" v-if="logged">my page</a></p>
+          <!-- <p><a href="/login" v-if="!logged">login</a></p> -->
+          
+          <!-- <p>
+            <el-popover placement="bottom" :width="200" trigger="hover" title="my page">
+              <template #reference>
+                <a href="/mypage_info" v-if="logged">my page</a>
+                <a href="/mypage_info" v-if="logged">logout</a>
+              </template>
+            </el-popover>
+          </p> -->
+
+          <el-select v-model="value" placeholder="Select" style="background-color=transparent;">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+            <p><a href="/login" v-if="!logged">log in</a></p>
+            <p><a href="/mypage_info" v-if="logged">my page</a></p>
+            <p><a href="/logout" v-if="logged">log out</a></p>
+          </el-select>
+          
+          <!-- <el-popover placement="bottom" title="logout" :width="150" trigger="hover" v-if="logged" style="font-family:'Playfair Display'; align-center:center;">
+            <template #reference>
+              
+              <el-button style="border:none; background-color:transparent; color:#49654E; font-family:'Playfair Display', serif; font-size:22px; font-weight:bold;" @click="handleMypage">my page</el-button>
+              <child-component v-on:handleLogout="handleLogout"></child-component>
+            </template>
+          </el-popover> -->
         </div>
       </div>
     </div>
@@ -173,7 +196,23 @@
 
 <script>
 import axios from 'axios';
+import { ref } from 'vue'
   export default {
+    setup() {
+      return {
+        options: ref([
+          {
+            value: 'my page',
+            label: 'my page',
+          },
+          {
+          value: 'Logout',
+          label: 'Logout',
+          }
+          ]),
+        value: ref('')
+      }
+    },
     data() {
       return{
         logged : false,
@@ -245,7 +284,27 @@ import axios from 'axios';
       },
       changeLogged(logged){
         this.logged = logged;
-      }
+      },
+      async handleMypage() {
+        this.$router.push({ path : '/mypage_info'});
+      },
+      async handleLogout() {
+        this.$emit('handleLogout');
+      },
+      
+      // async handleLogout() {
+      //   const url =`REST/api/validtoken`;
+      //   const headers = {"Content-Type" : "application/json", "token" : this.token};
+      //   console.log(headers);
+      //   const response = await axios.delete(url, {headers : headers, token : this.token});
+      //   console.log(response);
+      //   if(response.data.result === 1) {
+      //     alert("로그아웃 완료");
+      //   }
+      //   else if(response.data.result === 1) {
+      //     alert("실패");
+      //   }
+      // }
     },
   }
 </script>

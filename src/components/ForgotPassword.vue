@@ -29,16 +29,16 @@
 
 <script>
 import axios from 'axios';
-//import { ElMessage } from 'element-plus'
+import { ElMessage } from 'element-plus'
     export default {
-        // setup() {
-        //     const sendtoPW = () => {
-        //         ElMessage.success('이메일 전송')
-        //     }
-        //     return {
-        //         sendtoPW
-        //     }
-        // },
+        setup() {
+            const sendtoPW = () => {
+                ElMessage.success('이메일 전송완료')
+            }
+            return {
+                sendtoPW
+            }
+        },
         data() {
             return {
                 username : '',
@@ -56,11 +56,8 @@ import axios from 'axios';
                 console.log(body);
                 const response = await axios.post(url, body, headers);
                 console.log(response);
-                
-                //this.sendtoPW();
-
-                // if(response)
-                
+                this.sendtoPW();
+                this.$router.push({ path : '/login'});
             }
         }
     }

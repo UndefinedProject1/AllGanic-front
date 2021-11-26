@@ -1,10 +1,21 @@
 <template>
-    <!-- <div> -->
+    <div class="table">
+    <el-table
+        :data="tableData"
+        :default-sort="{ prop: 'address, name', order: 'ascending' }"
+        style="width: 100%"
+    >
+        <el-table-column prop="date" label="Date" width="180"  />
+        <el-table-column prop="name" label="Name" sortable width="180" :formatter="formatter" />
+        <el-table-column prop="address" label="Address" sortable width="180" :formatter="formatter" />
+    </el-table>
+    </div>
+    <!-- <div>
 <div class="fly">
     <button><a href="#">위로</a></button>
 </div>
 <div class="con"></div>
-    <!-- <div class="box">
+    <div class="box">
         <p class="sky"></p>
     </div> -->
 
@@ -19,25 +30,27 @@
 
 
 <script>
-import $ from 'jquery';
 
-console.clear();
-$(window).scroll(function() {
-    let scrollTop = $(this).scrollTop();
-    console.log(scrollTop)
+
+//import $ from 'jquery';
+
+// console.clear();
+// $(window).scroll(function() {
+//     let scrollTop = $(this).scrollTop();
+//     console.log(scrollTop)
     
-    if ( scrollTop < 100 ) {
-        scrollTop = 100;
-    }
-    else if ( scrollTop > 9600 ) {
-        scrollTop = 9600;
-    }
+//     if ( scrollTop < 100 ) {
+//         scrollTop = 100;
+//     }
+//     else if ( scrollTop > 9600 ) {
+//         scrollTop = 9600;
+//     }
     
-    let duration = 1000;
-    $('.fly').stop().animate({top:scrollTop}, duration);
+//     let duration = 1000;
+//     $('.fly').stop().animate({top:scrollTop}, duration);
     
-    //console.log(scrollTop);
-});
+//     //console.log(scrollTop);
+// });
 
     // $(function () {
     //     $(window).scroll(function () { //브라우저에 스크롤이 발생하는 순간부터
@@ -79,6 +92,30 @@ $(window).scroll(function() {
     export default {
         data() {
             return {
+                tableData: [
+                    {
+                    date: '2016-05-03',
+                    name: 'c',
+                    address: 'aaaaaaaaa',
+                    },
+                    {
+                    date: '2016-05-02',
+                    name: 'a',
+                    address: 'bbbbbbbbbb',
+                    },
+                    {
+                    date: '2016-05-04',
+                    name: 'd',
+                    address: 'cccccccccc',
+                    },
+                    {
+                    date: '2016-05-01',
+                    name: 'b',
+                    address: 'dddddddddddd',
+                    },
+                ],
+            }
+        },
                 // document : '',
                 // this : '',
                 // phoneNum :'',
@@ -91,11 +128,14 @@ $(window).scroll(function() {
             
                 // }
 
+
+        methods : {
+            formatter(row, column) {
+                return row.address
             }
         },
-        methods : {
 
-
+    }
 
             
         // phone_format() { 
@@ -179,14 +219,18 @@ $(window).scroll(function() {
             //     }
             //     obj.value = phone;
             // }
-        }
-    }
+    
     
 </script>
 
 
 
 <style scoped>
+
+.table {
+    margin-top: 150px;
+    margin-left: 100px;
+}
 
 #sidebox { background-color:#F0F0F0; position:absolute; width:120px; top:433px; right:420px; padding: 3px 10px }
 
