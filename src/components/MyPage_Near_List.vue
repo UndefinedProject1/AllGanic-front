@@ -198,7 +198,7 @@ import mypage from '@/assets/mypage.png';
 .qna_list {
     /* border: 1px solid black; */
     color: #715036;
-    height: 50%;
+    height: 44%;
     margin-top: 10px;
     font-weight: bold;
     display: flex;

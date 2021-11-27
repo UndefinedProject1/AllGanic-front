@@ -7,13 +7,13 @@
         <div class="qa_insert">
             <!-- 문의내역 Table -->
             <div class="insert_prdcode">
-                <el-table :data="QAListData" stripe style="width: 97%; margin-left:25px;" >
-                    <el-table-column prop="select" label="문의유형" width="150" align="center">
+                <el-table :data="QAListData" stripe style="width: 97%; margin-left:20px;" >
+                    <el-table-column prop="select" label="문의유형" width="110" align="center">
                         <template #default="scope">
                             <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold;">{{scope.row.QUESTIONKIND}}</p>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="title" label="제목" width="200" align="center">
+                    <el-table-column prop="title" label="제목" width="220" align="center">
                         <template #default="scope">
                             <el-button type="text" @click="showQaReplay(scope.row.QUESTIONCODE, scope.row.QUESTIONREPLY)" 
                                     style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; font-family: 'Gowun Dodum', sans-serif;
@@ -22,12 +22,12 @@
                             </el-button>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="content" label="내용" width="290" align="center">
+                    <el-table-column prop="content" label="내용" width="280" align="center">
                         <template #default="scope">
                             <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold;">{{scope.row.QUESTIONCONTENT}}</p>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="date" label="문의 일자" width="190" align="center">
+                    <el-table-column prop="date" label="문의 일자" width="150" align="center">
                         <template #default="scope">
                             <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold;">{{scope.row.QUESTIONDATE}}</p>
                         </template>

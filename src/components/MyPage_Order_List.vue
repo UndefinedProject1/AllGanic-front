@@ -6,12 +6,12 @@
         <div class="insert_list">
             <div class="orderlist_info_section" style="width:100%; height: 93.5%; overflow-x:hidden">
                 <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 98%; margin-left:10px;" @selection-change="OrderListBtn">
-                    <el-table-column label="주문일자" width="100" align="center">
+                    <el-table-column label="주문일자" width="90" align="center">
                         <template #default="scope">
                             <p>{{scope.row.ORDERDATE}}</p>
                         </template>
                     </el-table-column>
-                    <el-table-column label="주문번호" width="160" align="center">
+                    <el-table-column label="주문번호" width="150" align="center">
                         <template #default="scope">
                             <p>{{scope.row.MERCHANT_UID}}</p>
                         </template>
