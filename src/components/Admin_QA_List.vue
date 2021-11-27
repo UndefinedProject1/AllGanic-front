@@ -70,11 +70,32 @@
             </div>
         </div>
         <div class="modal-footer">
-            <!-- 히든버튼 추가 -->
-            <button type="button" id="btn_close" style="display:none" @click="showModal = false">Close</button>
-            <button type="button"  @click="showModal = false" id="closebtn">닫기</button>
-            <button type="button" @click="handleReply(QList_Modal.questioncode)">작성완료</button>
+            <button type="button" id="reportbtn" @click="showReportModal = true">경고 처리</button>
+            <div class="btn_box">
+                <!-- 히든버튼 추가 -->
+                <button type="button" id="btn_close" style="display:none" @click="showModal = false">Close</button>
+                <button type="button"  @click="showModal = false" id="closebtn">닫기</button>
+                <button type="button" @click="handleReply(QList_Modal.questioncode)">작성완료</button>
+            </div>
+
         </div>
+    </el-dialog>
+
+    <el-dialog v-model="showReportModal" title="악성문의건 경고처리" width="40%" :before-close="handleClose" class="reportModal">
+        <p id="reportTitle">다음 내용에 관하여 경고 처리를 진행하시겠습니까?</p>
+        <div class="reportInfoBox">
+            <label>회원정보</label>
+            <p>- {{MList_Modal.username}} ( {{MList_Modal.useremail}} )  </p>
+            <label>경고사유</label>
+            <p>- 악성 문의건</p>
+        </div>
+
+        <template #footer>
+            <span class="dialog-footer">
+            <el-button @click="showReportModal = false">취소</el-button>
+            <el-button type="primary" @click="handleQaReport">완료</el-button>
+            </span>
+        </template>
     </el-dialog>
 
 
@@ -89,12 +110,15 @@ import axios from 'axios';
                 token : sessionStorage.getItem("token"),
                 selected : '',
                 showModal :  false,
+                showReportModal : false,
                 QList : [],
                 QList_Modal : [],
                 PList_Modal : [],
                 BList_Modal : [],
+                MList_Modal : '',
                 CList_Modal : '',
                 replyContent : '',
+                replyReportContent : '',
                 firstQCateList : [
                     {value : 1, label : '상품문의'},
                     {value : 2, label : '배송문의'},
@@ -161,6 +185,9 @@ import axios from 'axios';
                     this.BList_Modal = response.data.question.product.brand;
                     // console.log(this.BList_Modal);
                     this.CList_Modal = response.data.question.product.category;
+
+                    this.MList_Modal = response.data.question.member;
+                    // console.log(this.MList_Modal);
                 }
             },
             async handleReply(val){
@@ -179,6 +206,34 @@ import axios from 'axios';
                     this.$emit('input', this.pages)
                     await this.handleGetQList();
                 }
+            },
+            async handleQaReport(){
+                const url = `REST/api/member/report`;
+                const headers = {"Content-Type" : "application/json", token : this.token};
+                const body = {
+                    useremail : this.MList_Modal.useremail,
+                    reportdate : new Date().getTime
+                }
+                const response = await axios.post(url, body, {headers});
+                // console.log(response);
+                if(response.data.result === 1){
+                    alert(response.data.state);
+                    this.showReportModal = false;
+                    
+                    // 경고성 게시글에 대한 답변을 남겨서 처리시키기
+                    this.replyReportContent = "해당문의는 부적절한 게시글로 판명되어 경고 처리 되었습니다."
+                    const url1 = `REST/api/admin/question/reply/insert?code=` + this.QList_Modal.questioncode;
+                    const body1 = {
+                        answercontent : this.replyReportContent
+                    }
+                    const response1 = await axios.post(url1, body1, {headers});
+                    if(response1.data.result === 1){
+                        alert("경고처리 완료");
+                        document.getElementById('btn_close').click();
+                        this.$emit('input', this.pages)
+                        await this.handleGetQList();
+                    }
+                }else alert("error");
             }
 
         }
@@ -397,7 +452,7 @@ import axios from 'axios';
 .modal-footer{
     /* border: 1px solid black; */
     display: inline-flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 100%;
     margin: 20px 0px;
 }
@@ -411,16 +466,7 @@ import axios from 'axios';
     color: white;
     font-family: 'Gowun Dodum', sans-serif;
 }
-#updatebtn{
-    border: none;
-    border-radius: 3px;
-    background-color: #49654E;
-    width: 100px;
-    height: 40px;
-    margin: 0px 10px 0px 0px;
-    color: white;
-    font-family: 'Gowun Dodum', sans-serif;  
-}
+
 #closebtn {
     background-color: white;
     width: 100px;
@@ -431,10 +477,40 @@ import axios from 'axios';
     font-weight: bold;
     font-family: 'Gowun Dodum', sans-serif;
 }
+#reportbtn{
+    background-color: rgb(161, 1, 1);
+    width: 100px;
+    height: 40px;
+    margin: 0px 10px 0px 0px;
+    color: white;
+    font-weight: bold;
+    font-family: 'Gowun Dodum', sans-serif;
+}
 .modal-footer button:hover{
     opacity: 0.8;
     cursor: pointer;
 
 }
-
+.btn_box{
+    width: fit-content;
+    height: 100%;
+}
+#reportTitle{
+    /* font-weight: bold; */
+    font-size : 1rem;
+}
+.reportInfoBox {
+    width: 100%;
+    margin-top: 20px;
+}
+.reportInfoBox label {
+    font-weight: bold;
+    font-size: 1rem;
+    width: fit-content;
+}
+.reportInfoBox p {
+    font-size : 0.9rem;
+    width: fit-content;
+    margin: 0px 0px 10px 5px;
+}
 </style>

@@ -45,22 +45,22 @@ import axios from "axios";
         async created(){
             await this.handleQCList();
         },
-        async handlePageChange(val){
+        methods : {
+            async handlePageChange(val){
                 this.page = val;
                 await this.handleQCList();
             },
-        methods : {
             async selectCate1(){
                 await this.handleQCList();
             },
             async handleQCList(){
-                const url = `REST/api/question/all/selectlist?reply=true&kind=${this.selected}`;
+                const url = `REST/api/question/all/selectlist?reply=true&kind=${this.selected}&page=${this.page}`;
                 const response = await axios.get(url);
-                // console.log(response);
+                console.log(response);
                 if(response.data.result === 1){
                     this.QCList = response.data.list;
                     this.pages = response.data.count;
-                    console.log(this.QList);
+                    console.log(this.QCList);
                 }
             }
         }

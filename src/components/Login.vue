@@ -36,6 +36,7 @@
                         src="@/assets/kakao_login_medium_narrow.png"
                         @click="loginWithKakao"
                     />
+
                 </div>
             </div>
         </div>
@@ -129,7 +130,7 @@ input:focus{
 .login_wrapper{
     /* border: 1px solid black; */
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     margin: 0;
     padding: 0;
@@ -137,7 +138,7 @@ input:focus{
     justify-content: center;
     flex-direction: column;
     font-family: 'Gowun Dodum', sans-serif;
-    margin-top: 4.5%;
+    /* margin-top: 4.5%; */
 }
 .login_container{
     /* border: 1px solid black; */
@@ -149,12 +150,12 @@ input:focus{
     justify-content: center;
     align-items: center;
 }
-body {
+/* body {
     margin: 0;
     width: 100%;
     height: 100%;
     font-family: 'Gowun Dodum', sans-serif;
-}
+} */
 .inner_container {
     /* border: 1px solid black; */
     width: 50%;
@@ -162,6 +163,7 @@ body {
 .insert_center {
     /* border: 1px solid black; */
     width: 100%;
+    height: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -169,6 +171,8 @@ body {
 .login {
     /* border: 1px solid black; */
     width : 100%;
+    height: 20%;
+    justify-content: flex-end;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -189,6 +193,7 @@ body {
 .login_box {
     /* border: 1px solid black; */
     width: 70%;
+    height: 100%;
     margin: 40px auto;
     display : flex;
     flex-direction: column;
@@ -283,11 +288,21 @@ body {
     background-color: white;
     font-size: 15px;
 }
+.login_btn_box{
+    border: 1px solid black;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 80%;
+    margin: 20px;
+    flex-direction: column;
+    justify-content: center;
+}
 #login_btn{
     /* border: 1px solid black; */
-    width: 25%;
-    height: 35px;
-    margin: 70px;
+    width: 55%;
+    height: 30%;
+    margin: 20px;
     border: none;
     font-size: 15px;
     background-color: #715036;
@@ -295,7 +310,11 @@ body {
     border-radius: 4px;
     font-family: 'Gowun Dodum', sans-serif;   
 }
-#login_btn:hover{
+.kakao_btn{
+    width: 55%;
+    height: 34%;
+}
+#login_btn:hover, .kakao_btn:hover{
     cursor: pointer;
     opacity: 0.8;
 }

@@ -136,6 +136,7 @@
                                     <div id="reviewContent">
                                         <img :src="`REST/api/review_image?no=${review.REVIEWCODE}`">
                                         <p>{{review.REVIEWCONTENT}}</p>
+                                        <el-button type="text" class="report_btn" @click="handleReviewReport(review.USEREMAIL, review.REVIEWCODE)">해당 리뷰 신고하기</el-button>
                                     </div>
                                 </div>
                             </div>
@@ -241,7 +242,19 @@
             </div>
         </div>
     </div>
+    
     <CartPopup v-on:addEvent ="closeDrawer" v-on:handleEvent = "handleGoCart" v-model="CartPopup" ref="handlePopCart"></CartPopup>
+
+    <el-dialog v-model="showReportModal" title="악성문의건 신고" width="40%" :before-close="handleClose" class="reportModal">
+        <p id="reportTitle">해당 리뷰를 신고하시겠습니까?</p>
+
+        <template #footer>
+            <span class="dialog-footer">
+            <el-button @click="showReportModal = false">취소</el-button>
+            <el-button type="primary" @click="handleReviewReport">신고하기</el-button>
+            </span>
+        </template>
+    </el-dialog>
 </template>
 
 <script>
@@ -283,6 +296,7 @@ import Cart_Popup from './Cart_Popup.vue';
                 questionList : [],
                 showWriting : false,
                 showFaqWriting : false,
+                showReportModal : false,
                 mainfile : '',
                 selected : '',
                 mainImg : default_image,
@@ -300,7 +314,7 @@ import Cart_Popup from './Cart_Popup.vue';
                 productPriceF : 0,
                 member : [],
                 pages : 0,
-                page : 1
+                page : 1,
             }
         },
         components : {
@@ -497,6 +511,29 @@ import Cart_Popup from './Cart_Popup.vue';
                     alert("error");
                 }
             },
+            async handleReviewReport(val, rcode){
+                if(confirm('신고하기')){
+                    const url = `REST/api/member/report`;
+                    const headers = {"Content-Type" : "application/json", "token" : this.gettoken};
+                    const body = {
+                        useremail : val,
+                        reportdate : new Date().getTime
+                    }
+                    const response = await axios.post(url, body, {headers});
+                    if(response.data.result === 1){
+                        const url1 = `REST/api/review/delete?no=${rcode}`;
+                        const response1 = await axios.delete(url1, {headers : {}, data : {}});
+                        console.log(response1);
+                        if(response1.data === 1){
+                            alert('신고가 정상적으로 접수되었습니다.');
+                            await this.handleDetailContents();
+                        }
+                        else if(response.data === 0){
+                            alert("error")
+                        }
+                    }
+                }
+            }
         }
     }
 </script>
@@ -888,7 +925,7 @@ input[type="file"]{
     color: black;
     margin: 5px;
     border-radius: 3px;
- }
+}
 .reviewArea, .faqList{
     width: 100%;
     display: flex;
@@ -937,6 +974,22 @@ input[type="file"]{
 }
 .reviewTable .reviewArea #reviewContent p{
     margin : 0px 0px 0px 20px;
+    width : 100%;
+}
+.report_btn{
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-family: 'Gowun Dodum', sans-serif;
+    text-decoration-line: underline;
+    color: #49654E;
+    font-weight: bold;
+}
+.report_btn:hover{
+    cursor: pointer;
+    background-color: transparent;
+    color: #49654E;
 }
 .pagination{
     width : fit-content;
@@ -1037,5 +1090,10 @@ button:hover{
 .productRefundPolicy .policyContent{
     padding-top: 15px;
     padding-left: 15px;
+}
+
+#reportTitle{
+    font-weight: bold;
+    font-size : 1rem;
 }
 </style>
