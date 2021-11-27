@@ -5,8 +5,8 @@
         </div>
         <div class="cancle_insert">
             <div class="orderlist_info_section" style="width:100%; height: 93.5%; overflow-x:hidden">
-                <el-table ref="multipleTable" :data="CancleData"  stripe style="width: 98%; margin-left:22px;" @selection-change="OrderListBtn">
-                        <el-table-column label="환불일자" width="200px;" align="center">
+                <el-table ref="multipleTable" :data="CancleData"  stripe style="width: 98%; margin-left:10px;" @selection-change="OrderListBtn">
+                        <el-table-column label="환불일자" width="220px;" align="center">
                             <template #default="scope">
                                 <p>{{scope.row.CANCELDATE}}</p>
                             </template>
@@ -15,18 +15,14 @@
                             <template #default="scope">
                                 <el-image style= "width: 110px; height: 100px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
                             </template>
-                            <!-- <el-image style= "width: 90px; height: 90px; object-fit:cover;" :src="vegan_cream_img" :fit="fit"></el-image> -->
+                            
                         </el-table-column>
-                        <el-table-column label="주문정보" width="300px;" align="center">
+                        <el-table-column label="주문정보" width="350px;" align="center">
                             <template #default="scope">
-                                <div class="product_detail_info" style="width: 100%; text-align:left; padding:5px 10px; margin-left:30px;">
-                                    <p>{{scope.row.BRANDNAME}}</p>
+                                <div class="product_detail_info" style="width: 300px; text-align:left; padding:5px 10px; margin-left:30px;">
+                                    <!-- <p>{{scope.row.BRANDNAME}}</p> -->
                                     <p>{{scope.row.PRODUCTNAME}}</p>
                                     <p>{{scope.row.PRODUCTPRICE}}</p>
-                                    <!-- <span style="font-size:14px; color:#333; font-weight:bold">{{scope.row.brandName}}브랜드명</span>
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}제품명</p>
-                                    <p style="font-size:14px; color:black; margin:0;">{{scope.row.productPrice}}38,000원</p>
-                                    <p style="font-size:14px; color:black; margin:0;">옵션 : {{scope.row.option}}빨,주,노,초,파,남,보</p>         -->
                                 </div>
                             </template>
                         </el-table-column>
@@ -35,21 +31,11 @@
                                 <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.CANCELQUANTITY}}</p>
                             </template>
                         </el-table-column>
-                        <el-table-column label="환불완료일자" width="250px;" align="center">
+                        <el-table-column label="환불완료일자" width="200px;" align="center">
                             <template #default="scope">
                                 <p>{{scope.row.QUESTIONCODE}}</p>
                             </template>
                         </el-table-column>
-                            <!-- <el-table-column label="배송비" width="150" align="center">
-                                <template #default="scope">
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}3,000원</p>
-                                </template>
-                            </el-table-column> -->
-                            <!-- <el-table-column label="교환정보" width="150" align="center">
-                                <template #default="scope">
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}상품 준비중</p>
-                                </template>
-                            </el-table-column> -->
                     </el-table>
             </div>
         </div>
@@ -95,7 +81,7 @@ import axios from 'axios';
 .cancle_list {
     /* border: 1px solid black; */
     width: 98.5%;
-    height: 90%;
+    height: 100%;
     margin-left: 30px;
 }
 .cancle_name {

@@ -4,18 +4,6 @@
             <p>주문내역</p>
         </div>
         <div class="insert_list">
-            <!-- <div class="insert_date_code">
-                <div class="insert_date">
-                    <p>주문일자</p>
-                    <p>{{OrderListData.ORDERDATE}}</p>
-                </div>
-                <div class="insert_ordercode">
-                    <p>주문번호</p>
-                    <p>{{OrderListData.MERCHANT_UID}}</p>
-                </div>
-            </div>
-            <hr class="solid" style="border-top-width: 0px;"/> -->
-            <!-- 주문목록 Table -->
             <div class="orderlist_info_section" style="width:100%; height: 93.5%; overflow-x:hidden">
                 <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 98%; margin-left:10px;" @selection-change="OrderListBtn">
                     <el-table-column label="주문일자" width="100" align="center">
@@ -127,12 +115,12 @@ import axios from "axios";
 .insert_list {
     border: 3px solid #715036;
     width: 100%;
-    height: 60%;
+    height: 93.5%;
+    /* margin-bottom: 10px; */
     border-radius: 5px;
 }
 .insert_date_code {
     display: flex;
-    
 }
 .insert_date {
     display: flex;
@@ -168,51 +156,10 @@ import axios from "axios";
     margin-top: 10px;
     margin-left: 42px;
 }
-.insert_content {
-    display: flex;
-}
 .insert_content > img {
     width: 110px;
     height: 100px;
     margin-left: 30px;
-}
-.insert_content_main {
-    border: 1px solid black;
-    display: inline-block;
-    line-height: 10px;
-    margin-left: 30px;
-    width: 450px;
-    margin-right: 30px;
-}
-.insert_price {
-    border: 1px solid black;
-    width: 150px;
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-    justify-content: center;
-}
-.insert_delivery {
-    border: 1px solid black;
-    width: 150px;
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-    justify-content: center;
-}
-.insert_state {
-    border: 1px solid black;
-    width: 150px;
-    display: flex;
-    align-items: center;
-    color: #49654E;
-    font-weight: bold;
-    margin-right: 40px;
-    justify-content: center;
-}
-.orderlist_info_section {
-    font-family: 'Gowun Dodum', sans-serif;
-    width: 100%;
 }
 .orderlist_info_section table tbody button{
     border: none;

@@ -13,11 +13,10 @@
                         </el-table-column>
                         <el-table-column align="center" label="위조금액 구매시도" prop="REPORTCOUNT" sortable width="180" :formatter="formatter"  />
                         <el-table-column align="center" label="관리">
-                        <el-button size="mini" type="danger">Delete</el-button>
+                        <el-button size="mini" type="danger" @click="handleMemberDelete">Delete</el-button>
                         </el-table-column>
                     </el-table>
                 </div>
-
             </div>
         </div>
     </div>
@@ -30,7 +29,6 @@ import axios from 'axios';
             return{
                 token: sessionStorage.getItem("token"),
                 tableData: [],
-                
             }
         },
         async created() {
@@ -47,9 +45,22 @@ import axios from 'axios';
                     this.tableData = response.data.list;
                     console.log(this.tableData);
                 }
+            },
+            async handleMemberDelete() {
+                const url = `REST/api/admin/delete/member`;
+                const headers = {"Content-Type" : "application/json", "token" : this.token};
+                const body = {
+                    useremail : '',
+                }
+                const response = await axios.delete(url, {
+                    headers:headers,
+                    data : body
+                });
+                console.log(response);
+                
             }
         },
-        formatter(row, column) {
+        formatter(row) {
             return row.REPORTDATE
         },
     }

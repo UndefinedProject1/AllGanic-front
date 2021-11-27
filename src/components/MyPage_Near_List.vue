@@ -60,38 +60,35 @@
                 </div>
                 <div class="or_qa_box1">
                     <!-- 문의내역 Table -->
-                    <el-table :data="QAListData" stripe style="width: 97%; margin-left:20px;" >
-                        <el-table-column prop="select" label="문의유형" width="100" align="center">
-                            <template #default="scope">
-                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONKIND}}</p>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="title" label="제목" width="300" align="center">
-                            <template #default="scope">
-                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONTITLE}}</p>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="content" label="내용" width="320" align="center">
-                            <template #default="scope">
-                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONCONTENT}}</p>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="date" label="문의일자" width="250" align="center">
-                            <template #default="scope">
-                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONDATE}}</p>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="answer" label="답변상태" width="100" align="center">
-                            <template #default="scope">
-                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONREPLY}}</p>
-                            </template>
-                        </el-table-column>
-                        <!-- <el-table-column prop="answer" label="기타" width="100" align="center">
-                            <template #default="scope">
-                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.qaAction}}답변완료</p>
-                            </template>
-                        </el-table-column> -->
-                    </el-table>
+                    <el-scrollbar class="scrollbar">
+                        <el-table :data="QAListData" stripe style="width: 97%; margin-left:20px;" >
+                            <el-table-column prop="select" label="문의유형" width="100" align="center">
+                                <template #default="scope">
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONKIND}}</p>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="title" label="제목" width="300" align="center">
+                                <template #default="scope">
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONTITLE}}</p>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="content" label="내용" width="320" align="center">
+                                <template #default="scope">
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONCONTENT}}</p>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="date" label="문의일자" width="250" align="center">
+                                <template #default="scope">
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONDATE}}</p>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="answer" label="답변상태" width="100" align="center">
+                                <template #default="scope">
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONREPLY}}</p>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-scrollbar>
                 </div>
             </div>
         </div>
@@ -215,11 +212,9 @@ import mypage from '@/assets/mypage.png';
     margin-right: 8px;
     width:100%;
 }
-.order_list_warning{
-    width: fit-content;
-    display: inline-flex;
-    align-items: center;
-}
+/* .order_list_warning{
+
+} */
 .order_list_warning p:first-child {
     margin-top: 0px;
     color: #715036;
@@ -251,6 +246,9 @@ import mypage from '@/assets/mypage.png';
     /* border: 1px solid black; */
     color: #715036;
     font-weight: bold;
+}
+.order_list_qa {
+    display: flex;
 }
 .order_list_name > p > img {
     /* border: 1px solid black; */

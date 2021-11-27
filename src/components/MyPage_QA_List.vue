@@ -397,20 +397,17 @@ import { ElMessageBox, ElMessage } from 'element-plus'
     height: 93.5%;
     border-radius: 5px;
 }
-.insert_date {
+/* .insert_date {
     display: flex;
     margin-top: 10px;
     margin-left: 15px;
-}
+} */
 .solid {
     border: 1px solid rgb(228, 227, 227);
     width: 90%;
     margin-bottom: 2px;
     margin-top: 10px;
     margin-left: 42px;
-}
-.insert_prdcode {
-    width: 100%;
 }
 
 /* 모달 */

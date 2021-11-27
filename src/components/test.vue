@@ -130,7 +130,7 @@
 
 
         methods : {
-            formatter(row, column) {
+            formatter(row) {
                 return row.address
             }
         },

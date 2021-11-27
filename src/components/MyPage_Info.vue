@@ -1,6 +1,6 @@
 <template>
-    <div class="info_wapper">
-        <div class="info_box">
+    <div class="info_wapper" id="wrap">
+        <div class="info_box" id="info_box">
             <div class="info_container">
                 <div class="info_name">
                     <p type="text">{{member.USERNAME}}</p>
@@ -71,23 +71,6 @@ import MyPage_Order_List from '@/components/MyPage_Order_List.vue';
 import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
 import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
 
-            // console.clear();
-            // $(window).scroll(function() {
-            //     let scrollTop = $(this).scrollTop();
-            //     console.log(scrollTop)
-                
-            //     if ( scrollTop < 100 ) {
-            //         scrollTop = 100;
-            //     }
-            //     else if ( scrollTop > 9600 ) {
-            //         scrollTop = 9600;
-            //     }
-                
-            //     let duration = 1000;
-            //     $('.info_box').stop().animate({top:scrollTop}, duration);
-                
-            //     //console.log(scrollTop);
-            // });
     export default {
         
         data() {
@@ -120,6 +103,13 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
             
         },
         async mounted() {
+                $(document).ready(function(){
+        var currentPosition = parseInt($("#info_box").css("top"));
+        $(window).scroll(function() {
+            var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.
+            $("#info_box").stop().animate({"top":position+currentPosition+"px"},1000);
+        });
+    });
             // console.clear();
             // $(window).scroll(function() {
             //     let scrollTop = $(this).scrollTop();
@@ -167,9 +157,6 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
                 } 
                 else alert("정보를 받아오지 못하였습니다.");
             },
-            // handleAddressUpdate() {
-            //     window.location.href = 'http://127.0.0.1:9090/mypage_member_update';
-            // },
         }
     }
 </script>
@@ -177,14 +164,23 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500&display=swap');
+
 .info_box {
     border: 3px solid #715036;
-    /* position: absolute; */
     width: 28%;
     height: 100%;
     border-radius: 3px;
     font-family: 'Gowun Dodum', sans-serif;
+    /* position: absolute; */
+    /* top: 15%;
+    right: 50%;
+    left: 100%; */
 }
+
+    /* background-color:#F0F0F0; position:absolute; width:28%; top:433px; right:420px; padding: 3px 10px } */
+
+
+
 .info_container {
     /* border: 1px solid black; */
     width: 100%;
