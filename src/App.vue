@@ -21,8 +21,8 @@
           <p @click="goCart">cart</p>
         </div>
         <div class="mypage">
-          <el-dropdown style="font-family:'Playfair Display'; align-center:center; margin:22px 0px 0px 40px;">
-            <p class="el-dropdown-link" style="font-size:22px; color: #3c5240; ">sign<el-icon class="el-icon--right"><arrow-down /></el-icon></p>
+          <el-dropdown style="font-family:'Playfair Display'; align-center:center; margin:23px 0px 0px 40px; width:80px;">
+            <p class="el-dropdown-link" @click="hadleApp_join" style="font-size:22px; color: #3c5240;">sign up<el-icon class="el-icon--right"><arrow-down /></el-icon></p>
             <template #dropdown>
               <el-dropdown-menu style="font-family:'Playfair Display'; background-color=transparent;">
                 <el-dropdown-item @click="hadleApp_login" v-if="!logged">log in</el-dropdown-item>
@@ -296,11 +296,11 @@ import { ref } from 'vue'
       changeLogged(logged){
         this.logged = logged;
       },
-      async handleMypage() {
-        this.$router.push({ path : '/mypage_info'});
-      },
       async handleLogout() {
         this.$emit('handleLogout');
+      },
+      async hadleApp_join() {
+        this.$router.push({ path : '/join'});
       },
       async hadleApp_login() {
         this.$router.push({ path : '/login'});
