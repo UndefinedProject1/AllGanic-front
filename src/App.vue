@@ -21,6 +21,16 @@
           <p @click="goCart">cart</p>
         </div>
         <div class="mypage">
+          <el-dropdown style="font-family:'Playfair Display'; align-center:center; margin:22px 0px 0px 40px;">
+            <p class="el-dropdown-link" style="font-size:22px; color: #3c5240; ">sign<el-icon class="el-icon--right"><arrow-down /></el-icon></p>
+            <template #dropdown>
+              <el-dropdown-menu style="font-family:'Playfair Display'; background-color=transparent;">
+                <el-dropdown-item @click="hadleApp_login" v-if="!logged">log in</el-dropdown-item>
+                <el-dropdown-item @click="hadleApp_mypage" v-if="logged">my page</el-dropdown-item>
+                <el-dropdown-item @click="hadleApp_logout" v-if="logged">log out</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
           <!-- <p><a href="/login" v-if="!logged">login</a></p> -->
           
           <!-- <p>
@@ -32,12 +42,12 @@
             </el-popover>
           </p> -->
 
-          <el-select v-model="value" placeholder="Select" style="background-color=transparent;">
+          <!-- <el-select v-model="value" placeholder="Select" style="background-color=transparent;">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
             <p><a href="/login" v-if="!logged">log in</a></p>
             <p><a href="/mypage_info" v-if="logged">my page</a></p>
             <p><a href="/logout" v-if="logged">log out</a></p>
-          </el-select>
+          </el-select> -->
           
           <!-- <el-popover placement="bottom" title="logout" :width="150" trigger="hover" v-if="logged" style="font-family:'Playfair Display'; align-center:center;">
             <template #reference>
@@ -198,21 +208,22 @@
 import axios from 'axios';
 import { ref } from 'vue'
   export default {
-    setup() {
-      return {
-        options: ref([
-          {
-            value: 'my page',
-            label: 'my page',
-          },
-          {
-          value: 'Logout',
-          label: 'Logout',
-          }
-          ]),
-        value: ref('')
-      }
-    },
+    // setup() {
+    //   return {
+    //     options: ref([
+    //       {
+    //         value: 'my page',
+    //         label: 'my page',
+    //         path : '/mypage_info'
+    //       },
+    //       {
+    //       value: 'Logout',
+    //       label: 'Logout',
+    //       }
+    //       ]),
+    //     value: ref('')
+    //   }
+    // },
     data() {
       return{
         logged : false,
@@ -250,7 +261,7 @@ import { ref } from 'vue'
           backgroundColor : '#49654E',
           overflowX : 'hidden',
           transition : '0.3s'
-        }
+        },
       }
     },
     async created(){
@@ -291,6 +302,15 @@ import { ref } from 'vue'
       async handleLogout() {
         this.$emit('handleLogout');
       },
+      async hadleApp_login() {
+        this.$router.push({ path : '/login'});
+      },
+      async hadleApp_mypage() {
+        this.$router.push({ path : '/mypage_info'});
+      },
+      async hadleApp_logout() {
+        this.$router.push({ path : '/logout'});
+      }
       
       // async handleLogout() {
       //   const url =`REST/api/validtoken`;
@@ -434,6 +454,11 @@ import { ref } from 'vue'
   height: fit-content;
   font-size: 30px;
   font-weight: bold;
+}
+.mypage {
+  font-family: 'Playfair Display', serif;
+  /* opacity: 0.5; */
+  background-color: transparent;
 }
 .mypage a, .logo a{
   text-decoration: none;
