@@ -212,9 +212,9 @@ import mypage from '@/assets/mypage.png';
     margin-right: 8px;
     width:100%;
 }
-/* .order_list_warning{
-
-} */
+.order_list_warning{
+    display: inline-flex;
+}
 .order_list_warning p:first-child {
     margin-top: 0px;
     color: #715036;

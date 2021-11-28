@@ -136,7 +136,7 @@
                                     <div id="reviewContent">
                                         <img :src="`REST/api/review_image?no=${review.REVIEWCODE}`">
                                         <p>{{review.REVIEWCONTENT}}</p>
-                                        <el-button type="text" class="report_btn" @click="handleReviewReport(review.USEREMAIL, review.REVIEWCODE)">해당 리뷰 신고하기</el-button>
+                                        <el-button type="text" class="report_btn" @click="handleReviewReport(review.USEREMAIL)">해당 리뷰 신고하기</el-button>
                                     </div>
                                 </div>
                             </div>
@@ -511,7 +511,7 @@ import Cart_Popup from './Cart_Popup.vue';
                     alert("error");
                 }
             },
-            async handleReviewReport(val, rcode){
+            async handleReviewReport(val){
                 if(confirm('신고하기')){
                     const url = `REST/api/member/report`;
                     const headers = {"Content-Type" : "application/json", "token" : this.gettoken};
@@ -521,16 +521,11 @@ import Cart_Popup from './Cart_Popup.vue';
                     }
                     const response = await axios.post(url, body, {headers});
                     if(response.data.result === 1){
-                        const url1 = `REST/api/review/delete?no=${rcode}`;
-                        const response1 = await axios.delete(url1, {headers : {}, data : {}});
-                        console.log(response1);
-                        if(response1.data === 1){
-                            alert('신고가 정상적으로 접수되었습니다.');
-                            await this.handleDetailContents();
-                        }
-                        else if(response.data === 0){
-                            alert("error")
-                        }
+                        alert('신고가 정상적으로 접수되었습니다.');
+                        await this.handleDetailContents();
+                    }
+                    else if(response.data === 0){
+                        alert("error")
                     }
                 }
             }

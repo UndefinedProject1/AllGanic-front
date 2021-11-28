@@ -330,18 +330,19 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 }
             },
             async handleDelete(val){
-                const url = `REST/api/question/delete?no=${val}`;
-                const response = await axios.delete(url);
-                // console.log(response);
-                if(response.data === 1){
-                    this.deleteConfirm();
-                    await this.handleQaListGet()
-                }
-                else if(response.data === 0){
-                    alert("문의코드가 넘어오지 않음");
-                }
-                else {
-                    alert("error");
+                if(confirm('삭제하기')){
+                    const url = `REST/api/question/delete?no=${val}`;
+                    const response = await axios.delete(url);
+                    // console.log(response);
+                    if(response.data === 1){
+                        await this.handleQaListGet()
+                    }
+                    else if(response.data === 0){
+                        alert("문의코드가 넘어오지 않음");
+                    }
+                    else {
+                        alert("error");
+                    }
                 }
             },
             async handleQaUpdate(val){

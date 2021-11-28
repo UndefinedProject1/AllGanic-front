@@ -9,18 +9,7 @@
                         <el-table-column align="center" label="이메일" prop="USEREMAIL" />
                         <el-table-column align="center" label="이름" prop="USERNAME" />
                         <el-table-column align="center" label="구매건수" prop="ORDERCNT" />
-                        <el-table-column align="center" label="악성리뷰 및 문의"  prop="REPORTDATE" sortable width="180">
-                            <template #default="scope">
-                                <el-popover placement="right-end" title="Title" :width="200" trigger="hover">  
-                                    <template #reference>
-                                        <el-button>{{scope.row.REPORTDATE}}</el-button>
-                                    </template>
-                                    <el-table :data="gridData">
-                                        <el-table-column width="150" property="date" label="date"></el-table-column>
-                                    </el-table>
-                                </el-popover>
-                            </template>
-                        </el-table-column>
+                        <el-table-column align="center" label="악성리뷰 및 문의"  prop="REPORTDATE" sortable width="180"/>
                         <el-table-column align="center" label="위조금액 구매시도" prop="REPORTCOUNT" sortable width="180" :formatter="formatter"  />
                         <el-table-column align="center" label="관리">
                         <el-button size="mini" type="danger" @click="handleMemberDelete">Delete</el-button>
@@ -40,22 +29,30 @@ import axios from 'axios';
                 token: sessionStorage.getItem("token"),
                 tableData: [],
                 sorting : [],
-                reportDateList : []
+                gridData : [],
+                reportDateList : [],
+                showPopUp : false
             }
         },
         async created() {
             await this.tableDataGet();
         },
         methods : {
-            handleSorting(){
+            async handleSorting(val){
+                this.showPopUp = true;
                 const url = `REST/api/admin/member/list`;
                 const headers = {"Content-Type" : "application/json", "token" : this.token};
                 const response = await axios.get(url, { headers });
                 console.log("===========================");
                 // console.log(response);
                 if(response.data.result === 1) {
-                    this.tableData = response.data.list;
-                    // console.log(this.tableData);
+                    this.gridData = response.data.list;
+
+                    for(var i=0; i<this.gridData.length; i++){
+                        if(val === this.gridData[i].USEREMAIL){
+                            return this.gridData[i].REPORTDATE;
+                        }
+                    }
                 }
             },
             async tableDataGet() {
@@ -114,7 +111,7 @@ import axios from 'axios';
     width : 100%;
     height: 100%;
     display : inline-flex;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding : 10px;
     font-family: 'Gowun Dodum', sans-serif;
 
