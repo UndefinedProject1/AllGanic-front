@@ -5,11 +5,21 @@
             <div class="chart_divider"></div>
             <div class="memberList_box">
                 <div class="memberList_table" >
-                    <el-table :data="tableData" :default-sort="{ prop: 'REPORTDATE, REPORTCOUNT', order: 'descending' }" >
+                    <el-table :data="tableData">
                         <el-table-column align="center" label="이메일" prop="USEREMAIL" />
                         <el-table-column align="center" label="이름" prop="USERNAME" />
                         <el-table-column align="center" label="구매건수" prop="ORDERCNT" />
-                        <el-table-column align="center" label="악성리뷰 및 문의" prop="REPORTDATE" sortable width="180" :formatter="formatter" >
+                        <el-table-column align="center" label="악성리뷰 및 문의"  prop="REPORTDATE" sortable width="180">
+                            <template #default="scope">
+                                <el-popover placement="right-end" title="Title" :width="200" trigger="hover">  
+                                    <template #reference>
+                                        <el-button>{{scope.row.REPORTDATE}}</el-button>
+                                    </template>
+                                    <el-table :data="gridData">
+                                        <el-table-column width="150" property="date" label="date"></el-table-column>
+                                    </el-table>
+                                </el-popover>
+                            </template>
                         </el-table-column>
                         <el-table-column align="center" label="위조금액 구매시도" prop="REPORTCOUNT" sortable width="180" :formatter="formatter"  />
                         <el-table-column align="center" label="관리">
@@ -29,12 +39,25 @@ import axios from 'axios';
             return{
                 token: sessionStorage.getItem("token"),
                 tableData: [],
+                sorting : [],
+                reportDateList : []
             }
         },
         async created() {
             await this.tableDataGet();
         },
         methods : {
+            handleSorting(){
+                const url = `REST/api/admin/member/list`;
+                const headers = {"Content-Type" : "application/json", "token" : this.token};
+                const response = await axios.get(url, { headers });
+                console.log("===========================");
+                // console.log(response);
+                if(response.data.result === 1) {
+                    this.tableData = response.data.list;
+                    // console.log(this.tableData);
+                }
+            },
             async tableDataGet() {
                 const url = `REST/api/admin/member/list`;
                 const headers = {"Content-Type" : "application/json", "token" : this.token};
@@ -43,7 +66,19 @@ import axios from 'axios';
                 // console.log(response);
                 if(response.data.result === 1) {
                     this.tableData = response.data.list;
+                    // console.log(this.tableData);
+
+                    for(var i=0; i<this.tableData.length; i++){
+                        this.sorting[i] = Math.floor(this.tableData[i].REPORTDATE.length / 11);
+                        this.tableData[i].REPORTDATE = this.sorting[i];
+                    }
                     console.log(this.tableData);
+                }
+            },
+            dateGet : async function(){
+                for(var i=0; i<this.tableData.length; i++){
+                    this.sorting[i] = this.tableData[i].split[','];
+                    console.log(this.sorting);
                 }
             },
             async handleMemberDelete() {

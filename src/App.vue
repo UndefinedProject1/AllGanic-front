@@ -31,31 +31,6 @@
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <!-- <p><a href="/login" v-if="!logged">login</a></p> -->
-          
-          <!-- <p>
-            <el-popover placement="bottom" :width="200" trigger="hover" title="my page">
-              <template #reference>
-                <a href="/mypage_info" v-if="logged">my page</a>
-                <a href="/mypage_info" v-if="logged">logout</a>
-              </template>
-            </el-popover>
-          </p> -->
-
-          <!-- <el-select v-model="value" placeholder="Select" style="background-color=transparent;">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            <p><a href="/login" v-if="!logged">log in</a></p>
-            <p><a href="/mypage_info" v-if="logged">my page</a></p>
-            <p><a href="/logout" v-if="logged">log out</a></p>
-          </el-select> -->
-          
-          <!-- <el-popover placement="bottom" title="logout" :width="150" trigger="hover" v-if="logged" style="font-family:'Playfair Display'; align-center:center;">
-            <template #reference>
-              
-              <el-button style="border:none; background-color:transparent; color:#49654E; font-family:'Playfair Display', serif; font-size:22px; font-weight:bold;" @click="handleMypage">my page</el-button>
-              <child-component v-on:handleLogout="handleLogout"></child-component>
-            </template>
-          </el-popover> -->
         </div>
       </div>
     </div>
@@ -206,7 +181,7 @@
 
 <script>
 import axios from 'axios';
-import { ref } from 'vue'
+// import { ref } from 'vue'
   export default {
     // setup() {
     //   return {
@@ -309,7 +284,10 @@ import { ref } from 'vue'
         this.$router.push({ path : '/mypage_info'});
       },
       async hadleApp_logout() {
-        this.$router.push({ path : '/logout'});
+        sessionStorage.clear();
+        alert('로그아웃 되었습니다.');
+        this.logged = false;
+        // this.$router.push({ path : '/logout'});
       }
       
       // async handleLogout() {
@@ -359,47 +337,10 @@ import { ref } from 'vue'
   width: 100%;
   background-color: white;
   overflow-y: scroll;
-  /* scroll-snap-type: y mandatory; */
+  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   /* height: 100vh; */
 }
-
-
-/* body{
-  margin: 0;
-  height: 100vh;
-  font-family: 'Playfair Display', serif;
-  background-color: white;
-  overflow-x: hidden;
-} */
-/* .wrapper{
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 10% 90%;
-  grid-template-areas: "header", "content";
-  height: 100vh;
-  font-family: 'Playfair Display', serif;
-} */
-/* .header{
-  border: 1px solid black;
-  height: 10%;
-  display: inline-flex;
-  font-family: 'Playfair Display', serif;
-  color:  #eeeeee;
-  position: fixed;
-  z-index: 1;
-  right : 0;
-  top: 0;
-  width: 100%;
-}
-.content{
-  border: 1px solid black;
-  height: 100%;
-  width: 100%;
-  background-color: white;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-} */
 
 
 .header .left_section, .right_section{

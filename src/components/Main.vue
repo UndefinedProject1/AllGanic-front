@@ -1,50 +1,43 @@
 <template>
     <div class="main_wrapper">
-        <div class="intro_screen">
-            <div data-aos="fade-right"
-                data-aos-duration="500"
-                data-aos-easing="ease-in-sine" class="section1">
+        <div class="line-1"></div>
+        <section data-aos="fade-right" class="intro_screen">
+            <div class="section1">
                 <h1>Welcome,</h1>
                 <h2>All Here!</h2>
-                <div class="line-1"></div>
             </div>
-            <div data-aos="fade-left" data-aos-duration="500" data-aos-easing="ease-in-sine" class="section2">
+            <div class="section2">
                 <h2>All_Ganics.</h2>
                 <div class="line-2"></div>
             </div>
-        </div>
+        </section>
 
-        <div class="secondScreen">
+        <section class="secondScreen">
             <div class="secondImgBox">
-                <!-- <div class="img1"></div> -->
-                <!-- <div class="img2"></div> -->
-            </div>
-            <div class="secondTextBox">
                 <div class="SecondTextContainer">
-                    <h3>처음부터 끝까지</h3>
-                    <h3 id="zero">ALL_"ZERO"</h3>
-                    <p>
-                        계속되는 이상 기후와 자연재해가 여실히 다가오는 요즘,<br>
+                    <h4>처음부터 끝까지</h4>
+                    <h4 id="zero">ALL_"ZERO"</h4>
+                    <p >
+                        계속되는 이상 기후와 자연재해가 피부로 느껴지는 요즘,<br>
                         매년 지구가 보내는 목소리에 귀를 기울이는 이들이 많아지고 있습니다.<br>
-                        그리고 지금 이곳, 누구보다 한층 더 의미있는 소비를 만들어가는 여러분과 함께 걷고자<br>
-                        저희 All_Ganics 는 공정부터 판매까지 모두 환경을 생각하는 브랜드만 고집합니다.
+                        그리고 지금 이곳, All_Ganics 는 <br> 누구보다 한층 더 의미있는 소비를 만들어가는 여러분과 함께 걷고자<br>
+                        공정부터 판매까지 모두 환경을 생각하는 브랜드만 고집합니다.
                     </p>
                 </div>
-
             </div>
-        </div>
+        </section>
 
-        <div class="thirdScreen">
+        <section class="thirdScreen">
 
 
-        </div>
+        </section>
         
 
 
 
-        <div class="outro_screen">
+        <section class="outro_screen">
             Outro Page
-        </div>
+        </section>
 
     </div>
 
@@ -101,72 +94,99 @@ body{
 
 .main_wrapper{
     scroll-behavior: smooth;
-    /* height: 100%; */
-    /* width : 100%; */
-    overflow-x: hidden;
+    /* height: 100vh;
+    width : 100%; */
+    /* overflow-x: hidden; */
     perspective: 300px;
     font-family: 'Playfair Display', sans-serif;
     font-size: 4em;
     color: white;
-    background-image: url("/src/assets/vegan_cream_img.jpg");
+    background-color:#A3927A;
+    /* background-image: url("/src/assets/vegan_cream_img.jpg");
     background-size: cover;
     background-position: 50%;
-    /* background-repeat: no-repeat; */
-    background-attachment:local;
+    background-repeat: no-repeat; */
+    /* /* background-attachment:local; */
 }
 .intro_screen, .secondScreen, .thirdScreen, .outro_screen {
-    border: 2px solid white;
+    /* border: 2px solid white; */
     height: 100vh;
     width : 100%;
+    scroll-snap-align: center;
 }
 .intro_screen{
-        /* border: 1px solid white; */
+    border-bottom: 2px solid white;
     background-attachment:fixed;
     display: flex;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     flex-direction: row;
     height: 100vh;
     width: 100%;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
     align-items: center;
     position: relative;
 }
 .section1{
     width: 50%;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     margin-left: 10%;
     display: flex;
     margin-top: 4.5%;
     height: fit-content;
     flex-direction: column;
 }
-.line-1:before{
-    content : '';
-    position: fixed;
-    top : 0;
-    left : 0;
-    right : 0;
-    bottom : 0;
-    z-index: 1;
-}
-.line-1:after{
-    content : '';
+.line-1{
+    transform: rotate(90deg);
     position: absolute;
-    display: block;
+    width: 100%;
+    height: 30%;
+    z-index: 1;
+    margin: 0;
+    top: 29.5%;
+}
+
+.line-1::after{
+    /* border: 1px solid red; */
+    content: '';
+    position: absolute;
     z-index: 2;
-    right: auto;
-    left: 35%;
-    bottom: 27%;
-    height: 15px;
+    left: 0;
+    bottom: 22.3%;
+    height: 2%;
     border-radius: 15%;
     background-color: white;
-    width: 13.5%;
+    width: 100%;
     transform-origin: left;
-    transform: rotate(90deg);
-    animation: animateV 6s forwards alternate;
+    animation: animateV 13s forwards alternate;
+}
+@keyframes animateV {
+    0%{
+        transform: translateX(0) scaleX(0);
+        transform-origin: left;
+        left: auto;
+        right: 1%;
+    }
+    45%{
+        transform: translateX(0) scaleX(1);
+        transform-origin: left;
+        left: auto;
+        right: 1%;
+    }
+    50%{
+        transform: translateX(0) scaleX(1);
+        transform-origin: right;
+        left: auto;
+        right: 1%;
+    }
+    100%{
+        transform: translateX(0) scaleX(1);
+        transform-origin: right;
+        left: auto;
+        right: 1%;
+    }
 }
 .section2{
-    border: 1px solid white;
+    /* border: 1px solid white; */
     height: fit-content;
     margin-top: 15%;
     position: absolute;
@@ -175,15 +195,6 @@ body{
     width: 60%;
     right: 3%;
     color: rgb(228, 167, 0);
-}
-.line-2:before{
-    content : '';
-    position: fixed;
-    top : 0;
-    left : 0;
-    right : 0;
-    bottom : 0;
-    z-index: 1;
 }
 .line-2:after{
     content : '';
@@ -234,35 +245,19 @@ body{
     width: 100%;
     height: 100vh;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 .secondScreen .secondImgBox {
-    width: 40%;
-    height: 100%;
+    width: 35%;
+    height: 100vh;
+    padding: 1rem;
     padding-top: 4.5%;
-    /* border: 1px solid white; */
-    position: relative;
-    display: flex;
-    align-items: center;
     justify-content: center;
-}
-.img1{
-    position: relative;
-    width: 80%;
-    height: 80%;
-    background-image: url("/src/assets/zerowaste_package.jpg");
-    background-size: cover;
-}
-.img2{
-    width: 90%;
-    height: 90%;
-    background-image: url("/src/assets/straw.jpg");
-    background-size: cover;
-    background-position: 50%;
-    border-radius: 5px;
-    /* position: absolute;
-    top: 40%;
-    left: 33%; */
+    border: 2px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.514);
 }
 .secondScreen .secondTextBox{
     width: 40%;
@@ -282,21 +277,24 @@ body{
     height: fit-content;
 
 }
-.secondScreen .secondTextBox .SecondTextContainer h3:first-child{
-    color: whitesmoke;
+.secondScreen .SecondTextContainer h4:first-child{
+    color: #333;
     font-family: 'Gowun Batang', sans-serif;
     font-weight: bold;
+    text-align: right;
 }
-.secondTextBox .SecondTextContainer #zero{
+.SecondTextContainer #zero{
     font-family: 'Black Han Sans', sans-serif;
     font-weight: 100;
+    color: #333;
     width: 100%;
     text-align: right;
 }
-.secondScreen .secondTextBox p{
-    color: whitesmoke;
+.secondScreen p{
+    color: black;
     font-size: 16px;
     font-family: 'Gowun Batang', sans-serif;
+    margin-top: 10px;
 }
 .outro_screen{
     height: 100vh;
@@ -304,5 +302,13 @@ body{
     z-index: 0;
 }
 
-
+.before-enter{
+    opacity: 0;
+    transform: translateX(100px);
+    transition: all 2s ease-out;
+}
+.enter{
+    opacity: 1;
+    transform: translateX(0px);
+}
 </style>
