@@ -30,13 +30,11 @@
                             <el-breadcrumb-item :to="{ path: 'forgotpassword' }" id="nav_password">비밀번호찾기</el-breadcrumb-item>
                         </el-breadcrumb> -->
                     </div>
-                    <button type="button" id="login_btn" @click="handleLogin" >로그인</button>
-                    <img
-                        class="kakao_btn"
-                        src="@/assets/kakao_login_medium_narrow.png"
-                        @click="loginWithKakao"
-                    />
-
+                    <div class="btn_box">
+                        <button type="button" id="login_btn" @click="handleLogin" >로그인</button>
+                        <img class="kakao_btn" src="@/assets/kakao_login_medium_narrow.png" @click="loginWithKakao"/>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -255,6 +253,9 @@ input:focus{
     font-family: 'Gowun Dodum', sans-serif;
 }
 .login_nav {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
     margin : 10px;
     font-size: 13px;
 }
@@ -292,20 +293,20 @@ input:focus{
     background-color: white;
     font-size: 15px;
 }
-.login_btn_box{
-    border: 1px solid black;
+.btn_box{
+    /* border: 1px solid black; */
     width: 100%;
     display: flex;
     align-items: center;
-    height: 80%;
-    margin: 20px;
+    height: fit-content;
+    /* margin: 20px; */
     flex-direction: column;
     justify-content: center;
 }
 #login_btn{
     /* border: 1px solid black; */
     width: 55%;
-    height: 30%;
+    height: 40px;
     margin: 20px;
     border: none;
     font-size: 15px;
@@ -316,7 +317,7 @@ input:focus{
 }
 .kakao_btn{
     width: 55%;
-    height: 34%;
+    height: 45px;
 }
 #login_btn:hover, .kakao_btn:hover{
     cursor: pointer;

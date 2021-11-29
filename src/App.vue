@@ -16,17 +16,8 @@
       <!-- Search -->
       <div class="right_section">
         <div class="search">
-          <p style="cursor:pointer" @click="openNav()">search</p>
+          <p @click="openSearchNav">search</p>
         </div>
-        <!-- <div id="myNav" class="overlay">
-          <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
-          <div class="overlay-content">
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
-          </div>
-        </div> -->
         <div class="cart">
           <p @click="goCart">cart</p>
         </div>
@@ -44,9 +35,20 @@
         </div>
       </div>
     </div>
+
     <!-- 메인 콘텐츠 -->
     <div class="content" @mouseover="closeSideNav">
       <router-view @changeLogged="changeLogged"></router-view>
+    </div>
+  </div>
+
+  <div class="search_overlay" v-bind:style="searchNavStyle">
+    <img :src="close" @click="CloseSearchNav" id="closebtn">
+    <div class="overlay_content">
+      <div class="search_bar">
+        <input type="text" class="search_txt">
+        <img :src="search" @keyup="handleSearch">
+      </div>
     </div>
   </div>
 
@@ -78,7 +80,7 @@
   </div>
 
   <!-- 사이드 NAV 메뉴 / brand -->
-    <div v-bind:style="sideNavStyle_b" class="sidenav" id="Sidenav" >
+  <div v-bind:style="sideNavStyle_b" class="sidenav" id="Sidenav" >
     <div class="nav_sections">
       <div class="nav_section">
         <p>( * )</p>
@@ -188,6 +190,8 @@
 </template>
 
 <script>
+import search from '@/assets/search.png';
+import close from '@/assets/close.png';
 import axios from 'axios';
 import { ElMessage } from 'element-plus'
 
@@ -202,6 +206,8 @@ import { ElMessage } from 'element-plus'
     },
     data() {
       return{
+        search : search,
+        close : close,
         logged : false,
         routes : this.$route.path,
         token : sessionStorage.getItem("token"),
@@ -214,6 +220,18 @@ import { ElMessage } from 'element-plus'
           height: '100vh',
           fontFamily: '"Playfair Display", serif',
           // backgroundColor : '#49654E'
+        },
+        searchNavStyle :{
+          height: '0%',
+          width: '100%',
+          position: 'fixed',
+          zIndex: '100',
+          top: "0",
+          left: '0',
+          // backgroundColor: 'rgb(0,0,0)',
+          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          overflowY: 'hidden',
+          transition: '0.5s',
         },
         sideNavStyle:{
           width : '0%',
@@ -275,37 +293,39 @@ import { ElMessage } from 'element-plus'
       changeLogged(logged){
         this.logged = logged;
       },
-      async handleLogout() {
+      handleLogout() {
         this.$emit('handleLogout');
       },
-      async hadleApp_join() {
+      hadleApp_join() {
         this.$router.push({ path : '/join'});
       },
-      async hadleApp_login() {
+      hadleApp_login() {
         this.$router.push({ path : '/login'});
       },
-      async hadleApp_mypage() {
+      hadleApp_mypage() {
         this.$router.push({ path : '/mypage_info'});
       },
-      async hadleApp_logout() {
+      hadleApp_logout() {
         this.successAlertMSG();
         sessionStorage.clear();
         this.logged = false;
         this.$router.push({path:'/'});
       },
-      async openNav() {
-        document.getElementById("myNav").style.height = "100%";
+      openSearchNav() {
+        this.searchNavStyle.height = "100%";
       },
+      CloseSearchNav() {
+        this.searchNavStyle.height = "0%";
+      },
+      async handleSearch(){
 
-      async closeNav() {
-        document.getElementById("myNav").style.height = "0%";
-      }
+      },
     }
   }
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Exo:wght@300;400;500;600;700;800&family=Roboto:wght@300;500&display=swap');
 *{
   margin: 0;
   padding: 0;
@@ -479,55 +499,57 @@ import { ElMessage } from 'element-plus'
   font-family: 'Gowun Batang', sans-serif;
 }
 
-/* test */
-.overlay {
-  height: 100%;
+
+/* 검색창 구현 */
+.search_overlay{
+  height: 0%;
   width: 100%;
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   top: 0;
   left: 0;
   background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.9);
+  background-color: rgba(255, 255, 255, 0.9);
   overflow-y: hidden;
   transition: 0.5s;
 }
-
-.overlay-content {
+.search_overlay img:hover{
+  cursor: pointer;
+}
+.overlay_content{
   position: relative;
-  top: 25%;
+  top: 30%;
   width: 100%;
   text-align: center;
   margin-top: 30px;
 }
-
-.overlay a {
-  padding: 8px;
-  text-decoration: none;
-  font-size: 36px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
+.search_bar{
+  width: 50%;
+  display: inline-flex;
+  border-bottom: 3px solid #3c5240;
+}
+.search_bar input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 2rem;
+  font-weight: bold;
+  width: 95%;
+  color: #49654E;
+  padding-left: 5px;
+  font-family: 'Gowun Dodum', sans-serif;
+}
+.search_bar img {
+  width: 5%;
+  height: 5%;
+}
+#closebtn{
+  position : absolute;
+  top: 5%;
+  right : 5%;
+}
+.search_bar input:focus {
+  outline: none;
 }
 
-.overlay a:hover, .overlay a:focus {
-  color: #f1f1f1;
-}
-
-.overlay .closebtn {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
-}
-
-@media screen and (max-height: 450px) {
-  .overlay {overflow-y: auto;}
-  .overlay a {font-size: 20px}
-  .overlay .closebtn {
-  font-size: 40px;
-  top: 15px;
-  right: 35px;
-  }
-}
 </style>
