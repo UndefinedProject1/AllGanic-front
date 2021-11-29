@@ -442,7 +442,7 @@ import Cart_Popup from './Cart_Popup.vue';
 
                 const response = await axios.post(url, body, {headers});
                 if(response.data.result === 1) {
-                    this.$socket.emit('QuestionIn', {data : {QuestionIn:1}});
+                    this.$socket.emit('addQuestion', {data : {QuestionIn : 1}});
                     this.successAlertMSG();
                     this.showFaqWriting = false;
                     await this.handleDetailContents();

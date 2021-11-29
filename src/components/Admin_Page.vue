@@ -64,6 +64,7 @@ import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
                         'AdminProductInsert','AdminProductList', 'Admin_QA_List', 'Admin_QA_List_Complete',
                         'Admin_Brand_Sales_Chart','Admin_Cate_Sales_Chart', 'Admin_Handle_Member'],
                 value : 0,
+                count : 0,
                 $socket : '',
                 token: sessionStorage.getItem("token"),
             }
@@ -109,9 +110,9 @@ import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
             async getCount(){
                 const url = `REST/api/admin/forge/member`;
                 const headers = {"token" : this.token};
-                const response = await axios.get(url, headers);
+                const response = await axios.get(url, {headers});
                 console.log(response);
-
+                this.count = response.data;
             }
         }
     }

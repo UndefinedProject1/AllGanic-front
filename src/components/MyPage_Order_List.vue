@@ -90,6 +90,8 @@ import axios from "axios";
                 const headers = {"Content-Type" : "application/json", token: this.token};
                 const response = await axios.post(url, body, {headers});
                 console.log(response);
+                alert("환불완료");
+                await this.orderListGet();
             }
         }
     }

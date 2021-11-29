@@ -10,6 +10,7 @@
                         <el-table-column align="center" label="이름" prop="USERNAME" />
                         <el-table-column align="center" label="구매건수" prop="ORDERCNT" />
                         <el-table-column align="center" label="악성리뷰 및 문의"  prop="REPORTDATE" sortable width="180"/>
+                        <el-table-column align="center" label="악성리뷰 및 문의 날짜"  prop="REPORTDATE" width="180"/>
                         <el-table-column align="center" label="위조금액 구매시도" prop="REPORTCOUNT" sortable width="180" :formatter="formatter"  />
                         <el-table-column align="center" label="관리">
                             <template #default="scope">
@@ -60,8 +61,11 @@ import axios from 'axios';
                 showDeleteModal : false,
                 firedEmail : '',
                 firedName : '',
-                kind : ''
-
+                kind : '',
+                count : 0,
+                REPORTDATEN : [],
+                DATE : [],
+                TEST : []
             }
         },
         async created() {
@@ -72,27 +76,29 @@ import axios from 'axios';
             async getCount(){
                 const url = `REST/api/admin/forge/member`;
                 const headers = {"token" : this.token};
-                const response = await axios.get(url, headers);
-                console.log(response);
-
-            },
-            async handleSorting(val){
-                this.showPopUp = true;
-                const url = `REST/api/admin/member/list`;
-                const headers = {"Content-Type" : "application/json", "token" : this.token};
-                const response = await axios.get(url, { headers });
-                console.log("===========================");
-                // console.log(response);
-                if(response.data.result === 1) {
-                    this.gridData = response.data.list;
-
-                    for(var i=0; i<this.gridData.length; i++){
-                        if(val === this.gridData[i].USEREMAIL){
-                            return this.gridData[i].REPORTDATE;
-                        }
-                    }
+                const response = await axios.get(url, {headers});
+                this.count = response.data;
+                if(this.count >= 3){
+                    alert("위조금액으로 세 번 적발된 회원이 있습니다.")
                 }
             },
+            // async handleSorting(val){
+            //     this.showPopUp = true;
+            //     const url = `REST/api/admin/member/list`;
+            //     const headers = {"Content-Type" : "application/json", "token" : this.token};
+            //     const response = await axios.get(url, { headers });
+            //     console.log("===========================");
+            //     // console.log(response);
+            //     if(response.data.result === 1) {
+            //         this.gridData = response.data.list;
+
+            //         for(var i=0; i<this.gridData.length; i++){
+            //             if(val === this.gridData[i].USEREMAIL){
+            //                 return this.gridData[i].REPORTDATE;
+            //             }
+            //         }
+            //     }
+            // },
             async tableDataGet() {
                 const url = `REST/api/admin/member/list`;
                 const headers = {"Content-Type" : "application/json", "token" : this.token};
@@ -103,6 +109,24 @@ import axios from 'axios';
                     this.tableData = response.data.list;
                     // console.log(this.tableData);
 
+                    // for(var j=0;j<this.tableData.length; j++){
+                    //     var a, b, c, d, e, f, g;
+                    //     a = this.tableData[j].REPORTDATEN;
+                    //     b = this.tableData[j].REPORTDATE;
+                    //     c = this.tableData[j].USEREMAIL;
+                    //     d = this.tableData[j].USERNAME;
+                    //     e = this.tableData[j].ORDERCNT;
+                    //     f = this.tableData[j].REPORTCOUNT;
+
+                    //     this.TEST = a.concat
+                    //     this.TEST[j] = g;
+                    //     this.DATE[j]= this.tableData[j].REPORTDATE;
+                    //     console.log(this.DATE);
+                    // }
+                    this.tableData.DATE.push(this.DATE);
+                    //this.tableData.push(this.DATE);
+                    console.log(this.tableData);
+
                     for(var i=0; i<this.tableData.length; i++){
                         this.sorting[i] = Math.floor(this.tableData[i].REPORTDATE.length / 11);
                         this.tableData[i].REPORTDATE = this.sorting[i];
@@ -110,12 +134,12 @@ import axios from 'axios';
                     console.log(this.tableData);
                 }
             },
-            dateGet : async function(){
-                for(var i=0; i<this.tableData.length; i++){
-                    this.sorting[i] = this.tableData[i].split[','];
-                    console.log(this.sorting);
-                }
-            },
+            // dateGet : async function(){
+            //     for(var i=0; i<this.tableData.length; i++){
+            //         this.sorting[i] = this.tableData[i].split[','];
+            //         console.log(this.sorting);
+            //     }
+            // },
             handleDeleteModal(email, name){
                 this.showDeleteModal = true;
                 this.firedEmail = email;

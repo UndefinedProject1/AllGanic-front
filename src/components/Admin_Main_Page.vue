@@ -107,14 +107,14 @@ export default {
             const url = `REST/api/admin/brand/share`;
             const headers = {"token" : this.token};
             const response = await axios.get(url, {headers});
-            console.log(response);
+            // console.log(response);
             if(response.data.result === 1){
                 for(var i=0; i<5; i++){
                     this.seriesPieChart[i] = response.data.list[i].PERCENTAGE;
                     this.chartOptions.labels[i] = response.data.list[i].BRANDNAME;
                 }
-                console.log(this.seriesPieChart);
-                console.log(this.chartOptions.labels);
+                // console.log(this.seriesPieChart);
+                // console.log(this.chartOptions.labels);
             }
         }
     }
