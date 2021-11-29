@@ -23,6 +23,7 @@ import test from '@/components/test.vue';
 import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
 import ForgotPassword from '@/components/ForgotPassword.vue';
 import Login_callBack from '@/components/Login_callBack.vue';
+import Product_Table_Search from '@/components/Product_Table_Search.vue';
 
 
 const routes = [
@@ -48,6 +49,7 @@ const routes = [
     {path : '/admin_handle_member' , name :'admin_handle_member', component : Admin_Handle_Member},
     {path : '/forgotpassword' , name :'forgotpassword', component : ForgotPassword},
     {path : '/login_callback' , name :'login_callback', component : Login_callBack},
+    {path : '/product_table_search' , name :'product_table_search', component : Product_Table_Search},
 ];
 
 const router = createRouter({

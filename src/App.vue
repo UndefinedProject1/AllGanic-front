@@ -43,11 +43,11 @@
   </div>
 
   <div class="search_overlay" v-bind:style="searchNavStyle">
-    <img :src="close" @click="CloseSearchNav" id="closebtn">
+    <img :src="close" @click="closeSearchNav" id="closebtn">
     <div class="overlay_content">
       <div class="search_bar">
-        <input type="text" class="search_txt">
-        <img :src="search" @keyup="handleSearch">
+        <input type="text" class="search_txt" v-model="productName">
+        <img :src="search" @click="handleSearch">
       </div>
     </div>
   </div>
@@ -211,6 +211,8 @@ import { ElMessage } from 'element-plus'
         logged : false,
         routes : this.$route.path,
         token : sessionStorage.getItem("token"),
+        productName : '',
+        page : 1,
         wrapper:{
           display: 'flex',
           flexDirection : 'column',
@@ -314,11 +316,16 @@ import { ElMessage } from 'element-plus'
       openSearchNav() {
         this.searchNavStyle.height = "100%";
       },
-      CloseSearchNav() {
+      closeSearchNav() {
         this.searchNavStyle.height = "0%";
       },
       async handleSearch(){
-
+        await this.closeSearchNav();
+        await this.$router.push({
+            path:'/product_table_search', 
+            query:{ page : this.page, name: this.productName }
+        });
+        this.productName = '';
       },
     }
   }

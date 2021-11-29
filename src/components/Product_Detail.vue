@@ -56,7 +56,7 @@
             </div>
             <div class="detail_section2">
                 <button id="addcartbtn" @click="addCartList">ADD CART</button>
-                <button id="orderbtn">ORDER</button>
+                <button id="orderbtn" @click="GoCart">ORDER</button>
             </div>
             <div class="detail_section3">
                 <div class="selection3_navButtons">
@@ -328,16 +328,48 @@ import Cart_Popup from './Cart_Popup.vue';
             console.log(this.$socket);
         },
         methods : {
+            // Scroll 버튼
+            clickDetail(){
+                this.$refs.callDetailInfo.focus();
+            },
+            clickReview(){
+                this.$refs.callProductReview.focus();
+            },
+            clickFaq(){
+                this.$refs.callProductFaq.focus();
+            },
+            clickRefund(){
+                this.$refs.callProductRefundPolicy.focus();
+            },
+
+            // 리뷰, 문의 페이지네이션 -> 페이지 변경 감지
             async handlePageChange(val){
                 this.page = val;
                 await this.handleDetailContents();
             },
+
+            // 자식 컴포넌트 (Cart_PopUp)에 전달하는 메소드
+            // 1. 팝업 닫기
             closeDrawer(){
                 this.CartPopup = false;
             },
+            // 2. 장바구니 이동
             handleGoCart(){
                 this.$router.push({ path: "/product_cart" });
             },
+
+            // 바로 ORDER 버튼 눌렀을때 장바구니로 이동
+            async GoCart(){
+                const url = `REST/api/cart/create/insert?cnt=${this.quantity}&no=${this.pcode}`;
+                const headers = {"Content-Type" : "application/json", "token" : this.gettoken};
+                const response = await axios.post(url, { }, {headers});
+                // console.log(response);
+                if(response.data.result === 1){
+                    this.$router.push({ path: "/product_cart" });
+                }
+            },
+
+            // 상품 메인 이미지 표시
             handleMainImg(e){
                 if(e.target.files.length > 0) {
                     this.mainfile = e.target.files[0];
@@ -348,9 +380,13 @@ import Cart_Popup from './Cart_Popup.vue';
                     reader.readAsDataURL(e.target.files[0]);
                 }
             },
+
+            // 상품 수량 변경 감지
             handleQuantityChange(){
                 console.log(this.quantity);
             },
+
+            // 상품 상세 내용 호출(상품 정보, 상세이미지, 리뷰, 문의)
             async handleDetailContents(){
                 // 상품 기본정보
                 const url = `REST/api/product_one?code=${this.pcode}`;
@@ -410,12 +446,14 @@ import Cart_Popup from './Cart_Popup.vue';
 
                     // console.log(this.questionList);
                 }
-                
-
             },
+
+            // 리뷰 점수 주기
             setReivewRating(reviewRating){
                 return this.reviewRating = reviewRating;
             },
+
+            //  리뷰 작성 및 등록
             async writeReview(){
                 const url = `REST/api/review/insert?no=${this.pcode}`;
                 const headers = {"Content-Type" : "multipart/form-data","token" : this.gettoken};
@@ -431,35 +469,8 @@ import Cart_Popup from './Cart_Popup.vue';
                     this.showWriting = false;
                 }else this.failAlertMSG();
             },
-            async writeQuestion(){
-                const url = `REST/api/question/insert?no=${this.pcode}`;
-                const headers = {"Content-Type" : "application/json", "token" : this.gettoken};
-                const body = {
-                    questiontitle : this.questionTitle,
-                    questioncontent : this.questionContent,
-                    questionkind : this.selected
-                }
 
-                const response = await axios.post(url, body, {headers});
-                if(response.data.result === 1) {
-                    this.$socket.emit('addQuestion', {data : {QuestionIn : 1}});
-                    this.successAlertMSG();
-                    this.showFaqWriting = false;
-                    await this.handleDetailContents();
-                }else this.failAlertMSG();
-            },
-            clickDetail(){
-                this.$refs.callDetailInfo.focus();
-            },
-            clickReview(){
-                this.$refs.callProductReview.focus();
-            },
-            clickFaq(){
-                this.$refs.callProductFaq.focus();
-            },
-            clickRefund(){
-                this.$refs.callProductRefundPolicy.focus();
-            },
+            // 리뷰 작성하는 칸 보여주기
             async showWritingReview(){
                 const url = `REST/api/payments/paylist/check?no=${this.pcode}`;
                 const headers = {"token" : this.gettoken};
@@ -478,6 +489,28 @@ import Cart_Popup from './Cart_Popup.vue';
             closeWritingReview(){
                 this.showWriting = false;
             },
+
+
+            // 문의 작성 및 등록
+            async writeQuestion(){
+                const url = `REST/api/question/insert?no=${this.pcode}`;
+                const headers = {"Content-Type" : "application/json", "token" : this.gettoken};
+                const body = {
+                    questiontitle : this.questionTitle,
+                    questioncontent : this.questionContent,
+                    questionkind : this.selected
+                }
+
+                const response = await axios.post(url, body, {headers});
+                if(response.data.result === 1) {
+                    this.$socket.emit('addQuestion', {data : {QuestionIn : 1}});
+                    this.successAlertMSG();
+                    this.showFaqWriting = false;
+                    await this.handleDetailContents();
+                }else this.failAlertMSG();
+            },
+
+            // 문의 작성하는 칸 보여주기
             async showWritingFaq(){
                 this.showFaqWriting = true;
                 const url = `REST/api/member/find`;
@@ -489,19 +522,22 @@ import Cart_Popup from './Cart_Popup.vue';
                     // console.log(this.member);
                 }
             },
+
+            // 문의 작성하는 칸 닫기
             closeWritingFaq(){
                 this.showFaqWriting = false;
             },
+
+            // 장바구니 추가 -> 팝업창 띄우기
             async addCartList(){
                 const url = `REST/api/cart/create/insert?cnt=${this.quantity}&no=${this.pcode}`;
                 const headers = {"Content-Type" : "application/json", "token" : this.gettoken};
                 const response = await axios.post(url, { }, {headers});
-                console.log(this.token);
+                // console.log(this.token);
 
-                console.log(response);
+                // console.log(response);
 
                 if(response.data.result === 1){
-                    this.$socket.emit('addcart', {data : {cartin:1}});
                     this.$refs.handlePopCart.getCartItem();
                     this.CartPopup = true;
                     // this.addProductAlertMSG();
@@ -513,9 +549,10 @@ import Cart_Popup from './Cart_Popup.vue';
                     this.CartPopup = true;
                     // alert("회원전용 기능입니다. 로그인 페이지로 이동합니다.");
                     // this.$router.push({ path: "/login" });
-
                 }
             },
+
+            // 리뷰 신고하기 기능
             async handleReviewReport(val){
                 if(confirm('신고하기')){
                     const url = `REST/api/member/report`;

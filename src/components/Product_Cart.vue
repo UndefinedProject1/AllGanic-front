@@ -22,7 +22,7 @@
                         <el-table-column label="수량" width="150" align="center">
                             <template #default="scope">
                                 <el-input-number v-model="scope.row.QUANTITY" :min="1" :max="10" @change="handleQuantityChange" size="mini"/>
-                                <p type="primary" @click="saveQuantity(scope.row.QUANTITY, scope.row.CARTITEMCODE)" style="font-size:13px; color:black; margin:10px 0px;">변경수량 저장</p>
+                                <p type="primary" @click="saveQuantity(scope.row.QUANTITY, scope.row.CARTITEMCODE)" style="font-size:13px; color:black; margin:10px 0px; cursor:pointer;">변경수량 저장</p>
                             </template>
                         </el-table-column>
                         <el-table-column property="finalPrice" label="상품 금액" width="125" align="center">
