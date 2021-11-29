@@ -78,10 +78,11 @@ export default {
         LineChart : LineChart
     },
     async created(){
-        await this.getDailySalesRate();
-        await this.getBrandPercentage();
         const app = getCurrentInstance();
         this.$socket = app.appContext.config.globalProperties.$socket;
+        console.log(this.$socket);
+        await this.getDailySalesRate();
+        await this.getBrandPercentage();
         // console.log(this.$socket);
     },
     mounted() {
