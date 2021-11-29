@@ -50,7 +50,6 @@
     </div>
   </div>
 
-
   <!-- 사이드 NAV 메뉴 / product -->
   <div v-bind:style="sideNavStyle" class="sidenav" id="Sidenav" >
     <div class="nav_sections">
@@ -77,7 +76,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- 사이드 NAV 메뉴 / brand -->
     <div v-bind:style="sideNavStyle_b" class="sidenav" id="Sidenav" >
@@ -304,10 +302,6 @@ import { ElMessage } from 'element-plus'
       }
     }
   }
-  
-    
-
-  
 </script>
 
 <style>

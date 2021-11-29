@@ -109,7 +109,11 @@ import { ElMessage } from 'element-plus'
                     else{
                         alert("토큰값이 유효하지 않습니다");
                     }
-                    this.$router.push({ path: "/" });
+                    var urlbox = sessionStorage.getItem("URL");
+                    console.log(urlbox); 
+                    if(urlbox.data === 1) {
+                    history.back(-1);
+                    }
                 }
                 else {
                     this.failAlertMSG();

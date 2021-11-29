@@ -62,6 +62,7 @@ router.beforeEach( async(to, from, next ) => {
     // 로그인 인증
     var result = 0;
     const token = sessionStorage.getItem("token");
+    // var referrer = document.referrer;
     // console.log(token);
     // next();
     if (token !== null) {
@@ -73,12 +74,15 @@ router.beforeEach( async(to, from, next ) => {
         };
         const response = await axios.get(url, {headers});
         result = response.data;
-        console.log(result);
     }
+
     //URL을 등록을 하지 않는 페이지(Login, Join 등)
-    sessionStorage.setItem("URL", 
-        JSON.stringify({path:"/", query:{}})
-    );
+    // if( sessionStorage.setItem("URL", JSON.stringify({path:"/", query:{}})) ) {
+    //     if(to.path !== '/login' || to.path !== '/join' ){
+    //         sessionStorage.setItem("URL", JSON.stringify({path:to.path, query: to.query})
+    //         );
+    //     }
+    // }
     // URL을 반드시 등록해야 하는 곳 (OrderAction, )
     if(to.path !== '/login' && to.path !== '/join' ){
         sessionStorage.setItem("URL", JSON.stringify({path:to.path, query: to.query})
@@ -86,7 +90,7 @@ router.beforeEach( async(to, from, next ) => {
     }
     // console.log(to.path);
     if(to.path === '/product_cart' && result === 0) {
-        console.log("aaa");
+        // console.log("aaa");
         // to.fullPath => 이동하고자하는 url전체 정보
         next({path:'/login'}); // 로그인페이지로 이동
     }
