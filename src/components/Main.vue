@@ -32,22 +32,25 @@
             </div>
         </section>
 
-        <section class="thirdScreen">
-            <div class="thirdTextBox">
-                <!-- <el-image style="width: 100%; height: 100%;" :src="boxed_water" :fit="contain"></el-image> -->
+        <section class="thirdScreen" @mouseover="showOverlay">
+            <div class="thirdTextBox" @mouseover="showOverlay">
             </div>
-            <div class="thirdSliderContainer">
-                <p></p>
+            <div class="thirdSliderContainer" @mouseover="showOverlay">
+                <div class="third_overlay" v-bind:style="overlayStyle">
+                    <div class="third_text_overlay">
+                        <p>All_"NEW"</p>
+                        <p>_ 전에 없던 형태로 더욱 새롭게!</p>
+                        <p> #BOXEDWATER #지구를생각한음료</p>
+                        <p><a href="/product_table?page=1&code=20020">더 알아보기</a></p>
+                    </div>
+                </div>
             </div>
-
         </section>
         
-
-
-
         <section class="outro_screen">
             Outro Page
         </section>
+
 
     </div>
 
@@ -95,9 +98,26 @@ import eco5 from '@/assets/eco5.jpg';
                     toothpaste,
                     zero_waste_package5
                 ],
+
+                overlayStyle : {
+                    height: '100%',
+                    width: '0%',
+                    zIndex: '1',
+                    top: '0',
+                    right: '0',
+                    backgroundColor: 'rgba(255, 255, 255, 0.74)',
+                    overflowX: 'hidden',
+                    transition: '0.5s',
+                }
             }
         },
         methods:{
+            showOverlay(){
+                this.overlayStyle.width = "100%";
+            },
+            goDrink(){
+                this.$router.push({path:'/product_table?page=1&code=20020'});
+            }
         },
     }
 </script>
@@ -114,6 +134,7 @@ body{
     /* font-family: 'Playfair Display', sans-serif; */
     font-size: 4em;
     color: white;
+    /* background-color: rgba(255, 255, 255, 0.74) */
 }
 
 .main_wrapper{
@@ -283,14 +304,14 @@ body{
 }
 .secondTextBox h4:first-child{
     color: #4a4521;
-    font-family: 'Gowun Batang', sans-serif;
-    font-weight: bold;
+    font-family: 'Black Han Sans', sans-serif;
+    font-weight: 100;
     text-align: right;
 }
 .secondTextBox #zero{
     font-family: 'Black Han Sans', sans-serif;
     font-weight: 100;
-    color: #f2f2ea;
+    color: rgb(228, 167, 0);
     width: 100%;
     padding-right: 5%;
     text-align: right;
@@ -333,7 +354,7 @@ body{
     width: 35%;
     height: 100vh;
     justify-content: center;
-    /* border: 2px solid white; */
+    /* border: 2px solid red; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -341,10 +362,59 @@ body{
 .thirdSliderContainer{
     width: 65%;
     height: 100%;
-    /* border: 1px solid white; */
+    /* border: 1px solid blue; */
     align-items: center;
     display: flex;
     flex-direction: column;
+}
+.third_text_overlay {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 5%;
+}
+.third_text_overlay p:first-child {
+    font-family: 'Black Han Sans', sans-serif;
+    font-weight: 100;
+    color: rgb(228, 167, 0);
+    width: 100%;
+    font-size: 1em;
+    text-align: left;
+}
+.third_text_overlay p:nth-child(2) {
+    font-family: 'Black Han Sans', sans-serif;
+    font-weight: 100;
+    color: black;
+    width: 100%;
+    font-size: 0.9em;
+    text-align: left;
+}
+.third_text_overlay p:nth-child(3) {
+    font-family: 'Black Han Sans', sans-serif;
+    font-weight: 100;
+    color: black;
+    width: 100%;
+    font-size: 0.7em;
+    text-align: left;
+}
+.third_text_overlay a {
+    font-family: 'Black Han Sans', sans-serif;
+    border: 2px solid #333;
+    font-weight: 100;
+    color: black;
+    width: fit-content;
+    text-decoration: none;
+    height: fit-content;
+    font-size: 0.5em;
+    padding: 10px;
+    float: right;
+    margin: 2% 15% 0% 0%;
+}
+.third_text_overlay a:hover {
+    cursor: pointer;
+    background-color: #333;
+    color: rgb(228, 167, 0);
 }
 .outro_screen{
     height: 100vh;

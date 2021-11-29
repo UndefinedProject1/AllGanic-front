@@ -24,6 +24,7 @@ import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
 import ForgotPassword from '@/components/ForgotPassword.vue';
 import Login_callBack from '@/components/Login_callBack.vue';
 import Product_Table_Search from '@/components/Product_Table_Search.vue';
+import Complete_Order_Page from '@/components/Complete_Order_Page.vue';
 
 
 const routes = [
@@ -50,6 +51,7 @@ const routes = [
     {path : '/forgotpassword' , name :'forgotpassword', component : ForgotPassword},
     {path : '/login_callback' , name :'login_callback', component : Login_callBack},
     {path : '/product_table_search' , name :'product_table_search', component : Product_Table_Search},
+    {path : '/complete_order_page' , name :'complete_order_page', component : Complete_Order_Page},
 ];
 
 const router = createRouter({
