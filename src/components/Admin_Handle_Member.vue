@@ -37,6 +37,8 @@
 
         <template #footer>
             <span class="dialog-footer">
+            <!-- 히든버튼 추가 -->
+            <button type="button" @click="showDeleteModal = false" id="btn_close" style="display:none">Close</button>
             <el-button @click="showDeleteModal = false">취소</el-button>
             <el-button type="primary" @click="handleDeleteMember(firedName, firedEmail)">완료</el-button>
             </span>
@@ -122,22 +124,26 @@ import axios from 'axios';
             async handleDeleteMember(name, email){
                 const url = `REST/api/admin/delete/sendEmail?kind=${this.kind}`;
                 console.log(this.kind);
-                const body = {
+                const body1 = {
                     useremail : email,
                     username : name
                 }
-                console.log(body);
+                console.log(body1);
                 const headers = {"Content-Type" : "application/json", "token" : this.token};
-                const response = await axios.post(url, body, {headers});
+                const response = await axios.post(url, body1, {headers});
                 console.log(response);
                 if(response.data === 1){
                     const url1 = `REST/api/admin/delete/member`;
-                    const body1 = {
+                    const body = {
                         useremail : email,
-                        date : new Date().getTime
                     }
-                    const response1 = await axios.delete(url1, {headers : {}, data:{body1}});
+                    const response1 = await axios.delete(url1, {headers:headers, data : body});
                     console.log(response1);
+                    if(response1.data === 1){
+                        alert("탈퇴 처리가 완료되었습니다.");
+                        document.getElementById('btn_close').click();
+                        await this.tableDataGet();
+                    }
                 }
             }
         },

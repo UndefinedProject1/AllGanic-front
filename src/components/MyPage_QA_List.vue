@@ -150,7 +150,7 @@
         </div>
         <div class="modal-footer">
             <!-- 히든버튼 추가 -->
-            <button type="button" @click="centerDialogVisible = false" id="btn_close" style="display:none">Close</button>
+            <button type="button" @click="showModalNoANS = false" id="btn_close" style="display:none">Close</button>
             <button type="button"  @click="showModalNoANS = false" id="closebtn">닫기</button>
             <button type="button"  @click="handleQaUpdate(QList_Modal.questioncode)" id="updatebtn">수정</button>
         </div>
@@ -356,6 +356,7 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 const response = await axios.put(url, body, {headers});
                 if(response.data.result === 1){
                     alert("수정 성공");
+                    document.getElementById('btn_close').click();
                     await this.handleQaListGet();
                 }
             }

@@ -1,7 +1,7 @@
 <template>
     <div class="main_wrapper">
         <div class="line-1"></div>
-        <section data-aos="fade-right" class="intro_screen">
+        <section class="intro_screen">
             <div class="section1">
                 <h1>Welcome,</h1>
                 <h2>All Here!</h2>
@@ -34,10 +34,10 @@
 
         <section class="thirdScreen">
             <div class="thirdTextBox">
-                <el-image style="width: 100%; height: 100%;" :src="boxed_water" :fit="contain"></el-image>
+                <!-- <el-image style="width: 100%; height: 100%;" :src="boxed_water" :fit="contain"></el-image> -->
             </div>
             <div class="thirdSliderContainer">
-                <!-- <el-image style="width: 100%; height: 100%;" :src="marching" :fit="contain"></el-image> -->
+                <p></p>
             </div>
 
         </section>
@@ -61,6 +61,8 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
 import marching from '@/assets/marching.jpg';
 import boxed_water2 from '@/assets/boxed_water2.jpg';
 import boxed_water from '@/assets/boxed_water.jpg';
+import boxed_water3 from '@/assets/boxed_water3.jpg';
+import boxed_water4 from '@/assets/boxed_water4.jpg';
 import zero_waste_package4 from '@/assets/zero_waste_package4.jpg';
 import zero_waste_package5 from '@/assets/zero_waste_package5.jpg';
 import natureround from '@/assets/natureround.jpg';
@@ -77,6 +79,8 @@ import eco5 from '@/assets/eco5.jpg';
                 vegan_oil_img : vegan_oil_img,
                 straw : straw,
                 marching : marching,
+                boxed_water3 :boxed_water3,
+                boxed_water4 :boxed_water4,
                 boxed_water2 : boxed_water2,
                 boxed_water : boxed_water,
                 natureround : natureround,
@@ -207,7 +211,7 @@ body{
 .section2{
     /* border: 1px solid white; */
     height: fit-content;
-    margin-top: 15%;
+    margin-top: 13%;
     position: absolute;
     display: flex;
     align-items: baseline;
@@ -318,12 +322,12 @@ body{
     height: 100vh;
     align-items: center;
     justify-content: space-between;
-    /* background-image: url("/src/assets/marching.jpg");
+    background-image: url("/src/assets/boxed_water3.jpg");
     background-size: cover;
     background-position: 50%;
     background-repeat: no-repeat;
     background-attachment:local;
-    align-items: center; */
+    align-items: center;
 }
 .thirdScreen .thirdTextBox{
     width: 35%;
