@@ -51,7 +51,7 @@ import { ElMessage } from 'element-plus'
     export default {
         setup() {
             const successAlertMSG = () => {
-                ElMessage.success('로그인 성공')
+                ElMessage.success('로그인 되었습니다.')
             }
             const addProductAlertMSG = () => {
                 ElMessage.message('상품 리스트 추가')

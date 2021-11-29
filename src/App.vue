@@ -13,10 +13,20 @@
       <div class="logo">
         <p><a href="/">All_ganic</a></p>
       </div>
+      <!-- Search -->
       <div class="right_section">
         <div class="search">
-          <p>search</p>
+          <p style="cursor:pointer" @click="openNav()">search</p>
         </div>
+        <!-- <div id="myNav" class="overlay">
+          <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
+          <div class="overlay-content">
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+          </div>
+        </div> -->
         <div class="cart">
           <p @click="goCart">cart</p>
         </div>
@@ -181,24 +191,17 @@
 
 <script>
 import axios from 'axios';
-// import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
+
   export default {
-    // setup() {
-    //   return {
-    //     options: ref([
-    //       {
-    //         value: 'my page',
-    //         label: 'my page',
-    //         path : '/mypage_info'
-    //       },
-    //       {
-    //       value: 'Logout',
-    //       label: 'Logout',
-    //       }
-    //       ]),
-    //     value: ref('')
-    //   }
-    // },
+    setup() {
+        const successAlertMSG = () => {
+          ElMessage.success('로그아웃 되었습니다.')
+        }
+        return{
+          successAlertMSG,
+        }
+    },
     data() {
       return{
         logged : false,
@@ -237,6 +240,7 @@ import axios from 'axios';
           overflowX : 'hidden',
           transition : '0.3s'
         },
+        
       }
     },
     async created(){
@@ -251,6 +255,7 @@ import axios from 'axios';
         this.logged = false;
       }else alert("error");
     },
+    
     methods : {
       openSideNav(){
         this.sideNavStyle.width="20%";
@@ -284,27 +289,24 @@ import axios from 'axios';
         this.$router.push({ path : '/mypage_info'});
       },
       async hadleApp_logout() {
+        this.successAlertMSG();
         sessionStorage.clear();
-        alert('로그아웃 되었습니다.');
         this.logged = false;
-        // this.$router.push({ path : '/logout'});
+        this.$router.push({path:'/'});
+      },
+      async openNav() {
+        document.getElementById("myNav").style.height = "100%";
+      },
+
+      async closeNav() {
+        document.getElementById("myNav").style.height = "0%";
       }
-      
-      // async handleLogout() {
-      //   const url =`REST/api/validtoken`;
-      //   const headers = {"Content-Type" : "application/json", "token" : this.token};
-      //   console.log(headers);
-      //   const response = await axios.delete(url, {headers : headers, token : this.token});
-      //   console.log(response);
-      //   if(response.data.result === 1) {
-      //     alert("로그아웃 완료");
-      //   }
-      //   else if(response.data.result === 1) {
-      //     alert("실패");
-      //   }
-      // }
-    },
+    }
   }
+  
+    
+
+  
 </script>
 
 <style>
@@ -341,8 +343,6 @@ import axios from 'axios';
   scroll-behavior: smooth;
   /* height: 100vh; */
 }
-
-
 .header .left_section, .right_section{
   display: inline-flex;
   width: 42%;
@@ -482,5 +482,57 @@ import axios from 'axios';
   color: #F6EBCE;
   transition: 0.3s;
   font-family: 'Gowun Batang', sans-serif;
+}
+
+/* test */
+.overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-y: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay {overflow-y: auto;}
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
 }
 </style>
