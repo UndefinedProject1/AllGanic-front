@@ -12,13 +12,36 @@
                         <el-table-column align="center" label="악성리뷰 및 문의"  prop="REPORTDATE" sortable width="180"/>
                         <el-table-column align="center" label="위조금액 구매시도" prop="REPORTCOUNT" sortable width="180" :formatter="formatter"  />
                         <el-table-column align="center" label="관리">
-                        <el-button size="mini" type="danger" @click="handleMemberDelete">Delete</el-button>
+                            <template #default="scope">
+                                <el-button size="mini" type="danger" @click="handleDeleteModal(scope.row.USEREMAIL, scope.row.USERNAME)">Delete</el-button>
+                            </template>
+                            
                         </el-table-column>
                     </el-table>
                 </div>
             </div>
         </div>
     </div>
+
+    <el-dialog v-model="showDeleteModal" title="회원 탈퇴 처리" width="30%" :before-close="handleClose" class="reportModal">
+        <p id="reportTitle">다음 회원에 관하여 탈퇴 처리를 진행하시겠습니까?</p>
+        <div class="reportInfoBox">
+            <label>회원정보</label>
+            <p>- {{firedName}} ( {{firedEmail}} )  </p>
+            <label>탈퇴처리 사유</label>
+            <el-radio-group v-model="kind" class="radioBox">
+                <el-radio :label="1">악성리뷰 및 문의건</el-radio>
+                <el-radio :label="2">위조금액 건</el-radio>
+            </el-radio-group>
+        </div>
+
+        <template #footer>
+            <span class="dialog-footer">
+            <el-button @click="showDeleteModal = false">취소</el-button>
+            <el-button type="primary" @click="handleDeleteMember(firedName, firedEmail)">완료</el-button>
+            </span>
+        </template>
+    </el-dialog>
 </template>
 
 <script>
@@ -31,13 +54,26 @@ import axios from 'axios';
                 sorting : [],
                 gridData : [],
                 reportDateList : [],
-                showPopUp : false
+                showPopUp : false,
+                showDeleteModal : false,
+                firedEmail : '',
+                firedName : '',
+                kind : ''
+
             }
         },
         async created() {
             await this.tableDataGet();
+            await this.getCount();
         },
         methods : {
+            async getCount(){
+                const url = `REST/api/admin/forge/member`;
+                const headers = {"token" : this.token};
+                const response = await axios.get(url, headers);
+                console.log(response);
+
+            },
             async handleSorting(val){
                 this.showPopUp = true;
                 const url = `REST/api/admin/member/list`;
@@ -78,18 +114,31 @@ import axios from 'axios';
                     console.log(this.sorting);
                 }
             },
-            async handleMemberDelete() {
-                const url = `REST/api/admin/delete/member`;
-                const headers = {"Content-Type" : "application/json", "token" : this.token};
+            handleDeleteModal(email, name){
+                this.showDeleteModal = true;
+                this.firedEmail = email;
+                this.firedName = name;
+            },
+            async handleDeleteMember(name, email){
+                const url = `REST/api/admin/delete/sendEmail?kind=${this.kind}`;
+                console.log(this.kind);
                 const body = {
-                    useremail : '',
+                    useremail : email,
+                    username : name
                 }
-                const response = await axios.delete(url, {
-                    headers:headers,
-                    data : body
-                });
+                console.log(body);
+                const headers = {"Content-Type" : "application/json", "token" : this.token};
+                const response = await axios.post(url, body, {headers});
                 console.log(response);
-                
+                if(response.data === 1){
+                    const url1 = `REST/api/admin/delete/member`;
+                    const body1 = {
+                        useremail : email,
+                        date : new Date().getTime
+                    }
+                    const response1 = await axios.delete(url1, {headers : {}, data:{body1}});
+                    console.log(response1);
+                }
             }
         },
         formatter(row) {
@@ -150,5 +199,24 @@ import axios from 'axios';
     /* border: 1px solid black; */
     text-align: center;
 }
-
+#reportTitle{
+    /* font-weight: bold; */
+    font-size : 1rem;
+}
+.reportInfoBox {
+    width: 100%;
+    margin-top: 20px;
+}
+.reportInfoBox p{
+    margin-bottom: 10px;
+}
+.reportInfoBox label {
+    font-weight: bold;
+    font-size: 1rem;
+    width: fit-content;
+}
+.reportInfoBox .radioBox {
+    width: 100%;
+    margin-top: 5px;
+}
 </style>

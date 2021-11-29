@@ -30,7 +30,9 @@
                     <p @click="ChangeMenu(7)">문의글(답변완료)</p>
                 </div>
                 <div class="section">
-                    <h2 @click="ChangeMenu(10)" id="handleMember">회원관리</h2>
+                    <el-badge :value="count" type="warning" class="badgeClass">
+                        <h2 @click="ChangeMenu(10)" id="handleMember">회원관리</h2>
+                    </el-badge>
                 </div>
             </div>
         </div>
@@ -63,6 +65,7 @@ import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
                         'Admin_Brand_Sales_Chart','Admin_Cate_Sales_Chart', 'Admin_Handle_Member'],
                 value : 0,
                 $socket : '',
+                token: sessionStorage.getItem("token"),
             }
         },
         components : {
@@ -80,6 +83,7 @@ import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
         },
         async created(){
             await this.getQAlist();
+            await this.getCount();
             const app = getCurrentInstance();
             this.$socket = app.appContext.config.globalProperties.$socket;
         },
@@ -87,7 +91,6 @@ import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
             this.$socket.on("QuestionIn", async (recv) => {
                 console.log(recv);
                 await this.getQAlist();
-                await this.onChangeNumber();
             })
         },
         methods : {
@@ -100,8 +103,15 @@ import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
                 // console.log(response);
                 if(response.data.result === 1){
                     this.value = response.data.count;
-                    console.log(this.value);
+                    // console.log(this.value);
                 }
+            },
+            async getCount(){
+                const url = `REST/api/admin/forge/member`;
+                const headers = {"token" : this.token};
+                const response = await axios.get(url, headers);
+                console.log(response);
+
             }
         }
     }
