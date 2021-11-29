@@ -245,15 +245,16 @@ import { ElMessage } from 'element-plus'
     },
     async created(){
       this.logged = false;
-      const url = `REST/api/member/validtoken`;
+      const url = `REST/api/validtoken`;
       const headers = {"token" : this.token };
-      const response = await axios.get(url, headers);
-      if(response.data.ret === 1){
+      const response = await axios.get(url, {headers});
+      console.log(response);
+      if(response.data === 1){
         this.logged = true;
       }
-      else if(response.data.ret === 0){
+      else if(response.data !== 1){
         this.logged = false;
-      }else alert("error");
+      }
     },
     
     methods : {

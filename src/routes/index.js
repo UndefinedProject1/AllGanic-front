@@ -61,7 +61,8 @@ router.beforeEach( async(to, from, next ) => {
 
     // 로그인 인증
     var result = 0;
-    // const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
+    // console.log(token);
     // next();
     if (token !== null) {
         // 유효한 토큰인지 확인
@@ -71,76 +72,28 @@ router.beforeEach( async(to, from, next ) => {
             "token": sessionStorage.getItem("token")
         };
         const response = await axios.get(url, {headers});
-        result = response.data.ret; //-1, 0, 1로 넘어옴
+        result = response.data;
+        console.log(result);
     }
-
-    
     //URL을 등록을 하지 않는 페이지(Login, Join 등)
     sessionStorage.setItem("URL", 
         JSON.stringify({path:"/", query:{}})
     );
-
     // URL을 반드시 등록해야 하는 곳 (OrderAction, )
-    if(to.name !== 'login' && to.name !== 'join' ){
+    if(to.path !== '/login' && to.path !== '/join' ){
         sessionStorage.setItem("URL", JSON.stringify({path:to.path, query: to.query})
         );
     }
-
-    if(to.name === 'product_cart' && result !== 1) {
+    // console.log(to.path);
+    if(to.path === '/product_cart' && result === 0) {
+        console.log("aaa");
         // to.fullPath => 이동하고자하는 url전체 정보
-        next({name:'login'}); // 로그인페이지로 이동
+        next({path:'/login'}); // 로그인페이지로 이동
     }
-    // else if(to.name === 'Menu2' && result !== 1) {
-    //    next({name:'login'}); // 로그인페이지로 이동
-    // }
     else {
         next() // 원래 이동하고자하는 페이지
     }
 });
 
-// router.beforeEach( async (to, from, next) => {
-//     console.log(to);
-//     console.log(from);
-
-//     // const role = sessionStorage.getItem("role");
-//     const token = sessionStorage.getItem("token");
-//     var result = 0;
-
-
-//     const url = `REST/api/member/validtoken`;
-//     const headers = {"token" : token };
-//     const response = await axios.get(url, {headers}); 
-//     result = response.data.ret;
-
-//     // URL 저장해서 마지막으로 있었던 페이지를 기억할 필요가 없는 경우(로그인, 조인 등)
-//     sessionStorage.setItem("URL", JSON.stringify({path:"/", query:{}}));
-    
-//     // // URL 저장을 통해 마지막으로 있었던 페이지를 기억해야하는 경우
-//     // if(to.name !== 'login' && to.name !== 'join' && to.name !== 'maypage' && result === 1){
-//     //     sessionStorage.setItem("URL", JSON.stringify({path:to.path, query:to.query}));
-//     // }
-
-//     //로그인이 되지 않은채로 장바구니 접근시 -> 로그인 페이지로
-//     // if(to.name === 'product_cart' && result !== 1){
-//     //     if(result === 0){
-//     //         next({name:'login'});
-//     //     }
-//     // }
-
-//     // // 로그인이 되지 않은채로 주문 페이지 접근시 -> 로그인 페이지로
-//     // if(to.name === 'order_page' && result !== 1){
-//     //     if(result === 0){
-//     //         next({name:'login'});
-//     //     }
-//     // }
-
-//     // // 관리자 페이지 막기
-//     // if(to.name === 'admin_page' && role !== 2){
-//     //     next({name : 'restrict_page'});
-//     // }
-//     // else{
-//     //     next()
-//     // }
-// });
 
 export default router;

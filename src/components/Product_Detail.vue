@@ -496,6 +496,8 @@ import Cart_Popup from './Cart_Popup.vue';
                 const url = `REST/api/cart/create/insert?cnt=${this.quantity}&no=${this.pcode}`;
                 const headers = {"Content-Type" : "application/json", "token" : this.gettoken};
                 const response = await axios.post(url, { }, {headers});
+                console.log(this.token);
+
                 console.log(response);
 
                 if(response.data.result === 1){
@@ -507,8 +509,11 @@ import Cart_Popup from './Cart_Popup.vue';
                 else if(response.data.result === 0){
                     alert(response.data.state);
                 }
-                else{
-                    alert("error");
+                else if(this.token === undefined){
+                    this.CartPopup = true;
+                    // alert("회원전용 기능입니다. 로그인 페이지로 이동합니다.");
+                    // this.$router.push({ path: "/login" });
+
                 }
             },
             async handleReviewReport(val){
