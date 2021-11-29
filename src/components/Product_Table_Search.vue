@@ -16,10 +16,12 @@
                                 <div class="pd_text_section">
                                     <!-- <p id="pd_brand"><ins>{{product.brandname}}</ins></p> -->
                                     <router-link :to="`/product_detail?code=${product.productcode}`" id="pd_name">
-                                        <p><strong>{{product.productname}}</strong></p>
+                                        <p id="pd_name"><strong>{{product.productname}}</strong></p>
                                     </router-link>
-                                    <p id="pd_price">{{product.productprice}}원</p>
-                                    <img :src="cart_img">
+                                    <div class="pd_last">
+                                        <p id="pd_price">{{product.productprice}}원</p>
+                                        <img :src="shoppingBag" @click="addCart(product.productcode)">
+                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -30,22 +32,32 @@
             
         </div>
     </div>
+
+    <CartPopup v-on:addEvent ="closeDrawer" v-on:handleEvent = "handleGoCart" v-model="CartPopup" ref="handlePopCart"></CartPopup>
+
 </template>
 
 <script>
 import axios from 'axios';
-import cart_img from '@/assets/cart_img.png';
+import Cart_Popup from './Cart_Popup.vue';
+import shoppingBag from '@/assets/shoppingBag.png';
     export default {
         data(){
             return{
-                cart_img : cart_img,
+                token : sessionStorage.getItem("token"),
+                shoppingBag : shoppingBag,
                 search_page : this.$route.query.page,
                 product_name_key : this.$route.query.name,
                 productlist : [],
                 pages : 0,
                 page : 1,
-                total : 0
+                total : 0,
+                quantity : 1,
+                CartPopup : false
             }
+        },
+        components : {
+            CartPopup : Cart_Popup
         },
         async created(){
             await this.getSearchResult();
@@ -60,7 +72,6 @@ import cart_img from '@/assets/cart_img.png';
         },
         methods : {
             async getSearchResult(){
-                
                 const url = `REST/api/select_product2?page=${this.page}&name=${this.product_name_key}`;
                 const response = await axios.get(url);
                 if(response.data.result === 1){
@@ -72,6 +83,38 @@ import cart_img from '@/assets/cart_img.png';
                 this.page = val;
                 await this.getSearchResult();
             },
+            
+            // 자식 컴포넌트 (Cart_PopUp)에 전달하는 메소드
+            // 1. 팝업 닫기
+            closeDrawer(){
+                this.CartPopup = false;
+            },
+            // 2. 장바구니 이동
+            handleGoCart(){
+                this.$router.push({ path: "/product_cart" });
+            },
+
+            async addCart(val){
+                const url = `REST/api/cart/create/insert?cnt=${this.quantity}&no=${val}`;
+                const headers = {"Content-Type" : "application/json", "token" : this.token};
+                const response = await axios.post(url, { }, {headers});
+                // console.log(this.token);
+
+                // console.log(response);
+
+                if(response.data.result === 1){
+                    this.$refs.handlePopCart.getCartItem();
+                    this.CartPopup = true;
+                    // this.addProductAlertMSG();
+                }
+                else if(response.data.result === 0){
+                    alert(response.data.state);
+                }
+                else if(this.token === undefined){
+                    alert("회원전용 기능입니다. 로그인 페이지로 이동합니다.");
+                    this.$router.push({ path: "/login" });
+                }
+            } 
         }
     }
 </script>
@@ -173,10 +216,13 @@ import cart_img from '@/assets/cart_img.png';
     margin: 0 auto;
 }
 .pd_text_section {
-    margin-left: 10px;
+    margin-top: 5px;
 }
-.pd_text_section p{
+#pd_name{
     margin-bottom: 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
 }
 .pd_text_section #pd_brand{
     font-size: 14px;
@@ -196,12 +242,21 @@ import cart_img from '@/assets/cart_img.png';
     opacity: 0.7;
 }
 .pd_text_section img{
-    width : 15px;
-    height : 15px;
+    width : 9%;
+    height : 90%;
+    margin: 0;
     background-size: cover;
-    right: 0;
 }
-
+.pd_last{
+    width: 100%;
+    /* border: 1px solid black; */
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.pd_last p {
+    height: fit-content;
+}
 .pagination{
     /* border: 1px solid black; */
     width : 120px;
