@@ -49,7 +49,20 @@
 
 <script>
 import axios from 'axios';
+import { ElMessage } from 'element-plus'
     export default {
+        setup() {
+            const failAlertMSG = () => {
+                ElMessage.error('위조금액으로 세 번 적발된 회원이 있습니다.')
+            }
+            const successAlertMSG = () => {
+                ElMessage.success('탈퇴 처리가 완료되었습니다.')
+            }
+            return {
+                failAlertMSG,
+                successAlertMSG
+            }
+        },
         data(){
             return{
                 token: sessionStorage.getItem("token"),
@@ -79,7 +92,7 @@ import axios from 'axios';
                 const response = await axios.get(url, {headers});
                 this.count = response.data;
                 if(this.count >= 3){
-                    alert("위조금액으로 세 번 적발된 회원이 있습니다.")
+                    this.failAlertMSG();
                 }
             },
             // async handleSorting(val){
@@ -164,7 +177,7 @@ import axios from 'axios';
                     const response1 = await axios.delete(url1, {headers:headers, data : body});
                     console.log(response1);
                     if(response1.data === 1){
-                        alert("탈퇴 처리가 완료되었습니다.");
+                        this.successAlertMSG();
                         document.getElementById('btn_close').click();
                         await this.tableDataGet();
                     }

@@ -33,7 +33,20 @@
 <script>
 import axios from 'axios';
 import default_image from '@/assets/default_image.jpg';
+import { ElMessage } from 'element-plus'
     export default {
+        setup() {
+            const successAlertMSG = () => {
+                ElMessage.success('브랜드 추가 성공')
+            }
+            const failAlertMSG = () => {
+                ElMessage.error('브랜드 추가 실패')
+            }
+            return {
+                successAlertMSG,
+                failAlertMSG
+            }
+        },
         data() {
             return {
                 uploadImageFile : default_image,
@@ -67,12 +80,14 @@ import default_image from '@/assets/default_image.jpg';
                 const response = await axios.post(url, formData, {headers});
                 console.log(response);
                 if(response.data.result === 1){
-                    alert("브랜드 추가 성공");
+                    this.successAlertMSG();
                 }
-                else alert("브랜드 추가 실패");
+                else if(response.data.result !== 1) {
+                    this.failAlertMSG();
+                }
             }
-        }
         
+        }
     }
 </script>
 

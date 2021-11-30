@@ -99,7 +99,20 @@
 <script>
 import axios from 'axios';
 import default_image from '@/assets/default_image.jpg';
+import { ElMessage } from 'element-plus'
     export default {
+        setup() {
+            const successAlertMSG = () => {
+                ElMessage.success('제품등록 완료')
+            }
+            const failAlertMSG = () => {
+                ElMessage.error('error')
+            }
+            return {
+                successAlertMSG,
+                failAlertMSG
+            }
+        },
         data() {
             return {
                 gettoken : sessionStorage.getItem("token"),
@@ -169,8 +182,11 @@ import default_image from '@/assets/default_image.jpg';
                     formData1.append("file", this.subfile3);
                     const response1 = await axios.post(url1, formData1, {headers});
                     if(response1.data.result === 1){
-                        alert("제품등록완료!");
-                    }else alert("ㄴㄴ 돌아가");
+                        this.successAlertMSG();
+                    }
+                    else {
+                        this.failAlertMSG();
+                    }
                 }
 
             },

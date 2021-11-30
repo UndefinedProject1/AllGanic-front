@@ -74,7 +74,20 @@
 
 <script>
 import axios from 'axios';
+import { ElMessage } from 'element-plus'
     export default {
+        setup() {
+            const successAlertMSG = () => {
+                ElMessage.success('카테고리등록 성공')
+            }
+            const failAlertMSG = () => {
+                ElMessage.error('error')
+            }
+            return {
+                successAlertMSG,
+                failAlertMSG
+            }
+        },
         data() {
             return {
                 select : '',
@@ -148,15 +161,21 @@ import axios from 'axios';
                     const response = await axios.post(url, body, {headers});
                     console.log(response);
                     if(response.data.result === 1) {
-                        alert("카테고리등록성공");
-                    }else alert("뗴잉");
+                        this.successAlertMSG();
+                    }
+                    else {
+                        this.failAlertMSG();
+                    }
                 }
                 else {
                     const response1 = await axios.post(url, body1, {headers});
                     console.log(response1);
                     if(response1.data.result === 1) {
-                        alert("카테고리등록성공");
-                    }else alert("뗴잉");
+                        this.successAlertMSG();
+                    }
+                    else {
+                        this.failAlertMSG();
+                    }
                 }
             }
         }

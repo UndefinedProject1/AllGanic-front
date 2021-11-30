@@ -124,7 +124,21 @@
 import axios from 'axios';
 import default_image from '@/assets/default_image.jpg';
 import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
+import { ElMessage } from 'element-plus'
     export default {
+        setup() {
+            const successAlertMSG = () => {
+                ElMessage.success('제품수정완료')
+            }
+            const failAlertMSG = () => {
+                ElMessage.error('error')
+            }
+            return{
+                successAlertMSG,
+                failAlertMSG
+
+            }
+        },
         data(){
             return{
                 vegan_oil_img : vegan_oil_img,
@@ -306,9 +320,12 @@ import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
                     formData1.append("file", this.subfile3);
                     const response1 = await axios.post(url1, formData1, {headers});
                     if(response1.data.result === 1){
-                        alert("제품수정완료");
+                        this.successAlertMSG();
                         this.showModal = false;
-                    }else alert("error");
+                    }
+                    else {
+                        this.failAlertMSG();
+                    }
                 }
             }
         }

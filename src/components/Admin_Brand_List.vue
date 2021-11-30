@@ -1,13 +1,11 @@
 <template>
     <div class="admin_brand_list_wrapper" style="-ms-overflow-style: none;">
-
         <div class="br_in_header">
             <p>브랜드관리</p>
             <span> > </span>
             <p id="brand_section">브랜드 등록현황</p>
         </div>
         <div class="solid"></div>
-        <!-- <el-scrollbar class="scrollbar" height="700px;"> -->
             <div class="adbr_list">
                 <table class="table table-borderless align-middle" style="margin-left:50px;" >
                     <thead>
@@ -26,19 +24,26 @@
                             <td>
                             <button type="button" id="brand_deleteBtn" @click="deleteBrand">삭제</button>
                             </td>
-                            <!-- id="br_delete" -->
                         </tr>
                     </tbody>
                 </table>
             </div>
-        <!-- </el-scrollbar> -->
     </div>
 </template>
 
 <script>
 import axios from 'axios';
 import melixir from '@/assets/melixir.png';
+import { ElMessage } from 'element-plus'
     export default {
+        setup() {
+            const failAlertMSG = () => {
+                ElMessage.success('로그인 되었습니다.')
+            }
+            return {
+                failAlertMSG
+            }
+        },
         data() {
             return {
                 melixir : melixir,
@@ -56,12 +61,12 @@ import melixir from '@/assets/melixir.png';
                 this.brandlist = response.data.list;
                 console.log(this.brandlist);
             }
-            else alert("떼잉");
-            
+            else {
+                this.failAlertMSG();
+            }
         },
         methods : {
             async deleteBrand(){
-                
             }
         },
 
@@ -71,10 +76,6 @@ import melixir from '@/assets/melixir.png';
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700;800&display=swap');
-
-
-
-
 .table {
     width: 60%;
     font-family: 'Gowun Dodum', sans-serif;

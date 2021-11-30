@@ -53,9 +53,6 @@ import axios from 'axios';
                     dataLabels: {
                         enabled: false
                     },
-                    // stroke: {
-                    //     width: 1
-                    // },
                     grid: {
                         row: {
                             colors: ['#eee', '#f2f2f2']

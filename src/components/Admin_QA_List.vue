@@ -104,7 +104,24 @@
 <script>
 import {getCurrentInstance} from '@vue/runtime-core';
 import axios from 'axios';
+import { ElMessage } from 'element-plus'
     export default {
+        setup() {
+            const successAlertMSG = () => {
+                ElMessage.success('문의글등록 완료')
+            }
+            const successAlertMSG1 = () => {
+                ElMessage.success('경고처리 완료')
+            }
+            const failAlertMSG = () => {
+                ElMessage.error('error')
+            }
+            return {
+                successAlertMSG,
+                successAlertMSG1,
+                failAlertMSG
+            }
+        },
         data(){
             return{
                 token : sessionStorage.getItem("token"),
@@ -200,7 +217,7 @@ import axios from 'axios';
                 const response = await axios.post(url, body, {headers});
                 // console.log(response);
                 if(response.data.result === 1){
-                    alert("답글등록완료");
+                    this.successAlertMSG();
                     // alert버튼 누르면 모달창 사라짐
                     document.getElementById('btn_close').click();
                     this.$emit('input', this.pages)
@@ -217,7 +234,7 @@ import axios from 'axios';
                 const response = await axios.post(url, body, {headers});
                 // console.log(response);
                 if(response.data.result === 1){
-                    alert(response.data.state);
+                    this.failAlertMSG();
                     this.showReportModal = false;
                     
                     // 경고성 게시글에 대한 답변을 남겨서 처리시키기
@@ -228,12 +245,15 @@ import axios from 'axios';
                     }
                     const response1 = await axios.post(url1, body1, {headers});
                     if(response1.data.result === 1){
-                        alert("경고처리 완료");
+                        this.successAlertMSG1();
                         document.getElementById('btn_close').click();
                         this.$emit('input', this.pages)
                         await this.handleGetQList();
                     }
-                }else alert("error");
+                
+                }else {
+                    this.failAlertMSG();
+                }
             }
 
         }
