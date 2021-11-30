@@ -25,13 +25,9 @@
                         <span onclick="location.href='http://127.0.0.1:9090/join'">회원가입</span>
                         <el-divider direction="vertical"></el-divider>
                         <span onclick="location.href='http://127.0.0.1:9090/forgotpassword'">비밀번호찾기</span>
-                        <!-- <el-breadcrumb separator="/">
-                            <el-breadcrumb-item :to="{ path: '/join' }">회원가입</el-breadcrumb-item>
-                            <el-breadcrumb-item :to="{ path: 'forgotpassword' }" id="nav_password">비밀번호찾기</el-breadcrumb-item>
-                        </el-breadcrumb> -->
                     </div>
                     <div class="btn_box">
-                        <button type="button" id="login_btn" @click="handleLogin" >로그인</button>
+                        <button type="button" id="login_btn" @click="handleLogin">로그인</button>
                         <img class="kakao_btn" src="@/assets/kakao_login_medium_narrow.png" @click="loginWithKakao"/>
                     </div>
                     
@@ -51,17 +47,25 @@ import { ElMessage } from 'element-plus'
             const successAlertMSG = () => {
                 ElMessage.success('로그인 되었습니다.')
             }
+            const validateSuccessMSG = () => {
+                ElMessage.success('이미 가입이 된 회원입니다.')
+            }
+            const validateErrorMSG = () => {
+                ElMessage.error('해당 이메일에 대한 회원정보가 없습니다.')
+            }
             const addProductAlertMSG = () => {
                 ElMessage.message('상품 리스트 추가')
             }
             const failAlertMSG = () => {
-                ElMessage.error('로그인 실패')
+                ElMessage.error('카카오 유저입니다. 카카오 로그인에서 로그인을 시도하여 주십시오.')
             }
             const failAlertMSG1 = () => {
                 ElMessage.error('토큰값이 유효하지 않습니다')
             }
             return{
                 successAlertMSG,
+                validateSuccessMSG,
+                validateErrorMSG,
                 addProductAlertMSG,
                 failAlertMSG,
                 failAlertMSG1
@@ -79,6 +83,22 @@ import { ElMessage } from 'element-plus'
                 name : '',
             }
         },
+        watch : {
+            async userid(val){
+                const url = `REST/api/member/checkemail`;
+                const body = { useremail: val };
+                const header = { "Content-Type": "application/json" };
+                const response = await axios.post(url, body, header);
+                if(val.length >= 14){
+                    if(response.data.result === 1){
+                        this.validateSuccessMSG();
+                    }
+                    else if(response.data.result === 0){
+                        this.validateErrorMSG();
+                    }
+                }
+            }
+        },
         methods :{
             loginWithKakao() {
                 const params = {
@@ -93,7 +113,7 @@ import { ElMessage } from 'element-plus'
                     userpw : this.userpw
                 }
                 // console.log(body);
-                const url =  `REST/api/member/login`;
+                const url =  `REST/api/member/login?sns=false`;
                 const response = await axios.post(url, body, header);
                 console.log(response);
                 if(response.data.result === 1){
@@ -135,7 +155,7 @@ import { ElMessage } from 'element-plus'
                         this.$router.push({path:"/"});
                     }
                 }
-                else {
+                else if(response.data.result === 0) {
                     this.failAlertMSG();
                 }
                 this.$emit('changeLogged', true);

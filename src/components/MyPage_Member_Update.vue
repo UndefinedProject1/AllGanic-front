@@ -17,7 +17,7 @@
             </div>
             <div class="u_pw_box">
               <input type="password" v-model="u_password_text" refs="password" />
-              <button type="password" @click="centerDialogVisible = true">비밀번호변경</button>
+              <button type="password" @click="ChangePw">비밀번호변경</button>
             </div>
           </div>
           <div class="m_name">
@@ -182,11 +182,15 @@ import mypage_address from "@/assets/mypage_address.png";
       const failAlertMSG2 = () => {
           ElMessage.error('회원정보수정 실패')
       }
+      const failAlertMSG3 = () => {
+          ElMessage.error('카카오톡 로그인 유저는 비밀번호 변경이 불가능합니다.')
+      }
       return {
         successAlertMSG1,
         successAlertMSG2,
         failAlertMSG1,
-        failAlertMSG2
+        failAlertMSG2,
+        failAlertMSG3
       }
     },
       components :{
@@ -238,6 +242,18 @@ import mypage_address from "@/assets/mypage_address.png";
       await this.handleMemberGet();
       },
       methods: {
+        async ChangePw(){
+          const url = `REST/api/kakao/user/check`;
+          const headers = { token: this.token };
+          const response = await axios.get(url, {headers});
+          console.log(response);
+          if(response.data === 0){
+            this.centerDialogVisible = true;
+          }
+          else if(response.data === 1){
+            this.failAlertMSG3();
+          }
+        },
         async handleMemberGet() {
           const url = `REST/api/member/find`;
           const headers = { token: this.token };
@@ -451,6 +467,7 @@ input {
   height: 30px;
 }
 .u_pw_box > button {
+  cursor : pointer;
   width: 20%;
   background-color: #715036;
   color: white;

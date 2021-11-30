@@ -21,7 +21,7 @@ export default {
             ElMessage.error('토큰값이 유효하지 않습니다')
         }
         const failAlertMSG3 = () => {
-            ElMessage.error('로그인 실패')
+            ElMessage.error('카카오 유저가 아닙니다. 사이트 로그인에서 로그인을 시도하여 주십시오.')
         }
         return {
             failAlertMSG,
@@ -80,13 +80,15 @@ export default {
         async handleKakaoLogin(){
             const res = await getKakaoUserInfo();
 
-            const url =  `REST/api/member/login`;
+            const url =  `REST/api/member/login?sns=true`;
             const header = {"Content-Type" : "application/json"};
             const body = {
                 useremail : res.kakao_account.email,
                 userpw : this.kakao_login_pw
             }
+            console.log('카톡 로그인시 body',this.body)
             const response = await axios.post(url, body, header);
+            console.log('카톡 로그인 시도 반응', this.response);
             if(response.data.result === 1){
                 sessionStorage.setItem("token", this.key + response.data.token);
                 const headers = {"Content-Type" : "application/json", "token" : this.key + response.data.token};
@@ -104,7 +106,7 @@ export default {
                 }
                 this.$router.push({ path: "/" });
             }
-            else {
+            else if(response.data.result === 0) {
                 this.failAlertMSG3();
                 this.$router.push({ path: "/login" });
             }
