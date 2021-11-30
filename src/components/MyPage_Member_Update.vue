@@ -161,6 +161,7 @@
 <script>
 import axios from "axios";
 import { Form as VeeForm, Field, ErrorMessage } from 'vee-validate';
+import { ElMessage } from 'element-plus';
 import * as yup from 'yup';
 import mypage_mail from "@/assets/mypage_mail.png";
 import mypage_pw from "@/assets/mypage_pw.png";
