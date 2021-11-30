@@ -1,6 +1,9 @@
 <template>
     <div class="pt_table_wrapper">
         <div class="pt_table_container">
+            <div class="pt_table_banner">
+                <p>_SHOP</p>
+            </div>
             <div class="pt_table_cate_container" >
                 <div class="pt_table_cate" v-for="cate in catelist" v-bind:key="cate">
                     <p @click="goCate(cate.categorycode)">{{cate.categoryname}}</p><span>|</span>
@@ -181,17 +184,36 @@ import Cart_Popup from './Cart_Popup.vue';
 .pt_table_container{
     /* border: 1px solid black; */
     width: 80%;
-    height: fit-content;
+    height : 100vh;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     padding: 20px;
 }
+.pt_table_banner{
+    width: 100%;
+    height : 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("/src/assets/brand4.jpg");
+    background-size:cover;
+    background-position-y: 40%;
+    background-repeat: no-repeat;
+}
+.pt_table_banner P{
+    color: #333;
+    font-size: 4rem;
+    font-weight: bold;
+    font-family: 'Playfair Display', serif;
+    width: fit-content;
+    margin-left: 35%;
+}
 .pt_table_cate_container {
     display: flex;
     flex-direction: row;
     /* border: 1px solid black; */
-    margin: 10px 0px 10px 0px;
+    margin: 20px 0px 10px 0px;
     height: fit-content;
     align-items: center;
 }
@@ -230,8 +252,7 @@ import Cart_Popup from './Cart_Popup.vue';
 
 .pt_table{
     width: 100%;
-    height: fit-content;
-    padding-top: 20px;
+    height : 50%;
     display :flex;
     flex-direction: column;
 }
