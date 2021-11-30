@@ -546,9 +546,9 @@ import Cart_Popup from './Cart_Popup.vue';
                     alert(response.data.state);
                 }
                 else if(this.token === undefined){
-                    this.CartPopup = true;
-                    // alert("회원전용 기능입니다. 로그인 페이지로 이동합니다.");
-                    // this.$router.push({ path: "/login" });
+                    // this.CartPopup = true;
+                    alert("회원전용 기능입니다. 로그인 페이지로 이동합니다.");
+                    this.$router.push({ path: "/login" });
                 }
             },
 

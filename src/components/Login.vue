@@ -70,7 +70,9 @@ import { ElMessage } from 'element-plus'
                 userid : '',
                 userpw : '',
                 key   : '123456_',
-                login : false
+                login : false,
+                page :'',
+                name : '',
             }
         },
         methods :{
@@ -108,19 +110,33 @@ import { ElMessage } from 'element-plus'
                         alert("토큰값이 유효하지 않습니다");
                     }
                     var urlbox = sessionStorage.getItem("URL");
-                    console.log(urlbox); 
-                    if(urlbox.data === 1) {
-                    history.back(-1);
+                    // console.log(urlbox); 
+                
+                    urlbox = JSON.parse(urlbox);
+
+                    // console.log(typeof(urlbox));
+                    // console.log(urlbox);
+
+                    if(urlbox !== null){
+                        this.$router.push({
+                            path : urlbox.path, 
+                            query : {
+                                code : urlbox.query.code,
+                                name : urlbox.query.name
+                            }
+                        });
+                        console.log(this.$router);
+                    }
+                    else{
+                        this.$router.push({path:"/"});
                     }
                 }
                 else {
                     this.failAlertMSG();
                 }
-
                 this.$emit('changeLogged', true);
             },
         }
-
     }
 </script>
 

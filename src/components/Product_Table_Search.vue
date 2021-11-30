@@ -110,9 +110,9 @@ import shoppingBag from '@/assets/shoppingBag.png';
                 else if(response.data.result === 0){
                     alert(response.data.state);
                 }
-                else if(this.token === undefined){
+                else if(this.token === null){
                     alert("회원전용 기능입니다. 로그인 페이지로 이동합니다.");
-                    this.$router.push({ path: "/login" });
+                    await this.$router.push({ path: "/login" });
                 }
             } 
         }
