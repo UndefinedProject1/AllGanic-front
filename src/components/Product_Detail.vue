@@ -263,16 +263,14 @@
             <div class="RecommendedTitle">
                 <p>많은 분들이 이 상품을 함께 구매하셨어요!</p>
             </div>
-            <router-link :to="`/product_detail?code=${recommended.productcode}`">
-                <div class="RecommendedTable">
-                    <img :src="`REST/api/select_productimage?no=${recommended.productcode}`" @mouseover="showRecommendText">
-                        <div class="RecommendedTableText" v-bind:style="RecommendTextStyle">
-                            <p>[ {{recommended.brandname}} ]</p>
-                            <p>{{recommended.productname}}</p>
-                            <p>{{RproductPrice}} 원</p>
-                        </div>
-                </div>
-            </router-link>
+            <div class="RecommendedTable">
+                <img :src="`REST/api/select_productimage?no=${recommended.productcode}`" @mouseover="showRecommendText" >
+                    <div class="RecommendedTableText" v-bind:style="RecommendTextStyle" @click="goRecommendProduct(recommended.productcode)">
+                        <p>[ {{recommended.brandname}} ]</p>
+                        <p>{{recommended.productname}}</p>
+                        <p>{{RproductPrice}} 원</p>
+                    </div>
+            </div>
         </div>
     </div>
 </template>
@@ -379,6 +377,14 @@ import Cart_Popup from './Cart_Popup.vue';
             this.$socket = app.appContext.config.globalProperties.$socket;
             console.log(this.$socket);
         },
+        watch: {
+            async $route(to, from) {
+                if(to.query !== from.query){
+                    this.pcode = to.query.code;
+                    await this.handleDetailContents();
+                }
+            }
+        },
         methods : {
             closeRecNav(){
                 this.showRecommend = false;
@@ -387,6 +393,10 @@ import Cart_Popup from './Cart_Popup.vue';
                 this.RecommendTextStyle.backgroundColor = "rgba(255, 255, 255, 0.534)";
                 this.RecommendTextStyle.visibility = "visible";
                 this.RecommendTextStyle.color = "black";
+            },
+            async goRecommendProduct(val){
+                this.$router.push({ path: "/product_detail", query:{code : val} });
+                await this.handleDetailContents();
             },
             // Scroll 버튼
             clickDetail(){
