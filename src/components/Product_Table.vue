@@ -16,7 +16,7 @@
                                     <img :src="`REST/api/select_productimage?no=${product.productcode}`">
                                 </router-link>
                                 <div class="pd_text_section">
-                                    <!-- <p id="pd_brand"><ins>{{product.brandname}}</ins></p> -->
+                                    <p id="pd_brand"><ins>{{product.brandname}}</ins></p>
                                     <router-link :to="`/product_detail?code=${product.productcode}`" id="pd_name">
                                         <p id="pd_name"><strong>{{product.productname}}</strong></p>
                                     </router-link>
@@ -101,7 +101,7 @@ import Cart_Popup from './Cart_Popup.vue';
 
                 if(response.data.result === 1){
                     this.catelist = response.data.list;
-                    // console.log(this.catelist);
+                    console.log(this.catelist);
                 }
 
                 const url1 = `REST/api/select_cproduct3?page=${this.page}&code=${this.category_codeq}`;

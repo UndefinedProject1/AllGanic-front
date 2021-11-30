@@ -72,10 +72,11 @@ import shoppingBag from '@/assets/shoppingBag.png';
         },
         methods : {
             async getSearchResult(){
-                const url = `REST/api/select_product2?page=${this.page}&name=${this.product_name_key}`;
+                const url = `REST/api/select_product?page=${this.page}&name=${this.product_name_key}`;
                 const response = await axios.get(url);
                 if(response.data.result === 1){
                     this.productlist = response.data.list;
+                    console.log(this.productlist);
                     this.total = Number(this.productlist.length);
                 }
             },

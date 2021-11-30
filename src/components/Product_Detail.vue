@@ -19,11 +19,11 @@
                             <tbody>
                                 <tr>
                                     <th><span>판매가</span></th>
-                                    <td><s>{{productPriceF}} 원</s></td>
+                                    <td><s>{{productPrice}} 원</s></td>
                                 </tr>
                                 <tr>
                                     <th><span>할인가</span></th>
-                                    <td id="saleprice">{{productPriceF}} 원</td>
+                                    <td id="saleprice">{{productPrice}} 원</td>
                                 </tr>
                                 <tr>
                                     <th><span>주문수량</span></th>
@@ -255,11 +255,30 @@
             </span>
         </template>
     </el-dialog>
+
+    <!-- 추천 모달 -->
+    <div v-show="showRecommend = true" v-bind:style="RecommendStyle">
+        <!-- <img :src="cancel" @click="closeRecNav" id="cancelbtn"> -->
+            <div class="RecommendedContainer">
+                <div class="RecommendedTitle">
+                    <p>많은 분들이 이 상품을 함께 구매하셨어요!</p>
+                </div>
+                <div class="RecommendedTable">
+                    <img :src="`REST/api/select_productimage?no=${recommended.productcode}`" @mouseover="showRecommendText">
+                    <div class="RecommendedTableText" v-bind:style="RecommendTextStyle">
+                        <p>[ {{recommended.brandname}} ]</p>
+                        <p>{{recommended.productname}}</p>
+                        <p>{{RproductPrice}} 원</p>
+                    </div>
+                </div>
+        </div>
+    </div>
 </template>
 
 <script>
 import { ref } from 'vue'
 import {getCurrentInstance} from '@vue/runtime-core';
+import cancel from '@/assets/cancel.png';
 import default_image from '@/assets/default_image.jpg';
 import { ElMessage } from 'element-plus'
 import axios from 'axios';
@@ -285,6 +304,8 @@ import Cart_Popup from './Cart_Popup.vue';
         },
         data(){
             return{
+                cancel : cancel,
+                showRecommend :  false,
                 $socket : '',
                 CartPopup : false,
                 gettoken : sessionStorage.getItem("token"),
@@ -311,10 +332,39 @@ import Cart_Popup from './Cart_Popup.vue';
                     {value : 3, label : '기타'},
                 ],
                 productPrice : 0,
-                productPriceF : 0,
                 member : [],
                 pages : 0,
                 page : 1,
+                recommended : [],
+                RproductPrice : 0,
+
+                RecommendStyle : {
+                    padding : '15px',
+                    height: 'fit-content',
+                    width: '0%',
+                    position: 'fixed',
+                    // zIndex: '100',
+                    top: '15%',
+                    right: '3%',
+                    overflowX: 'hidden',
+                    transition: '0.5s',
+                    fontFamily: "'Gowun Dodum', sans-serif",
+                    // border : '0.5px solid #333',
+                },
+
+                RecommendTextStyle :{
+                    display : 'flex',
+                    flexDirection : 'column',
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
+                    zIndex: '1',
+                    padding : '5px',
+                    visibility : 'hidden',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }
+
             }
         },
         components : {
@@ -328,6 +378,14 @@ import Cart_Popup from './Cart_Popup.vue';
             console.log(this.$socket);
         },
         methods : {
+            closeRecNav(){
+                this.showRecommend = false;
+            },
+            showRecommendText(){
+                this.RecommendTextStyle.backgroundColor = "rgba(255, 255, 255, 0.534)";
+                this.RecommendTextStyle.visibility = "visible";
+                this.RecommendTextStyle.color = "black";
+            },
             // Scroll 버튼
             clickDetail(){
                 this.$refs.callDetailInfo.focus();
@@ -396,8 +454,7 @@ import Cart_Popup from './Cart_Popup.vue';
 
                 if(response.data.result === 1){
                     this.detailcontents = response.data.product;
-                    this.productPrice = response.data.product.productprice;
-                    this.productPriceF = this.productPrice.toLocaleString();
+                    this.productPrice = response.data.product.productprice.toLocaleString();
                     // console.log(this.detailcontents);
                     this.productmainimg = response.data.imgurl;
                 }
@@ -411,14 +468,31 @@ import Cart_Popup from './Cart_Popup.vue';
                     // console.log(this.subImgCodeList);
                 }
 
+                // 추천물품
+                const url4 = `REST/api/recommend/product?code=${this.pcode}`;
+                const response4 = await axios.get(url4);
+                console.log(response4);
+                if(response4.data.result === 2){
+                    this.recommended = response4.data.recommend;
+                    console.log(this.recommended);
+                    this.RproductPrice = response4.data.recommend.productprice.toLocaleString();
+
+                    this.showRecommend = true;
+                    this.RecommendStyle.width = "20%";
+                    setTimeout(() => {
+                        this.RecommendStyle.width = "0%";
+                        this.RecommendStyle.padding = "0px";
+                    }, 10000)
+                }
+
                 // 리뷰 목록
                 const url2 = `REST/api/review/list/product?code=${this.pcode}&page=${this.page}`;
                 const response2 = await axios.get(url2, header);
-                console.log(response2);
+                // console.log(response2);
                 if(response2.data.result === 1){
                     this.reviewList = response2.data.list;
                     this.pages = response2.data.count;
-                    console.log(this.pages);
+                    // console.log(this.pages);
                 }
 
                 // 문의글 목록
@@ -645,7 +719,7 @@ import Cart_Popup from './Cart_Popup.vue';
 .pd_detail_info .pd_detail_infocontainer{
     width : 100%;
     border-top: 1px solid black;
-    border-bottom: 1px solid black ;
+    border-bottom: 1px solid rgb(0, 0, 0) ;
     display: flex;
     flex-direction: column;
     padding : 15px 0px;
@@ -806,6 +880,34 @@ import Cart_Popup from './Cart_Popup.vue';
     justify-content: space-between;
     align-items: flex-end;
     width: 100%;
+}
+.fake{
+    border : 1px solid black;
+    width : 80%;
+    height : 80%;
+}
+.RecommendedContainer{
+    background-color: rgba(255, 255, 255);
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    border-radius : 0.3em;
+    padding: 10px;
+}
+#cancelbtn{
+    position: fixed;
+    top: 15.5%;
+    right : 3.4%;
+}
+.RecommendedTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.RecommendedTitle p {
+    font-weight: bold;
+    margin: 10px auto;
+    width : fit-content;
+    font-size: 0.8em;
 }
 h3{
     font-weight: bold;
@@ -1132,5 +1234,34 @@ button:hover{
 #reportTitle{
     font-weight: bold;
     font-size : 1rem;
+}
+.RecommendedTable{
+    width: 100%;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.RecommendedTable img:hover{
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+.RecommendedTableText p:first-child {
+    font-size: 19px;
+    font-weight: bold;
+    color: rgb(100, 100, 100);
+    margin-bottom: 5px;
+}
+.RecommendedTableText p:nth-child(2){
+    font-size: 17px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+.RecommendedTableText p:nth-child(3){
+    font-size: 19px;
+    font-weight: bold;
+    color: #333;
 }
 </style>
