@@ -35,8 +35,12 @@ import { ElMessage } from 'element-plus'
             const sendtoPW = () => {
                 ElMessage.success('이메일 전송완료')
             }
+            const sendtoPW1 = () => {
+                ElMessage.error('카카오유저이므로 해당 서비스는 이용하실 수 없습니다.')
+            }
             return {
-                sendtoPW
+                sendtoPW,
+                sendtoPW1
             }
         },
         data() {
@@ -56,8 +60,15 @@ import { ElMessage } from 'element-plus'
                 console.log(body);
                 const response = await axios.post(url, body, headers);
                 console.log(response);
-                this.sendtoPW();
-                this.$router.push({ path : '/login'});
+                if(response.data === 1){
+                    this.sendtoPW();
+                    this.$router.push({ path : '/login'});
+                }
+                else if(response.data === 0){
+                    this.sendtoPW1();
+                    this.$router.push({ path : '/login'});
+                }
+
             }
         }
     }

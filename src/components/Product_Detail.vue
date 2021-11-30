@@ -259,18 +259,20 @@
     <!-- 추천 모달 -->
     <div v-show="showRecommend = true" v-bind:style="RecommendStyle">
         <!-- <img :src="cancel" @click="closeRecNav" id="cancelbtn"> -->
-            <div class="RecommendedContainer">
-                <div class="RecommendedTitle">
-                    <p>많은 분들이 이 상품을 함께 구매하셨어요!</p>
-                </div>
+        <div class="RecommendedContainer">
+            <div class="RecommendedTitle">
+                <p>많은 분들이 이 상품을 함께 구매하셨어요!</p>
+            </div>
+            <router-link :to="`/product_detail?code=${recommended.productcode}`">
                 <div class="RecommendedTable">
                     <img :src="`REST/api/select_productimage?no=${recommended.productcode}`" @mouseover="showRecommendText">
-                    <div class="RecommendedTableText" v-bind:style="RecommendTextStyle">
-                        <p>[ {{recommended.brandname}} ]</p>
-                        <p>{{recommended.productname}}</p>
-                        <p>{{RproductPrice}} 원</p>
-                    </div>
+                        <div class="RecommendedTableText" v-bind:style="RecommendTextStyle">
+                            <p>[ {{recommended.brandname}} ]</p>
+                            <p>{{recommended.productname}}</p>
+                            <p>{{RproductPrice}} 원</p>
+                        </div>
                 </div>
+            </router-link>
         </div>
     </div>
 </template>
