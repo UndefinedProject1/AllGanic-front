@@ -178,7 +178,7 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 .then(() => {
                     ElMessage({
                         type: 'success',
-                        message: '해당 제품이 삭제되었습니다.',
+                        message: '제품이 삭제되었습니다.',
                     })
                 })
                 .catch(() => {
@@ -204,7 +204,7 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 ElMessage.error('문의코드가 넘어오지 않음')
             }
             const warningAlertMSG = () => {
-                ElMessage.error('주문하실 제품들을 체크해주세요.')
+                ElMessage.error('주문할 제품들을 체크해주세요.')
             }
             const warningAlertMSG1 = () => {
                 ElMessage.error('데이터가 없습니다.')

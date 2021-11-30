@@ -47,9 +47,6 @@ import { ElMessage } from 'element-plus'
             const successAlertMSG = () => {
                 ElMessage.success('로그인 되었습니다.')
             }
-            const validateSuccessMSG = () => {
-                ElMessage.success('이미 가입이 된 회원입니다.')
-            }
             const validateErrorMSG = () => {
                 ElMessage.error('해당 이메일에 대한 회원정보가 없습니다.')
             }
@@ -64,7 +61,6 @@ import { ElMessage } from 'element-plus'
             }
             return{
                 successAlertMSG,
-                validateSuccessMSG,
                 validateErrorMSG,
                 addProductAlertMSG,
                 failAlertMSG,
@@ -91,7 +87,7 @@ import { ElMessage } from 'element-plus'
                 const response = await axios.post(url, body, header);
                 if(val.length >= 14){
                     if(response.data.result === 1){
-                        this.validateSuccessMSG();
+                        // this.validateSuccessMSG();
                     }
                     else if(response.data.result === 0){
                         this.validateErrorMSG();
