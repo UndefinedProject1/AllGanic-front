@@ -48,7 +48,16 @@
 // import MyPage_Info from '@/components/MyPage_Info.vue';
 import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
 import axios from 'axios';
+import { ElMessage } from 'element-plus'
     export default {
+        setup() {
+            const failAlertMSG = () => {
+                ElMessage.error('환불내역이 없습니다.')
+            }
+            return {
+                failAlertMSG
+            }
+        },
         data() {
             return {
                 token: sessionStorage.getItem("token"),
@@ -71,7 +80,7 @@ import axios from 'axios';
                     console.log(this.CancleData);
                 }
                 else if(response.data.result === 0) {
-                    alert(response.data.state);
+                    this.failAlertMSG();
                 }
             }
         }

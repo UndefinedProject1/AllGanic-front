@@ -127,12 +127,20 @@ export default {
       const successAlertMSG = () => {
           ElMessage.success('사용 가능한아이디입니다.')
       }
+        const successAlertMSG1 = () => {
+          ElMessage.success('회원가입 성공')
+      }
       const failAlertMSG = () => {
           ElMessage.error('이미 사용중인 아이디입니다.')
       }
+        const failAlertMSG1 = () => {
+          ElMessage.error('error')
+      }
       return{
           successAlertMSG,
+          successAlertMSG1,
           failAlertMSG,
+          failAlertMSG1
       }
   },
   components :{
@@ -232,7 +240,7 @@ export default {
           this.successAlertMSG();
         }
         else {
-          alert("error");
+          this.failAlertMSG1();
         }
       }
     }
@@ -313,7 +321,7 @@ export default {
       const response = await axios.post(url, body, header);
       console.log(response);
       if (response.data.result === 1) {
-        alert("회원가입성공");
+        this.successAlertMSG1();
         this.$router.push({ path: "/" });
       }
     }

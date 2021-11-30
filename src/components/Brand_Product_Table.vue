@@ -40,7 +40,22 @@
 import axios from 'axios';
 import Cart_Popup from './Cart_Popup.vue';
 import shoppingBag from '@/assets/shoppingBag.png';
+import { ElMessage } from 'element-plus'
     export default {
+        setup() {
+            const addProductAlertMSG = () => {
+                ElMessage.message('회원전용 기능입니다. 로그인 페이지로 이동합니다.')
+            }
+            const failAlertMSG = () => {
+                ElMessage.error('회원정보 불러오기를 실패하였습니다.')
+            }
+
+            return {
+                addProductAlertMSG,
+                failAlertMSG
+
+            }
+        },
         data(){
             return{
                 token : sessionStorage.getItem("token"),
@@ -117,10 +132,10 @@ import shoppingBag from '@/assets/shoppingBag.png';
                     // this.addProductAlertMSG();
                 }
                 else if(response.data.result === 0){
-                    alert(response.data.state);
+                    this.failAlertMSG();
                 }
                 else if(this.token === undefined){
-                    alert("회원전용 기능입니다. 로그인 페이지로 이동합니다.");
+                    this.addProductAlertMSG();
                     this.$router.push({ path: "/login" });
                 }
             } 

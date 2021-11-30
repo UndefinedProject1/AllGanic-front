@@ -63,16 +63,23 @@ import axios from "axios";
 import $ from 'jquery';
 import mypage_mail from '@/assets/mypage_mail.png';
 import mypage_address from '@/assets/mypage_address.png';
-// import MyPage from '@/components/MyPage.vue';
 import MyPage_Member_Update from '@/components/MyPage_Member_Update.vue';
 import MyPage_Delete from '@/components/MyPage_Delete.vue';
 import MyPage_Cancle from '@/components/MyPage_Cancle.vue';
 import MyPage_Order_List from '@/components/MyPage_Order_List.vue';
 import MyPage_QA_List from '@/components/MyPage_QA_List.vue';
 import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
+import { ElMessage } from 'element-plus'
 
     export default {
-        
+        setup() {
+            const failAlertMSG = () => {
+                ElMessage.error('정보를 받아오지 못하였습니다.')
+            }
+            return {
+                failAlertMSG
+            }
+        },
         data() {
             return {
                 token: sessionStorage.getItem("token"),
@@ -83,11 +90,6 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
                 roadAddress: '',
                 detailAddress: '',
                 member : [],
-                // USERNAME : '',
-                // USEREMAIL :'',
-                // POST : '',
-                // ADDRESS : '',
-                // DETAILEADDRESS : '',
 
                 MainPage : 'MyPageNearList',
                 pages : ['MyPageNearList', 'MyPageMemberUpdate', 'MyPageDelete', 'MyPageCancle','MyPageOrderList','MyPageQAList']
@@ -110,23 +112,6 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
             $("#info_box").stop().animate({"top":position+currentPosition+"px"},1000);
         });
     });
-            // console.clear();
-            // $(window).scroll(function() {
-            //     let scrollTop = $(this).scrollTop();
-            //     console.log(scrollTop)
-                
-            //     if ( scrollTop < 100 ) {
-            //         scrollTop = 100;
-            //     }
-            //     else if ( scrollTop > 9600 ) {
-            //         scrollTop = 9600;
-            //     }
-                
-            //     let duration = 1000;
-            //     $('.info_box').stop().animate({top:scrollTop}, duration);
-                
-            //     //console.log(scrollTop);
-            // });
         }, 
         async created() {
             await this.handleMemberGet();
@@ -155,7 +140,9 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
 
                     this.$emit('changeLogged', true);
                 } 
-                else alert("정보를 받아오지 못하였습니다.");
+                else {
+                    this.failAlertMSG();
+                }
             },
         }
     }
@@ -171,16 +158,7 @@ import MyPage_Near_List from '@/components/MyPage_Near_List.vue';
     height: 100%;
     border-radius: 3px;
     font-family: 'Gowun Dodum', sans-serif;
-    /* position: absolute; */
-    /* top: 15%;
-    right: 50%;
-    left: 100%; */
 }
-
-    /* background-color:#F0F0F0; position:absolute; width:28%; top:433px; right:420px; padding: 3px 10px } */
-
-
-
 .info_container {
     /* border: 1px solid black; */
     width: 100%;

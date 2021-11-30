@@ -96,7 +96,16 @@ import axios from "axios";
 import mypage_mail from '@/assets/mypage_mail.png';
 import mypage_address from '@/assets/mypage_address.png';
 import mypage from '@/assets/mypage.png';
+import { ElMessage } from 'element-plus'
     export default {
+        setup() {
+            const failAlertMSG = () => {
+                ElMessage.error('주문내역이 없습니다.')
+            }
+            return {
+                failAlertMSG
+            }
+        },
         data() {
             return {
                 token: sessionStorage.getItem("token"),
@@ -128,7 +137,7 @@ import mypage from '@/assets/mypage.png';
                     console.log(this.OrderListData);
                 }
                 else if(response.data.result === 0) {
-                    // alert(response.data.state);
+                    this.failAlertMSG();
                 }
             },
             async qaListGet() {

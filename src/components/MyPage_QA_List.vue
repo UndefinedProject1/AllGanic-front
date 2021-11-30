@@ -191,16 +191,32 @@ import { ElMessageBox, ElMessage } from 'element-plus'
             const failAlertMSG = () => {
                 ElMessage.error('삭제 실패')
             }
+            const failAlertMSG1 = () => {
+                ElMessage.error('error')
+            }
+            const successAlertMSG = () => {
+                ElMessage.success('수정 성공')
+            }
             const infoAlertMSG = () => {
                 ElMessage.message('장바구니가 비어있습니다.')
+            }
+            const infoAlertMSG1 = () => {
+                ElMessage.error('문의코드가 넘어오지 않음')
             }
             const warningAlertMSG = () => {
                 ElMessage.error('주문하실 제품들을 체크해주세요.')
             }
+            const warningAlertMSG1 = () => {
+                ElMessage.error('데이터가 없습니다.')
+            }
             return {
                 deleteConfirm,
                 failAlertMSG,
+                failAlertMSG1,
+                successAlertMSG,
+                infoAlertMSG1,
                 infoAlertMSG,
+                warningAlertMSG1,
                 warningAlertMSG
             }
         },
@@ -269,7 +285,7 @@ import { ElMessageBox, ElMessage } from 'element-plus'
 
                 }
                 else if(response.data.result === 0) {
-                    alert("데이터가 존재하지 않습니다.");
+                    this.warningAlertMSG1();
                 }
             },
             async showQaReplay(val, boolean){
@@ -340,10 +356,10 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                         await this.handleQaListGet()
                     }
                     else if(response.data === 0){
-                        alert("문의코드가 넘어오지 않음");
+                        this.infoAlertMSG1();
                     }
                     else {
-                        alert("error");
+                        this.failAlertMSG1();
                     }
                 }
             },
@@ -357,7 +373,7 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 }
                 const response = await axios.put(url, body, {headers});
                 if(response.data.result === 1){
-                    alert("수정 성공");
+                    this.successAlertMSG();
                     document.getElementById('btn_close').click();
                     await this.handleQaListGet();
                 }
@@ -401,11 +417,6 @@ import { ElMessageBox, ElMessage } from 'element-plus'
     height: 93.5%;
     border-radius: 5px;
 }
-/* .insert_date {
-    display: flex;
-    margin-top: 10px;
-    margin-left: 15px;
-} */
 .solid {
     border: 1px solid rgb(228, 227, 227);
     width: 90%;

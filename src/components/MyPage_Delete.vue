@@ -33,11 +33,15 @@ import mypage_pw from '@/assets/mypage_pw.png';
 import { ElMessage } from 'element-plus';
     export default {
         setup() {
+            const successAlertMSG = () => {
+                ElMessage.success('회원탈퇴 완료')
+            }
             const failpwMSG = () => {
                 ElMessage.error('비밀번호를 다시 입력하세요.')
             }
             return{
-                failpwMSG,
+                successAlertMSG,
+                failpwMSG
             }
         },
         data() {
@@ -70,13 +74,12 @@ import { ElMessage } from 'element-plus';
                 });
                 console.log(response);
                 if(response.data.result === 1) {
-                    alert("회원탈퇴 완료");    
+                    this.successAlertMSG();  
                     this.$router.push({ path: "/" });
                 }
                 else if(response.data.result === 0){
                     this.failpwMSG();
                 }
-                // else alert("error");
             }
         }
     }

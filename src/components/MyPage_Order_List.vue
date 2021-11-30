@@ -55,6 +55,7 @@
 
 <script>
 import axios from "axios";
+import { ElMessage } from 'element-plus'
     export default {
         data() {
             return {
@@ -78,9 +79,7 @@ import axios from "axios";
                     console.log(this.OrderListData);
                 }
                 else if(response.data.result === 0) {
-                    alert(response.data.state);
                 }
-                
             },
             async handleCancelOrder(val){
                 const url = `REST/api/payments/cancel`;
@@ -92,8 +91,7 @@ import axios from "axios";
                 const headers = {"Content-Type" : "application/json", token: this.token};
                 const response = await axios.post(url, body, {headers});
                 console.log(response);
-                alert("환불완료");
-                await this.orderListGet();
+                this.successAlertMSG();
             }
         }
     }

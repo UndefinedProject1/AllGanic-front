@@ -168,6 +168,26 @@ import mypage_profile from "@/assets/mypage_profile.png";
 import mypage_phone from "@/assets/mypage_phone.png";
 import mypage_address from "@/assets/mypage_address.png";
   export default {
+    setup() {
+      const successAlertMSG1 = () => {
+          ElMessage.success('비밀번호수정 성공')
+      }
+      const successAlertMSG2 = () => {
+          ElMessage.success('회원정보수정 성공')
+      }
+      const failAlertMSG1 = () => {
+          ElMessage.error('정보를 받아오지 못하였습니다.')
+      }
+      const failAlertMSG2 = () => {
+          ElMessage.error('회원정보수정 실패')
+      }
+      return {
+        successAlertMSG1,
+        successAlertMSG2,
+        failAlertMSG1,
+        failAlertMSG2
+      }
+    },
       components :{
         VeeForm,
         Field,
@@ -233,7 +253,9 @@ import mypage_address from "@/assets/mypage_address.png";
 
             console.log(this.member);
           } 
-          else alert("정보를 받아오지 못하였습니다.");
+          else {
+            this.failAlertMSG1();
+          }
         },
         openDaumPostCode() {
           new window.daum.Postcode({
@@ -293,7 +315,7 @@ import mypage_address from "@/assets/mypage_address.png";
             const response = await axios.put(url, body, {headers});
             console.log(response);
             if(response.data.result === 1) {
-                alert("비밀번호 수정 성공");
+                this.successAlertMSG1();
                 // alert버튼 누르면 모달창 사라짐
                 document.getElementById('btn_close').click();
             }
@@ -313,10 +335,10 @@ import mypage_address from "@/assets/mypage_address.png";
           const response = await axios.put(url, body, {headers});
           console.log(response);
           if(response.data.result === 1) {
-            alert("회원정보수정 성공");
+            this.successAlertMSG2();
           }
           else if(response.data.result !== 1) {
-            alert("회원정보수정 실패");
+            this.failAlertMSG2();
           }
         }
       },

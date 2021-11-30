@@ -7,8 +7,30 @@
 <script>
 import { getKakaoToken, getKakaoUserInfo } from "@/services/Kakao_login";
 import axios from "axios";
+import { ElMessage } from 'element-plus'
 
 export default {
+    setup() {
+        const failAlertMSG = () => {
+            ElMessage.error('카카오톡 로그인 오류입니다.')
+        }
+        const failAlertMSG1 = () => {
+            ElMessage.error('error')
+        }
+        const failAlertMSG2 = () => {
+            ElMessage.error('토큰값이 유효하지 않습니다')
+        }
+        const failAlertMSG3 = () => {
+            ElMessage.error('로그인 실패')
+        }
+        return {
+            failAlertMSG,
+            failAlertMSG1,
+            failAlertMSG2,
+            failAlertMSG3
+
+        }
+    },
     data(){
         return{
             key   : '123456_',
@@ -27,7 +49,7 @@ export default {
             const { data } = await getKakaoToken(this.$route.query.code);
             console.log('카카오 인증코드로 받은 토큰으로 넘어온 data', data);
             if (data.error) {
-                alert('카카오톡 로그인 오류입니다.');
+                this.failAlertMSG();
                 this.$router.push({ path: "/login" });
                 return;
             }
@@ -52,7 +74,7 @@ export default {
                 await this.handleKakaoJoin();
             }
             else {
-                alert("error");
+                this.failAlertMSG1();
             }
         },
         async handleKakaoLogin(){
@@ -78,12 +100,12 @@ export default {
                     else sessionStorage.setItem("role", 2);
                 }
                 else{
-                    alert("토큰값이 유효하지 않습니다");
+                    this.failAlertMSG2();
                 }
                 this.$router.push({ path: "/" });
             }
             else {
-                alert('로그인 실패');
+                this.failAlertMSG3();
                 this.$router.push({ path: "/login" });
             }
 

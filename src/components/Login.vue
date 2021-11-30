@@ -57,10 +57,14 @@ import { ElMessage } from 'element-plus'
             const failAlertMSG = () => {
                 ElMessage.error('로그인 실패')
             }
+            const failAlertMSG1 = () => {
+                ElMessage.error('토큰값이 유효하지 않습니다')
+            }
             return{
                 successAlertMSG,
                 addProductAlertMSG,
                 failAlertMSG,
+                failAlertMSG1
             }
         },
         data() {
@@ -107,7 +111,7 @@ import { ElMessage } from 'element-plus'
                         else sessionStorage.setItem("role", 2);
                     }
                     else{
-                        alert("토큰값이 유효하지 않습니다");
+                        this.failAlertMSG1();
                     }
                     var urlbox = sessionStorage.getItem("URL");
                     // console.log(urlbox); 
