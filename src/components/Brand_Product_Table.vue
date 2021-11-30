@@ -135,7 +135,7 @@ import { ElMessage } from 'element-plus'
                 else if(response.data.result === 0){
                     this.failAlertMSG();
                 }
-                else if(this.token === undefined){
+                else if(this.token === null){
                     this.addProductAlertMSG();
                     this.$router.push({ path: "/login" });
                 }
