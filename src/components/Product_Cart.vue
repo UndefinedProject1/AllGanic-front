@@ -125,17 +125,29 @@ import { ElMessageBox, ElMessage } from 'element-plus'
             const failAlertMSG = () => {
                 ElMessage.error('삭제 실패')
             }
+            const failAlertMSG1 = () => {
+                ElMessage.error('error')
+            }
             const infoAlertMSG = () => {
                 ElMessage.message('장바구니가 비어있습니다.')
             }
             const warningAlertMSG = () => {
                 ElMessage.error('주문하실 제품들을 체크해주세요.')
             }
+            const warningAlertMSG1 = () => {
+                ElMessage.error('주문하실 제품들을 체크해주세요.')
+            }
+            const successAlertMSG = () => {
+                ElMessage.success('물품수량 변경완료')
+            }
             return {
                 deleteConfirm,
                 failAlertMSG,
+                failAlertMSG1,
                 infoAlertMSG,
-                warningAlertMSG
+                warningAlertMSG,
+                warningAlertMSG1,
+                successAlertMSG
             }
         },
         data(){
@@ -177,8 +189,11 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 const url = `REST/api/cartitem/quantity/update?cnt=${cnt}&no=${no}`;
                 const response = await axios.put(url);
                 if(response.data.resulf === 1){
-                    alert(response.data.state);
-                }else alert(response.data.state);
+                    this.successAlertMSG();
+                }
+                else {
+                this.warningAlertMSG1();
+                }
             },
             async getCartItem(){
                 const url=`REST/api/cartitem/member/list`;
@@ -242,7 +257,7 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 }else if(response.data.result === 0){
                     this.failAlertMSG();
                 }
-                else alert("error");
+                this.failAlertMSG1();
             },
             handlePayment(){
                 if(this.chks.length == 0){
