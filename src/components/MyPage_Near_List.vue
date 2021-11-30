@@ -7,7 +7,7 @@
             </div>
             <div class="or_li_box1" >
                 <!-- 주문내역 Table -->
-                <el-scrollbar class="scrollbar">
+                <el-scrollbar class="scrollbar" height="380px;">
                     <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 97%; margin-left:20px;" @selection-change="OrderListBtn">
                             <el-table-column label="주문일자" width="100" align="center">
                                 <template #default="scope">
@@ -43,11 +43,6 @@
                                     <p>[ {{scope.row.BRANDNAME}} ] 정책에 따름</p>
                                 </template>
                             </el-table-column>
-                            <!-- <el-table-column label="주문상태" width="150" align="center">
-                                <template #default="scope">
-                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.productName}}상품 준비중</p>
-                                </template>
-                            </el-table-column> -->
                     </el-table>
                 </el-scrollbar>
             </div>
@@ -62,7 +57,7 @@
             </div>
             <div class="or_qa_box1">
                 <!-- 문의내역 Table -->
-                <el-scrollbar class="scrollbar">
+                <el-scrollbar class="scrollbar" height="200px;">
                     <el-table :data="QAListData" stripe style="width: 97%; margin-left:20px;" >
                         <el-table-column prop="select" label="문의유형" width="100" align="center">
                             <template #default="scope">
@@ -94,8 +89,6 @@
             </div>
         </div>
     </div>
-    <!-- </div> -->
-    <!-- <Footer></Footer> -->
 </template>
 
 <script>
@@ -200,7 +193,7 @@ import mypage from '@/assets/mypage.png';
 .qna_list {
     /* border: 1px solid black; */
     color: #715036;
-    height: 44%;
+    height: 30%;
     margin-top: 10px;
     font-weight: bold;
     display: flex;

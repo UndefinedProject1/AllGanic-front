@@ -5,41 +5,43 @@
         </div>
         <div class="cancle_insert">
             <div class="orderlist_info_section" style="width:100%; height: 93.5%; overflow-x:hidden">
-                <el-table ref="multipleTable" :data="CancleData"  stripe style="width: 98%; margin-left:10px;" @selection-change="OrderListBtn">
-                        <el-table-column label="환불일자" width="220px;" align="center">
-                            <template #default="scope">
-                                <p>{{scope.row.CANCELDATE}}</p>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="img" label="이미지" align="center" width="150"  style="margin-left:50px;">
-                            <template #default="scope">
-                                <el-image style= "width: 110px; height: 100px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
-                            </template>
-                            
-                        </el-table-column>
-                        <el-table-column label="주문정보" width="350px;" align="center">
-                            <template #default="scope">
-                                <div class="product_detail_info" style="width: 300px; text-align:left; padding:5px 10px; margin-left:30px;">
-                                    <!-- <p>{{scope.row.BRANDNAME}}</p> -->
-                                    <p>{{scope.row.PRODUCTNAME}}</p>
-                                    <p>{{scope.row.PRODUCTPRICE}}</p>
-                                </div>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="수량" width="150" align="center">
-                            <template #default="scope">
-                                <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.CANCELQUANTITY}}</p>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="환불완료일자" width="200px;" align="center">
-                            <template #default="scope">
-                                <p>{{scope.row.QUESTIONCODE}}</p>
-                            </template>
-                        </el-table-column>
-                    </el-table>
+                <el-scrollbar class="scrollbar">
+                    <el-table ref="multipleTable" :data="CancleData"  stripe style="width: 98%; margin-left:10px;" @selection-change="OrderListBtn">
+                            <el-table-column label="환불일자" width="220px;" align="center">
+                                <template #default="scope">
+                                    <p>{{scope.row.CANCELDATE}}</p>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="img" label="이미지" align="center" width="150"  style="margin-left:50px;">
+                                <template #default="scope">
+                                    <el-image style= "width: 110px; height: 100px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
+                                </template>
+                                
+                            </el-table-column>
+                            <el-table-column label="주문정보" width="350px;" align="center">
+                                <template #default="scope">
+                                    <div class="product_detail_info" style="width: 300px; text-align:left; padding:5px 10px; margin-left:30px;">
+                                        <!-- <p>{{scope.row.BRANDNAME}}</p> -->
+                                        <p>{{scope.row.PRODUCTNAME}}</p>
+                                        <p>{{scope.row.PRODUCTPRICE}}</p>
+                                    </div>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="수량" width="150" align="center">
+                                <template #default="scope">
+                                    <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.CANCELQUANTITY}}</p>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="환불완료일자" width="200px;" align="center">
+                                <template #default="scope">
+                                    <p>{{scope.row.CANCELDATE}}</p>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-scrollbar>
+                </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>

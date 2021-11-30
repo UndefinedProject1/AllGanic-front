@@ -360,9 +360,9 @@ import { ElMessage } from 'element-plus'
   /* border: 3px solid blue; */
   width: 100%;
   background-color: white;
-  overflow-y: scroll;
+  /* overflow-y: scroll;
   scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; */
   /* height: 100vh; */
 }
 .header .left_section, .right_section{

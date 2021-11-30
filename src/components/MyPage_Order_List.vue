@@ -3,54 +3,54 @@
         <div class="order_list">
             <p>주문내역</p>
         </div>
-        <el-scrollbar class="scrollbar">
             <div class="insert_list">
-                <div class="orderlist_info_section" style="width:100%; height: 93.5%; overflow-x:hidden">
-                    <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 98%; margin-left:10px;" @selection-change="OrderListBtn">
-                        <el-table-column label="주문일자" width="90" align="center">
-                            <template #default="scope">
-                                <p>{{scope.row.ORDERDATE}}</p>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="주문번호" width="150" align="center">
-                            <template #default="scope">
-                                <p>{{scope.row.MERCHANT_UID}}</p>
-                            </template>
-                        </el-table-column>                                                                
-                        <el-table-column prop="img" label="이미지" align="center" width="130">
-                            <template #default="scope">
-                                <el-image style= "width: 110px; height: 100px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="주문정보" width="370px;" align="center">
-                            <template #default="scope">
-                                <div class="product_detail_info">
-                                    <p>{{scope.row.BRANDNAME}}</p>
-                                    <p>{{scope.row.PRODUCTNAME}}</p>
-                                    <p>{{scope.row.PRODUCTPRICE}}</p>        
-                                </div>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="수량" width="50" align="center">
-                            <template #default="scope">
-                                <p>{{scope.row.ORDERQUANTITY}}</p>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="배송비" width="180" align="center">
-                            <template #default="scope">
-                                <p>[ {{scope.row.BRANDNAME}} ] 정책에 따름</p>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="기타" width="90" align="center">
-                            <template #default="scope">
-                                <button @click="handleCancelOrder([scope.row.MERCHANT_UID, scope.row.PRODUCTCODE, scope.row.ORDERQUANTITY])">주문취소</button>    
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                </div>
+                <el-scrollbar class="scrollbar" height="500px;">
+                    <div class="orderlist_info_section" style="width:100%; height: 93.5%; overflow-x:hidden">
+                        <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 98%; margin-left:10px;" @selection-change="OrderListBtn">
+                            <el-table-column label="주문일자" width="90" align="center">
+                                <template #default="scope">
+                                    <p>{{scope.row.ORDERDATE}}</p>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="주문번호" width="150" align="center">
+                                <template #default="scope">
+                                    <p>{{scope.row.MERCHANT_UID}}</p>
+                                </template>
+                            </el-table-column>                                                                
+                            <el-table-column prop="img" label="이미지" align="center" width="130">
+                                <template #default="scope">
+                                    <el-image style= "width: 110px; height: 100px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="주문정보" width="370px;" align="center">
+                                <template #default="scope">
+                                    <div class="product_detail_info">
+                                        <p>{{scope.row.BRANDNAME}}</p>
+                                        <p>{{scope.row.PRODUCTNAME}}</p>
+                                        <p>{{scope.row.PRODUCTPRICE}}</p>        
+                                    </div>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="수량" width="50" align="center">
+                                <template #default="scope">
+                                    <p>{{scope.row.ORDERQUANTITY}}</p>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="배송비" width="180" align="center">
+                                <template #default="scope">
+                                    <p>[ {{scope.row.BRANDNAME}} ] 정책에 따름</p>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="기타" width="90" align="center">
+                                <template #default="scope">
+                                    <button @click="handleCancelOrder([scope.row.MERCHANT_UID, scope.row.PRODUCTCODE, scope.row.ORDERQUANTITY])">주문취소</button>    
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                </el-scrollbar>
             </div>
-        </el-scrollbar>
-    </div>
+        </div>
 </template>
 
 <script>
