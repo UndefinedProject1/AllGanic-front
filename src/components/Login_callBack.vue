@@ -89,7 +89,7 @@ export default {
             console.log('카톡 로그인시 body',this.body)
             const response = await axios.post(url, body, header);
             console.log('카톡 로그인 시도 반응', this.response);
-            if(response.data.result === 1){
+            if(response.data === 1){
                 sessionStorage.setItem("token", this.key + response.data.token);
                 const headers = {"Content-Type" : "application/json", "token" : this.key + response.data.token};
                 const url1 = `REST/api/member/role`;
@@ -106,7 +106,7 @@ export default {
                 }
                 this.$router.push({ path: "/" });
             }
-            else if(response.data.result === 0) {
+            else if(response.data === 0) {
                 this.failAlertMSG3();
                 this.$router.push({ path: "/login" });
             }

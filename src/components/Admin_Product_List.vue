@@ -44,7 +44,7 @@
                             <td style="padding : 25px 0;"><img :src="`REST/api/select_productimage?no=${list.productcode}`"></td>
                             <td>
                                 <button type="button" @click="handleModal(list.productcode)">수정</button>
-                                <button type="button">삭제</button>
+                                <button type="button" @click="handleDeleteProduct(list.productcode)">삭제</button>
                             </td>
                         </tr>
                     </tbody>
@@ -130,11 +130,15 @@ import { ElMessage } from 'element-plus'
             const successAlertMSG = () => {
                 ElMessage.success('제품수정완료')
             }
+            const successAlertMSG2 = () => {
+                ElMessage.success('제품삭제완료')
+            }
             const failAlertMSG = () => {
                 ElMessage.error('error')
             }
             return{
                 successAlertMSG,
+                successAlertMSG2,
                 failAlertMSG
 
             }
@@ -326,6 +330,16 @@ import { ElMessage } from 'element-plus'
                     else {
                         this.failAlertMSG();
                     }
+                }
+            },
+            async handleDeleteProduct(val){
+                const url = `REST/api/admin/product_delete?no=${val}`;
+                const headers = { "token" : this.token };
+                const response = await axios.delete(url, {headers : headers, data : {}});
+                console.log(response);
+                if(response.data.result === 1){
+                    this.successAlertMSG2();
+                    await this.productList();
                 }
             }
         }

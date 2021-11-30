@@ -2,8 +2,8 @@
     <div class="pt_table_wrapper">
         <div class="pt_table_container">
             <div class="pt_table_cate_container" >
-                <div class="pt_table_cate" v-for="productname in brndProductlist" v-bind:key="productname">
-                    <p>{{productname.brandname}}</p>
+                <div class="pt_table_cate">
+                    <p>_BRAND</p>
                 </div>
             </div>
             <div class="pt_table_divider"></div>
@@ -16,6 +16,7 @@
                                     <img :src="`REST/api/select_productimage?no=${product.productcode}`">
                                 </router-link>
                                 <div class="pd_text_section">
+                                    <p id="pd_brand"><ins>{{product.brandname}}</ins></p>
                                     <router-link :to="`/product_detail?code=${product.productcode}`" id="pd_name">
                                         <p id="pd_name"><strong>{{product.productname}}</strong></p>
                                     </router-link>
@@ -144,9 +145,10 @@ import { ElMessage } from 'element-plus'
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Exo:wght@300;400;500;600;700;800&family=Roboto:wght@300;500&display=swap');
 .pt_table_wrapper{
     width : 100%;
+    height: 100vh;
     /* height : 100vh;
     overflow-y: scroll; */
     overflow-x: hidden;
@@ -158,35 +160,40 @@ import { ElMessage } from 'element-plus'
 .pt_table_container{
     /* border: 1px solid black; */
     width: 80%;
-    height: fit-content;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     padding: 20px;
 }
 .pt_table_cate_container {
-    display: flex;
-    flex-direction: row;
+    background-image: url("/src/assets/zero_waste_package3.jpg");
+    background-size:cover;
+    background-position-y: 50%;
+    background-repeat: no-repeat;
     /* border: 1px solid black; */
+    height: 40%;
+    /* display: flex;
+    flex-direction: row;
+    border: 1px solid black;
     margin: 10px 0px 10px 0px;
     height: fit-content;
     align-items: center;
-    color: black;
+    color: black; */
+}
+.pt_table_cate_container p {
+    color: #333;
+    font-size: 4rem;
+    font-weight: bold;
+    font-family: 'Playfair Display', serif;
+    width: fit-content;
 }
 .pt_table_cate {
     display: flex;
-    flex-direction: row;
-    /* border: 1px solid black; */
-    margin: 10px 0px 10px 0px;
-    height: fit-content;
+    height: 100%;
+    margin-left: 35%;
     align-items: center;
-}
-.pt_table_cate p {
-    font-size: 15px;
-    color: #49654E;
-    margin: 0;
-    height: fit-content;
-    width: fit-content;
+    justify-content: center;
 }
 .pt_table_cate p:hover {
     color: black;
@@ -201,13 +208,14 @@ import { ElMessage } from 'element-plus'
 .pt_table_divider{
     border : 0.2px solid #49654E;
     height: 0px;
+    margin-top: 2%;
     width : 100%;
 }
 
 .pt_table{
     width: 100%;
-    height: fit-content;
-    padding-top: 20px;
+    height: 60%;
+    /* padding-top: 20px; */
     display :flex;
     flex-direction: column;
 }

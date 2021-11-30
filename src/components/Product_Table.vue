@@ -13,7 +13,7 @@
                         <li class="pt_product_container" v-for="product in productlist" v-bind:key="product">
                             <div class="pt_product" >
                                 <router-link :to="`/product_detail?code=${product.productcode}`">
-                                    <img :src="`REST/api/select_productimage?no=${product.productcode}`">
+                                    <img :src="`REST/api/select_productimage?no=${product.productcode}`" @error="replaceByDefault"> 
                                 </router-link>
                                 <div class="pd_text_section">
                                     <p id="pd_brand"><ins>{{product.brandname}}</ins></p>
@@ -39,11 +39,13 @@
 
 <script>
 import axios from 'axios';
+import default_image from '@/assets/default_image.jpg';
 import shoppingBag from '@/assets/shoppingBag.png';
 import Cart_Popup from './Cart_Popup.vue';
     export default {
         data(){
             return{
+                default_image : default_image,
                 shoppingBag : shoppingBag,
                 token : sessionStorage.getItem("token"),
                 category_codeP : this.$route.params.code,
@@ -71,6 +73,9 @@ import Cart_Popup from './Cart_Popup.vue';
             }
         },
         methods : {
+            replaceByDefault(e) {
+                e.target.src = default_image
+            },
             async changeContents(){
                 // console.log(this.$route.params);
                 // console.log(this.category_codeP);
@@ -110,6 +115,7 @@ import Cart_Popup from './Cart_Popup.vue';
                 if(response1.data.result == 1){
                     this.productlist = response1.data.list;
                     this.pages = response1.data.count;
+                    console.log(this.productlist);
                     // this.pages = Number(response2.data.list);
                 }
             },
