@@ -338,6 +338,9 @@ import { ElMessage } from 'element-plus'
   padding: 0;
   box-sizing: border-box;
 }
+::-webkit-scrollbar { display: none; }
+
+
 .wrapper{
   width: 100%;
   height: 100vh;
@@ -360,6 +363,7 @@ import { ElMessage } from 'element-plus'
   /* border: 3px solid blue; */
   width: 100%;
   background-color: white;
+  /* overflow-y:hidden; */
   /* overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth; */

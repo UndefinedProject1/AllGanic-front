@@ -1,34 +1,37 @@
 <template>
-    <div class="admin_brand_list_wrapper">
+    <div class="admin_brand_list_wrapper" style="-ms-overflow-style: none;">
+
         <div class="br_in_header">
             <p>브랜드관리</p>
             <span> > </span>
             <p id="brand_section">브랜드 등록현황</p>
         </div>
         <div class="solid"></div>
-        <div class="adbr_list">
-            <table class="table table-borderless align-middle" style="margin-left:50px;" >
-                <thead>
-                    <tr>
-                        <th scope="col">브랜드이미지</th>
-                        <th scope="col">브랜드명</th>
-                        <th scope="col">관리</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in brandlist" v-bind:key="item">
-                        <td>
-                            <img :src="`REST/api/select_image?no=${item.brandcode}`" class="adbr_box" >
-                        </td>
-                        <td style="padding: 45px 0;" >{{item.brandname}}</td>
-                        <td>
-                        <button type="button" id="brand_deleteBtn" @click="deleteBrand">삭제</button>
-                        </td>
-                        <!-- id="br_delete" -->
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <!-- <el-scrollbar class="scrollbar" height="700px;"> -->
+            <div class="adbr_list">
+                <table class="table table-borderless align-middle" style="margin-left:50px;" >
+                    <thead>
+                        <tr>
+                            <th scope="col">브랜드이미지</th>
+                            <th scope="col">브랜드명</th>
+                            <th scope="col">관리</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in brandlist" v-bind:key="item">
+                            <td>
+                                <img :src="`REST/api/select_image?no=${item.brandcode}`" class="adbr_box" >
+                            </td>
+                            <td style="padding: 45px 0;" >{{item.brandname}}</td>
+                            <td>
+                            <button type="button" id="brand_deleteBtn" @click="deleteBrand">삭제</button>
+                            </td>
+                            <!-- id="br_delete" -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <!-- </el-scrollbar> -->
     </div>
 </template>
 
@@ -68,6 +71,10 @@ import melixir from '@/assets/melixir.png';
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Gowun+Dodum&family=Playfair+Display:wght@400;500;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700;800&display=swap');
+
+
+
+
 .table {
     width: 60%;
     font-family: 'Gowun Dodum', sans-serif;
