@@ -11,7 +11,7 @@
                         <li class="pt_product_container" v-for="product in productlist" v-bind:key="product">
                             <div class="pt_product">
                                 <router-link :to="`/product_detail?code=${product.productcode}`">
-                                    <img :src="`REST/api/select_productimage?no=${product.productcode}`">
+                                    <img :src="`REST/api/select_productimage?no=${product.productcode}`" @error="replaceByDefault">
                                 </router-link>
                                 <div class="pd_text_section">
                                     <!-- <p id="pd_brand"><ins>{{product.brandname}}</ins></p> -->
@@ -39,11 +39,13 @@
 
 <script>
 import axios from 'axios';
+import soldout from '@/assets/soldout.jpg';
 import Cart_Popup from './Cart_Popup.vue';
 import shoppingBag from '@/assets/shoppingBag.png';
     export default {
         data(){
             return{
+                soldout : soldout,
                 token : sessionStorage.getItem("token"),
                 shoppingBag : shoppingBag,
                 search_page : this.$route.query.page,
@@ -71,6 +73,9 @@ import shoppingBag from '@/assets/shoppingBag.png';
             }
         },
         methods : {
+            replaceByDefault(e) {
+                e.target.src = soldout
+            },
             async getSearchResult(){
                 const url = `REST/api/select_product?page=${this.page}&name=${this.product_name_key}`;
                 const response = await axios.get(url);
