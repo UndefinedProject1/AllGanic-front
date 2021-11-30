@@ -42,13 +42,13 @@
 
 <script>
 import axios from 'axios';
-import default_image from '@/assets/default_image.jpg';
+import soldout from '@/assets/soldout.jpg';
 import shoppingBag from '@/assets/shoppingBag.png';
 import Cart_Popup from './Cart_Popup.vue';
     export default {
         data(){
             return{
-                default_image : default_image,
+                soldout : soldout,
                 shoppingBag : shoppingBag,
                 token : sessionStorage.getItem("token"),
                 category_codeP : this.$route.params.code,
@@ -77,7 +77,7 @@ import Cart_Popup from './Cart_Popup.vue';
         },
         methods : {
             replaceByDefault(e) {
-                e.target.src = default_image
+                e.target.src = soldout
             },
             async changeContents(){
                 // console.log(this.$route.params);
