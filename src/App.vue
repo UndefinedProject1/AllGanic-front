@@ -236,7 +236,7 @@ import { ElMessage } from 'element-plus'
           transition: '0.5s',
         },
         sideNavStyle:{
-          width : '0%',
+          width : '20%',
           height : '100%',
           position : 'fixed',
           zIndex : '10000',
@@ -285,7 +285,7 @@ import { ElMessage } from 'element-plus'
         this.wrapper.opacity="0.4";
       },
       closeSideNav(){
-        this.sideNavStyle.width="0";
+        this.sideNavStyle.width="20%";
         this.sideNavStyle_b.width="0%";
         this.wrapper.opacity="1";
       },
@@ -433,12 +433,17 @@ import { ElMessage } from 'element-plus'
 }
 .nav_sections {
   display: flex;
+  height : 100%;
   flex-direction: column;
   padding: 20px 30px 30px 45px;
+}
+.fashion_section {
+  padding-top: 20%;
 }
 .fashion_section, .lifestyle_section, .beauty_section, .food_section{
   display: flex;
   flex-direction: column;
+  height : 25%;
   margin : 10px;
 }
 .nav_sections h3{
