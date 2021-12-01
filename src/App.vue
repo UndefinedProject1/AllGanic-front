@@ -456,8 +456,8 @@ import { ElMessage } from 'element-plus'
   color: #F6EBCE;
   margin: 10px 0px;
 } 
-.nav_sections  a{
-  width : 100%;
+.nav_sections a{
+  width : 80%;
   padding : 8px 8px 8px 10px;
   text-decoration: none;
   font-size: 18px;
@@ -468,6 +468,7 @@ import { ElMessage } from 'element-plus'
 }
 .nav_sections a:hover {
   color : #49654E;
+  width : 80%;
   background-color: #eeeeee;
   border-radius: 8px;
   opacity: 0.9;

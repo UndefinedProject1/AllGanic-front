@@ -12,6 +12,8 @@
                             <i class="el-icon-message" :size="50"></i>
                             <!-- <img :src="login_email" style="right" class="logo_email"/> -->
                             <input type="text" placeholder="이메일" id="id" v-model="userid">
+                            <img :src="success" v-show="showSuccess">
+                            <img :src="fail" v-show="showFail">
                         </div>
                     </div>
                     <div class="password">
@@ -39,8 +41,8 @@
 
 <script>
 import axios from 'axios';
-import login_email from '@/assets/login_email.png';
-import login_password from '@/assets/login_password.png';
+import success from '@/assets/success.png';
+import fail from '@/assets/fail.png';
 import { ElMessage } from 'element-plus'
     export default {
         setup() {
@@ -73,14 +75,16 @@ import { ElMessage } from 'element-plus'
         },
         data() {
             return {
-                login_email : login_email,
-                login_password : login_password,
+                success : success,
+                fail : fail,
                 userid : '',
                 userpw : '',
                 key   : '123456_',
                 login : false,
                 page :'',
                 name : '',
+                showSuccess : false,
+                showFail : false
             }
         },
         watch : {
@@ -90,10 +94,12 @@ import { ElMessage } from 'element-plus'
                 const header = { "Content-Type": "application/json" };
                 const response = await axios.post(url, body, header);
                 if(response.data.result === 1){
-                    this.validateSuccessMSG();
+                    this.showSuccess = true;
+                    this.showFail = false;
                 }
                 else if(response.data.result === 0){
-                    this.validateErrorMSG();
+                    this.showFail = true;
+                    this.showSuccess = false;
                 }
             }
         },
@@ -251,7 +257,7 @@ input:focus{
     border-radius: 4px;
 }
 .email_input > img {
-    width: 25px;
+    width: 27px;
     height: 25px;
     padding-right: 5px;
 }

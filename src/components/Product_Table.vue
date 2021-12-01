@@ -15,9 +15,9 @@
                     <ul> 
                         <li class="pt_product_container" v-for="product in productlist" v-bind:key="product">
                             <div class="pt_product" >
-                                <router-link :to="`/product_detail?code=${product.productcode}`">
-                                    <img :src="`REST/api/select_productimage?no=${product.productcode}`" @error="replaceByDefault"> 
-                                </router-link>
+                                <!-- <router-link :to="`/product_detail?code=${product.productcode}`"> -->
+                                    <img :src="`REST/api/select_productimage?no=${product.productcode}`" @error="replaceByDefault" @click="goDetail(product.productcode)" :ref="img"> 
+                                <!-- </router-link> -->
                                 <div class="pd_text_section">
                                     <p id="pd_brand"><ins>{{product.brandname}}</ins></p>
                                     <router-link :to="`/product_detail?code=${product.productcode}`" id="pd_name">
@@ -54,9 +54,13 @@ import { ElMessage } from 'element-plus'
             const infoAlertMSG = () => {
                 ElMessage.error('회원정보를 불러오지 못했습니다.')
             }
+            const fialMSG = () => {
+                ElMessage.error('해당 제품은 품절되었습니다.')
+            }
             return {
                 addProductAlertMSG,
-                infoAlertMSG
+                infoAlertMSG,
+                fialMSG
             }
         },
         data(){
@@ -71,7 +75,9 @@ import { ElMessage } from 'element-plus'
                 pages : 0,
                 page : 1,
                 quantity : 1,
-                CartPopup : false
+                CartPopup : false,
+                chk : 1,
+                errorimg : '',
             }
         },
         components : {
@@ -89,8 +95,11 @@ import { ElMessage } from 'element-plus'
             }
         },
         methods : {
+            goDetail(val){
+                this.$router.push({ path: "/product_detail", query:{code : val} });
+            },
             replaceByDefault(e) {
-                e.target.src = soldout
+                e.target.src = soldout;
             },
             async changeContents(){
                 // console.log(this.$route.params);
@@ -160,25 +169,33 @@ import { ElMessage } from 'element-plus'
             },
 
             async addCart(val){
-                const url = `REST/api/cart/create/insert?cnt=${this.quantity}&no=${val}`;
-                const headers = {"Content-Type" : "application/json", "token" : this.token};
-                const response = await axios.post(url, { }, {headers});
-                console.log(this.token);
+                console.log(this.$refs.img.src);
+                if(this.$refs.img.src === this.soldout){
+                    alert('no');
+                }
+                else {
+                    const url = `REST/api/cart/create/insert?cnt=${this.quantity}&no=${val}`;
+                    const headers = {"Content-Type" : "application/json", "token" : this.token};
+                    const response = await axios.post(url, { }, {headers});
+                    console.log(this.token);
 
-                console.log(response);
+                    console.log(response);
 
-                if(response.data.result === 1){
-                    this.$refs.handlePopCart.getCartItem();
-                    this.CartPopup = true;
-                    // this.addProductAlertMSG();
+                    if(response.data.result === 1){
+                        this.$refs.handlePopCart.getCartItem();
+                        this.CartPopup = true;
+                        // this.addProductAlertMSG();
+                    }
+                    else if(response.data.result === 0){
+                        this.infoAlertMSG();
+                    }
+                    else if(this.token === null){
+                        this.addProductAlertMSG();
+                        this.$router.push({ path: "/login" });
+                    }
                 }
-                else if(response.data.result === 0){
-                    this.infoAlertMSG();
-                }
-                else if(this.token === null){
-                    this.addProductAlertMSG();
-                    this.$router.push({ path: "/login" });
-                }
+
+
             }   
         }
     }

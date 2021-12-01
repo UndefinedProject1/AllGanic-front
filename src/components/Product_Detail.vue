@@ -371,7 +371,7 @@ import Cart_Popup from './Cart_Popup.vue';
                     height: 'fit-content',
                     width: '0%',
                     position: 'fixed',
-                    // zIndex: '100',
+                    zIndex: '100000',
                     top: '15%',
                     right: '3%',
                     overflowX: 'hidden',
