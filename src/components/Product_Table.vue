@@ -45,7 +45,20 @@ import axios from 'axios';
 import soldout from '@/assets/soldout.jpg';
 import shoppingBag from '@/assets/shoppingBag.png';
 import Cart_Popup from './Cart_Popup.vue';
+import { ElMessage } from 'element-plus'
     export default {
+        setup() {
+            const addProductAlertMSG = () => {
+                ElMessage.message('회원전용 기능입니다. 로그인 페이지로 이동합니다.')
+            }
+            const infoAlertMSG = () => {
+                ElMessage.error('회원정보를 불러오지 못했습니다.')
+            }
+            return {
+                addProductAlertMSG,
+                infoAlertMSG
+            }
+        },
         data(){
             return{
                 soldout : soldout,
@@ -160,10 +173,10 @@ import Cart_Popup from './Cart_Popup.vue';
                     // this.addProductAlertMSG();
                 }
                 else if(response.data.result === 0){
-                    alert(response.data.state);
+                    this.infoAlertMSG();
                 }
                 else if(this.token === null){
-                    alert("회원전용 기능입니다. 로그인 페이지로 이동합니다.");
+                    this.addProductAlertMSG();
                     this.$router.push({ path: "/login" });
                 }
             }   

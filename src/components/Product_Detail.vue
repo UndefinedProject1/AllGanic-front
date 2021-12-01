@@ -295,11 +295,39 @@ import Cart_Popup from './Cart_Popup.vue';
             const failAlertMSG = () => {
                 ElMessage.error('작성실패')
             }
+            const successAlertMSG1 = () => {
+                ElMessage.success('통과')
+            }
+            const failAlertMSG1 = () => {
+                ElMessage.error('결제하신 상품이 아닙니다.')
+            }
+            const infoAlertMSG = () => {
+                ElMessage.message('장바구니가 비어있습니다.')
+            }
+            const failAlertMSG2 = () => {
+                ElMessage.error('error')
+            }
+            const infoAlertMSG1 = () => {
+                ElMessage.message('회원전용 기능입니다. 로그인 페이지로 이동합니다.')
+            }
+            const infoAlertMSG2 = () => {
+                ElMessage.error('회원정보를 불러오지 못했습니다.')
+            }
+            const successAlertMSG2 = () => {
+                ElMessage.success('신고가 정상적으로 접수되었습니다.')
+            }
             return{
                 visibile : ref(false),
                 successAlertMSG,
+                successAlertMSG1,
                 addProductAlertMSG,
                 failAlertMSG,
+                failAlertMSG1,
+                infoAlertMSG,
+                failAlertMSG2,
+                infoAlertMSG1,
+                infoAlertMSG2,
+                successAlertMSG2
             }
         },
         data(){
@@ -563,14 +591,14 @@ import Cart_Popup from './Cart_Popup.vue';
                 const response = await axios.get(url, {headers});
                 // console.log(response.data);
                 if(response.data === 1){
-                    alert("통과");
+                    this.successAlertMSG1();
                     this.showWriting = true;
                 }else if(response.data === 0){
-                    alert("결제하신 상품이 아닙니다.")
+                    this.failAlertMSG1();
                 }else if(response.data === 2){
-                    alert("이미 작성하신 리뷰는 마이페이지에서 수정하실 수 있습니다.")
+                    this.infoAlertMSG();
                 }
-                else alert("ERROR");
+                else this.failAlertMSG2();
             },
             closeWritingReview(){
                 this.showWriting = false;
@@ -629,11 +657,11 @@ import Cart_Popup from './Cart_Popup.vue';
                     // this.addProductAlertMSG();
                 }
                 else if(response.data.result === 0){
-                    alert(response.data.state);
+                    this.infoAlertMSG2();
                 }
                 else if(this.token === undefined){
                     // this.CartPopup = true;
-                    alert("회원전용 기능입니다. 로그인 페이지로 이동합니다.");
+                    this.infoAlertMSG1();
                     this.$router.push({ path: "/login" });
                 }
             },
@@ -649,11 +677,11 @@ import Cart_Popup from './Cart_Popup.vue';
                     }
                     const response = await axios.post(url, body, {headers});
                     if(response.data.result === 1){
-                        alert('신고가 정상적으로 접수되었습니다.');
+                        this.successAlertMSG2();
                         await this.handleDetailContents();
                     }
                     else if(response.data === 0){
-                        alert("error")
+                        this.failAlertMSG2();
                     }
                 }
             }

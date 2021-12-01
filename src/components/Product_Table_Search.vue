@@ -48,8 +48,12 @@ import { ElMessage } from 'element-plus'
             const addProductAlertMSG = () => {
                 ElMessage.message('회원전용 기능입니다. 로그인 페이지로 이동합니다.')
             }
+            const infoAlertMSG = () => {
+                ElMessage.error('회원정보를 불러오지 못했습니다.')
+            }
             return {
-                addProductAlertMSG
+                addProductAlertMSG,
+                infoAlertMSG
 
             }
         },
@@ -124,7 +128,7 @@ import { ElMessage } from 'element-plus'
                     // this.addProductAlertMSG();
                 }
                 else if(response.data.result === 0){
-                    alert(response.data.state);
+                    this.infoAlertMSG();
                 }
                 else if(this.token === null){
                     this.addProductAlertMSG();
