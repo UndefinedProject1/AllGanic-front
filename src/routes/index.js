@@ -65,6 +65,7 @@ router.beforeEach( async(to, from, next ) => {
 
     // 로그인 인증
     var result = 0;
+    // const role = sessionStorage.getItem("role");
     const token = sessionStorage.getItem("token");
 
     if (token !== null) {
@@ -92,6 +93,14 @@ router.beforeEach( async(to, from, next ) => {
     else {
         next() // 원래 이동하고자하는 페이지
     }
+
+    // 관리자 페이지 막기
+    // if(to.name === 'admin_page' && role !== 2){
+    //     next({name : 'restrict_page'});
+    // }
+    // else{
+    //     next()
+    // }
 });
 
 
