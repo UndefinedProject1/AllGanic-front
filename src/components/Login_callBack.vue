@@ -90,7 +90,7 @@ export default {
                 userpw : this.kakao_login_pw
             }
             console.log('카톡 로그인시 body', body)
-            const response = await axios.post(url, body, header);
+            const response = await axios.post(url, body, headers);
             console.log('카톡 로그인 시도 반응', response);
             if(response.data.result !== 4) {
                 if(response.data.result === 1){
