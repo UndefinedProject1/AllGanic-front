@@ -209,6 +209,9 @@ import { ElMessageBox, ElMessage } from 'element-plus'
             const warningAlertMSG1 = () => {
                 ElMessage.error('데이터가 없습니다.')
             }
+            const successAlertMSG1 = () => {
+                ElMessage.success('문의내역이 삭제 되었습니다.')
+            }
             return {
                 deleteConfirm,
                 failAlertMSG,
@@ -217,7 +220,8 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 infoAlertMSG1,
                 infoAlertMSG,
                 warningAlertMSG1,
-                warningAlertMSG
+                warningAlertMSG,
+                successAlertMSG1
             }
         },
         data() {
@@ -348,12 +352,13 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 }
             },
             async handleDelete(val){
-                if(confirm('삭제하기')){
+                // if(confirm(this.successAlertMSG1())){
                     const url = `REST/api/question/delete?no=${val}`;
                     const response = await axios.delete(url);
                     // console.log(response);
                     if(response.data === 1){
-                        await this.handleQaListGet()
+                        await this.handleQaListGet();
+                        this.successAlertMSG1();
                     }
                     else if(response.data === 0){
                         this.infoAlertMSG1();
@@ -361,8 +366,8 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                     else {
                         this.failAlertMSG1();
                     }
-                }
-            },
+                },
+            //},
             async handleQaUpdate(val){
                 const url = `REST/api/question/update?no=${val}`;
                 const headers = {"Content-Type" : "application/json", "token" : this.token};

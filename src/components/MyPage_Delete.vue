@@ -148,6 +148,7 @@ import { ElMessage } from 'element-plus';
     justify-content: center;
     font-size: 15px;
     font-family: 'Gowun Dodum', sans-serif;
+    cursor: pointer;
 }
 .el-dialog__body > p {
     text-align: initial;

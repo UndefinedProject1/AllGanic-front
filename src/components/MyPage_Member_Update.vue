@@ -615,7 +615,7 @@ input {
 }
 .u_address_box > button:hover {
   cursor: pointer;
-  opacity: 0.8;
+  /* opacity: 0.8; */
 }
 
 /* 우편번호검색 버튼 */
@@ -640,6 +640,7 @@ input {
   border-radius: 5px;
   font-size: 15px;
   font-family: 'Gowun Dodum', sans-serif;
+  cursor: pointer;
 }
 
 
@@ -693,6 +694,7 @@ span {
   border-radius: 3px;
   border: none;
   margin-right: 20px;
+  cursor: pointer;
 }
 #btn_update {
   width: 70px;
@@ -702,6 +704,7 @@ span {
   background-color: #715036;
   border-radius: 3px;
   border: none;
+  cursor: pointer;
 }
 .dialog-footer{
   /* border: 1px solid black; */

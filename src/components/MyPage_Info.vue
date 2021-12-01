@@ -252,7 +252,6 @@ img {
     font-family: 'Gowun Dodum', sans-serif;
     font-size: 12px;
     cursor: pointer;
-    opacity: 0.8;
 }
 .info_ad_icon > p {
     width: 80%;
