@@ -230,6 +230,8 @@ import { ElMessage } from 'element-plus'
           zIndex: '100',
           top: "0",
           left: '0',
+          display : 'flex',
+          jusityContent : 'center',
           // backgroundColor: 'rgb(0,0,0)',
           backgroundColor: 'rgba(255, 255, 255, 0.9)',
           overflowY: 'hidden',
@@ -435,7 +437,8 @@ import { ElMessage } from 'element-plus'
   display: flex;
   height : 100%;
   flex-direction: column;
-  padding: 20px 30px 30px 45px;
+  width: 100%;
+    padding-left: 20%;
 }
 .fashion_section {
   padding-top: 20%;
