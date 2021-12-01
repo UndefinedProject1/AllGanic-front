@@ -83,10 +83,10 @@ import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
             'Admin_Handle_Member' : Admin_Handle_Member
         },
         async created(){
-            await this.getQAlist();
-            await this.getCount();
             const app = getCurrentInstance();
             this.$socket = app.appContext.config.globalProperties.$socket;
+            await this.getQAlist();
+            await this.getCount();
         },
         mounted() {
             this.$socket.on("QuestionIn", async (recv) => {
@@ -112,6 +112,7 @@ import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
                 const headers = {"token" : this.token};
                 const response = await axios.get(url, {headers});
                 console.log(response);
+                this.$socket.emit('addReport', {data : {alretReport : 1}});
                 this.count = response.data;
             }
         }

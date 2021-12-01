@@ -171,7 +171,7 @@ import { ElMessage } from 'element-plus'
 }
 .pt_table_container{
     /* border: 1px solid black; */
-    width: 80%;
+    width: 85%;
     height: fit-content;
     display: flex;
     flex-direction: column;

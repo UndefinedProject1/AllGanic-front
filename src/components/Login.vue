@@ -113,14 +113,14 @@ import { ElMessage } from 'element-plus'
                 window.Kakao.Auth.authorize(params);
             },
             async handleLogin(){
-                const header = {"Content-Type" : "application/json"};
+                const headers = {"Content-Type" : "application/json"};
                 const body = {
                     useremail : this.userid,
                     userpw : this.userpw
                 }
                 // console.log(body);
                 const url =  `REST/api/member/login?sns=false`;
-                const response = await axios.post(url, body, header);
+                const response = await axios.post(url, body, headers);
                 console.log(response);
                 if(response.data.result !== 4){
                     if(response.data.result === 1){

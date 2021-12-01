@@ -66,7 +66,9 @@ export default {
                 useremail : res.kakao_account.email,
             }
             console.log('이메일 중복체크용으로 보내는 body',body);
+            
             const response = await axios.post(url, body, header);
+            console.log('이메일 중복체크 한 후 반응', response);
             if(response.data.result === 1){
                 await this.handleKakaoLogin();
             }
@@ -79,9 +81,10 @@ export default {
         },
         async handleKakaoLogin(){
             const res = await getKakaoUserInfo();
+            console.log(res);
 
             const url =  `REST/api/member/login?sns=true`;
-            const header = {"Content-Type" : "application/json"};
+            const headers = {"Content-Type" : "application/json"};
             const body = {
                 useremail : res.kakao_account.email,
                 userpw : this.kakao_login_pw
@@ -116,7 +119,6 @@ export default {
                 alert('이미 탈퇴한 회원입니다.');
                 this.$router.push({ path: "/" });
             }
-
         },
         async handleKakaoJoin(){
             const res = await getKakaoUserInfo();
@@ -134,6 +136,7 @@ export default {
                 detaileaddress: '',
             };
             const response = await axios.post(url, body, header);
+            console.log(response);
             if (response.data.result === 1) {
                 await this.handleKakaoLogin();
             }

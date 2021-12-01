@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import {getCurrentInstance} from '@vue/runtime-core';
 import axios from 'axios';
 import { ElMessage } from 'element-plus'
     export default {
@@ -65,6 +66,7 @@ import { ElMessage } from 'element-plus'
         },
         data(){
             return{
+                $socket : '',
                 token: sessionStorage.getItem("token"),
                 tableData: [],
                 sorting : [],
@@ -82,14 +84,24 @@ import { ElMessage } from 'element-plus'
             }
         },
         async created() {
+            const app = getCurrentInstance();
+            this.$socket = app.appContext.config.globalProperties.$socket;
+
             await this.tableDataGet();
             await this.getCount();
+        },
+        mounted() {
+            this.$socket.on("alretReport", async (recv) => {
+                console.log(recv);
+                await this.getCount();
+            })
         },
         methods : {
             async getCount(){
                 const url = `REST/api/admin/forge/member`;
                 const headers = {"token" : this.token};
                 const response = await axios.get(url, {headers});
+                console.log(response);
                 this.count = response.data;
                 if(this.count >= 3){
                     this.failAlertMSG();
@@ -144,6 +156,13 @@ import { ElMessage } from 'element-plus'
                         this.sorting[i] = Math.floor(this.tableData[i].REPORTDATE.length / 11);
                         this.tableData[i].REPORTDATE = this.sorting[i];
                     }
+
+                    for(var j=0; j<this.tableData.length; j++){
+                        if(this.tableData[j].REPORTCOUNT >= 3){
+                            this.failAlertMSG();
+                        }
+                    }
+                    
                     console.log(this.tableData);
                 }
             },
