@@ -352,7 +352,7 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 }
             },
             async handleDelete(val){
-                // if(confirm(this.successAlertMSG1())){
+                if(confirm('삭제하기')){
                     const url = `REST/api/question/delete?no=${val}`;
                     const response = await axios.delete(url);
                     // console.log(response);
@@ -366,8 +366,8 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                     else {
                         this.failAlertMSG1();
                     }
-                },
-            //},
+                }
+            },
             async handleQaUpdate(val){
                 const url = `REST/api/question/update?no=${val}`;
                 const headers = {"Content-Type" : "application/json", "token" : this.token};

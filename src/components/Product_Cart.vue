@@ -140,6 +140,12 @@ import { ElMessageBox, ElMessage } from 'element-plus'
             const successAlertMSG = () => {
                 ElMessage.success('물품수량 변경완료')
             }
+            const successAlertMSG1 = () => {
+                ElMessage.success('삭제 완료')
+            }
+            const infoAlertMSG1 = () => {
+                ElMessage.message('물품정보가 없습니다.')
+            }
             return {
                 deleteConfirm,
                 failAlertMSG,
@@ -147,7 +153,9 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 infoAlertMSG,
                 warningAlertMSG,
                 warningAlertMSG1,
-                successAlertMSG
+                successAlertMSG,
+                successAlertMSG1,
+                infoAlertMSG1
             }
         },
         data(){
@@ -235,29 +243,38 @@ import { ElMessageBox, ElMessage } from 'element-plus'
                 await this.getCartItem();
             },
             async someDeleteBtn(){
-                // for(var i=0; i<this.selectionArr.length; i++){
-                //     this.chks[i] = this.selectionArr[i].CARTITEMCODE;
-                //     console.log(this.chks);
-                // }
-                
-                const url = `REST/api/cartitem/delete/check?chks=${this.chks}`;
-                const response = await axios.delete(url);
-                if(response.data.result === 1){
-                    this.deleteConfirm();
-                    await this.getCartItem();
-                }else this.failAlertMSG();
+                if(confirm('삭제 하시겠습니까?')){
+                    const url = `REST/api/cartitem/delete/check?chks=${this.chks}`;
+                    const response = await axios.delete(url);
+                    // console.log(response);
+                    if(response.data.result === 1){
+                        await this.getCartItem();
+                        this.successAlertMSG1();
+                    }
+                    else if(response.data === 0){
+                        this.infoAlertMSG1(); // 물품정보가 없습니다.
+                    }
+                    else {
+                        this.failAlertMSG();
+                    }
+                }
             },
             async allDeleteBtn(){
-                const url = `REST/api/cartitem/delete/all?code=${this.cartCode}`;
-                const response = await axios.delete(url);
-                if(response.data.result >= 1){
-                    this.deleteConfirm();
-                    this.infoAlertMSG();
-                    await this.getCartItem();
-                }else if(response.data.result === 0){
-                    this.failAlertMSG();
+                if(confirm('전체삭제 하시겠습니까?')) {
+                    const url = `REST/api/cartitem/delete/all?code=${this.cartCode}`;
+                    const response = await axios.delete(url);
+                    if(response.data.result >= 1){
+                        await this.getCartItem();
+                        this.successAlertMSG1();
+                    }
+                    else if(response.data.result === 0){
+                        this.infoAlertMSG1(); // 물품정보가 없습니다.
+                    }
+                    else {
+                        this.failAlertMSG1();
+                    }
+
                 }
-                this.failAlertMSG1();
             },
             handlePayment(){
                 if(this.chks.length == 0){
