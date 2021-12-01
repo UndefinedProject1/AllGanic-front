@@ -89,29 +89,34 @@ export default {
             console.log('카톡 로그인시 body', body)
             const response = await axios.post(url, body, header);
             console.log('카톡 로그인 시도 반응', response);
-            if(response.data.result === 1){
-                sessionStorage.setItem("token", this.key + response.data.token);
-                const headers = {"Content-Type" : "application/json", "token" : this.key + response.data.token};
-                const url1 = `REST/api/member/role`;
+            if(response.data.result !== 4) {
+                if(response.data.result === 1){
+                    sessionStorage.setItem("token", this.key + response.data.token);
+                    const headers = {"Content-Type" : "application/json", "token" : this.key + response.data.token};
+                    const url1 = `REST/api/member/role`;
 
-                const response1 = await axios.get(url1, {headers});
-                if(response1.data.result === 1){
-                    if(response1.data.role === "MEMBER"){
-                        sessionStorage.setItem("role", 1);
+                    const response1 = await axios.get(url1, {headers});
+                    if(response1.data.result === 1){
+                        if(response1.data.role === "MEMBER"){
+                            sessionStorage.setItem("role", 1);
+                        }
+                        else sessionStorage.setItem("role", 2);
                     }
-                    else sessionStorage.setItem("role", 2);
+                    else{
+                        alert('토큰값이 유효하지 않습니다');
+                    }
+                    this.$router.push({ path: "/" });
                 }
-                else{
-                    this.failAlertMSG2();
+                else if(response.data.result === 0) {
+                    alert('카카오 유저가 아닙니다. 사이트 로그인에서 로그인을 시도하여 주십시오.');
+                    this.$router.push({ path: "/login" });
                 }
+                this.$emit('changeLogged', true);
+            }else if(response.data.result === 4){
+                alert('이미 탈퇴한 회원입니다.');
                 this.$router.push({ path: "/" });
             }
-            else if(response.data.result === 0) {
-                this.failAlertMSG3();
-                this.$router.push({ path: "/login" });
-            }
 
-            this.$emit('changeLogged', true);
         },
         async handleKakaoJoin(){
             const res = await getKakaoUserInfo();

@@ -15,9 +15,7 @@
                     <ul> 
                         <li class="pt_product_container" v-for="product in productlist" v-bind:key="product">
                             <div class="pt_product" >
-                                <!-- <router-link :to="`/product_detail?code=${product.productcode}`"> -->
-                                    <img :src="`REST/api/select_productimage?no=${product.productcode}`" @error="replaceByDefault" @click="goDetail(product.productcode)" :ref="img"> 
-                                <!-- </router-link> -->
+                                <img :src="`REST/api/select_productimage?no=${product.productcode}`" @error="replaceByDefault" @click="goDetail(product.productcode)"> 
                                 <div class="pd_text_section">
                                     <p id="pd_brand"><ins>{{product.brandname}}</ins></p>
                                     <router-link :to="`/product_detail?code=${product.productcode}`" id="pd_name">
@@ -54,13 +52,13 @@ import { ElMessage } from 'element-plus'
             const infoAlertMSG = () => {
                 ElMessage.error('회원정보를 불러오지 못했습니다.')
             }
-            const fialMSG = () => {
+            const failMSG = () => {
                 ElMessage.error('해당 제품은 품절되었습니다.')
             }
             return {
                 addProductAlertMSG,
                 infoAlertMSG,
-                fialMSG
+                failMSG
             }
         },
         data(){
@@ -95,8 +93,16 @@ import { ElMessage } from 'element-plus'
             }
         },
         methods : {
-            goDetail(val){
-                this.$router.push({ path: "/product_detail", query:{code : val} });
+            async goDetail(val){
+                const url = `REST/api/check/unsalable/product?code=${val}`;
+                const response = await axios.get(url);
+                console.log(response);
+                if(response.data === 0){
+                    this.$router.push({ path: "/product_detail", query:{code : val} }); 
+                }
+                else{
+                    this.failMSG();
+                }
             },
             replaceByDefault(e) {
                 e.target.src = soldout;
@@ -169,11 +175,11 @@ import { ElMessage } from 'element-plus'
             },
 
             async addCart(val){
-                console.log(this.$refs.img.src);
-                if(this.$refs.img.src === this.soldout){
-                    alert('no');
-                }
-                else {
+                const url1 = `REST/api/check/unsalable/product?code=${val}`;
+                const response1 = await axios.get(url1);
+                console.log(response1);
+                
+                if(response1.data === 0){
                     const url = `REST/api/cart/create/insert?cnt=${this.quantity}&no=${val}`;
                     const headers = {"Content-Type" : "application/json", "token" : this.token};
                     const response = await axios.post(url, { }, {headers});
@@ -184,18 +190,18 @@ import { ElMessage } from 'element-plus'
                     if(response.data.result === 1){
                         this.$refs.handlePopCart.getCartItem();
                         this.CartPopup = true;
-                        // this.addProductAlertMSG();
                     }
                     else if(response.data.result === 0){
-                        this.infoAlertMSG();
+                        alert('회원정보를 불러오지 못했습니다.');
                     }
                     else if(this.token === null){
-                        this.addProductAlertMSG();
+                        alert("회원전용 기능입니다. 로그인 페이지로 이동합니다.");
                         this.$router.push({ path: "/login" });
                     }
                 }
-
-
+                else {
+                    this.failMSG();
+                }
             }   
         }
     }

@@ -10,7 +10,6 @@
                     <div class="email">
                         <div class="email_input">
                             <i class="el-icon-message" :size="50"></i>
-                            <!-- <img :src="login_email" style="right" class="logo_email"/> -->
                             <input type="text" placeholder="이메일" id="id" v-model="userid">
                             <img :src="success" v-show="showSuccess">
                             <img :src="fail" v-show="showFail">
@@ -19,7 +18,6 @@
                     <div class="password">
                         <div class="password_input">
                             <i class="el-icon-lock" :size="50"></i>
-                            <!-- <img :src="login_password" style="right" class="logo_password"/> -->
                             <input type="password" placeholder="비밀번호" id="password" v-model="userpw">
                         </div>
                     </div>
@@ -64,13 +62,17 @@ import { ElMessage } from 'element-plus'
             const failAlertMSG1 = () => {
                 ElMessage.error('토큰값이 유효하지 않습니다')
             }
+            const deleteMemberMSG = () => {
+                ElMessage.error('이미 탈퇴한 회원입니다.')
+            }
             return{
                 successAlertMSG,
                 validateSuccessMSG,
                 validateErrorMSG,
                 addProductAlertMSG,
                 failAlertMSG,
-                failAlertMSG1
+                failAlertMSG1,
+                deleteMemberMSG
             }
         },
         data() {
@@ -120,49 +122,55 @@ import { ElMessage } from 'element-plus'
                 const url =  `REST/api/member/login?sns=false`;
                 const response = await axios.post(url, body, header);
                 console.log(response);
-                if(response.data.result === 1){
-                    sessionStorage.setItem("token", this.key + response.data.token);
-                    this.successAlertMSG();
-                    const headers = {"Content-Type" : "application/json", "token" : this.key + response.data.token};
-                    const url1 = `REST/api/member/role`;
-                    console.log(headers);
+                if(response.data.result !== 4){
+                    if(response.data.result === 1){
+                        sessionStorage.setItem("token", this.key + response.data.token);
+                        this.successAlertMSG();
+                        const headers = {"Content-Type" : "application/json", "token" : this.key + response.data.token};
+                        const url1 = `REST/api/member/role`;
+                        console.log(headers);
 
-                    const response1 = await axios.get(url1, {headers});
-                    if(response1.data.result === 1){
-                        if(response1.data.role === "MEMBER"){
-                            sessionStorage.setItem("role", 1);
-                        }
-                        else sessionStorage.setItem("role", 2);
-                    }
-                    else{
-                        this.failAlertMSG1();
-                    }
-                    var urlbox = sessionStorage.getItem("URL");
-                    // console.log(urlbox); 
-                
-                    urlbox = JSON.parse(urlbox);
-
-                    // console.log(typeof(urlbox));
-                    // console.log(urlbox);
-
-                    if(urlbox !== null){
-                        this.$router.push({
-                            path : urlbox.path, 
-                            query : {
-                                code : urlbox.query.code,
-                                name : urlbox.query.name
+                        const response1 = await axios.get(url1, {headers});
+                        if(response1.data.result === 1){
+                            if(response1.data.role === "MEMBER"){
+                                sessionStorage.setItem("role", 1);
                             }
-                        });
-                        console.log(this.$router);
+                            else sessionStorage.setItem("role", 2);
+                        }
+                        else{
+                            this.failAlertMSG1();
+                        }
+                        var urlbox = sessionStorage.getItem("URL");
+                        // console.log(urlbox); 
+                    
+                        urlbox = JSON.parse(urlbox);
+
+                        // console.log(typeof(urlbox));
+                        // console.log(urlbox);
+
+                        if(urlbox !== null){
+                            this.$router.push({
+                                path : urlbox.path, 
+                                query : {
+                                    code : urlbox.query.code,
+                                    name : urlbox.query.name
+                                }
+                            });
+                            console.log(this.$router);
+                        }
+                        else{
+                            this.$router.push({path:"/"});
+                        }
                     }
-                    else{
-                        this.$router.push({path:"/"});
+                    else if(response.data.result === 0) {
+                        this.failAlertMSG();
                     }
+                    this.$emit('changeLogged', true);
                 }
-                else if(response.data.result === 0) {
-                    this.failAlertMSG();
+                else {
+                    this.deleteMemberMSG();
                 }
-                this.$emit('changeLogged', true);
+
             },
         }
     }
