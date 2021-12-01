@@ -238,7 +238,7 @@ import { ElMessage } from 'element-plus'
           transition: '0.5s',
         },
         sideNavStyle:{
-          width : '20%',
+          width : '0%',
           height : '100%',
           position : 'fixed',
           zIndex : '10000',
@@ -287,7 +287,7 @@ import { ElMessage } from 'element-plus'
         this.wrapper.opacity="0.4";
       },
       closeSideNav(){
-        this.sideNavStyle.width="20%";
+        this.sideNavStyle.width="0%";
         this.sideNavStyle_b.width="0%";
         this.wrapper.opacity="1";
       },
