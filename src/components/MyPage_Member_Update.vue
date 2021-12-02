@@ -370,9 +370,11 @@ input {
   color: #333;
 }
 .info_list {
+  /* border: 1px solid black; */
   width: 98.5%;
   height: 100%;
   margin-left: 30px;
+  align-items: center;
 }
 .m_update_title {
   color: #715036;

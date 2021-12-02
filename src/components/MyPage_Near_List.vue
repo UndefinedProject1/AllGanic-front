@@ -176,10 +176,12 @@ import { ElMessage } from 'element-plus'
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap');
 .info_list {
-    /* border: 1px solid black; */
+    display: flex;
     width: 98.5%;
+    flex-direction: column;
     height: 100%;
     margin-left: 30px;
+    justify-content: space-between;
 }
 .info_title {
     color: #715036;
@@ -202,7 +204,7 @@ import { ElMessage } from 'element-plus'
 .qna_list {
     /* border: 1px solid black; */
     color: #715036;
-    height: 30%;
+    height: 46%;
     margin-top: 10px;
     font-weight: bold;
     display: flex;

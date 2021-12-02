@@ -155,7 +155,7 @@ import { ElMessage } from 'element-plus'
 .info_box {
     border: 3px solid #715036;
     width: 28%;
-    height: 100%;
+    height: 90%;
     border-radius: 3px;
     font-family: 'Gowun Dodum', sans-serif;
 }
@@ -370,13 +370,17 @@ img {
 }
 .admin_content {
     width: 100%;
+    height: 88%;
+    /* border: 1px solid black; */
 }
 .info_wapper {
-    /* border: 1px solsid black; */
+    /* border: 1px solid black; */
     display: flex;
     padding: 40px;
     font-family: 'Gowun Dodum', sans-serif;
-    margin-top: 4.5%;
+    margin-top: 2%;
+    height: 100vh;
+    align-items: center;
 }
 
 </style>
