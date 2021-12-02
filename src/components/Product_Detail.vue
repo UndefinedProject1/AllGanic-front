@@ -522,7 +522,7 @@ import Cart_Popup from './Cart_Popup.vue';
                     setTimeout(() => {
                         this.RecommendStyle.width = "0%";
                         this.RecommendStyle.padding = "0px";
-                    }, 10000)
+                    }, 5000)
                 }
 
                 // 리뷰 목록
