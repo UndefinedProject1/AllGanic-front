@@ -15,7 +15,7 @@
                 </div>
             </div>
         <el-dialog v-model="showModal" title="회원 탈퇴" width="30%" center id="modal_content">
-            <p>탈퇴하시면 기존의 고객정보는 사라집니다.</p>
+            <p>탈퇴하시면 1년동안 고객정보는 보관 됩니다.</p>
             <p>탈퇴 하시겠습니까?</p>
             <template #footer>
                 <div class="delete_modal_btn">
