@@ -108,6 +108,7 @@ export default {
                     else{
                         alert('토큰값이 유효하지 않습니다');
                     }
+                    alert('로그인 성공');
                     this.$router.push({ path: "/" });
                 }
                 else if(response.data.result === 0) {

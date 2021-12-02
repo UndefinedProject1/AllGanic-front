@@ -63,10 +63,24 @@ router.beforeEach( async(to, from, next ) => {
     console.log(to);
     console.log(from);
 
+
     // 로그인 인증
     var result = 0;
     const role = sessionStorage.getItem("role");
     const token = sessionStorage.getItem("token");
+    console.log(token);
+
+        
+    //관리자 페이지 막기
+    if(to.path === '/admin_page' && token === null){
+        next({path : '/restrict_page'});
+    }
+    else if(to.path === '/admin_page' && role !== 2){
+        next({path : '/restrict_page'});
+    }
+    else {
+        next();
+    }
 
     if (token !== null) {
         // 유효한 토큰인지 확인
@@ -94,13 +108,6 @@ router.beforeEach( async(to, from, next ) => {
         next() // 원래 이동하고자하는 페이지
     }
 
-    //관리자 페이지 막기
-    if(to.name === 'admin_page' && role !== 2){
-        next({name : 'restrict_page'});
-    }
-    else{
-        next()
-    }
 });
 
 
