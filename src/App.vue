@@ -283,7 +283,7 @@ import { ElMessage } from 'element-plus'
         this.wrapper.opacity="0.4";
       },
       openSideNav_b(){
-        this.sideNavStyle_b.width="25%";
+        this.sideNavStyle_b.width="28%";
         this.wrapper.opacity="0.4";
       },
       closeSideNav(){
