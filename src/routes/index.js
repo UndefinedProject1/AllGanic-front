@@ -65,7 +65,7 @@ router.beforeEach( async(to, from, next ) => {
 
     // 로그인 인증
     var result = 0;
-    // const role = sessionStorage.getItem("role");
+    const role = sessionStorage.getItem("role");
     const token = sessionStorage.getItem("token");
 
     if (token !== null) {
