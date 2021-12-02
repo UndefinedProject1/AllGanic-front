@@ -581,6 +581,7 @@ import Cart_Popup from './Cart_Popup.vue';
                 if(response.data.result === 1){
                     this.successAlertMSG();
                     this.showWriting = false;
+                    await this.handleDetailContents();
                 }else this.failAlertMSG();
             },
 

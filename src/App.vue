@@ -81,7 +81,7 @@
 
   <!-- 사이드 NAV 메뉴 / brand -->
   <div v-bind:style="sideNavStyle_b" class="sidenav" id="Sidenav" >
-    <div class="nav_sections">
+    <div class="nav_sections_b">
       <div class="nav_section">
         <p>( * )</p>
         <div class="snav_section">
@@ -283,7 +283,7 @@ import { ElMessage } from 'element-plus'
         this.wrapper.opacity="0.4";
       },
       openSideNav_b(){
-        this.sideNavStyle_b.width="32%";
+        this.sideNavStyle_b.width="25%";
         this.wrapper.opacity="0.4";
       },
       closeSideNav(){
@@ -438,7 +438,14 @@ import { ElMessage } from 'element-plus'
   height : 100%;
   flex-direction: column;
   width: 100%;
-    padding-left: 20%;
+  padding-left: 20%;
+}
+.nav_sections_b {
+  display: flex;
+  height : 100%;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-evenly
 }
 .fashion_section {
   padding-top: 20%;
@@ -478,7 +485,8 @@ import { ElMessage } from 'element-plus'
   display: flex;
   flex-direction: row;
   align-items: baseline;
-  padding: 10px 0px 3px 10px;
+  justify-content: center;
+  /* padding: 10px 0px 3px 10px; */
 }
 .nav_section p {
   width: fit-content;
@@ -490,6 +498,7 @@ import { ElMessage } from 'element-plus'
 }
 .snav_section {
   display: flex;
+  width: 80%;
   flex-direction: row;
 }
 .snav_section a{
@@ -497,7 +506,7 @@ import { ElMessage } from 'element-plus'
   padding: 0;
   margin: 0px 0px 0px 0px;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 16px;
   color: #F6EBCE;
   transition: 0.3s;
   font-family: 'Gowun Batang', sans-serif;
@@ -505,6 +514,8 @@ import { ElMessage } from 'element-plus'
 .snav_section a:hover{
   color : #49654E;
   background-color: #eeeeee;
+  width: fit-content;
+  font-size: 16.5px;
   border-radius: 5px;
   opacity: 0.9;
 }
