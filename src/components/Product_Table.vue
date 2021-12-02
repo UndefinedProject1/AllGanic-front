@@ -97,7 +97,7 @@ import { ElMessage } from 'element-plus'
                 const url = `REST/api/check/unsalable/product?code=${val}`;
                 const response = await axios.get(url);
                 console.log(response);
-                if(response.data === 1){
+                if(response.data === 0){
                     this.$router.push({ path: "/product_detail", query:{code : val} }); 
                 }
                 else{
@@ -179,7 +179,7 @@ import { ElMessage } from 'element-plus'
                 const response1 = await axios.get(url1);
                 console.log(response1);
                 
-                if(response1.data === 1){
+                if(response1.data === 0){
                     const url = `REST/api/cart/create/insert?cnt=${this.quantity}&no=${val}`;
                     const headers = {"Content-Type" : "application/json", "token" : this.token};
                     const response = await axios.post(url, { }, {headers});

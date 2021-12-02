@@ -589,7 +589,7 @@ import Cart_Popup from './Cart_Popup.vue';
                 const url = `REST/api/payments/paylist/check?no=${this.pcode}`;
                 const headers = {"token" : this.gettoken};
                 const response = await axios.get(url, {headers});
-                // console.log(response.data);
+                console.log(response);
                 if(response.data === 1){
                     this.successAlertMSG1();
                     this.showWriting = true;
