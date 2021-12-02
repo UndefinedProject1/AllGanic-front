@@ -8,8 +8,8 @@
                 </div>
                 <div class="product_info_section">
                     <el-table ref="multipleTable" :data="itemList" @selection-change="handleSelectionChange">
-                        <el-table-column type="selection" width="50" align="center" v-model="chks"/>
-                        <el-table-column label="상품정보" width="400" align="center">
+                        <el-table-column type="selection" width="60" align="center" v-model="chks"/>
+                        <el-table-column label="상품정보" width="460" align="center">
                             <template #default="scope">
                                 <el-image style="width: 135px; height: 150px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
                                 <div class="product_detail_info" style="width: 60%; float:right;  text-align:left; padding:5px 10px;">
@@ -312,7 +312,7 @@ router-link{
 }
 .cart_container{
     /* border: 1px solid black; */
-    width: 85%;
+    width: 90%;
     height: 100%;
     display: flex;
     margin: 0 auto;
@@ -367,7 +367,7 @@ router-link{
 .cart_summary{
     width: 20%;
     height: 70%;
-    right : 10%;
+    right : 7%;
     position: fixed;
     display: flex;
     flex-direction: column;

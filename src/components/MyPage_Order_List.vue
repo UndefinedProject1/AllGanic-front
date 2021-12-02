@@ -55,7 +55,16 @@
 
 <script>
 import axios from "axios";
+import { ElMessage } from 'element-plus'
     export default {
+        setup(){
+            const successAlertMSG1 = () => {
+                ElMessage.success('취소 완료')
+            }
+            return {
+                successAlertMSG1
+            }
+        },
         data() {
             return {
                 token: sessionStorage.getItem("token"),
@@ -91,7 +100,7 @@ import axios from "axios";
                 const headers = {"Content-Type" : "application/json", token: this.token};
                 const response = await axios.post(url, body, {headers});
                 console.log(response);
-                this.successAlertMSG();
+                this.successAlertMSG1();
             }
         }
     }

@@ -255,7 +255,7 @@ import { ElMessage } from 'element-plus'
           zIndex : '10000',
           top : '0',
           left : '0',
-          paddingTop : '10px',
+          // paddingTop : '10px',
           backgroundColor : '#49654E',
           overflowX : 'hidden',
           transition : '0.3s'
