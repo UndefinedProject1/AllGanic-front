@@ -218,13 +218,13 @@ import { ElMessage } from 'element-plus'
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    font-family: 'Gowun Dodum', sans-serif; */
+    font-family: 'Hahmlet', serif; */
     width : 100%;
     height: 100%;
     display : inline-flex;
     /* border: 1px solid black; */
     padding : 10px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 
 }
 .handleMember_box{

@@ -88,7 +88,7 @@ input:focus{
     box-sizing: content-box;
     justify-content: center;
     flex-direction: column;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     margin-top: 4.5%;
 }
 .forgotpassword_container {
@@ -119,7 +119,7 @@ input:focus{
     width: fit-content;
     text-align: center;
     font-size: 30px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight: bold;
     margin-bottom: 15px;
 }
@@ -187,7 +187,7 @@ input:focus{
     padding-left: 10px;
     padding-bottom: 1px;
     margin: 0%;
-    font-family: 'Gowun Dodum', sans-serif;    
+    font-family: 'Hahmlet', serif;    
 }
 #id, #name {
     border: none;
@@ -196,7 +196,7 @@ input:focus{
     font-size: 15px;
     font-weight :300;
     padding : 0px 0px 0px 15px;
-    font-family: 'Gowun Dodum', sans-serif;    
+    font-family: 'Hahmlet', serif;    
 }
 #input {
     background-color: white;
@@ -212,7 +212,7 @@ input:focus{
     background-color: #715036;
     color: white;
     border-radius: 4px;
-    font-family: 'Gowun Dodum', sans-serif;   
+    font-family: 'Hahmlet', serif;   
 }
 #forgotpassword_btn:hover {
     cursor: pointer;

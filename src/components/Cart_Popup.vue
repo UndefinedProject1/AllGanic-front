@@ -218,7 +218,7 @@ button{
     /* border: 1px solid black; */
     width: 45%;
     height: 100%;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .cart_productbox5 {
     /* border: 1px solid black; */
@@ -230,7 +230,7 @@ button{
     /* border: 1px solid black; */
     width: 20%;
     align-content: center;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     position: relative;
 }
 .cart_price > p:first-child {
@@ -290,7 +290,7 @@ button{
     width: fit-content;
     /* border: 1px solid black; */
     margin-right: 40px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .subtotal_btn {
     /* border: 1px solid black; */
@@ -311,7 +311,7 @@ button{
     justify-content: space-evenly;
     padding: 8px;
     margin: 0px 10px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 #keepshopping_btn {
     /* border: 1px solid black; */
@@ -325,7 +325,7 @@ button{
     justify-content: space-evenly;
     padding: 8px;
     margin: 0px 10px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 
 

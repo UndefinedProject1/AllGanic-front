@@ -147,7 +147,7 @@ import { ElMessage } from 'element-plus';
     align-items: center;
     justify-content: center;
     font-size: 15px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     cursor: pointer;
 }
 .el-dialog__body > p {
@@ -170,6 +170,6 @@ import { ElMessage } from 'element-plus';
     height: 30px;
     border: none;
     margin-left: 8px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 </style>

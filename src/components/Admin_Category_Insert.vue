@@ -189,7 +189,7 @@ import { ElMessage } from 'element-plus'
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .aci_header {
     height : 14%;
@@ -203,14 +203,14 @@ import { ElMessage } from 'element-plus'
     margin : 0 0px 0px 40px;
     color : rgba(29, 29, 29, 0.795);
     font-size: 20px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight : 400;
 }
 .aci_header > span {
     margin-left : 20px;
 }
 #chosen {
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight: 700;
     color: black;
     margin : 0 0px 0px 20px;
@@ -304,7 +304,7 @@ button {
     border-radius: 5px;
     color: white;
     font-size : 14px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     border: none;
 }
 Button:hover{

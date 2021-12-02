@@ -135,7 +135,7 @@ import Admin_Handle_Member from '@/components/Admin_Handle_Member.vue';
     grid-template-columns: 15% 85%;
     grid-template-areas: "admin_sidmenu", "admin_content";
     height: 100vh;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .admin_sidmenu{
     /* border: 1px solid black; */

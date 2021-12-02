@@ -157,7 +157,7 @@ import { ElMessage } from 'element-plus'
     width: 28%;
     height: 90%;
     border-radius: 3px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .info_container {
     /* border: 1px solid black; */
@@ -189,11 +189,11 @@ import { ElMessage } from 'element-plus'
     /* width: 50%; */
     /* height: 15px; */
     height: fit-content;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .info_name > p:last-child {
     /* border: 1px solid black; */
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-size: 15px;
     color: black;
     margin-left: 5px;
@@ -209,7 +209,7 @@ import { ElMessage } from 'element-plus'
 .info_email > p {
     /* border: 1px solid black; */
     font-size: 14px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     margin-left: 8px;
 }
 img {
@@ -249,7 +249,7 @@ img {
     height: 22px;
     margin: 3px 0px 0px 0px;
     float: right;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-size: 12px;
     cursor: pointer;
 }
@@ -268,7 +268,7 @@ img {
 .m_update_postcode {
     display: flex;
     font-size: 14px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     height: fit-content;
     width: 100%;
     margin-top: 10px;
@@ -278,7 +278,7 @@ img {
     height: 25px;
     width: fit-content;
     font-size: 14px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     /* border: 1px solid black; */
     margin: 0;
 }
@@ -286,7 +286,7 @@ img {
     height: 25px;
     width: fit-content;
     font-size: 14px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     /* border: 1px solid black; */
     margin: 0;
 }
@@ -294,7 +294,7 @@ img {
     height: 25px;
     width: fit-content;
     font-size: 14px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     /* border: 1px solid black; */
     margin: 0;
 }
@@ -308,7 +308,7 @@ img {
     height: fit-content;
     width: fit-content;
     font-size: 14px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     border: none;
     margin: 0;
     word-wrap: break-word;
@@ -377,7 +377,7 @@ img {
     /* border: 1px solid black; */
     display: flex;
     padding: 40px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     margin-top: 2%;
     height: 100vh;
     align-items: center;

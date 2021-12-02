@@ -78,14 +78,14 @@ import { ElMessage } from 'element-plus'
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700;800&display=swap');
 .table {
     width: 60%;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     text-align: center;
 }
 .admin_brand_list_wrapper {
     height: 100%;
     display: flex;
     flex-direction: column;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .br_in_header {
     height : 13%;
@@ -99,14 +99,14 @@ import { ElMessage } from 'element-plus'
     margin : 0 0px 0px 40px;
     color : rgba(29, 29, 29, 0.795);
     font-size: 20px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight : 400;
 }
 .br_in_header > span{
     margin-left : 20px;
 }
 #brand_section {
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight: 700;
     color: black;
     margin : 0 0px 0px 20px;
@@ -157,7 +157,7 @@ tbody td {
     color: white; 
     background-color: #49654E; 
     border:none;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 #brand_deleteBtn:hover{
     cursor: pointer;

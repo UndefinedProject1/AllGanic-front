@@ -245,7 +245,7 @@ import { ElMessage } from 'element-plus'
     grid-template-rows: 14.5% 1% 85%;
     grid-template-columns: 100%;
     grid-template-areas: "api_header", "api_divider" "api_content";
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .api_header{
     width: 100%;
@@ -253,7 +253,7 @@ import { ElMessage } from 'element-plus'
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .api_header p, span {
     width : fit-content;
@@ -460,7 +460,7 @@ button {
     /* font-family: 'Exo', sans-serif; */
     font-weight: 500;
     font-size : 18px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 button:hover {
     opacity: 0.9;

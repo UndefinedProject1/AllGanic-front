@@ -164,7 +164,7 @@ import { ElMessage } from 'element-plus'
 .pt_table_wrapper{
     width : 100%;
     overflow-x: hidden;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     /* padding: 80px; */
     /* background-color: white; */
     margin-top: 4.5%;

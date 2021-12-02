@@ -29,7 +29,7 @@ import sky from '@/assets/sky.jpg';
     padding-top: 5%;
     width: 100%;
     /* height: 100vh; */
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .co_container{
     /* border: 1px solid black; */

@@ -143,7 +143,7 @@ import axios from 'axios';
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .chart_header {
     height : 14%;
@@ -157,14 +157,14 @@ import axios from 'axios';
     margin : 0 0px 0px 40px;
     color : rgba(29, 29, 29, 0.795);
     font-size: 20px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight : 400;
 }
 .chart_header > span {
     margin-left : 20px;
 }
 #chosen {
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight: 700;
     color: black;
     margin : 0 0px 0px 20px;

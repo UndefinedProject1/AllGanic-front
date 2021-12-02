@@ -334,6 +334,7 @@ import { ElMessage } from 'element-plus'
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Exo:wght@300;400;500;600;700;800&family=Roboto:wght@300;500&display=swap');
 *{
   margin: 0;
@@ -369,6 +370,7 @@ import { ElMessage } from 'element-plus'
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  font-family: 'Hahmlet', serif;
   /* height: 100vh; */
 }
 .header .left_section, .right_section{
@@ -471,7 +473,7 @@ import { ElMessage } from 'element-plus'
   color: #F6EBCE;
   /* display : block; */
   transition: 0.3s;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 .nav_sections a:hover {
   color : #49654E;
@@ -568,7 +570,7 @@ import { ElMessage } from 'element-plus'
   width: 95%;
   color: #49654E;
   padding-left: 5px;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 .search_bar img {
   width: 5%;

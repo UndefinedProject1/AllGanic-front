@@ -48,7 +48,130 @@
         </section>
         
         <section class="outro_screen">
-            Outro Page
+            <div class="profile_wrapper">
+                <h4>All_Member Here!</h4>
+                <div class="gyeong_section">
+                    <img :src="dagyeong_profile">
+                    <div class="text_section">
+                        <table class="profile_table">
+                            <colgroup>
+                                <col class="th_area">
+                                <col class="td_area">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th><span class="th_title">이름</span></th>
+                                    <td>
+                                        정다경(95, 살아남음)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><span class="th_title">임무</span></th>
+                                    <td>
+                                        프론트
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><span class="th_title">MBTI</span></th>
+                                    <td>
+                                        ENFP(재기발랄한 활동가)
+                                    </td>
+                                </tr>  
+                                <tr>
+                                    <th><span class="th_title">소감 주저리</span></th>
+                                    <td>
+                                        죽어있을 줄 알았는데 죽지는 않고 살아있네요.
+                                        부족한 저를 배려해준 팀원들에게 감사하고 많이 배울 수 있어서 좋은 기회였습니다.<br>
+                                        아직은 많이 느리지만 꾸준히 해서 개발자라는 이름을 꿰차보도록 하겠습니다. 매번 쓴소리 해주신 선생님..감사...해요...전...상처 안받았어요....
+                                    </td>
+                                </tr>                                              
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="jihi_section">
+                    <div class="text_section">
+                        <table class="profile_table">
+                            <colgroup>
+                                <col class="th_area">
+                                <col class="td_area">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th><span class="th_title">이름</span></th>
+                                    <td>
+                                        정지희(01, 젊은 꼰대력으로 세상 제패)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><span class="th_title">임무</span></th>
+                                    <td>
+                                        팀장, (유일무이)백엔드
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><span class="th_title">MBTI</span></th>
+                                    <td>
+                                        ENTJ(대담한 통솔자)
+                                    </td>  
+                                </tr>  
+                                <tr>
+                                    <th><span class="th_title">소감 주저리</span></th>
+                                    <td>
+                                        비전공자에 나이도 어려 팀장을 맡게되어 감사하면서도 잘 이끌어갈 수 있을까라는 걱정이 많았습니다.<br>
+                                        다행히 걱정에서 그쳤고 너무나 뛰어난 분들과 함께 프로젝트를 하게되어 감읍하다는 생각이 드는 시간이었습니다.<br>
+                                        팀장을 하면서 설계부터 배포까지 모든 과정을 지시하고 공부하다보니 많은 것을 배울 수 있었고 멋진 개발자에 한걸음 다가간 기분이었습니다.<br>
+                                        개발자는 계속 성장해나가고 배워가는 직업이라 알고있습니다. 이번 프로젝트를 통해 개발자라는 직업에 대한 마음을 확고히 다질 수 있었고 앞으로도 열심히 하며 꾸준히 성장할 수 있겠다는 생각이 드는 귀중한 경험이었습니다.<br> 
+                                        이끈다고 이끈거지만 많이 부족했을 저를 따라와준 정다경, 권다은 언니에게 감사를 표하며, 저에게 웹개발을 가르쳐주신 홍성석 선생님과 안드로이드를 가르쳐주신 이성희선생님도 너무 감사합니다. 아주 뛰어난 인재를 기르셨어요.
+                                        언젠가 선생님을 뛰어넘는 역적 제자가 되도록 하겠습니다. 
+                                    </td>
+                                </tr>                                              
+                            </tbody>
+                        </table>
+                    </div>
+                    <img :src="jihi_profile">
+                </div>
+                <div class="daeun_section">
+                    <img :src="daeun_profile">
+                    <div class="text_section">
+                        <table class="profile_table">
+                            <colgroup>
+                                <col class="th_area">
+                                <col class="td_area">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th><span class="th_title">이름</span></th>
+                                    <td>
+                                        권다은(95, 두달 째 깨어있는 중)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><span class="th_title">임무</span></th>
+                                    <td>
+                                        프론트
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><span class="th_title">MBTI</span></th>
+                                    <td>
+                                        ENFJ(정의로운 사회운동가)
+                                    </td>
+                                </tr>  
+                                <tr>
+                                    <th><span class="th_title">소감 주저리</span></th>
+                                    <td>
+                                        막막하게만 느껴졌던 하나의 시작이 끝을 맺었네요.
+                                        눈만 열심히 굴리며 하나하나 따라치기 바쁘던 제가 그래도 웹사이트는 하나 만들게 됐어요.<br>
+                                        도움주신 모든 분들, 감사합니다. 프로젝트를 함께한 멤버들도 너무 고맙고 수고많았어요.<br>
+                                        전 이제 자러가볼께요. 미리 메리 크리스마스, 미리 해피뉴이어! ;)
+                                    </td>
+                                </tr>                                              
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </section>
 
 
@@ -57,41 +180,19 @@
 </template>
 
 <script>
+import daeun_profile from '@/assets/daeun_profile.png';
+import dagyeong_profile from '@/assets/dagyeong_profile.png';
+import jihi_profile from '@/assets/jihi_profile.png';
 import toothpaste from '@/assets/toothpaste.jpg';
-import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
-import straw from '@/assets/straw.jpg';
-import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
-import marching from '@/assets/marching.jpg';
-import boxed_water2 from '@/assets/boxed_water2.jpg';
-import boxed_water from '@/assets/boxed_water.jpg';
-import boxed_water3 from '@/assets/boxed_water3.jpg';
-import boxed_water4 from '@/assets/boxed_water4.jpg';
 import zero_waste_package4 from '@/assets/zero_waste_package4.jpg';
 import zero_waste_package5 from '@/assets/zero_waste_package5.jpg';
-import natureround from '@/assets/natureround.jpg';
-import main_slider_img_1 from '@/assets/main_slider_img_1.png';
-import eco1 from '@/assets/eco1.jpg';
-import eco5 from '@/assets/eco5.jpg';
-
-
-
     export default {
         data(){
             return{
-                vegan_cream_img : vegan_cream_img,
-                vegan_oil_img : vegan_oil_img,
-                straw : straw,
-                marching : marching,
-                boxed_water3 :boxed_water3,
-                boxed_water4 :boxed_water4,
-                boxed_water2 : boxed_water2,
-                boxed_water : boxed_water,
-                natureround : natureround,
-                main_slider_img_1 :main_slider_img_1,
-                zero_waste_package4 :zero_waste_package4,
+                daeun_profile,
+                dagyeong_profile,
+                jihi_profile,
 
-                eco1 : eco1,
-                eco5 : eco5,
 
                 slider : [
                     zero_waste_package4,
@@ -124,6 +225,7 @@ import eco5 from '@/assets/eco5.jpg';
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Exo:wght@300;400;500;600;700;800&family=Roboto:wght@300;500&display=swap');
 *{
     margin: 0;
@@ -319,7 +421,7 @@ body{
 .secondScreen p{
     color: #4a4521;
     font-size: 16px;
-    font-family: 'Gowun Batang', sans-serif;
+    font-family: 'Hahmlet', serif;
     margin-top: 10px;
 }
 .SecondSliderContainer{
@@ -416,12 +518,96 @@ body{
     background-color: #333;
     color: rgb(228, 167, 0);
 }
+
+
+/* 마지막 프로필 섹션 */
 .outro_screen{
     height: 100vh;
-    background-color: #333;
-    z-index: 0;
+    background-color: #3c5240;
+    display: flex;
+    justify-content: center;
 }
-
+.profile_wrapper h4 {
+    /* border: 1px solid red; */
+    font-family: 'Black Han Sans', sans-serif;
+    font-weight: 100;
+    padding-top: 1%;
+    padding-left: 3%;
+}
+.profile_wrapper{
+    padding-top: 4.5%;
+    width: 90%;
+    position: relative;
+    z-index: 1000;
+    height: 100%;
+    /* border: 1px solid white; */
+    display: flex;
+    flex-direction: column;
+    /* justify-items: center; */
+    align-items: center;
+}
+.profile_wrapper img{
+    width: 22%;
+    height: 100%;
+}
+.text_section{
+    border: 2px solid whitesmoke;
+    border-radius: 1em;
+    width: 90%;
+    height: 100%;
+    padding: 10px;
+}
+.jihi_section .text_section {
+    display: flex;
+    justify-content: flex-end;
+}
+.jihi_section .text_section img{
+    width: 20%;
+    height: 90%;
+}
+.profile_table{
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid red; */
+    color: white;
+    font-size: 15px;
+    font-family: 'Hahmlet', serif;
+}
+.profile_table .th_titles {
+    width : 15%;
+    height: 30px;
+}
+.profile_table .td_area {
+    /* border: 1px solid black; */
+    width : 90%;
+    height: 30px;
+}
+.gyeong_section, .jihi_section, .daeun_section{
+    position: absolute;
+    /* border: 1px solid whitesmoke; */
+    width: 88%;
+    height: 25%;
+    margin: 5px;
+    display: inline-flex;
+}
+.gyeong_section { 
+    left: 0;
+    top: 19%;
+    height: 22%;
+}
+.gyeong_section .text_section img{
+    width: 23%;
+    height: 100%;
+}
+.jihi_section {
+    right: 0;
+    top: 42%;
+    height: 30%;
+}
+.daeun_section {
+    left: 0;
+    bottom: 1%;
+}
 .before-enter{
     opacity: 0;
     transform: translateX(100px);

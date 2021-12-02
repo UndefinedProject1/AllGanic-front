@@ -413,7 +413,7 @@ input {
   width: 100%;
   display: inline-flex;
   margin-bottom: 10px;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
   align-items: center;
   /* margin-top: 30px; */
 }
@@ -477,7 +477,7 @@ input {
   border-radius: 5px;
   font-size: 15px;
   margin-bottom: 2px;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 
 
@@ -508,7 +508,7 @@ input {
   border: none;
   width: 100%;
   height: 30px;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 
 
@@ -518,7 +518,7 @@ input {
   width: 100%;
   display: inline-flex;
   margin-top: 30px;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 .m_update_phone {
   /* border: 1px solid black; */
@@ -541,7 +541,7 @@ input {
   border: none;
   width: 100%;
   height: 30px;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 
 
@@ -557,7 +557,7 @@ input {
   /* border: 1px solid black; */
   display: flex;
   width: 15%;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
   align-items: center;
 }
 .m_update_address > p {
@@ -572,7 +572,7 @@ input {
   height: 35px;
   width: 80%;
   margin-top: 10px;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 .m_update_postcode > input:first-child {
   /* border: 1px solid black; */
@@ -580,7 +580,7 @@ input {
   margin-right: 5px;
   width: 60%;
   height: 100%;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 .m_update_postcode > input:last-child {
   /* border: 1px solid black; */
@@ -588,7 +588,7 @@ input {
   margin-right: 5px;
   width: 80%;
   height: 100%;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 .u_address_box {
   /* border: 1px solid black; */
@@ -596,14 +596,14 @@ input {
   display: inline-flex;
   margin-left: 10%;
   width: 80%;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 .u_address_box > input {
   /* border: 1px solid black; */
   border: none;
   background-color: #fbfdff0f;
   width: 83%;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 .u_address_box > button {
   background-color: #715036;
@@ -613,7 +613,7 @@ input {
   font-size: 15px;
   margin-bottom: 2px;
   width: 20%;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 .u_address_box > button:hover {
   cursor: pointer;
@@ -629,7 +629,7 @@ input {
   border: none;
   border-radius: 5px;
   font-size: 15px;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 /* 회원정보수정 버튼 */
 #handle_memupdate {
@@ -641,7 +641,7 @@ input {
   border: none;
   border-radius: 5px;
   font-size: 15px;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
   cursor: pointer;
 }
 
@@ -691,7 +691,7 @@ span {
   width: 70px;
   height: 30px;
   color:white;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
   background-color: #715036;
   border-radius: 3px;
   border: none;
@@ -702,7 +702,7 @@ span {
   width: 70px;
   height: 30px;
   color:white;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
   background-color: #715036;
   border-radius: 3px;
   border: none;
@@ -719,6 +719,6 @@ span {
 /* 주소 */
 
 input[type="text"] {
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 </style>

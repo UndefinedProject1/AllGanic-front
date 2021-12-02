@@ -335,7 +335,7 @@ export default {
   width: 100%;
   height: fit-content;
   /* overflow-y: scroll; */
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: 'Hahmlet', serif;
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -346,7 +346,7 @@ export default {
   width: 60%;
   height: fit-content;
   margin: 0 auto;
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: 'Hahmlet', serif;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -458,7 +458,7 @@ img {
   height: 48.5px;
   padding-left: 15px;
   font-size: 15px;
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 .email_info > p {
   /* border: 1px solid black; */
@@ -494,7 +494,7 @@ img {
   color: black;
   text-align: center;
   border: none;
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 .form-selector > img {
   width: 13px;
@@ -536,7 +536,7 @@ input[type="radio"] {
   border: none;
   padding-left: 10px;
   font-size: 15px;
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 
 /* 이름 */
@@ -574,7 +574,7 @@ input[type="radio"] {
   height: 48.5px;
   padding-left: 10px;
   font-size: 15px;
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 .address_info1 > p {
   /* border: 1px solid black; */
@@ -596,7 +596,7 @@ input[type="radio"] {
   height: 90%;
   padding-left: 10px;
   font-size: 15px;
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: 'Hahmlet', serif;
 }
 .address_info2 {
   border-bottom: 1px solid black;

@@ -191,7 +191,7 @@ input:focus{
     box-sizing: content-box;
     justify-content: center;
     flex-direction: column;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     /* margin-top: 4.5%; */
 }
 .login_container{
@@ -208,7 +208,7 @@ input:focus{
     margin: 0;
     width: 100%;
     height: 100%;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 } */
 .inner_container {
     /* border: 1px solid black; */
@@ -235,7 +235,7 @@ input:focus{
     width: fit-content;
     text-align: center;
     font-size: 30px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight: bold;
     margin-bottom: 15px;
 }
@@ -302,7 +302,7 @@ input:focus{
     padding-left: 10px;
     padding-bottom: 1px;
     margin: 0%;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .login_nav {
     width: 100%;
@@ -322,7 +322,7 @@ input:focus{
     padding-top: 5px;
 }
 .breadcrumb-item  {
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     color: black;
     text-decoration-line: none;
 }
@@ -334,7 +334,7 @@ input:focus{
     font-size: 15px;
     font-weight :300;
     padding : 0px 0px 0px 15px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 } 
 #img.logo_email, img.logo_password {
     width: 25px;
@@ -365,7 +365,7 @@ input:focus{
     background-color: #715036;
     color: white;
     border-radius: 4px;
-    font-family: 'Gowun Dodum', sans-serif;   
+    font-family: 'Hahmlet', serif;   
 }
 .kakao_btn{
     width: 55%;

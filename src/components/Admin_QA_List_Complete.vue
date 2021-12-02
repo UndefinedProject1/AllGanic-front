@@ -73,7 +73,7 @@ import axios from "axios";
     height: 100%;
     display: flex;
     flex-direction: column;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     overflow-x: hidden;
 }
 .qa_list_Cheader {
@@ -88,14 +88,14 @@ import axios from "axios";
     margin : 0 0px 0px 40px;
     color : rgba(29, 29, 29, 0.795);
     font-size: 20px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight : 400;
 }
 .qa_list_Cheader > span {
     margin-left : 20px;
 }
 #chosen {
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight: 700;
     color: black;
     margin : 0 0px 0px 20px;

@@ -74,10 +74,9 @@
             <div class="btn_box">
                 <!-- 히든버튼 추가 -->
                 <button type="button" id="btn_close" style="display:none" @click="showModal = false">Close</button>
-                <button type="button"  @click="showModal = false" id="closebtn">닫기</button>
+                <!-- <button type="button"  @click="showModal = false" id="closebtn">닫기</button> -->
                 <button type="button" @click="handleReply(QList_Modal.questioncode)">작성완료</button>
             </div>
-
         </div>
     </el-dialog>
 
@@ -267,7 +266,7 @@ import { ElMessage } from 'element-plus'
     display: flex;
     overflow-x: hidden;
     flex-direction: column;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .qa_list_header {
     height : 14%;
@@ -281,14 +280,14 @@ import { ElMessage } from 'element-plus'
     margin : 0 0px 0px 40px;
     color : rgba(29, 29, 29, 0.795);
     font-size: 20px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight : 400;
 }
 .aci_header > span {
     margin-left : 20px;
 }
 #chosen {
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight: 700;
     color: black;
     margin : 0 0px 0px 20px;
@@ -325,7 +324,7 @@ import { ElMessage } from 'element-plus'
     color: white;
     background-color: #49654E;
     border-radius: 3px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .qa_list_table table tbody button:hover{
     opacity: 0.9;
@@ -484,7 +483,7 @@ import { ElMessage } from 'element-plus'
     height: 40px;
     margin: 0px 10px 0px 0px;
     color: white;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 
 #closebtn {
@@ -495,7 +494,7 @@ import { ElMessage } from 'element-plus'
     color: #49654E;
     border: 0.5px solid #49654E;
     font-weight: bold;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 #reportbtn{
     background-color: rgb(161, 1, 1);
@@ -504,7 +503,7 @@ import { ElMessage } from 'element-plus'
     margin: 0px 10px 0px 0px;
     color: white;
     font-weight: bold;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .modal-footer button:hover{
     opacity: 0.8;

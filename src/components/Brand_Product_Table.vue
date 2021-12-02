@@ -176,7 +176,7 @@ import { ElMessage } from 'element-plus'
     /* height : 100vh;
     overflow-y: scroll; */
     overflow-x: hidden;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     /* padding: 80px; */
     background-color: white;
     margin-top: 4.5%;

@@ -109,7 +109,7 @@ import { ElMessage } from 'element-plus'
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .br_in_header p, span {
     width : fit-content;
@@ -118,12 +118,12 @@ import { ElMessage } from 'element-plus'
     font-size: 20px;
 }
 .brand_section {
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight: bold;
     color: black;
 }
 #brand_section {
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     font-weight: bold;
     color: black;
 }
@@ -151,7 +151,7 @@ import { ElMessage } from 'element-plus'
     width: fit-content;
     display: flex;
     justify-content: center;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     margin-top: 20px;
     margin-bottom: 28px;
 }
@@ -163,25 +163,25 @@ import { ElMessage } from 'element-plus'
 }
 .form-control {
     width: 300px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 #adbr_history {
     width: 300px;
     margin:  auto 0px;
 }
 .el-input__inner, .el-textarea__inner{
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .admin_history {
     /* border: 1px solid black; */
     display: flex;
     justify-content: center;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .admin_history p {
     /* border: 1px solid black; */
     margin-right: 15px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     width: fit-content;
     height: fit-content;
     margin-top: 20px;
@@ -200,7 +200,7 @@ import { ElMessage } from 'element-plus'
     width: fit-content;
     height: fit-content;
     /* border: 1px solid black; */
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .insertBrandImg{
     position: relative;
@@ -243,6 +243,6 @@ input[type="file"]{
     font-weight: bold;
     background-color: #49654E;
     margin-top: 30px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 </style>

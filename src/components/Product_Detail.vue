@@ -696,7 +696,7 @@ import Cart_Popup from './Cart_Popup.vue';
 .pd_detail_wrapper{
     width: 100%;
     /* height: 100%; */
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
     /* overflow-y: scroll; */
     scroll-behavior: smooth;
     margin-top: 4.5%;
@@ -902,7 +902,7 @@ import Cart_Popup from './Cart_Popup.vue';
     border-bottom: none;
     border-radius: 3px;
     margin: 0px 3px 0.5px 0px;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .section3_detailSection{
     display: flex;

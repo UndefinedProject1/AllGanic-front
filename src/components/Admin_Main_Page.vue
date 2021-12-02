@@ -134,7 +134,7 @@ export default {
     width: 60%;
     display: flex;
     flex-direction: column;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: 'Hahmlet', serif;
 }
 .chart1 > p {
     font-size: 20px;
