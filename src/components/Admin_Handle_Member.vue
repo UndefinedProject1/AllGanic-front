@@ -193,7 +193,9 @@ import { ElMessage } from 'element-plus'
                     const body = {
                         useremail : email,
                     }
-                    const response1 = await axios.delete(url1, {headers:headers, data : body});
+                    console.log(body);
+                    // const response = await axios.delete(url, {headers : headers, data : {}});
+                    const response1 = await axios.delete(url1, {headers : headers, data : body});
                     console.log(response1);
                     if(response1.data === 1){
                         this.successAlertMSG();

@@ -183,6 +183,9 @@ import { ElMessage } from 'element-plus'
                     const response1 = await axios.post(url1, formData1, {headers});
                     if(response1.data.result === 1){
                         this.successAlertMSG();
+                        // this.$router.push({
+                        //     path : '/admin_main_page', 
+                        // });
                     }
                     else {
                         this.failAlertMSG();

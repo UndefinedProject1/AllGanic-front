@@ -1,6 +1,6 @@
 <template>
     <div class="main_wrapper">
-        <div class="line-1"></div>
+        <!-- <div class="line-1"></div> -->
         <section class="intro_screen">
             <div class="section1">
                 <h1>Welcome,</h1>
@@ -284,11 +284,11 @@ body{
 .line-1{
     transform: rotate(90deg);
     position: absolute;
-    width: 109.8%;
+    width: 125%;
     height: 40%;
     z-index: 1;
     margin: 0;
-    top: 26.7%;
+    top: 25.7%;
 }
 
 .line-1::after{
@@ -297,7 +297,7 @@ body{
     position: absolute;
     z-index: 2;
     left: 0;
-    bottom: 22%;
+    bottom: 19%;
     height: 2%;
     border-radius: 15%;
     background-color: white;

@@ -146,7 +146,7 @@
           </div>
           <span class="dialog-footer">
             <button type="button" id="btn_cancle" @click="centerDialogVisible = false">취소</button>
-            <button type="button" id="btn_update">수정</button>
+            <button type="button" id="btn_update" @click="onSubmit">수정</button>
             <el-button @click="centerDialogVisible = false" id="btn_close" style="display:none">Close</el-button>
           </span>
         </div>
@@ -185,12 +185,16 @@ import mypage_address from "@/assets/mypage_address.png";
       const failAlertMSG3 = () => {
           ElMessage.error('카카오톡 로그인 유저는 비밀번호 변경이 불가능합니다.')
       }
+      const failAlertMSG4 = () => {
+          ElMessage.error('기존암호가 일치하지 않습니다.')
+      }
       return {
         successAlertMSG1,
         successAlertMSG2,
         failAlertMSG1,
         failAlertMSG2,
-        failAlertMSG3
+        failAlertMSG3,
+        failAlertMSG4
       }
     },
       components :{
@@ -321,11 +325,11 @@ import mypage_address from "@/assets/mypage_address.png";
           }).
           open();
         },
-        async onSubmit({pw1_btn, pw2_btn}) {
+        async onSubmit() {
             const headers = {"token" : this.token};
             const body = {
-                userpw : pw1_btn,
-                usernewpw : pw2_btn
+                userpw : this.pw1_btn,
+                usernewpw : this.pw2_btn
             };
             console.log(body);
             const url = `REST/api/member/passwd`;
@@ -335,6 +339,9 @@ import mypage_address from "@/assets/mypage_address.png";
                 this.successAlertMSG1();
                 // alert버튼 누르면 모달창 사라짐
                 document.getElementById('btn_close').click();
+            }else if(response.data.result === 0){
+              this.failAlertMSG4();
+              document.getElementById('btn_close').click();
             }
         },
         async handle_memupdate() {

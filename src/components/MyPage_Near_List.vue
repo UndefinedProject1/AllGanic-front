@@ -9,22 +9,22 @@
                 <!-- 주문내역 Table -->
                 <el-scrollbar class="scrollbar" height="380px;">
                     <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 97%; margin-left:20px;" @selection-change="OrderListBtn">
-                            <el-table-column label="주문일자" width="100" align="center">
+                            <el-table-column label="주문일자" width="120" align="center">
                                 <template #default="scope">
                                     <p>{{scope.row.ORDERDATE}}</p>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="주문번호" width="160" align="center">
+                            <el-table-column label="주문번호" width="180" align="center">
                                 <template #default="scope">
                                     <p>{{scope.row.MERCHANT_UID}}</p>
                                 </template>
                             </el-table-column>                                                                
-                            <el-table-column prop="img" label="이미지" align="center" width="130">
+                            <el-table-column prop="img" label="이미지" align="center" width="180">
                                 <template #default="scope">
                                     <el-image style= "width: 110px; height: 100px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="주문정보" width="410px;" align="center">
+                            <el-table-column label="주문정보" width="420px;" align="center">
                                 <template #default="scope">
                                     <div class="product_detail_info">
                                         <p>{{scope.row.BRANDNAME}}</p>
@@ -38,7 +38,7 @@
                                     <p>{{scope.row.ORDERQUANTITY}}</p>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="배송비" width="190" align="center">
+                            <el-table-column label="배송비" width="200" align="center">
                                 <template #default="scope">
                                     <p>[ {{scope.row.BRANDNAME}} ] 정책에 따름</p>
                                 </template>
@@ -59,17 +59,17 @@
                 <!-- 문의내역 Table -->
                 <el-scrollbar class="scrollbar" height="200px;">
                     <el-table :data="QAListData" stripe style="width: 97%; margin-left:20px;" >
-                        <el-table-column prop="select" label="문의유형" width="100" align="center">
+                        <el-table-column prop="select" label="문의유형" width="150" align="center">
                             <template #default="scope">
                                 <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONKIND}}</p>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="title" label="제목" width="300" align="center">
+                        <el-table-column prop="title" label="제목" width="320" align="center">
                             <template #default="scope">
                                 <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONTITLE}}</p>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="content" label="내용" width="320" align="center">
+                        <el-table-column prop="content" label="내용" width="340" align="center">
                             <template #default="scope">
                                 <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONCONTENT}}</p>
                             </template>
@@ -79,7 +79,7 @@
                                 <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONDATE}}</p>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="answer" label="답변상태" width="100" align="center">
+                        <el-table-column prop="answer" label="답변상태" width="130" align="center">
                             <template #default="scope">
                                 <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; overflow : hidden;">{{scope.row.QUESTIONREPLY}}</p>
                             </template>

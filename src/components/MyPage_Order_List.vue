@@ -4,10 +4,10 @@
             <p>주문내역</p>
         </div>
             <div class="insert_list">
-                <el-scrollbar class="scrollbar" height="500px;">
+                <el-scrollbar class="scrollbar" height="100%;">
                     <div class="orderlist_info_section" style="width:100%; height: 93.5%; overflow-x:hidden">
                         <el-table ref="multipleTable" :data="OrderListData"  stripe style="width: 98%; margin-left:10px;" @selection-change="OrderListBtn">
-                            <el-table-column label="주문일자" width="90" align="center">
+                            <el-table-column label="주문일자" width="130" align="center">
                                 <template #default="scope">
                                     <p>{{scope.row.ORDERDATE}}</p>
                                 </template>
@@ -36,12 +36,12 @@
                                     <p>{{scope.row.ORDERQUANTITY}}</p>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="배송비" width="180" align="center">
+                            <el-table-column label="배송비" width="200" align="center">
                                 <template #default="scope">
                                     <p>[ {{scope.row.BRANDNAME}} ] 정책에 따름</p>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="기타" width="90" align="center">
+                            <el-table-column label="기타" width="130" align="center">
                                 <template #default="scope">
                                     <button @click="handleGoReview(scope.row.PRODUCTCODE)">리뷰작성</button>
                                     <button @click="handleCancelOrder([scope.row.MERCHANT_UID, scope.row.PRODUCTCODE, scope.row.ORDERQUANTITY])">주문취소</button>    
@@ -62,8 +62,20 @@ import { ElMessage } from 'element-plus'
             const successAlertMSG1 = () => {
                 ElMessage.success('취소 완료')
             }
+            const successAlertMSG2 = () => {
+                ElMessage.success('작성 가능한 리뷰 입니다.')
+            }
+            const failAlertMSG = () => {
+                ElMessage.error('이미 작성한 리뷰입니다.')
+            }
+            const failAlertMSG2 = () => {
+                ElMessage.error('리뷰 작성이 불가능합니다.')
+            }
             return {
-                successAlertMSG1
+                successAlertMSG1,
+                successAlertMSG2,
+                failAlertMSG,
+                failAlertMSG2
             }
         },
         data() {
@@ -108,6 +120,19 @@ import { ElMessage } from 'element-plus'
                 const headers = {token: this.token};
                 const response = await axios.get(url, {headers});
                 console.log(response);
+                if(response.data === 1){
+                    this.successAlertMSG2();
+                    this.$router.push({
+                        path : '/product_detail', 
+                        query : {
+                            code : val,
+                        }
+                    });
+                }else if(response.data === 2){
+                    this.failAlertMSG();
+                }else {
+                    this.failAlertMSG2();
+                }
             }
         }
     }

@@ -73,11 +73,13 @@ import { ElMessage } from 'element-plus';
                     data : body
                 });
                 console.log(response);
-                if(response.data.result === 1) {
-                    this.successAlertMSG();  
+                if(response.data === 1) {
+                    this.successAlertMSG();
+                    sessionStorage.clear();
+                    this.logged = false;  
                     this.$router.push({ path: "/" });
                 }
-                else if(response.data.result === 0){
+                else if(response.data === 0){
                     this.failpwMSG();
                 }
             }

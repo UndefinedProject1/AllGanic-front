@@ -8,8 +8,8 @@
                 </div>
                 <div class="product_info_section">
                     <el-table ref="multipleTable" :data="itemList" @selection-change="handleSelectionChange">
-                        <el-table-column type="selection" width="60" align="center" v-model="chks"/>
-                        <el-table-column label="상품정보" width="400" align="center">
+                        <el-table-column type="selection" width="100" align="center" v-model="chks"/>
+                        <el-table-column label="상품정보" width="430" align="center">
                             <template #default="scope">
                                 <el-image style="width: 135px; height: 150px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
                                 <div class="product_detail_info" style="width: 60%; float:right;  text-align:left; padding:5px 10px;">
@@ -25,12 +25,12 @@
                                 <p type="primary" @click="saveQuantity(scope.row.QUANTITY, scope.row.CARTITEMCODE)" style="font-size:13px; color:black; margin:10px 0px; cursor:pointer;">변경수량 저장</p>
                             </template>
                         </el-table-column>
-                        <el-table-column property="finalPrice" label="상품 금액" width="125" align="center">
+                        <el-table-column property="finalPrice" label="상품 금액" width="135" align="center">
                             <template #default="scope">
                                 <p style="font-size:14px; color:black; margin:0;">{{scope.row.PRODUCTPRICE}} 원</p>
                             </template>
                         </el-table-column>
-                        <el-table-column property="shippingCost" label="배송비"  width="180" align="center">
+                        <el-table-column property="shippingCost" label="배송비"  width="200" align="center">
                             <template #default="scope">
                                 <p style="font-size:13px; color:#333; font-weight:bold; margin:5px 0px;">[{{ scope.row.BRANDNAME }}]</p>
                                 <span style="font-size:13px; color:black; letter: spacing 0.06em;">상품으로만 30,000원 이상 주문시 배송비 무료</span>

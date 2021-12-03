@@ -9,12 +9,12 @@
             <div class="insert_prdcode">
                 <el-scrollbar class="scrollbar" height="500px;">
                     <el-table :data="QAListData" stripe style="width: 97%; margin-left:20px;" >
-                        <el-table-column prop="select" label="문의유형" width="110" align="center">
+                        <el-table-column prop="select" label="문의유형" width="130" align="center">
                             <template #default="scope">
                                 <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold;">{{scope.row.QUESTIONKIND}}</p>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="title" label="제목" width="220" align="center">
+                        <el-table-column prop="title" label="제목" width="250" align="center">
                             <template #default="scope">
                                 <el-button type="text" @click="showQaReplay(scope.row.QUESTIONCODE, scope.row.QUESTIONREPLY)" 
                                         style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold; font-family: 'Gowun Dodum', sans-serif;
@@ -23,12 +23,12 @@
                                 </el-button>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="content" label="내용" width="280" align="center">
+                        <el-table-column prop="content" label="내용" width="300" align="center">
                             <template #default="scope">
                                 <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold;">{{scope.row.QUESTIONCONTENT}}</p>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="date" label="문의 일자" width="150" align="center">
+                        <el-table-column prop="date" label="문의 일자" width="170" align="center">
                             <template #default="scope">
                                 <p style="font-size:13px; color:black; margin:10px 0px 5px 0px; font-weight:bold;">{{scope.row.QUESTIONDATE}}</p>
                             </template>
@@ -40,10 +40,10 @@
                                 </p>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="title" label="기타" width="150" align="center">
+                        <el-table-column prop="title" label="기타" width="180" align="center">
                             <template #default="scope">
                                 <el-button  @click="handleDelete(scope.row.QUESTIONCODE)" 
-                                        style="font-size:13.5px; color:white; margin:10px 0px 5px 0px; background-color:#715036; font-weight:bold; font-family: 'Gowun Dodum', sans-serif;" >
+                                        style="font-size:13.5px; color:white; margin:10px 0px 5px 0px; background-color:#49654E; font-weight:bold; font-family: 'Gowun Dodum', sans-serif;" >
                                         삭제
                                 </el-button>
                             </template>
@@ -101,8 +101,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <!-- 히든버튼 추가 -->
-            <button type="button"  @click="showModalANS = false" id="closebtn">닫기</button>
+            <!-- <button type="button"  @click="showModalANS = false" id="closebtn">닫기</button> -->
         </div>
     </el-dialog>
 
@@ -153,7 +152,7 @@
         <div class="modal-footer">
             <!-- 히든버튼 추가 -->
             <button type="button" @click="showModalNoANS = false" id="btn_close" style="display:none">Close</button>
-            <button type="button"  @click="showModalNoANS = false" id="closebtn">닫기</button>
+            <!-- <button type="button"  @click="showModalNoANS = false" id="closebtn">닫기</button> -->
             <button type="button"  @click="handleQaUpdate(QList_Modal.questioncode)" id="updatebtn">수정</button>
         </div>
     </el-dialog>

@@ -41,7 +41,7 @@
                             <td>{{list.productname}}</td>
                             <td>{{list.brandname}}</td>
                             <td>{{list.productprice}}</td>
-                            <td style="padding : 25px 0;"><img :src="`REST/api/select_productimage?no=${list.productcode}`"></td>
+                            <td style="padding : 25px 0;"><img :src="`REST/api/select_productimage?no=${list.productcode}`" @error="replaceByDefault"></td>
                             <td>
                                 <button type="button" @click="handleModal(list.productcode)">수정</button>
                                 <button type="button" @click="handleDeleteProduct(list.productcode)">삭제</button>
@@ -122,6 +122,7 @@
 
 <script>
 import axios from 'axios';
+import soldout from '@/assets/soldout.jpg';
 import default_image from '@/assets/default_image.jpg';
 import vegan_oil_img from '@/assets/vegan_oil_img.jpg';
 import { ElMessage } from 'element-plus'
@@ -145,6 +146,7 @@ import { ElMessage } from 'element-plus'
         },
         data(){
             return{
+                soldout : soldout,
                 vegan_oil_img : vegan_oil_img,
                 token : sessionStorage.getItem("token"),
                 showModal : false,
@@ -180,6 +182,9 @@ import { ElMessage } from 'element-plus'
             await this.productList();
         },
         methods : {
+            replaceByDefault(e) {
+                e.target.src = soldout;
+            },
             handleMainImg(e){
                 if(e.target.files.length > 0) {
                     this.mainfile = e.target.files[0];
@@ -414,6 +419,7 @@ import { ElMessage } from 'element-plus'
 }
 
 .list_section table{
+    width: 100%;
     margin-top: 20px;
     text-align: center;
 }

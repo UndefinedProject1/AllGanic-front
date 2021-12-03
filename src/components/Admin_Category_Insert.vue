@@ -38,9 +38,9 @@
                         <el-option v-for="select in resultset"  :key="select" :label="select" :value="select"></el-option>
                     </el-select>
                 </div>
-                <div class="cate_insert_input" v-if="openCateInput">
-                    <el-input v-model="cate_insert1" placeholder="코드 입력" clearable class="form-control" style="width:275px; height:30px;"/>
-                    <el-input v-model="cate_name1" placeholder="이름 입력" clearable class="form-control" style="width:275px; height:30px;"/>
+                <div class="cate_insert_input1" v-if="openCateInput">
+                    <el-input v-model="cate_insert1" placeholder="코드 입력" clearable class="form-control" style="width:50%; height:30px;"/>
+                    <el-input v-model="cate_name1" placeholder="이름 입력" clearable class="form-control" style="width:50%; height:30px;"/>
                 </div>
                 <div class="cate_insert_input">
                     <el-input v-model="cate_insert" placeholder="코드 입력" clearable class="form-control"/>
@@ -221,7 +221,7 @@ import { ElMessage } from 'element-plus'
     width: 100%;
 }
 .aci_content{
-    padding: 50px;
+    padding: 80px 60px 0px 50px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -284,13 +284,17 @@ small{
     justify-content: flex-end;
     padding: 10px;
 }
-.cate_insert_input{
+.cate_insert_input1{
     /* border: 1px solid black; */
     width: 100%;
     height : fit-content;
     display: inline-flex;
     justify-content: flex-start;
     padding: 10px;
+}
+.cate_insert_input1 .form-control{
+    /* border: 1px solid black; */
+    width: 50%;
 }
 .form-control{
     width: 50%;

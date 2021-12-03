@@ -72,13 +72,13 @@ router.beforeEach( async(to, from, next ) => {
 
         
     //관리자 페이지 막기
-    if(to.path === '/admin_page' && token === null){
+    if(to.path === '/admin_page' && role === 1){
         next({path : '/restrict_page'});
     }
-    else if(to.path === '/admin_page' && role !== 2){
+    else if(to.path === '/admin_page' && token === null){
         next({path : '/restrict_page'});
     }
-    else {
+    else if(to.path === '/admin_page' && role === 2 && token !== null) {
         next();
     }
 
