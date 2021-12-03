@@ -3,7 +3,7 @@
         <div class="co_container">
             <div class="co_text_box">
                 <h1>주문이 정상적으로 완료되었습니다.</h1>
-                <div id="image"></div>
+                <img id="image" :src="sky">
                 <p>자세한 내역은 <a href="/mypage_info">마이페이지</a> 에서 확인하실 수 있습니다.</p>
             </div>
         </div>
@@ -50,10 +50,6 @@ import sky from '@/assets/sky.jpg';
 #image{
     width: 50%;
     height: 300px;
-    background-image: url("/src/assets/sky.jpg");
-    background-size: cover;
-    background-position: 50%;
-    background-repeat: no-repeat;
 }
 .co_text_box h1{
     margin: 2% auto;

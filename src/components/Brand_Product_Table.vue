@@ -2,9 +2,8 @@
     <div class="pt_table_wrapper">
         <div class="pt_table_container">
             <div class="pt_table_cate_container" >
-                <div class="pt_table_cate">
-                    <p>_BRAND</p>
-                </div>
+                <img :src="zero_waste_package3" id="pt_table_banner_img">
+                <p>_BRAND</p>
             </div>
             <div class="pt_table_divider"></div>
             <div class="pt_table">
@@ -193,26 +192,27 @@ import { ElMessage } from 'element-plus'
     padding: 20px;
 }
 .pt_table_cate_container {
-    background-image: url("/src/assets/zero_waste_package3.jpg");
-    background-size:cover;
-    background-position-y: 50%;
-    background-repeat: no-repeat;
-    /* border: 1px solid black; */
-    height: 40%;
-    /* display: flex;
-    flex-direction: row;
-    border: 1px solid black;
-    margin: 10px 0px 10px 0px;
-    height: fit-content;
+    position: relative;
+    width: 100%;
+    height : 50%;
+    display: flex;
     align-items: center;
-    color: black; */
+    justify-content: center;
+}
+#pt_table_banner_img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    top: 0;
 }
 .pt_table_cate_container p {
     color: #333;
-    font-size: 4rem;
+    position: absolute;
+    font-size: 5rem;
     font-weight: bold;
     font-family: 'Playfair Display', serif;
     width: fit-content;
+    margin-left: 35%;
 }
 .pt_table_cate {
     display: flex;

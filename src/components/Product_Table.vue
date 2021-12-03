@@ -2,6 +2,7 @@
     <div class="pt_table_wrapper">
         <div class="pt_table_container">
             <div class="pt_table_banner">
+                <img :src="brand4" id="pt_table_banner_img">
                 <p>_SHOP</p>
             </div>
             <div class="pt_table_cate_container" >
@@ -41,6 +42,7 @@
 <script>
 import axios from 'axios';
 import soldout from '@/assets/soldout.jpg';
+import brand4 from '@/assets/brand4.jpg';
 import shoppingBag from '@/assets/shoppingBag.png';
 import Cart_Popup from './Cart_Popup.vue';
 import { ElMessage } from 'element-plus'
@@ -63,6 +65,7 @@ import { ElMessage } from 'element-plus'
         },
         data(){
             return{
+                brand4 : brand4,
                 soldout : soldout,
                 shoppingBag : shoppingBag,
                 token : sessionStorage.getItem("token"),
@@ -227,19 +230,23 @@ import { ElMessage } from 'element-plus'
     padding: 20px;
 }
 .pt_table_banner{
+    position: relative;
     width: 100%;
     height : 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url("/src/assets/brand4.jpg");
-    background-size:cover;
-    background-position-y: 40%;
-    background-repeat: no-repeat;
+}
+#pt_table_banner_img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    top: 0;
 }
 .pt_table_banner P{
+    position: absolute;
     color: #333;
-    font-size: 4rem;
+    font-size: 5rem;
     font-weight: bold;
     font-family: 'Playfair Display', serif;
     width: fit-content;
