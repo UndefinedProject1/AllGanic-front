@@ -322,7 +322,7 @@ export default {
       console.log(response);
       if (response.data.result === 1) {
         this.successAlertMSG1();
-        this.$router.push({ path: "/" });
+        this.$router.push({ path: "/login" });
       }
     }
   },

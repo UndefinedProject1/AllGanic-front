@@ -531,12 +531,11 @@ body{
     /* border: 1px solid red; */
     font-family: 'Black Han Sans', sans-serif;
     font-weight: 100;
-    padding-top: 1%;
     padding-left: 3%;
 }
 .profile_wrapper{
-    padding-top: 4.5%;
-    width: 90%;
+    padding-top: 3.5%;
+    width: 99%;
     position: relative;
     z-index: 1000;
     height: 100%;
@@ -546,10 +545,7 @@ body{
     /* justify-items: center; */
     align-items: center;
 }
-.profile_wrapper img{
-    width: 22%;
-    height: 100%;
-}
+
 .text_section{
     border: 2px solid whitesmoke;
     border-radius: 1em;
@@ -561,9 +557,13 @@ body{
     display: flex;
     justify-content: flex-end;
 }
-.jihi_section .text_section img{
+.jihi_section img{
     width: 20%;
     height: 90%;
+}
+.daeun_section img {
+    width: 20%;
+    height: 100%;
 }
 .profile_table{
     width: 100%;
@@ -582,31 +582,39 @@ body{
     width : 90%;
     height: 30px;
 }
-.gyeong_section, .jihi_section, .daeun_section{
+.gyeong_section, .daeun_section{
     position: absolute;
     /* border: 1px solid whitesmoke; */
-    width: 88%;
+    width: 90%;
     height: 25%;
     margin: 5px;
     display: inline-flex;
 }
+.jihi_section {
+    position: absolute;
+    /* border: 1px solid whitesmoke; */
+    width: 90%;
+    height: 8%;
+    margin: 5px;
+    display: inline-flex;
+} 
 .gyeong_section { 
     left: 0;
-    top: 19%;
+    top: 15%;
     height: 22%;
 }
-.gyeong_section .text_section img{
-    width: 20%;
+.gyeong_section img{
+    width: 18%;
     height: 100%;
 }
 .jihi_section {
     right: 0;
-    top: 42%;
-    height: 30%;
+    top: 37.5%;
+    height: 35%;
 }
 .daeun_section {
     left: 0;
-    bottom: 1%;
+    bottom: 0.3%;
 }
 .before-enter{
     opacity: 0;

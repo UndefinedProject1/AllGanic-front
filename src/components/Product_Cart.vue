@@ -9,7 +9,7 @@
                 <div class="product_info_section">
                     <el-table ref="multipleTable" :data="itemList" @selection-change="handleSelectionChange">
                         <el-table-column type="selection" width="60" align="center" v-model="chks"/>
-                        <el-table-column label="상품정보" width="500" align="center">
+                        <el-table-column label="상품정보" width="400" align="center">
                             <template #default="scope">
                                 <el-image style="width: 135px; height: 150px;" :src="`REST/api/select_productimage?no=${scope.row.PRODUCTCODE}`" :fit="cover"></el-image>
                                 <div class="product_detail_info" style="width: 60%; float:right;  text-align:left; padding:5px 10px;">
@@ -196,7 +196,7 @@ import { ElMessageBox, ElMessage } from 'element-plus'
             async saveQuantity(cnt, no){
                 const url = `REST/api/cartitem/quantity/update?cnt=${cnt}&no=${no}`;
                 const response = await axios.put(url);
-                if(response.data.resulf === 1){
+                if(response.data.result === 1){
                     this.successAlertMSG();
                 }
                 else {

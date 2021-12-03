@@ -582,7 +582,9 @@ import Cart_Popup from './Cart_Popup.vue';
                     this.successAlertMSG();
                     this.showWriting = false;
                     await this.handleDetailContents();
-                }else this.failAlertMSG();
+                }else if(response.data.result === 0){
+                    this.failAlertMSG();
+                } else this.failAlertMSG1();
             },
 
             // 리뷰 작성하는 칸 보여주기

@@ -118,9 +118,9 @@ import { ElMessage } from 'element-plus'
                     useremail : this.userid,
                     userpw : this.userpw
                 }
-                // console.log(body);
+                console.log(body);
                 const url =  `REST/api/member/login?sns=false`;
-                const response = await axios.post(url, body, headers);
+                const response = await axios.post(url, body, {headers});
                 console.log(response);
                 if(response.data.result !== 4){
                     if(response.data.result === 1){
@@ -164,6 +164,9 @@ import { ElMessage } from 'element-plus'
                     }
                     else if(response.data.result === 0) {
                         this.failAlertMSG();
+                    }
+                    else{
+                        alert('이메일 혹은 암호가 잘못되었습니다.');
                     }
                     this.$emit('changeLogged', true);
                 }

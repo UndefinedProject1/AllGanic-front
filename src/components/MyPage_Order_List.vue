@@ -12,7 +12,7 @@
                                     <p>{{scope.row.ORDERDATE}}</p>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="주문번호" width="150" align="center">
+                            <el-table-column label="주문번호" width="170" align="center">
                                 <template #default="scope">
                                     <p>{{scope.row.MERCHANT_UID}}</p>
                                 </template>
@@ -43,6 +43,7 @@
                             </el-table-column>
                             <el-table-column label="기타" width="90" align="center">
                                 <template #default="scope">
+                                    <button @click="handleGoReview(scope.row.PRODUCTCODE)">리뷰작성</button>
                                     <button @click="handleCancelOrder([scope.row.MERCHANT_UID, scope.row.PRODUCTCODE, scope.row.ORDERQUANTITY])">주문취소</button>    
                                 </template>
                             </el-table-column>
@@ -101,6 +102,12 @@ import { ElMessage } from 'element-plus'
                 const response = await axios.post(url, body, {headers});
                 console.log(response);
                 this.successAlertMSG1();
+            },
+            async handleGoReview(val){
+                const url = `REST/api/payments/paylist/check?no=${val}`;
+                const headers = {token: this.token};
+                const response = await axios.get(url, {headers});
+                console.log(response);
             }
         }
     }
@@ -176,6 +183,7 @@ import { ElMessage } from 'element-plus'
     border: none;
     width: 80px;
     height: 30px;
+    margin-top : 5px;
     color: white;
     background-color: #49654E;
     border-radius: 3px;
