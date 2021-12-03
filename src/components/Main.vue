@@ -2,6 +2,7 @@
     <div class="main_wrapper">
         <!-- <div class="line-1"></div> -->
         <section class="intro_screen">
+            <img :src="vegan_cream_img" id="intro_screen_img">
             <div class="section1">
                 <h1>Welcome,</h1>
                 <h2>All Here!</h2>
@@ -33,6 +34,7 @@
         </section>
 
         <section class="thirdScreen" @mouseover="showOverlay">
+            <img :src="boxed_water3" id="thirdScreen_img">
             <div class="thirdTextBox" @mouseover="showOverlay">
             </div>
             <div class="thirdSliderContainer" @mouseover="showOverlay">
@@ -186,12 +188,17 @@ import jihi_profile from '@/assets/jihi_profile.png';
 import toothpaste from '@/assets/toothpaste.jpg';
 import zero_waste_package4 from '@/assets/zero_waste_package4.jpg';
 import zero_waste_package5 from '@/assets/zero_waste_package5.jpg';
+import boxed_water3 from '@/assets/boxed_water3.jpg';
+import vegan_cream_img from '@/assets/vegan_cream_img.jpg';
+
     export default {
         data(){
             return{
                 daeun_profile,
                 dagyeong_profile,
                 jihi_profile,
+                boxed_water3,
+                vegan_cream_img,
 
 
                 slider : [
@@ -264,15 +271,19 @@ body{
     flex-direction: row;
     height: 100vh;
     width: 100%;
-    background-image: url("/src/assets/vegan_cream_img.jpg");
-    background-size: cover;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-attachment:local;
     align-items: center;
     position: relative;
 }
+#intro_screen_img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 .section1{
+    z-index: 1;
     width: 50%;
     /* border: 1px solid white; */
     margin-left: 10%;
@@ -445,12 +456,15 @@ body{
     height: 100vh;
     align-items: center;
     justify-content: space-between;
-    background-image: url("/src/assets/boxed_water3.jpg");
-    background-size: cover;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-attachment:local;
     align-items: center;
+}
+#thirdScreen_img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .thirdScreen .thirdTextBox{
     width: 35%;

@@ -38,6 +38,7 @@
 <script>
 import axios from 'axios';
 import soldout from '@/assets/soldout.jpg';
+import zero_waste_package3 from '@/assets/zero_waste_package3.jpg';
 import Cart_Popup from './Cart_Popup.vue';
 import shoppingBag from '@/assets/shoppingBag.png';
 import { ElMessage } from 'element-plus'
@@ -60,6 +61,7 @@ import { ElMessage } from 'element-plus'
         },
         data(){
             return{
+                zero_waste_package3 : zero_waste_package3,
                 soldout : soldout,
                 token : sessionStorage.getItem("token"),
                 shoppingBag : shoppingBag,
