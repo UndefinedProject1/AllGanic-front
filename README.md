@@ -1,4 +1,6 @@
 # :earth_asia: All_Ganics (Front End) [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+![image](https://user-images.githubusercontent.com/85853145/147472921-17a12cc4-f7df-448c-b3a5-d54e08c85852.png)
+
 
 ## Summary / 요약
 - __프로젝트 기간__ : 2021.10.04 - 2021.12.03 (계속해서 부분 업데이트 중)
