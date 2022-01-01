@@ -8,6 +8,19 @@
 - __메인 개발 환경__ : Vue.js (version 3)
 
 
+## Installation / 설치
+    npm install element-plus --save
+    npm install @element-plus/icons
+    npm install --save jquery
+    npm install --save vue3-apexcharts
+    npm install vee-validate@next --save
+    npm install -S yup
+    npm install aos --save
+
+
+## Start / 구동
+    npm run serve
+
 
 ## Features / 특징
 
