@@ -4,7 +4,7 @@
 
 ## Summary / 요약
 - __프로젝트 기간__ : 2021.10.04 - 2021.12.03 (계속해서 부분 업데이트 중)
-- __프론트엔드 구성__ : 권다은, 정다경
+- __프론트엔드 구성__ : [권다은](https://github.com/kaydan95), [정다경](https://github.com/Jeong-Dagyeong)
 - __메인 개발 환경__ : Vue.js (version 3)
 
 
