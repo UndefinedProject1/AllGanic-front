@@ -56,189 +56,206 @@
             </div>
             <div class="detail_section2">
                 <button id="addcartbtn" @click="addCartList">ADD CART</button>
-                <button id="orderbtn" @click="GoCart">ORDER</button>
-            </div>
+                <button id="orderbtn" @click="GoCart" ref="detail">ORDER</button>
+            </div >
             <div class="detail_section3">
-                <div class="selection3_navButtons">
-                    <button type="button" @click="clickDetail">상세설명</button>
-                    <button type="button" @click="clickReview">상품후기</button>
-                    <button type="button" @click="clickFaq">FAQ</button>
-                    <button type="button" @click="clickRefund">교환 및 환불</button>
-                </div>
-                <div class="section3_detailSection">
-                    <div class="detailInfo"><input type="text" ref="callDetailInfo">
-                        <div v-for="subcode in subImgCodeList" v-bind:key="subcode" class="subImgContainer">
-                            <img :src="`REST/api/select_subimage/find?no=${subcode.subcode}`">
-                        </div>
+                <div class="detailInfo">
+                    <div class="selection3_navButtons">
+                        <button type="button"  @click.prevent="goThere('detail')">상세설명</button>
+                        <button type="button"  @click.prevent="goThere('review')">상품후기</button>
+                        <button type="button"  @click.prevent="goThere('faq')">FAQ</button>
+                        <button type="button"  @click.prevent="goThere('refund')">교환 및 환불</button>
                     </div>
-                    <div class="productReview"><input type="text"  ref="callProductReview">
-                        <div class="reviewContainer">
-                            <div class="reviewTitle">
-                                <h3>상품후기</h3>
-                                <span @click="showWritingReview">리뷰 작성하기</span>
-                            </div>
-                            <div class="reviewTable" >
-                                <div class="writeReviewSection" v-if="showWriting">
-                                    <table>
-                                        <colgroup>
-                                            <col class="th_area">
-                                            <col class="td_area">
-                                        </colgroup>
-                                        <tbody>
-                                            <tr>
-                                                <th><span class="th_title">아이디</span></th>
-                                                <td>
-                                                    <span>kyori0515</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th><span class="th_title">리뷰</span></th>
-                                                <td>
-                                                    <div class="reviewContents">
-                                                        <div class="reviewImage">
-                                                            <div class="main_image_container">
-                                                                <img :src = "mainImg" id="mainImg">
-                                                                <label for="insertmainImg">이미지 추가</label>
-                                                                <input type="file" @change="handleMainImg($event)" name="파일첨부" id="insertmainImg">
-                                                            </div>                                                            
-                                                        </div>
-                                                        <div class="form-floating">
-                                                            <StarRating :star-size="15" @update:rating ="setReivewRating" :read-only="false" :border-width="1" 
-                                                                active-color="#E6A23C" :show-rating="true" :rounded-corners="true" id="rating"></StarRating>
-                                                            <textarea name="content" row="30" v-model="reviewContent" placeholder="리뷰는 300자 이하로 적어주세요" id="floatingTextarea2"></textarea>
-                                                        </div>
-                                                        
+                    <div v-for="subcode in subImgCodeList" v-bind:key="subcode" class="subImgContainer">
+                        <img :src="`REST/api/select_subimage/find?no=${subcode.subcode}`">
+                    </div>
+                </div>
+                <div class="productReview" ref="review">
+                    <div class="selection3_navButtons">
+                        <button type="button"  @click.prevent="goThere('detail')">상세설명</button>
+                        <button type="button"  @click.prevent="goThere('review')">상품후기</button>
+                        <button type="button"  @click.prevent="goThere('faq')">FAQ</button>
+                        <button type="button"  @click.prevent="goThere('refund')">교환 및 환불</button>
+                    </div>                        
+                    <div class="reviewContainer">
+                        <div class="reviewTitle">
+                            <h3>상품후기</h3>
+                            <span @click="showWritingReview">리뷰 작성하기</span>
+                        </div>
+                        <div class="reviewTable" >
+                            <div class="writeReviewSection" v-if="showWriting">
+                                <table>
+                                    <colgroup>
+                                        <col class="th_area">
+                                        <col class="td_area">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th><span class="th_title">아이디</span></th>
+                                            <td>
+                                                <span>kyori0515</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><span class="th_title">리뷰</span></th>
+                                            <td>
+                                                <div class="reviewContents">
+                                                    <div class="reviewImage">
+                                                        <div class="main_image_container">
+                                                            <img :src = "mainImg" id="mainImg">
+                                                            <label for="insertmainImg">이미지 추가</label>
+                                                            <input type="file" @change="handleMainImg($event)" name="파일첨부" id="insertmainImg">
+                                                        </div>                                                            
                                                     </div>
-                                                </td>
-                                            </tr>                                            
-                                        </tbody>
-                                    </table>
-                                    <div class="writeReviewSection_warning">
-                                        <span><strong>상품 리뷰 작성시 유의사항</strong></span>
-                                        <p>후기 사진은 제품 당 한장씩만 등록가능합니다.</p>
-                                        <p>상품 및 상품 구매 과정과 관련 없는 비방, 욕설, 명예훼손성 게시글 및 상품과 관련 없는 광고글 등<br/>
-                                            부적절한 게시글 등록 시 글쓰기 제한 및 게시글이 삭제 조치 될 수 있습니다.</p>
-                                    </div>
-                                    <div class="reviewBtnContainer">
-                                        <button id="writingReviewBtnClose" @click="closeWritingReview">닫기</button>
-                                        <button id="writingReviewBtn" @click="writeReview">작성완료</button>
-                                    </div>
+                                                    <div class="form-floating">
+                                                        <StarRating :star-size="15" @update:rating ="setReivewRating" :read-only="false" :border-width="1" 
+                                                            active-color="#E6A23C" :show-rating="true" :rounded-corners="true" id="rating"></StarRating>
+                                                        <textarea name="content" row="30" v-model="reviewContent" placeholder="리뷰는 300자 이하로 적어주세요" id="floatingTextarea2"></textarea>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </td>
+                                        </tr>                                            
+                                    </tbody>
+                                </table>
+                                <div class="writeReviewSection_warning">
+                                    <span><strong>상품 리뷰 작성시 유의사항</strong></span>
+                                    <p>후기 사진은 제품 당 한장씩만 등록가능합니다.</p>
+                                    <p>상품 및 상품 구매 과정과 관련 없는 비방, 욕설, 명예훼손성 게시글 및 상품과 관련 없는 광고글 등<br/>
+                                        부적절한 게시글 등록 시 글쓰기 제한 및 게시글이 삭제 조치 될 수 있습니다.</p>
+                                </div>
+                                <div class="reviewBtnContainer">
+                                    <button id="writingReviewBtnClose" @click="closeWritingReview">닫기</button>
+                                    <button id="writingReviewBtn" @click="writeReview">작성완료</button>
+                                </div>
 
+                            </div>
+                            <div class="reviewArea"  v-for="review in reviewList" v-bind:key="review">
+                                <div id="reviewTitle">
+                                    <div id="titleSection">
+                                        <StarRating :star-size="15" :rating="review.REVIEWRATING" :read-only="true" :border-width="1" active-color="#E6A23C" :show-rating="false" :rounded-corners="true" id="rating"></StarRating>
+                                        <p>{{review.USEREMAIL}}</p>
+                                    </div>
+                                    <p>{{review.REVIEWDATE}}</p>
                                 </div>
-                                <div class="reviewArea"  v-for="review in reviewList" v-bind:key="review">
-                                    <div id="reviewTitle">
-                                        <div id="titleSection">
-                                            <StarRating :star-size="15" :rating="review.REVIEWRATING" :read-only="true" :border-width="1" active-color="#E6A23C" :show-rating="false" :rounded-corners="true" id="rating"></StarRating>
-                                            <p>{{review.USEREMAIL}}</p>
-                                        </div>
-                                        <p>{{review.REVIEWDATE}}</p>
-                                    </div>
-                                    <div id="reviewContent">
-                                        <img :src="`REST/api/review_image?no=${review.REVIEWCODE}`">
-                                        <p>{{review.REVIEWCONTENT}}</p>
-                                        <el-button type="text" class="report_btn" @click="handleReviewReport(review.USEREMAIL)">해당 리뷰 신고하기</el-button>
-                                    </div>
+                                <div id="reviewContent">
+                                    <img :src="`REST/api/review_image?no=${review.REVIEWCODE}`">
+                                    <p>{{review.REVIEWCONTENT}}</p>
+                                    <el-button type="text" class="report_btn" @click="handleReviewReport(review.USEREMAIL)">해당 리뷰 신고하기</el-button>
                                 </div>
                             </div>
-                            <el-pagination layout="prev, pager, next" :page-count="pages" @current-change="handlePageChange" class="pagination"></el-pagination>
                         </div>
+                        <el-pagination layout="prev, pager, next" :page-count="pages" @current-change="handlePageChange" class="pagination"></el-pagination>
                     </div>
-                    <div class="productFaq"><input type="text" ref="callProductFaq">
-                        <div class="faqContainer">
-                            <div class="faqTitleSection">
-                                <h3>상품문의</h3>
-                                <span @click="showWritingFaq">문의글 작성하기</span>
-                            </div>
-                            <div class="faqTable">
-                                <div class="faqWriting" v-if="showFaqWriting">
-                                    <table>
-                                        <colgroup>
-                                            <col class="th_area">
-                                            <col class="td_area">
-                                        </colgroup>
-                                        <tbody>
-                                            <tr>
-                                                <th><span class="th_title">이메일</span></th>
-                                                <td>
-                                                    <span>{{member.USEREMAIL}}</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th><span class="th_title">문의내용</span></th>
-                                                <td>
-                                                    <div class="faqWritingContents">
-                                                        <div class="faqWritingSelect">
-                                                            <el-select v-model="selected" placeholder="Select" @change="selectCate1" class="form-select">
-                                                                <el-option v-for="select in firstQCateList"  :key="select.value" :label="select.label" :value="select.value"></el-option>
-                                                            </el-select>
-                                                        </div>
-                                                        <div class="form-floating" style="height:30px;">
-                                                            <el-input v-model="questionTitle" placeholder="문의제목 입력" class="form-control" clearable style="font-family: 'Gowun Dodum', sans-serif;"/>
-                                                        </div>   
-                                                        <div class="form-floating">
-                                                            <textarea name="content" row="30" v-model="questionContent" placeholder="문의내용은 300자 이하로 적어주세요" id="floatingTextarea2" style="font-family: 'Gowun Dodum', sans-serif;"></textarea>
-                                                        </div>
+                </div>
+                <div class="productFaq">
+                    <div class="selection3_navButtons" ref="faq">
+                        <button type="button"  @click.prevent="goThere('detail')">상세설명</button>
+                        <button type="button"  @click.prevent="goThere('review')">상품후기</button>
+                        <button type="button"  @click.prevent="goThere('faq')">FAQ</button>
+                        <button type="button"  @click.prevent="goThere('refund')">교환 및 환불</button>
+                    </div>                        
+                    <div class="faqContainer">
+                        <div class="faqTitleSection">
+                            <h3>상품문의</h3>
+                            <span @click="showWritingFaq">문의글 작성하기</span>
+                        </div>
+                        <div class="faqTable">
+                            <div class="faqWriting" v-if="showFaqWriting">
+                                <table>
+                                    <colgroup>
+                                        <col class="th_area">
+                                        <col class="td_area">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th><span class="th_title">이메일</span></th>
+                                            <td>
+                                                <span>{{member.USEREMAIL}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><span class="th_title">문의내용</span></th>
+                                            <td>
+                                                <div class="faqWritingContents">
+                                                    <div class="faqWritingSelect">
+                                                        <el-select v-model="selected" placeholder="Select" @change="selectCate1" class="form-select">
+                                                            <el-option v-for="select in firstQCateList"  :key="select.value" :label="select.label" :value="select.value"></el-option>
+                                                        </el-select>
                                                     </div>
-                                                </td>
-                                            </tr>                                            
-                                        </tbody>
-                                    </table>
-                                    <div class="writeFaqSection_warning">
-                                        <span><strong>상품 Q&A 작성 시 유의사항</strong></span>
-                                        <p>교환, 반품, 취소는 1:1문의를 통해 접수 부탁드립니다.</p>
-                                        <p>상품 및 상품 구매 과정과 관련 없는 비방, 욕설, 명예훼손성 게시글 및 상품과 관련 없는 광고글 등 <br>
-                                            부적절한 게시글 등록 시 글쓰기 제한 및 게시글이 삭제 조치 될 수 있습니다.</p>
-                                        <p>전화번호, 이메일 등 개인 정보가 포함된 글 작성이 필요한 경우 판매자만 볼 수 있도록 비밀글로 문의해 주시기 바랍니다.</p>
-                                    </div>
-                                    <div class="reviewBtnContainer">
-                                        <button id="writingReviewBtnClose" @click="closeWritingFaq">닫기</button>
-                                        <button id="writingReviewBtn" @click="writeQuestion">작성완료</button>
-                                    </div>
+                                                    <div class="form-floating" style="height:30px;">
+                                                        <el-input v-model="questionTitle" placeholder="문의제목 입력" class="form-control" clearable style="font-family: 'Gowun Dodum', sans-serif;"/>
+                                                    </div>   
+                                                    <div class="form-floating">
+                                                        <textarea name="content" row="30" v-model="questionContent" placeholder="문의내용은 300자 이하로 적어주세요" id="floatingTextarea2" style="font-family: 'Gowun Dodum', sans-serif;"></textarea>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>                                            
+                                    </tbody>
+                                </table>
+                                <div class="writeFaqSection_warning">
+                                    <span><strong>상품 Q&A 작성 시 유의사항</strong></span>
+                                    <p>교환, 반품, 취소는 1:1문의를 통해 접수 부탁드립니다.</p>
+                                    <p>상품 및 상품 구매 과정과 관련 없는 비방, 욕설, 명예훼손성 게시글 및 상품과 관련 없는 광고글 등 <br>
+                                        부적절한 게시글 등록 시 글쓰기 제한 및 게시글이 삭제 조치 될 수 있습니다.</p>
+                                    <p>전화번호, 이메일 등 개인 정보가 포함된 글 작성이 필요한 경우 판매자만 볼 수 있도록 비밀글로 문의해 주시기 바랍니다.</p>
                                 </div>
-                                <div class="faqList" v-for="question in questionList" v-bind:key="question">
-                                    <p> [ {{question.QUESTIONKIND}} ] <i class="el-icon-view" :size="50"></i></p>
-                                    <div class="faqContnet">
-                                        <div class="faqLead">
-                                            <p>제목 : {{question.QUESTIONTITLE}}.</p>
-                                            <!-- <p>내용 : {{question.QUESTIONCONTENT}}.</p> -->
-                                        </div>
-                                        <div class="faqSecond">
-                                            <p>{{question.MEMBER}}</p>
-                                            <p>{{question.QUESTIONDATE}}</p>
-                                            <el-popover
-                                                placement="bottom"
-                                                :width="200"
-                                                trigger="hover"
-                                                content="답변 내용은 마이페이지에서 확인하실 수 있습니다."
-                                                style="font-family: 'Gowun Dodum', sans-serif; font-size:12px;"
-                                            >
-                                                <template #reference>
-                                                    <el-button class="badge">{{question.QUESTIONREPLY}}</el-button>
-                                                </template>
-                                            </el-popover>
-                                        </div>
+                                <div class="reviewBtnContainer">
+                                    <button id="writingReviewBtnClose" @click="closeWritingFaq">닫기</button>
+                                    <button id="writingReviewBtn" @click="writeQuestion">작성완료</button>
+                                </div>
+                            </div>
+                            <div class="faqList" v-for="question in questionList" v-bind:key="question">
+                                <p> [ {{question.QUESTIONKIND}} ] <i class="el-icon-view" :size="50"></i></p>
+                                <div class="faqContnet">
+                                    <div class="faqLead">
+                                        <p>제목 : {{question.QUESTIONTITLE}}.</p>
+                                        <!-- <p>내용 : {{question.QUESTIONCONTENT}}.</p> -->
+                                    </div>
+                                    <div class="faqSecond">
+                                        <p>{{question.MEMBER}}</p>
+                                        <p>{{question.QUESTIONDATE}}</p>
+                                        <el-popover
+                                            placement="bottom"
+                                            :width="200"
+                                            trigger="hover"
+                                            content="답변 내용은 마이페이지에서 확인하실 수 있습니다."
+                                            style="font-family: 'Gowun Dodum', sans-serif; font-size:12px;"
+                                        >
+                                            <template #reference>
+                                                <el-button class="badge">{{question.QUESTIONREPLY}}</el-button>
+                                            </template>
+                                        </el-popover>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="productRefundPolicy"><input type="text" ref="callProductRefundPolicy">
-                        <h3>교환, 환불, A/S 안내</h3>
-                        <div class="policyContent">
-                            <ul>
-                                <li>상품 수령일로부터 7일 이내 반품 / 환불 가능합니다.</li>
-                                <li>변심 반품의 경우 왕복배송비를 차감한 금액이 환불되며, 제품 및 포장 상태가 재판매 가능하여야 합니다.</li>
-                                <li>동일상품 또는 동일상품 내 추가금액이 없는 옵션만 교환가능합니다.</li>
-                                <li>상품 불량인 경우는 배송비를 포함한 전액이 환불됩니다.</li>
-                                <li>출고 이후 환불요청 시 상품 회수 후 처리됩니다.</li>
-                                <li>얼리 등 주문제작상품 / 카메라 / 밀봉포장상품 등은 변심에 따른 반품 / 환불이 불가합니다.</li>
-                                <li>일부 완제품으로 수입된 상품의 경우 A/S가 불가합니다.</li>
-                                <li>특정브랜드의 상품설명에 별도로 기입된 교환 / 환불 / AS 기준이 우선합니다.</li>
-                                <li>구매자가 미성년자인 경우에는 상품 구입 시 법정대리인이 동의하지 아니하면 미성년자 본인 또는 법정대리인이 구매취소 할 수 있습니다.</li>
-                            </ul>
                         </div>
                     </div>
                 </div>
+                <div class="productRefundPolicy">
+                    <div class="selection3_navButtons"  ref="refund">
+                        <button type="button"  @click.prevent="goThere('detail')">상세설명</button>
+                        <button type="button"  @click.prevent="goThere('review')">상품후기</button>
+                        <button type="button"  @click.prevent="goThere('faq')">FAQ</button>
+                        <button type="button"  @click.prevent="goThere('refund')">교환 및 환불</button>
+                    </div>                        
+                    <h3>교환, 환불, A/S 안내</h3>
+                    <div class="policyContent">
+                        <ul>
+                            <li>상품 수령일로부터 7일 이내 반품 / 환불 가능합니다.</li>
+                            <li>변심 반품의 경우 왕복배송비를 차감한 금액이 환불되며, 제품 및 포장 상태가 재판매 가능하여야 합니다.</li>
+                            <li>동일상품 또는 동일상품 내 추가금액이 없는 옵션만 교환가능합니다.</li>
+                            <li>상품 불량인 경우는 배송비를 포함한 전액이 환불됩니다.</li>
+                            <li>출고 이후 환불요청 시 상품 회수 후 처리됩니다.</li>
+                            <li>얼리 등 주문제작상품 / 카메라 / 밀봉포장상품 등은 변심에 따른 반품 / 환불이 불가합니다.</li>
+                            <li>일부 완제품으로 수입된 상품의 경우 A/S가 불가합니다.</li>
+                            <li>특정브랜드의 상품설명에 별도로 기입된 교환 / 환불 / AS 기준이 우선합니다.</li>
+                            <li>구매자가 미성년자인 경우에는 상품 구입 시 법정대리인이 동의하지 아니하면 미성년자 본인 또는 법정대리인이 구매취소 할 수 있습니다.</li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -426,20 +443,11 @@ import Cart_Popup from './Cart_Popup.vue';
                 this.$router.push({ path: "/product_detail", query:{code : val} });
                 await this.handleDetailContents();
             },
-            // Scroll 버튼
-            clickDetail(){
-                this.$refs.callDetailInfo.focus();
+            // button nav 이동
+            goThere(val){
+                var element = this.$refs[val];
+                element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
             },
-            clickReview(){
-                this.$refs.callProductReview.focus();
-            },
-            clickFaq(){
-                this.$refs.callProductFaq.focus();
-            },
-            clickRefund(){
-                this.$refs.callProductRefundPolicy.focus();
-            },
-
             // 리뷰, 문의 페이지네이션 -> 페이지 변경 감지
             async handlePageChange(val){
                 this.page = val;
@@ -871,27 +879,26 @@ import Cart_Popup from './Cart_Popup.vue';
 }
 .detail_section3 {
     margin-top: 100px;
-    display: block;
+    display: flex;
+    flex-direction: column;
     position: relative;
     width: 100%;
     height: fit-content;
 }
-.section3_navSection{
+/* .section3_navSection{
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
+} */
 .selection3_navButtons{
     display: inline-flex;
-    position: -webkit-sticky;
-    position: sticky;
     top: 0;
     width: 100%;
     z-index : 1;
     background-color: white;
     justify-content: center;
-    border-bottom: 0.5px solid #49654E;
+    /* border-bottom: 0.5px solid #49654E; */
 }
 .selection3_navButtons button{
     width: 255px;
@@ -906,11 +913,11 @@ import Cart_Popup from './Cart_Popup.vue';
     margin: 0px 3px 0.5px 0px;
     font-family: 'Hahmlet', serif;
 }
-.section3_detailSection{
+/* .detail_section3{
     display: flex;
     flex-direction: column;
-}
-.section3_detailSection .detailInfo{
+} */
+.detail_section3 .detailInfo{
     margin : 20px 0px 50px 0px;
 }
 .productReview, .productFaq, .productRefundPolicy{

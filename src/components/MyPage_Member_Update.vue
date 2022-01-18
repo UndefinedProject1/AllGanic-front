@@ -234,14 +234,14 @@ import mypage_address from "@/assets/mypage_address.png";
 
         };
       },
-      mounted() {
-        let daumPostCode = document.createElement("script");
-        daumPostCode.setAttribute(
-          "src",
-          "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
-        );
-        document.head.appendChild(daumPostCode);
-      },
+      // mounted() {
+      //   let daumPostCode = document.createElement("script");
+      //   daumPostCode.setAttribute(
+      //     "src",
+      //     "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+      //   );
+      //   document.head.appendChild(daumPostCode);
+      // },
       async created() {
       await this.handleMemberGet();
       },
