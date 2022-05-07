@@ -45,9 +45,9 @@ export default {
     },
     methods: {
         async setKakaoToken () {
-            console.log('카카오 인증 코드', this.$route.query.code);
+            // console.log('카카오 인증 코드', this.$route.query.code);
             const { data } = await getKakaoToken(this.$route.query.code);
-            console.log('카카오 인증코드로 받은 토큰으로 넘어온 data', data);
+            // console.log('카카오 인증코드로 받은 토큰으로 넘어온 data', data);
             if (data.error) {
                 this.failAlertMSG();
                 this.$router.push({ path: "/login" });
@@ -65,10 +65,10 @@ export default {
             const body = {
                 useremail : res.kakao_account.email,
             }
-            console.log('이메일 중복체크용으로 보내는 body',body);
+            // console.log('이메일 중복체크용으로 보내는 body',body);
             
             const response = await axios.post(url, body, header);
-            console.log('이메일 중복체크 한 후 반응', response);
+            // console.log('이메일 중복체크 한 후 반응', response);
             if(response.data.result === 1){
                 await this.handleKakaoLogin();
             }
@@ -81,7 +81,7 @@ export default {
         },
         async handleKakaoLogin(){
             const res = await getKakaoUserInfo();
-            console.log(res);
+            // console.log(res);
 
             const url =  `REST/api/member/login?sns=true`;
             const headers = {"Content-Type" : "application/json"};
@@ -89,9 +89,9 @@ export default {
                 useremail : res.kakao_account.email,
                 userpw : this.kakao_login_pw
             }
-            console.log('카톡 로그인시 body', body)
+            // console.log('카톡 로그인시 body', body)
             const response = await axios.post(url, body, headers);
-            console.log('카톡 로그인 시도 반응', response);
+            // console.log('카톡 로그인 시도 반응', response);
             if(response.data.result !== 4) {
                 if(response.data.result === 1){
                     sessionStorage.setItem("token", this.key + response.data.token);
@@ -137,7 +137,7 @@ export default {
                 detaileaddress: '',
             };
             const response = await axios.post(url, body, header);
-            console.log(response);
+            // console.log(response);
             if (response.data.result === 1) {
                 await this.handleKakaoLogin();
             }
